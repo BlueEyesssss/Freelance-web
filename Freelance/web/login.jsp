@@ -18,6 +18,7 @@
             <input type="submit" value="Login" name="action" />
             <input type="reset" value="Reset" />
         </form>
-        <font style="color: red">${requestScope.LOGIN_ERROR}</font>
+        <font style="color: red">${requestScope.LOGIN_ERROR}</font><br>
+        <a href="createAcc.jsp">Sign up</a>
     </body>
 </html>
