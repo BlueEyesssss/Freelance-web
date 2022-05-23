@@ -35,7 +35,7 @@ public class SearchJobByNameController extends HttpServlet {
             ProjectDAO dao = new ProjectDAO();
             List<ProjectDTO> list = dao.getListProjectByName(search);
             if(!list.isEmpty()) {
-                request.setAttribute("LIST_FRUIT", list);
+                request.setAttribute("LIST_PROJECT", list);
                 url = SUCCESS;
             }
         } catch (Exception e) {
