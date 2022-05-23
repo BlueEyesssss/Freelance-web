@@ -7,40 +7,40 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
 
 /**
  *
- * @author LENOVO
+ * @author Admin
  */
-public class MainController extends HttpServlet {
+@WebServlet(name = "SearchJobByNameController", urlPatterns = {"/SearchJobByNameController"})
+public class SearchJobByNameController extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String LOGIN = "LoginController";
-    private static final String SEARCH_JOB_BY_NAME = "SearchJobByNameController";
-    
+    private static final String SUCCESS = "FilterPage.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String action = request.getParameter("action");
-            if("Login".equals(action)) {
-                url = LOGIN;
-            }else if("Search Job By Name".equals(action)) {
-                url = SEARCH_JOB_BY_NAME;
-            }else {
-                HttpSession session = request.getSession();
-                session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");
+            String search = request.getParameter("search");
+            ProjectDAO dao = new ProjectDAO();
+            List<ProjectDTO> list = dao.getListProjectByName(search);
+            if(!list.isEmpty()) {
+                request.setAttribute("LIST_FRUIT", list);
+                url = SUCCESS;
             }
-        }catch (Exception e) {
-            log("Error at MainController:"+e.toString());     
-        }finally{
+        } catch (Exception e) {
+            log("Error at SearchController: " + e.toString());
+        }finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
