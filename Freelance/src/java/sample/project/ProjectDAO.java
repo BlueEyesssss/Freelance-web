@@ -247,8 +247,8 @@ public class ProjectDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 String sql = " SELECT projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
-                        + " FROM Project P, Complexity C"
-                        + " WHERE P.complexityID = C.complexityID AND C.complexityName like ?";
+                        + " FROM Project"
+                        + " WHERE experienceLevelRequire like ?";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, "%" + experienceLevel + "%");
                 rs = stm.executeQuery();
