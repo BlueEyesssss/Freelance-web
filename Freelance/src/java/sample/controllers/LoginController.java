@@ -8,39 +8,60 @@ package sample.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.hirer.HirerDTO;
+import sample.seeker.SeekerDTO;
+import sample.user.UserDAO;
+import sample.user.UserDTO;
 
 /**
  *
  * @author LENOVO
  */
-public class MainController extends HttpServlet {
-
-    private static final String ERROR = "error.html";
-    private static final String LOGIN = "Login";
-    private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SEARCH_JOB_BY_NAME = "SearchJobByNameController";
-    
+@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
+public class LoginController extends HttpServlet {
+    private static final String ERROR = "login.jsp";
+    private static final String SEEKER_PAGE = "Seeker_Page.jsp";
+    private static final String HIRER_PAGE = "Hirer_Page.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String action = request.getParameter("action");
-            if(LOGIN.equals(action)) {
-                url = LOGIN_CONTROLLER;
-            }else if("Search Job By Name".equals(action)) {
-                url = SEARCH_JOB_BY_NAME;
-            }else {
+            String username = request.getParameter("userName");
+            String password = request.getParameter("password");
+            UserDAO dao = new UserDAO();
+            UserDTO user = new UserDTO();
+            SeekerDTO seeker = new SeekerDTO();
+            HirerDTO hirer = new HirerDTO();
+            user = dao.getUser(username, password);
+            if(user != null){
                 HttpSession session = request.getSession();
-                session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");
+                session.setAttribute("USER_LOGIN", user);
+                //check xem nó có phải seeker hay ko
+                    //1.lấy seeker ra
+                seeker = dao.checkAccSeeker(user.getUserID());
+                    //2.check null
+                if(seeker != null){
+                    url = SEEKER_PAGE;
+                } else{ //tương tự vs Hirer
+                            //1.lấy hirer
+                    hirer = dao.checkAccHirer(user.getUserID()); 
+                            //2.check hirer
+                    if(hirer != null){ 
+                        url = HIRER_PAGE;
+                    }
+                }
+            }else{
+                request.setAttribute("LOGIN_ERROR", "username or password don't correct");
             }
-        }catch (Exception e) {
-            log("Error at MainController:"+e.toString());     
+        } catch (Exception e) {
+            log("error at LoginController: " + e.getMessage());
         }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }

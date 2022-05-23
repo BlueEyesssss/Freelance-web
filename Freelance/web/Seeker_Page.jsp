@@ -18,7 +18,7 @@
                 search = "";
             }
         %>
-        <h1>Hello Seeker</h1>
+        <p>Hello ${sessionScope.USER_LOGIN.fullName}</p>
         <form action="MainController">
             Search Job<input type="text" name="search" value="<%= search%>" placeholder="input job name"/>
             <input type="submit" name="action" value="Search Job By Name"/>
