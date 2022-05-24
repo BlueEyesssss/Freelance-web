@@ -5,11 +5,13 @@
  */
 package sample.hirer;
 
+import sample.user.UserDTO;
+
 /**
  *
  * @author LENOVO
  */
-public class HirerDTO {
+public class HirerDTO extends UserDTO{
     private int hirerID;
     private String conpanyName;
 

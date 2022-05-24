@@ -42,18 +42,38 @@ public class LoginController extends HttpServlet {
             user = dao.getUser(username, password);
             if(user != null){
                 HttpSession session = request.getSession();
-                session.setAttribute("USER_LOGIN", user);
+                
                 //check xem nó có phải seeker hay ko
                     //1.lấy seeker ra
                 seeker = dao.checkAccSeeker(user.getUserID());
                     //2.check null
                 if(seeker != null){
+                    seeker.setUserID(user.getUserID());
+                    seeker.setPassword(user.getPassword());
+                    seeker.setUserName(user.getUserName());
+                    seeker.setFullName(user.getFullName());
+                    seeker.setEmail(user.getEmail());
+                    seeker.setPhone(user.getPhone());
+                    seeker.setLocation(user.getLocation());
+                    seeker.setRegistrationDate(user.getRegistrationDate());
+                    seeker.setBalance(user.getBalance());
+                    session.setAttribute("USER_LOGIN", seeker);
                     url = SEEKER_PAGE;
                 } else{ //tương tự vs Hirer
                             //1.lấy hirer
                     hirer = dao.checkAccHirer(user.getUserID()); 
                             //2.check hirer
                     if(hirer != null){ 
+                        hirer.setUserID(user.getUserID());
+                        hirer.setPassword(user.getPassword());
+                        hirer.setUserName(user.getUserName());
+                        hirer.setFullName(user.getFullName());
+                        hirer.setEmail(user.getEmail());
+                        hirer.setPhone(user.getPhone());
+                        hirer.setLocation(user.getLocation());
+                        hirer.setRegistrationDate(user.getRegistrationDate());
+                        hirer.setBalance(user.getBalance());
+                        session.setAttribute("USER_LOGIN", hirer);
                         url = HIRER_PAGE;
                     }
                 }
