@@ -10,25 +10,28 @@ package sample.project;
  * @author LENOVO
  */
 public class ProjectDTO {
+
     private int projectID;
+    private String projectName;
     private String description;
     private String complexity;
-    private int hireID;
+    private String hirer;
     private double paymentAmount;
-    private int expectedDurationID;
+    private String expectedDurationID;
     private String deadlineDate;
 
-    public ProjectDTO(int projectID, String description, String complexity, int hireID, double paymentAmount, int expectedDurationID, String deadlineDate) {
+    public ProjectDTO() {
+    }
+
+    public ProjectDTO(int projectID, String projectName, String description, String complexity, String hirer, double paymentAmount, String expectedDurationID, String deadlineDate) {
         this.projectID = projectID;
+        this.projectName = projectName;
         this.description = description;
         this.complexity = complexity;
-        this.hireID = hireID;
+        this.hirer = hirer;
         this.paymentAmount = paymentAmount;
         this.expectedDurationID = expectedDurationID;
         this.deadlineDate = deadlineDate;
-    }
-
-    public ProjectDTO() {
     }
 
     public int getProjectID() {
@@ -37,6 +40,14 @@ public class ProjectDTO {
 
     public void setProjectID(int projectID) {
         this.projectID = projectID;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getDescription() {
@@ -55,12 +66,12 @@ public class ProjectDTO {
         this.complexity = complexity;
     }
 
-    public int getHireID() {
-        return hireID;
+    public String getHirer() {
+        return hirer;
     }
 
-    public void setHireID(int hireID) {
-        this.hireID = hireID;
+    public void setHirer(String hirer) {
+        this.hirer = hirer;
     }
 
     public double getPaymentAmount() {
@@ -71,11 +82,11 @@ public class ProjectDTO {
         this.paymentAmount = paymentAmount;
     }
 
-    public int getExpectedDurationID() {
+    public String getExpectedDurationID() {
         return expectedDurationID;
     }
 
-    public void setExpectedDurationID(int expectedDurationID) {
+    public void setExpectedDurationID(String expectedDurationID) {
         this.expectedDurationID = expectedDurationID;
     }
 
@@ -86,6 +97,5 @@ public class ProjectDTO {
     public void setDeadlineDate(String deadlineDate) {
         this.deadlineDate = deadlineDate;
     }
-    
-    
+
 }

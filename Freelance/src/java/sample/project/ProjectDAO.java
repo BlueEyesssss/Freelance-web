@@ -27,22 +27,23 @@ public class ProjectDAO {
         try {
             conn = DBUtil.getConnection();
             if (conn != null) {
-                String sql = " SELECT projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
-                        + " FROM Project "
-                        + " WHERE projectName like ?";
+                String sql = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount, E.durationText, deadlineDate "
+                        + " FROM Project P, Hirer H, ExpectedDuration E "
+                        + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, "%" + search + "%");
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int projectID = Integer.parseInt(rs.getString("projectID"));
                     String description = rs.getString("description");
+                    String projectName = rs.getString("projectName");
                     String complexity = rs.getString("complexity");
-                    int hireID = Integer.parseInt(rs.getString("hireID"));
+                    String hirer = rs.getString("conpanyName");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    int expectedDurationID = Integer.parseInt(rs.getString("expectedDurationID"));
+                    String expectedDurationID = rs.getString("expectedDurationID");
                     String deadlineDate = rs.getString("deadlineDate");
 
-                    list.add(new ProjectDTO(projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate));
+                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
                 }
             }
         } catch (Exception e) {
@@ -69,9 +70,9 @@ public class ProjectDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
 
-                String sql = " SELECT projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
+                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
                         + " FROM Project P INNER JOIN (SELECT projectID FROM NeededSkills N, Skill S WHERE S.skillName like ? AND S.skillID = N.skillID) D "
-                        + " ON P.projectID=D.projectID ";
+                        + " ON P.projectID=D.projectID";
 
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, "%" + skill + "%");
@@ -79,13 +80,14 @@ public class ProjectDAO {
                 while (rs.next()) {
                     int projectID = Integer.parseInt(rs.getString("projectID"));
                     String description = rs.getString("description");
+                    String projectName = rs.getString("projectName");
                     String complexity = rs.getString("complexity");
-                    int hireID = Integer.parseInt(rs.getString("hireID"));
+                    String hirer = rs.getString("hireID");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    int expectedDurationID = Integer.parseInt(rs.getString("expectedDurationID"));
+                    String expectedDurationID = rs.getString("expectedDurationID");
                     String deadlineDate = rs.getString("deadlineDate");
 
-                    list.add(new ProjectDTO(projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate));
+                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
                 }
             }
         } catch (Exception e) {
@@ -113,7 +115,7 @@ public class ProjectDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
 
-                String sql = " SELECT projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate"
+                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate"
                         + " FROM Project P,"
                         + " (SELECT N.projectID, COUNT(skillID)AS matchSkill"
                         + " FROM NeededSkills N,HasSkill H"
@@ -127,14 +129,15 @@ public class ProjectDAO {
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int projectID = Integer.parseInt(rs.getString("projectID"));
+                    String projectName = rs.getString("projectName");
                     String description = rs.getString("description");
                     String complexity = rs.getString("complexity");
-                    int hireID = Integer.parseInt(rs.getString("hireID"));
+                    String hirer = rs.getString("hireID");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    int expectedDurationID = Integer.parseInt(rs.getString("expectedDurationID"));
+                    String expectedDurationID = rs.getString("expectedDurationID");
                     String deadlineDate = rs.getString("deadlineDate");
 
-                    list.add(new ProjectDTO(projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate));
+                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
                 }
             }
         } catch (Exception e) {
@@ -151,7 +154,7 @@ public class ProjectDAO {
         }
         return list;
     }
-    
+
     public List<ProjectDTO> getListProjectBaseOnPrice(int price1, int price2) throws SQLException {
         //price1 < price2 
         List<ProjectDTO> list = new ArrayList<>();
@@ -162,7 +165,7 @@ public class ProjectDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
 
-                String sql = " SELECT projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
+                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
                         + " FROM Project"
                         + " WHERE paymentAmount BETWEEN ? AND ?";
 
@@ -172,14 +175,15 @@ public class ProjectDAO {
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int projectID = Integer.parseInt(rs.getString("projectID"));
+                    String projectName = rs.getString("projectName");
                     String description = rs.getString("description");
                     String complexity = rs.getString("complexity");
-                    int hireID = Integer.parseInt(rs.getString("hireID"));
+                    String hirer = rs.getString("hireID");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    int expectedDurationID = Integer.parseInt(rs.getString("expectedDurationID"));
+                    String expectedDurationID = rs.getString("expectedDurationID");
                     String deadlineDate = rs.getString("deadlineDate");
 
-                    list.add(new ProjectDTO(projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate));
+                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
                 }
             }
         } catch (Exception e) {
@@ -196,7 +200,7 @@ public class ProjectDAO {
         }
         return list;
     }
-    
+
     public List<ProjectDTO> getListProjectByMajor(String major) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -205,7 +209,7 @@ public class ProjectDAO {
         try {
             conn = DBUtil.getConnection();
             if (conn != null) {
-                String sql = " SELECT projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
+                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
                         + " FROM Project P, Major M"
                         + " WHERE P.majorID = M.majorID AND M.majorName like ?";
                 stm = conn.prepareStatement(sql);
@@ -213,14 +217,15 @@ public class ProjectDAO {
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int projectID = Integer.parseInt(rs.getString("projectID"));
+                    String projectName = rs.getString("projectName");
                     String description = rs.getString("description");
                     String complexity = rs.getString("complexity");
-                    int hireID = Integer.parseInt(rs.getString("hireID"));
+                    String hirer = rs.getString("hireID");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    int expectedDurationID = Integer.parseInt(rs.getString("expectedDurationID"));
+                    String expectedDurationID = rs.getString("expectedDurationID");
                     String deadlineDate = rs.getString("deadlineDate");
 
-                    list.add(new ProjectDTO(projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate));
+                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
                 }
             }
         } catch (Exception e) {
@@ -237,7 +242,7 @@ public class ProjectDAO {
         }
         return list;
     }
-    
+
     public List<ProjectDTO> getListProjectByExperienceLevel(String experienceLevel) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -246,7 +251,7 @@ public class ProjectDAO {
         try {
             conn = DBUtil.getConnection();
             if (conn != null) {
-                String sql = " SELECT projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
+                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
                         + " FROM Project"
                         + " WHERE experienceLevelRequire like ?";
                 stm = conn.prepareStatement(sql);
@@ -254,14 +259,15 @@ public class ProjectDAO {
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int projectID = Integer.parseInt(rs.getString("projectID"));
+                    String projectName = rs.getString("projectName");
                     String description = rs.getString("description");
                     String complexity = rs.getString("complexity");
-                    int hireID = Integer.parseInt(rs.getString("hireID"));
+                    String hirer = rs.getString("hireID");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    int expectedDurationID = Integer.parseInt(rs.getString("expectedDurationID"));
+                    String expectedDurationID = rs.getString("expectedDurationID");
                     String deadlineDate = rs.getString("deadlineDate");
 
-                    list.add(new ProjectDTO(projectID, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate));
+                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
                 }
             }
         } catch (Exception e) {
