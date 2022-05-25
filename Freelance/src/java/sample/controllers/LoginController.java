@@ -6,7 +6,6 @@
 package sample.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +24,8 @@ import sample.user.UserDTO;
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
     private static final String ERROR = "login.jsp";
-    private static final String SEEKER_PAGE = "Seeker_Page.jsp";
-    private static final String HIRER_PAGE = "Hirer_Page.jsp";
+    private static final String SEEKER_PAGE = "seekerDashboard.jsp";
+    private static final String HIRER_PAGE = "hirerDashboard.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

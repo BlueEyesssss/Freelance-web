@@ -24,7 +24,7 @@ import sample.project.ProjectDTO;
 public class SearchJobBySkill extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "FilterPage.jsp";
+    private static final String SUCCESS = "filterPage.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

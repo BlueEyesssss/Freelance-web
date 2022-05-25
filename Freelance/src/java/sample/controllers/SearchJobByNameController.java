@@ -6,7 +6,6 @@
 package sample.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +23,7 @@ import sample.project.ProjectDTO;
 public class SearchJobByNameController extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "Seeker_Page.jsp";
+    private static final String SUCCESS = "seekerDashboard.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
