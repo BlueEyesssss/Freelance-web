@@ -22,8 +22,95 @@ public class UserDAO {
     private static final String GET_USER = "SELECT  userID, password, userName, fullName, email, phone, location, registrationDate, balance FROM [User] WHERE userName = ? AND password = ?";
     private static final String CHECK_ACC_SEEKER = "SELECT seekerID, overview, titileBio, moneyPerHour, education FROM Seeker WHERE seekerID = ?";
     private static final String CHECK_ACC_HIRER = "SELECT hirerID, conpanyName FROM Hirer WHERE hirerID = ?";
+    private static final String CREATE_USER = "INSERT INTO [User](password, userName, fullName, email, phone, location, registrationDate, balance) VALUES(?,?,?,?,?,?,?,?)";
+    private static final String CREATE_HIRER = "INSERT INTO Hirer(hirerID, conpanyName) VALUES(?, ?)";
+    private static final String CREATE_SEEKER = "INSERT INTO Seeker(seekerID, overview, titileBio, moneyPerHour, education) VALUES (?, ?, ?, ?, ?)";
 
-    public HirerDTO checkAccHirer(String userID) throws SQLException {
+    public boolean createSeeker(SeekerDTO seeker) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(CREATE_SEEKER);
+                ptm.setInt(1, seeker.getSeekerID());
+                ptm.setString(2, seeker.getOverview());
+                ptm.setString(3, seeker.getTitileBio());
+                ptm.setInt(4, seeker.getMoneyPerHour());
+                ptm.setString(5, seeker.getEducation());
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean createHirer(HirerDTO hirer) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(CREATE_HIRER);
+                ptm.setInt(1, hirer.getHirerID());
+                ptm.setString(2, hirer.getConpanyName());
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean createUser(UserDTO user) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(CREATE_USER);
+                ptm.setString(1, user.getPassword());
+                ptm.setString(2, user.getUserName());
+                ptm.setString(3, user.getFullName());
+                ptm.setString(4, user.getEmail());
+                ptm.setString(5, user.getPhone());
+                ptm.setString(6, user.getLocation());
+                ptm.setString(7, user.getRegistrationDate());
+                ptm.setFloat(8, user.getBalance());
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
+    public HirerDTO checkAccHirer(int userID) throws SQLException {
         HirerDTO hirer = null;
         Connection con = null;
         PreparedStatement ptm = null;
@@ -32,7 +119,7 @@ public class UserDAO {
             con = DBUtil.getConnection();
             if (con != null) {
                 ptm = con.prepareStatement(CHECK_ACC_HIRER);
-                ptm.setString(1, userID);
+                ptm.setInt(1, userID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     int hirerID = rs.getInt("hirerID");
@@ -56,7 +143,7 @@ public class UserDAO {
         return hirer;
     }
     
-    public SeekerDTO checkAccSeeker(String userID) throws SQLException {
+    public SeekerDTO checkAccSeeker(int userID) throws SQLException {
         SeekerDTO seeker = null;
         Connection con = null;
         PreparedStatement ptm = null;
@@ -65,7 +152,7 @@ public class UserDAO {
             con = DBUtil.getConnection();
             if (con != null) {
                 ptm = con.prepareStatement(CHECK_ACC_SEEKER);
-                ptm.setString(1, userID);
+                ptm.setInt(1, userID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     int seekerID = rs.getInt("seekerID");
@@ -105,7 +192,7 @@ public class UserDAO {
                 ptm.setString(2, password);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    String userID = rs.getString("userID");
+                    int userID = rs.getInt("userID");
                     String pass = rs.getString("password");
                     String userName = rs.getString("userName");
                     String fullName = rs.getString("fullName");
@@ -134,5 +221,6 @@ public class UserDAO {
     }
 
     
+
 
 }

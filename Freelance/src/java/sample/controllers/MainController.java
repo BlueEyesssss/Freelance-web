@@ -27,6 +27,10 @@ public class MainController extends HttpServlet {
     private static final String VIEW_ALL_PROJECT_CONTROLLER = "ViewAllProjectController";
     private static final String VIEW_FAVORITE_PROJECT = "ViewFavoriteProject";
     private static final String VIEW_FAVORITE_PROJECT_CONTROLLER = "ViewFavoriteProjectController";
+    private static final String CREATE_ACC_HIRER = "Create Hirer";
+    private static final String CREATE_ACC_HIRER_CONTROLLER = "CreateHirerController";
+    private static final String CREATE_ACC_SEEKER= "Create Seeker";
+    private static final String CREATE_ACC_SEEKER_CONTROLLER = "CreateSeekerController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,13 +40,23 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
             if (LOGIN.equals(action)) {
                 url = LOGIN_CONTROLLER;
+                
             } else if ("Search Job By Name".equals(action)) {
                 url = SEARCH_JOB_BY_NAME;
+                
             } else if (VIEW_ALL_PROJECT.equals(action)) {
                 url = VIEW_ALL_PROJECT_CONTROLLER;
+                
             } else if (VIEW_FAVORITE_PROJECT.equals(action)) {
                 url = VIEW_FAVORITE_PROJECT_CONTROLLER;
-            } else {
+                
+            } else if (CREATE_ACC_HIRER.equals(action)) {
+                url = CREATE_ACC_HIRER_CONTROLLER;
+                
+            } else if (CREATE_ACC_SEEKER.equals(action)) {
+                url = CREATE_ACC_SEEKER_CONTROLLER;
+                
+            }  else {
                 HttpSession session = request.getSession();
                 session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");
             }

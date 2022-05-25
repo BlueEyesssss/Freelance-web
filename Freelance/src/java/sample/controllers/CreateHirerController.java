@@ -7,40 +7,64 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sample.project.ProjectDAO;
-import sample.project.ProjectDTO;
+import sample.hirer.HirerDTO;
+import sample.user.UserDAO;
+import sample.user.UserDTO;
 
 /**
  *
- * @author Admin
+ * @author LENOVO
  */
-@WebServlet(name = "SearchJobByNameController", urlPatterns = {"/SearchJobByNameController"})
-public class SearchJobByNameController extends HttpServlet {
-
-    private static final String ERROR = "error.html";
-    private static final String SUCCESS = "Seeker_Page.jsp";
+@WebServlet(name = "CreateHirerController", urlPatterns = {"/CreateHirerController"})
+public class CreateHirerController extends HttpServlet {
+    private static final String ERROR = "createAccForHirer.jsp";
+    private static final String SUCCESS = "login.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String search = request.getParameter("search");
-            ProjectDAO dao = new ProjectDAO();
-            List<ProjectDTO> list = dao.getListProjectByName(search);
-            if(!list.isEmpty()) {
-                request.setAttribute("LIST_PROJECT", list);
-                url = SUCCESS;
+            String userName = request.getParameter("userName");
+            String password = request.getParameter("password");
+            String conform = request.getParameter("conform");
+            String fullName = request.getParameter("fullName");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            String location = request.getParameter("location");
+            float balance = Float.parseFloat(request.getParameter("balance"));
+            String conpanyName = request.getParameter("conpanyName");
+            String registrationDate = java.time.LocalDate.now() + "";
+            if(conform.equals(password)){
+                //tạo user
+                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance);
+
+                UserDAO dao = new UserDAO();
+
+                boolean checkCreateAcc = dao.createUser(user);
+                if(checkCreateAcc){
+                    //tạo hirer
+                    int hirerID = dao.getUser(userName, password).getUserID();
+                    HirerDTO hirer = new HirerDTO(hirerID, conpanyName);
+
+                    boolean checkCreateHirer = dao.createHirer(hirer);
+                    if(checkCreateHirer){
+                        url = SUCCESS;
+                    }
+                }
+            }else{
+                request.setAttribute("CONFIRM_ERROR", "conform not match, please enter again!!");
             }
+            
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
-        }finally {
+            log("error at CreateHirerController: " + e.getMessage());
+        }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

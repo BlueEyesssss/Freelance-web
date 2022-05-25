@@ -144,7 +144,7 @@ public class ProjectDAO {
         try {
             conn = DBUtil.getConnection();
             if (conn != null) {
-                String sql = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount, E.durationText, deadlineDate "
+                String sql = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount,P.expectedDurationID , E.durationText, deadlineDate "
                         + " FROM Project P, Hirer H, ExpectedDuration E "
                         + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";
                 stm = conn.prepareStatement(sql);
@@ -164,6 +164,7 @@ public class ProjectDAO {
                 }
             }
         } catch (Exception e) {
+                e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();

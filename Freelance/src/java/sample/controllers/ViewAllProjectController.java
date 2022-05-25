@@ -32,7 +32,7 @@ public class ViewAllProjectController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "error.jsp";
+    private static final String ERROR = "error.html";
     private static final String SUCCESS = "SeekerDashboard.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

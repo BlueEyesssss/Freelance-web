@@ -12,6 +12,7 @@
         <title>Create Account Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <a href="createAccForHirer.jsp">Hirer</a> <br>
+        <a href="createAccForSeeker.jsp">Seeker</a>
     </body>
 </html>

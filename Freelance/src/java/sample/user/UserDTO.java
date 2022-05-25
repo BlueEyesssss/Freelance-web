@@ -10,7 +10,7 @@ package sample.user;
  * @author LENOVO
  */
 public class UserDTO {
-    private String userID;
+    private int userID;
     private String password;
     private String userName;
     private String fullName;
@@ -21,7 +21,7 @@ public class UserDTO {
     private float balance;
 
     public UserDTO() {
-        this.userID = "";
+        this.userID = 0;
         this.password = "";
         this.userName = "";
         this.fullName = fullName;
@@ -32,7 +32,7 @@ public class UserDTO {
         this.balance = 0;
     }
 
-    public UserDTO(String userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance) {
+    public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance) {
         this.userID = userID;
         this.password = password;
         this.userName = userName;
@@ -44,11 +44,24 @@ public class UserDTO {
         this.balance = balance;
     }
 
-    public String getUserID() {
+    public UserDTO(String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance) {
+        this.password = password;
+        this.userName = userName;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.location = location;
+        this.registrationDate = registrationDate;
+        this.balance = balance;
+    }
+    
+    
+
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
