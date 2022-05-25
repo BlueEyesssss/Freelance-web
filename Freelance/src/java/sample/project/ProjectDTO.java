@@ -33,6 +33,16 @@ public class ProjectDTO {
         this.expectedDurationID = expectedDurationID;
         this.deadlineDate = deadlineDate;
     }
+    
+    public ProjectDTO(int projectID, String projectName, String description, String complexity, double paymentAmount, String expectedDurationID, String deadlineDate) {
+        this.projectID = projectID;
+        this.projectName = projectName;
+        this.description = description;
+        this.complexity = complexity;
+        this.paymentAmount = paymentAmount;
+        this.expectedDurationID = expectedDurationID;
+        this.deadlineDate = deadlineDate;
+    }
 
     public int getProjectID() {
         return projectID;

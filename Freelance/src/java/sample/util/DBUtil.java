@@ -16,10 +16,10 @@ import java.sql.SQLException;
 public class DBUtil {
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
-        Connection con = null;
+        Connection conn = null;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String url = "jdbc:sqlserver://localhost:1433;databaseName=FreelanceManagement";
-        con = DriverManager.getConnection(url, "sa", "12345");
-        return con;
+        conn = DriverManager.getConnection(url, "hatoti", "ngocanh1302");
+        return conn;
     }
 }

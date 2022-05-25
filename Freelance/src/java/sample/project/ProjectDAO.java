@@ -19,6 +19,123 @@ import sample.util.DBUtil;
  */
 public class ProjectDAO {
 
+    private static final String VIEW_ALL_PROJECT = "SELECT projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate\n"
+            + "FROM Project P, ExpectedDuration E\n"
+            + "WHERE P.expectedDurationID = E.expectedDurationID";
+    private static final String CREATE_NEW_FAVORITE_PROJECT = "INSERT INTO FavoriteProject(projectID, seekerID) VALUES(?,?)";
+    private static final String VIEW_FAVORITE_PROJECT = "SELECT FavoriteProject.projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate\n"
+            + "FROM FavoriteProject, Project, Seeker, ExpectedDuration\n"
+            + "WHERE FavoriteProject.projectID = Project.projectID and FavoriteProject.seekerID = Seeker.seekerID and ExpectedDuration.expectedDurationID = Project.expectedDurationID"
+            + "and FavoriteProject.seekerID = ?";
+
+    public List<ProjectDTO> getListFavoriteProject(int seekerID) throws SQLException {
+        List<ProjectDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_FAVORITE_PROJECT);
+                ptm.setInt(1, seekerID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int projectID = rs.getInt("projectID");
+                    String description = rs.getString("description");
+                    String complexity = rs.getString("complexity");
+                    String projectName = rs.getString("projectName");
+                    double paymentAmount = rs.getDouble("paymentAmount");
+                    String durationText = rs.getString("durationText");
+                    String deadlineDate = rs.getString("deadlineDate");
+
+                    list.add(new ProjectDTO(projectID, projectName, description, complexity, paymentAmount, durationText, deadlineDate));
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<ProjectDTO> getListAllProject() throws SQLException {
+        List<ProjectDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_ALL_PROJECT);
+                //ptm.setString(1, "%"+search+"%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int projectID = rs.getInt("projectID");
+                    String description = rs.getString("description");
+                    String complexity = rs.getString("complexity");
+                    String projectName = rs.getString("projectName");
+                    double paymentAmount = rs.getDouble("paymentAmount");
+                    String durationText = rs.getString("durationText");
+                    String deadlineDate = rs.getString("deadlineDate");
+
+                    list.add(new ProjectDTO(projectID, projectName, description, complexity, paymentAmount, durationText, deadlineDate));
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public boolean createNewFavoriteProject(int projectID, int seekerID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ProjectDTO project = new ProjectDTO();
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CREATE_NEW_FAVORITE_PROJECT);
+                ptm.setInt(1, projectID);
+                ptm.setInt(2, seekerID);
+                check = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
     public List<ProjectDTO> getListProjectByName(String search) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
         Connection conn = null;
