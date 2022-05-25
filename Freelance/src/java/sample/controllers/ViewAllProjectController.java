@@ -7,47 +7,48 @@ package sample.controllers;
 
 import java.io.IOException;
 
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
 
 /**
  *
- * @author LENOVO
+ * @author Admin
  */
-public class MainController extends HttpServlet {
+@WebServlet(name = "ViewAllProjectController", urlPatterns = {"/ViewAllProjectController"})
+public class ViewAllProjectController extends HttpServlet {
 
-    private static final String ERROR = "error.html";
-    private static final String LOGIN = "Login";
-    private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SEARCH_JOB_BY_NAME = "SearchJobByNameController";
-    private static final String VIEW_ALL_PROJECT = "ViewAllProject";
-    private static final String VIEW_ALL_PROJECT_CONTROLLER = "ViewAllProjectController";
-    private static final String VIEW_FAVORITE_PROJECT = "ViewFavoriteProject";
-    private static final String VIEW_FAVORITE_PROJECT_CONTROLLER = "ViewFavoriteProjectController";
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    private static final String ERROR = "error.jsp";
+    private static final String SUCCESS = "SeekerDashboard.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String action = request.getParameter("action");
-            if (LOGIN.equals(action)) {
-                url = LOGIN_CONTROLLER;
-            } else if ("Search Job By Name".equals(action)) {
-                url = SEARCH_JOB_BY_NAME;
-            } else if (VIEW_ALL_PROJECT.equals(action)) {
-                url = VIEW_ALL_PROJECT_CONTROLLER;
-            } else if (VIEW_FAVORITE_PROJECT.equals(action)) {
-                url = VIEW_FAVORITE_PROJECT_CONTROLLER;
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");
+            //String search = request.getParameter("search");
+            ProjectDAO dao = new ProjectDAO();
+            List<ProjectDTO> listAllProject = dao.getListAllProject();
+            if (listAllProject.size() > 0) {
+                request.setAttribute("LIST_PROJECT", listAllProject);
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at MainController:" + e.toString());
+            log("Error at SearchCOntroller: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
