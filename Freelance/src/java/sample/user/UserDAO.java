@@ -79,7 +79,7 @@ public class UserDAO {
         return check;
     }
     
-    public boolean createUser(UserDTO user) throws SQLException {
+    public boolean createUser(UserDTO user) throws SQLException, ClassNotFoundException {
         boolean check = false;
         Connection con = null;
         PreparedStatement ptm = null;
@@ -97,9 +97,7 @@ public class UserDAO {
                 ptm.setFloat(8, user.getBalance());
                 check = ptm.executeUpdate()>0?true:false;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+        }  finally {
             if (ptm != null) {
                 ptm.close();
             }

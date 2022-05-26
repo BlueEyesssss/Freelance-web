@@ -29,15 +29,7 @@
         <h1></h1>
         <a href="MainController?action=ViewAllProject">show all list</a><br>
         <a href="MainController?action=ViewFavoriteProject">show favorite list</a>
-        <!--        <form action="MainController">
-                    Search<input type="text" name="search" value="" required=""/>
-                    <input type="submit" name="action" value="Search"/>
-                </form>-->
-        <%
-            SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN"); //CHUA HIEU
-
-        %>
-
+        
         <%            List<ProjectDTO> listProject = (List<ProjectDTO>) request.getAttribute("LIST_PROJECT");
             if (listProject != null) {
                 if (listProject.size() > 0) {

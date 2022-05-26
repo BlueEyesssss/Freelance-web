@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import sample.seeker.SeekerDTO;
 import sample.user.UserDAO;
 import sample.user.UserDTO;
+import sample.user.UserErrorDTO;
 
 /**
  *
@@ -29,6 +30,8 @@ public class CreateSeekerController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        boolean checkError = false;
+        UserErrorDTO error = new UserErrorDTO();
         try {
             String userName = request.getParameter("userName");
             String password = request.getParameter("password");
@@ -44,7 +47,49 @@ public class CreateSeekerController extends HttpServlet {
             String titileBio = request.getParameter("titileBio");
             int moneyPerHour = Integer.parseInt(request.getParameter("moneyPerHour"));
             String education = request.getParameter("education");
-            if(conform.equals(password)){
+            
+            if(userName.trim().length() < 0 || userName.trim().length() > 32){
+                checkError = true;
+                error.setUserName("must be 0 .. 32 character.");
+            }
+            if(password.trim().length() < 0 || password.trim().length() > 32){
+                checkError = true;
+                error.setPassword("must be 0 .. 32 character.");
+            }
+            if(fullName.trim().length() < 0 || fullName.trim().length() > 32){
+                checkError = true;
+                error.setFullName("must be 0 .. 32 character.");
+            }
+            if(email.trim().length() < 10 || email.trim().length() > 128){
+                checkError = true;
+                error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
+            }else if(!email.substring(email.length() - 10, email.length()).equals("@gmail.com")){
+                checkError = true;
+                error.setEmail("format must be ...@gmail.com.");
+            }
+            if(phone.trim().length() < 0 || phone.trim().length() > 10){
+                checkError = true;
+                error.setPhone("must be 0 .. 10 character.");
+            }
+            if(location.trim().length() < 0 || location.trim().length() > 255){
+                checkError = true;
+                error.setLocation("must be 0 .. 255 character.");
+            }
+            if(!conform.equals(password)){
+                checkError = true;
+                error.setConfirm("password and confirm not match.");
+            }
+            if(titileBio.trim().length() < 0 || titileBio.trim().length() > 255){
+                checkError = true;
+                error.setLocation("must be 0 .. 255 character.");
+            }
+            if(education.trim().length() < 0 || education.trim().length() > 255){
+                checkError = true;
+                error.setLocation("must be 0 .. 255 character.");
+            }
+            
+            
+            if(checkError == false){
                 //tạo user
                 UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance);
 
@@ -62,10 +107,14 @@ public class CreateSeekerController extends HttpServlet {
                     }
                 }
             }else{
-                request.setAttribute("CONFIRM_ERROR", "conform not match, please enter again!!");
+               request.setAttribute("ERROR_CREATE", error); 
             }
             
         } catch (Exception e) {
+            if(e.toString().contains("duplicate")){
+                error.setDuplicate("Username already exists");
+                request.setAttribute("ERROR_CREATE", error);
+            }
             log("error at CreateHirerController: " + e.getMessage());
         }finally{
             request.getRequestDispatcher(url).forward(request, response);
