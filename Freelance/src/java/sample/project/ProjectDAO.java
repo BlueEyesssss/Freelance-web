@@ -23,10 +23,7 @@ public class ProjectDAO {
             + "FROM Project P, ExpectedDuration E\n"
             + "WHERE P.expectedDurationID = E.expectedDurationID";
     private static final String CREATE_NEW_FAVORITE_PROJECT = "INSERT INTO FavoriteProject(projectID, seekerID) VALUES(?,?)";
-    private static final String VIEW_FAVORITE_PROJECT = "SELECT FavoriteProject.projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate\n"
-            + "FROM FavoriteProject, Project, Seeker, ExpectedDuration\n"
-            + "WHERE FavoriteProject.projectID = Project.projectID and FavoriteProject.seekerID = Seeker.seekerID and ExpectedDuration.expectedDurationID = Project.expectedDurationID"
-            + "and FavoriteProject.seekerID = ?";
+    private static final String VIEW_FAVORITE_PROJECT = "SELECT FavoriteProject.projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate FROM FavoriteProject, Project, Seeker, ExpectedDuration WHERE FavoriteProject.projectID = Project.projectID and FavoriteProject.seekerID = Seeker.seekerID and ExpectedDuration.expectedDurationID = Project.expectedDurationID and FavoriteProject.seekerID = ?";
 
     public List<ProjectDTO> getListFavoriteProject(int seekerID) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
