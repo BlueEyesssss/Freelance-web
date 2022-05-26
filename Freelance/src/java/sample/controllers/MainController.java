@@ -27,6 +27,8 @@ public class MainController extends HttpServlet {
     private static final String VIEW_ALL_PROJECT_CONTROLLER = "ViewAllProjectController";
     private static final String VIEW_FAVORITE_PROJECT = "ViewFavoriteProject";
     private static final String VIEW_FAVORITE_PROJECT_CONTROLLER = "ViewFavoriteProjectController";
+    private static final String VIEW_BEST_MATCH_PROJECT = "ViewBestMatchProject";
+    private static final String VIEW_BEST_MATCH_PROJECT_CONTROLLER = "ViewBestMatchProjectController";
     private static final String CREATE_ACC_HIRER = "Create Hirer";
     private static final String CREATE_ACC_HIRER_CONTROLLER = "CreateHirerController";
     private static final String CREATE_ACC_SEEKER= "Create Seeker";
@@ -49,6 +51,9 @@ public class MainController extends HttpServlet {
                 
             } else if (VIEW_FAVORITE_PROJECT.equals(action)) {
                 url = VIEW_FAVORITE_PROJECT_CONTROLLER;
+                
+            } else if (VIEW_BEST_MATCH_PROJECT.equals(action)) {
+                url = VIEW_BEST_MATCH_PROJECT_CONTROLLER;
                 
             } else if (CREATE_ACC_HIRER.equals(action)) {
                 url = CREATE_ACC_HIRER_CONTROLLER;

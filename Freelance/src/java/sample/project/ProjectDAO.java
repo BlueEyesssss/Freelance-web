@@ -220,7 +220,7 @@ public class ProjectDAO {
         return list;
     }
 
-    public List<ProjectDTO> getListProjectBestMatch(String seekerID) throws SQLException {
+    public List<ProjectDTO> getListProjectBestMatch(int seekerID) throws SQLException {
         //Base on skill match
         List<ProjectDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -230,13 +230,13 @@ public class ProjectDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
 
-                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate"
+                String sql = " SELECT projectID,projectName, description, complexity, hirerID, paymentAmount, expectedDurationID, deadlineDate"
                         + " FROM Project P,"
                         + " (SELECT N.projectID, COUNT(skillID)AS matchSkill"
                         + " FROM NeededSkills N,HasSkill H"
                         + " WHERE H.seekerID = ? AND N.skillID = H.skillID"
-                        + " GROUP BY N.projectID"
-                        + " ORDER BY COUNT(skillID) DESC) Q"
+                        + " GROUP BY N.projectID) Q"
+                        + " ORDER BY matchSkill DESC"
                         + " WHERE P.projectID = Q.projectID";
 
                 stm = conn.prepareStatement(sql);
@@ -247,7 +247,7 @@ public class ProjectDAO {
                     String projectName = rs.getString("projectName");
                     String description = rs.getString("description");
                     String complexity = rs.getString("complexity");
-                    String hirer = rs.getString("hireID");
+                    String hirer = rs.getString("hirerID");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
                     String expectedDurationID = rs.getString("expectedDurationID");
                     String deadlineDate = rs.getString("deadlineDate");

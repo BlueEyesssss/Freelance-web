@@ -29,6 +29,7 @@
         <h1></h1>
         <a href="MainController?action=ViewAllProject">show all list</a><br>
         <a href="MainController?action=ViewFavoriteProject">show favorite list</a>
+        <a href="MainController?action=ViewBestMatchProject">show best match job</a>
         
         <%            List<ProjectDTO> listProject = (List<ProjectDTO>) request.getAttribute("LIST_PROJECT");
             if (listProject != null) {
