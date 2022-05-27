@@ -33,8 +33,8 @@ public class MainController extends HttpServlet {
     private static final String CREATE_ACC_HIRER_CONTROLLER = "CreateHirerController";
     private static final String CREATE_ACC_SEEKER= "Create Seeker";
     private static final String CREATE_ACC_SEEKER_CONTROLLER = "CreateSeekerController";
-    private static final String FILTER_SKILL= "FilterSkill";
-    private static final String FILTER_SKILL_CONTROLLER = "FilterSkillController";
+    private static final String FILTER_HIRER= "FilterHirer";
+    private static final String FILTER_HIRER_CONTROLLER = "FilterHirerController";
     private static final String FILTER_PRICE= "FilterPrice";
     private static final String FILTER_PRICE_CONTROLLER = "FilterPriceController";
     private static final String FILTER_LEVEL= "FilterLevel";
@@ -67,8 +67,8 @@ public class MainController extends HttpServlet {
             } else if (CREATE_ACC_SEEKER.equals(action)) {
                 url = CREATE_ACC_SEEKER_CONTROLLER;
                 
-            } else if (FILTER_SKILL.equals(action)) {
-                url = FILTER_SKILL_CONTROLLER;
+            } else if (FILTER_HIRER.equals(action)) {
+                url = FILTER_HIRER_CONTROLLER;
                 
             } else if (FILTER_PRICE.equals(action)) {
                 url = FILTER_PRICE_CONTROLLER;

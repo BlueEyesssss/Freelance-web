@@ -21,8 +21,8 @@ import sample.project.ProjectDTO;
  *
  * @author Admin
  */
-@WebServlet(name = "FilterSkillController", urlPatterns = {"/FilterSkillController"})
-public class FilterSkillController extends HttpServlet {
+@WebServlet(name = "FilterHirerController", urlPatterns = {"/FilterHirerController"})
+public class FilterHirerController extends HttpServlet {
 
     private static final String ERROR = "error.html";
     private static final String SUCCESS = "FIlterPage.jsp";
@@ -32,11 +32,11 @@ public class FilterSkillController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String skill = request.getParameter("skill");
+            String hirer = request.getParameter("hirer");
             ProjectDAO dao = new ProjectDAO();
             HttpSession session = request.getSession();
                 List<ProjectDTO> listBeforeFilter = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
-            List<ProjectDTO> list = dao.getListProjectBySkill(listBeforeFilter,skill);
+            List<ProjectDTO> list = dao.getListProjectByHirerName(listBeforeFilter,hirer);
             if(!list.isEmpty()) {
                 session.setAttribute("LIST_PROJECT", list);
                 url = SUCCESS;

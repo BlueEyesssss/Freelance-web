@@ -228,12 +228,12 @@ public class ProjectDAO {
         return list;
     }
     
-    public List<ProjectDTO> getListProjectBySkill(List<ProjectDTO> listBeforeFilter, String skill) throws SQLException {
+    public List<ProjectDTO> getListProjectByHirerName(List<ProjectDTO> listBeforeFilter, String hirer) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
 
         try {
             for (ProjectDTO project : listBeforeFilter) {
-                if (project.getHirer().equalsIgnoreCase(skill)) {
+                if (project.getHirer().equalsIgnoreCase(hirer)) {
                     list.add(project);
                 }
             }

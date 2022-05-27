@@ -24,7 +24,7 @@
             Search Job<input type="text" name="search" value="<%= search%>" placeholder="input job name"/>
             <input type="submit" name="action" value="Search Job By Name"/>
         </form>
-            <a href="MainController?action=FilterSkill&skill=K">skill-html</a>
+            <a href="MainController?action=FilterHirer&hirer=KMS">hirer-KMS</a>
             <a href="MainController?action=FilterPrice&price1=300&price2=500">price 300-500</a>
             <a href="MainController?action=FilterLevel&level=Entry">level-Entry</a>
         <%            List<ProjectDTO> listProject = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
