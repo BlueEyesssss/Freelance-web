@@ -33,6 +33,12 @@ public class MainController extends HttpServlet {
     private static final String CREATE_ACC_HIRER_CONTROLLER = "CreateHirerController";
     private static final String CREATE_ACC_SEEKER= "Create Seeker";
     private static final String CREATE_ACC_SEEKER_CONTROLLER = "CreateSeekerController";
+    private static final String FILTER_SKILL= "FilterSkill";
+    private static final String FILTER_SKILL_CONTROLLER = "FilterSkillController";
+    private static final String FILTER_PRICE= "FilterPrice";
+    private static final String FILTER_PRICE_CONTROLLER = "FilterPriceController";
+    private static final String FILTER_LEVEL= "FilterLevel";
+    private static final String FILTER_LEVEL_CONTROLLER = "FilterLevelController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -60,6 +66,15 @@ public class MainController extends HttpServlet {
                 
             } else if (CREATE_ACC_SEEKER.equals(action)) {
                 url = CREATE_ACC_SEEKER_CONTROLLER;
+                
+            } else if (FILTER_SKILL.equals(action)) {
+                url = FILTER_SKILL_CONTROLLER;
+                
+            } else if (FILTER_PRICE.equals(action)) {
+                url = FILTER_PRICE_CONTROLLER;
+                
+            } else if (FILTER_LEVEL.equals(action)) {
+                url = FILTER_LEVEL_CONTROLLER;
                 
             }  else {
                 HttpSession session = request.getSession();

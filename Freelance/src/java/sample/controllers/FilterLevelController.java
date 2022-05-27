@@ -6,6 +6,7 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +21,8 @@ import sample.project.ProjectDTO;
  *
  * @author Admin
  */
-@WebServlet(name = "SearchJobByNameController", urlPatterns = {"/SearchJobByNameController"})
-public class SearchJobByNameController extends HttpServlet {
+@WebServlet(name = "FilterLevelController", urlPatterns = {"/FilterLevelController"})
+public class FilterLevelController extends HttpServlet {
 
     private static final String ERROR = "error.html";
     private static final String SUCCESS = "FIlterPage.jsp";
@@ -31,14 +32,13 @@ public class SearchJobByNameController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            
-            String search = request.getParameter("search");
+            String level = request.getParameter("level");
             ProjectDAO dao = new ProjectDAO();
-            List<ProjectDTO> list = dao.getListProjectByName(search);
+            HttpSession session = request.getSession();
+                List<ProjectDTO> listBeforeFilter = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
+            List<ProjectDTO> list = dao.getListProjectByExperienceLevel(listBeforeFilter,level);
             if(!list.isEmpty()) {
-                HttpSession session = request.getSession();
                 session.setAttribute("LIST_PROJECT", list);
-//                request.setAttribute("LIST_PROJECT", list);
                 url = SUCCESS;
             }
         } catch (Exception e) {

@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.project.ProjectDAO;
 import sample.project.ProjectDTO;
 
@@ -20,11 +21,11 @@ import sample.project.ProjectDTO;
  *
  * @author Admin
  */
-@WebServlet(name = "SearchJobBySkill", urlPatterns = {"/SearchJobBySkill"})
-public class SearchJobBySkill extends HttpServlet {
+@WebServlet(name = "FilterSkillController", urlPatterns = {"/FilterSkillController"})
+public class FilterSkillController extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "filterPage.jsp";
+    private static final String SUCCESS = "FIlterPage.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,9 +34,11 @@ public class SearchJobBySkill extends HttpServlet {
         try {
             String skill = request.getParameter("skill");
             ProjectDAO dao = new ProjectDAO();
-            List<ProjectDTO> list = dao.getListProjectBySkill(skill);
+            HttpSession session = request.getSession();
+                List<ProjectDTO> listBeforeFilter = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
+            List<ProjectDTO> list = dao.getListProjectBySkill(listBeforeFilter,skill);
             if(!list.isEmpty()) {
-                request.setAttribute("LIST_PROJECT", list);
+                session.setAttribute("LIST_PROJECT", list);
                 url = SUCCESS;
             }
         } catch (Exception e) {

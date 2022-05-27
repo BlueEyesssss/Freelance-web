@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.project.ProjectDAO;
 import sample.project.ProjectDTO;
 
@@ -20,11 +21,11 @@ import sample.project.ProjectDTO;
  *
  * @author Admin
  */
-@WebServlet(name = "SearchJobByPrice", urlPatterns = {"/SearchJobByPrice"})
-public class SearchJobByPrice extends HttpServlet {
+@WebServlet(name = "FilterPriceController", urlPatterns = {"/FilterPriceController"})
+public class FilterPriceController extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "filerPage.jsp";
+    private static final String SUCCESS = "FIlterPage.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,9 +35,11 @@ public class SearchJobByPrice extends HttpServlet {
             int price1 = Integer.parseInt(request.getParameter("price1"));
             int price2 = Integer.parseInt(request.getParameter("price2"));
             ProjectDAO dao = new ProjectDAO();
-            List<ProjectDTO> list = dao.getListProjectBaseOnPrice(price1, price2);
+            HttpSession session = request.getSession();
+                List<ProjectDTO> listBeforeFilter = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
+            List<ProjectDTO> list = dao.getListProjectBaseOnPrice(listBeforeFilter,price1, price2);
             if(!list.isEmpty()) {
-                request.setAttribute("LIST_PROJECT", list);
+                session.setAttribute("LIST_PROJECT", list);
                 url = SUCCESS;
             }
         } catch (Exception e) {

@@ -24,17 +24,18 @@ public class ProjectDAO {
             + "WHERE P.expectedDurationID = E.expectedDurationID";
     private static final String CREATE_NEW_FAVORITE_PROJECT = "INSERT INTO FavoriteProject(projectID, seekerID) VALUES(?,?)";
     private static final String VIEW_FAVORITE_PROJECT = "SELECT FavoriteProject.projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate FROM FavoriteProject, Project, Seeker, ExpectedDuration WHERE FavoriteProject.projectID = Project.projectID and FavoriteProject.seekerID = Seeker.seekerID and ExpectedDuration.expectedDurationID = Project.expectedDurationID and FavoriteProject.seekerID = ?";
-    private static final String WIEW_BEST_MATCH_PROJECT = "SELECT P.projectID,projectName, description, complexity, H.conpanyName, paymentAmount, E.durationText, deadlineDate\n" +
-"                         FROM Project P,Hirer H, ExpectedDuration E,\n" +
-"                         (SELECT N.projectID, COUNT(N.skillID)AS matchSkill\n" +
-"                         FROM NeededSkills N,HasSkill H\n" +
-"                          WHERE H.seekerID = ? AND N.skillID = H.skillID\n" +
-"                         GROUP BY N.projectID) Q\n" +
-"						 WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID\n" +
-"                         ORDER BY matchSkill DESC";
-     private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount,P.expectedDurationID , E.durationText, deadlineDate "
-                        + " FROM Project P, Hirer H, ExpectedDuration E "
-                        + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";
+    private static final String WIEW_BEST_MATCH_PROJECT = "SELECT P.projectID,projectName, description, complexity, H.conpanyName, paymentAmount, E.durationText, deadlineDate\n"
+            + "                         FROM Project P,Hirer H, ExpectedDuration E,\n"
+            + "                         (SELECT N.projectID, COUNT(N.skillID)AS matchSkill\n"
+            + "                         FROM NeededSkills N,HasSkill H\n"
+            + "                          WHERE H.seekerID = ? AND N.skillID = H.skillID\n"
+            + "                         GROUP BY N.projectID) Q\n"
+            + "						 WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID\n"
+            + "                         ORDER BY matchSkill DESC";
+    private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount,P.expectedDurationID , E.durationText, deadlineDate "
+            + " FROM Project P, Hirer H, ExpectedDuration E "
+            + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";
+
     public List<ProjectDTO> getListFavoriteProject(int seekerID) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -169,51 +170,7 @@ public class ProjectDAO {
                 }
             }
         } catch (Exception e) {
-                e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
-    }
-
-    public List<ProjectDTO> getListProjectBySkill(String skill) throws SQLException {
-        List<ProjectDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtil.getConnection();
-            if (conn != null) {
-
-                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
-                        + " FROM Project P INNER JOIN (SELECT projectID FROM NeededSkills N, Skill S WHERE S.skillName like ? AND S.skillID = N.skillID) D "
-                        + " ON P.projectID=D.projectID";
-
-                stm = conn.prepareStatement(sql);
-                stm.setString(1, "%" + skill + "%");
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    int projectID = Integer.parseInt(rs.getString("projectID"));
-                    String description = rs.getString("description");
-                    String projectName = rs.getString("projectName");
-                    String complexity = rs.getString("complexity");
-                    String hirer = rs.getString("hireID");
-                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    String expectedDurationID = rs.getString("expectedDurationID");
-                    String deadlineDate = rs.getString("deadlineDate");
-
-                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
-                }
-            }
-        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
@@ -270,133 +227,44 @@ public class ProjectDAO {
         }
         return list;
     }
+    
+    public List<ProjectDTO> getListProjectBySkill(List<ProjectDTO> listBeforeFilter, String skill) throws SQLException {
+        List<ProjectDTO> list = new ArrayList<>();
 
-    public List<ProjectDTO> getListProjectBaseOnPrice(int price1, int price2) throws SQLException {
+        try {
+            for (ProjectDTO project : listBeforeFilter) {
+                if (project.getHirer().equalsIgnoreCase(skill)) {
+                    list.add(project);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public List<ProjectDTO> getListProjectBaseOnPrice(List<ProjectDTO> listBeforeFilter,int price1, int price2) throws SQLException {
         //price1 < price2 
         List<ProjectDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
         try {
-            conn = DBUtil.getConnection();
-            if (conn != null) {
-
-                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
-                        + " FROM Project"
-                        + " WHERE paymentAmount BETWEEN ? AND ?";
-
-                stm = conn.prepareStatement(sql);
-                stm.setInt(1, price1);
-                stm.setInt(2, price2);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    int projectID = Integer.parseInt(rs.getString("projectID"));
-                    String projectName = rs.getString("projectName");
-                    String description = rs.getString("description");
-                    String complexity = rs.getString("complexity");
-                    String hirer = rs.getString("hireID");
-                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    String expectedDurationID = rs.getString("expectedDurationID");
-                    String deadlineDate = rs.getString("deadlineDate");
-
-                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
+            for (ProjectDTO project : listBeforeFilter) {
+                if (project.getPaymentAmount() >= price1 & project.getPaymentAmount() <= price2) {
+                    list.add(project);
                 }
             }
         } catch (Exception e) {
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
         }
         return list;
     }
 
-    public List<ProjectDTO> getListProjectByMajor(String major) throws SQLException {
+    public List<ProjectDTO> getListProjectByExperienceLevel(List<ProjectDTO> listBeforeFilter,String experienceLevel) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
         try {
-            conn = DBUtil.getConnection();
-            if (conn != null) {
-                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
-                        + " FROM Project P, Major M"
-                        + " WHERE P.majorID = M.majorID AND M.majorName like ?";
-                stm = conn.prepareStatement(sql);
-                stm.setString(1, "%" + major + "%");
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    int projectID = Integer.parseInt(rs.getString("projectID"));
-                    String projectName = rs.getString("projectName");
-                    String description = rs.getString("description");
-                    String complexity = rs.getString("complexity");
-                    String hirer = rs.getString("hireID");
-                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    String expectedDurationID = rs.getString("expectedDurationID");
-                    String deadlineDate = rs.getString("deadlineDate");
-
-                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
+            for (ProjectDTO project : listBeforeFilter) {
+                if (project.getComplexity().equalsIgnoreCase(experienceLevel)) {
+                    list.add(project);
                 }
             }
         } catch (Exception e) {
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
-    }
-
-    public List<ProjectDTO> getListProjectByExperienceLevel(String experienceLevel) throws SQLException {
-        List<ProjectDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtil.getConnection();
-            if (conn != null) {
-                String sql = " SELECT projectID,projectName, description, complexity, hireID, paymentAmount, expectedDurationID, deadlineDate "
-                        + " FROM Project"
-                        + " WHERE experienceLevelRequire like ?";
-                stm = conn.prepareStatement(sql);
-                stm.setString(1, "%" + experienceLevel + "%");
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    int projectID = Integer.parseInt(rs.getString("projectID"));
-                    String projectName = rs.getString("projectName");
-                    String description = rs.getString("description");
-                    String complexity = rs.getString("complexity");
-                    String hirer = rs.getString("hireID");
-                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    String expectedDurationID = rs.getString("expectedDurationID");
-                    String deadlineDate = rs.getString("deadlineDate");
-
-                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
-                }
-            }
-        } catch (Exception e) {
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
         }
         return list;
     }
