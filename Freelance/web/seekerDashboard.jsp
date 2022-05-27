@@ -44,6 +44,7 @@
                     <th>Project Name</th>
                     <th>Description</th>
                     <th>Complexity</th>
+                    <th>Company Name</th>
                     <th>Payment Amount</th>
                     <th>Expected Duration</th>
                     <th>Deadline Date</th>
@@ -62,6 +63,7 @@
                     <td><%= project.getProjectName()%></td>
                     <td><%= project.getDescription()%></td>
                     <td><%= project.getComplexity()%></td>
+                    <td><%= project.getHirer()%></td>
                     <td><%= project.getPaymentAmount()%></td>
                     <td><%= project.getExpectedDurationID()%></td>
                     <td><%= project.getDeadlineDate()%></td>

@@ -24,7 +24,17 @@ public class ProjectDAO {
             + "WHERE P.expectedDurationID = E.expectedDurationID";
     private static final String CREATE_NEW_FAVORITE_PROJECT = "INSERT INTO FavoriteProject(projectID, seekerID) VALUES(?,?)";
     private static final String VIEW_FAVORITE_PROJECT = "SELECT FavoriteProject.projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate FROM FavoriteProject, Project, Seeker, ExpectedDuration WHERE FavoriteProject.projectID = Project.projectID and FavoriteProject.seekerID = Seeker.seekerID and ExpectedDuration.expectedDurationID = Project.expectedDurationID and FavoriteProject.seekerID = ?";
-
+    private static final String WIEW_BEST_MATCH_PROJECT = "SELECT P.projectID,projectName, description, complexity, H.conpanyName, paymentAmount, E.durationText, deadlineDate\n" +
+"                         FROM Project P,Hirer H, ExpectedDuration E,\n" +
+"                         (SELECT N.projectID, COUNT(N.skillID)AS matchSkill\n" +
+"                         FROM NeededSkills N,HasSkill H\n" +
+"                          WHERE H.seekerID = ? AND N.skillID = H.skillID\n" +
+"                         GROUP BY N.projectID) Q\n" +
+"						 WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID\n" +
+"                         ORDER BY matchSkill DESC";
+     private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount,P.expectedDurationID , E.durationText, deadlineDate "
+                        + " FROM Project P, Hirer H, ExpectedDuration E "
+                        + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";
     public List<ProjectDTO> getListFavoriteProject(int seekerID) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -141,9 +151,7 @@ public class ProjectDAO {
         try {
             conn = DBUtil.getConnection();
             if (conn != null) {
-                String sql = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount,P.expectedDurationID , E.durationText, deadlineDate "
-                        + " FROM Project P, Hirer H, ExpectedDuration E "
-                        + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";
+                String sql = WIEW_LIST_PROJECT_BASE_ON_NAME;
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, "%" + search + "%");
                 rs = stm.executeQuery();
@@ -230,26 +238,19 @@ public class ProjectDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
 
-                String sql = " SELECT projectID,projectName, description, complexity, hirerID, paymentAmount, expectedDurationID, deadlineDate"
-                        + " FROM Project P,"
-                        + " (SELECT N.projectID, COUNT(skillID)AS matchSkill"
-                        + " FROM NeededSkills N,HasSkill H"
-                        + " WHERE H.seekerID = ? AND N.skillID = H.skillID"
-                        + " GROUP BY N.projectID) Q"
-                        + " ORDER BY matchSkill DESC"
-                        + " WHERE P.projectID = Q.projectID";
+                String sql = WIEW_BEST_MATCH_PROJECT;
 
                 stm = conn.prepareStatement(sql);
-                stm.setString(1, "%" + seekerID + "%");
+                stm.setInt(1, seekerID);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int projectID = Integer.parseInt(rs.getString("projectID"));
                     String projectName = rs.getString("projectName");
                     String description = rs.getString("description");
                     String complexity = rs.getString("complexity");
-                    String hirer = rs.getString("hirerID");
+                    String hirer = rs.getString("conpanyName");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    String expectedDurationID = rs.getString("expectedDurationID");
+                    String expectedDurationID = rs.getString("durationText");
                     String deadlineDate = rs.getString("deadlineDate");
 
                     list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
