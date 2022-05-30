@@ -48,6 +48,7 @@
                     <th>Payment Amount</th>
                     <th>Expected Duration</th>
                     <th>Deadline Date</th>
+                    <th>Favorite</th>
 
 
                 </tr>
@@ -59,14 +60,15 @@
                 %>
                 <tr>
                     <td><%= count++%></td>
-                    <td><%= project.getProjectID()%></td>
-                    <td><%= project.getProjectName()%></td>
+                    <td><%= project.getProjectID()%></a></td>
+                    <td><a href="projectDetail.jsp"><%= project.getProjectName()%></td>
                     <td><%= project.getDescription()%></td>
                     <td><%= project.getComplexity()%></td>
                     <td><%= project.getHirer()%></td>
                     <td><%= project.getPaymentAmount()%></td>
                     <td><%= project.getExpectedDurationID()%></td>
                     <td><%= project.getDeadlineDate()%></td>
+                    <td><a href = MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID() %>>Favorite</a></td>
 
 
 

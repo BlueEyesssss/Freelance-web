@@ -35,6 +35,81 @@ public class ProjectDAO {
     private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount,P.expectedDurationID , E.durationText, deadlineDate "
             + " FROM Project P, Hirer H, ExpectedDuration E "
             + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";
+    
+    private static final String CHECK_DUPLICATE = "SELECT projectID, seekerID\n"
+            + "FROM FavoriteProject\n"
+            + "WHERE projectID = ? and seekerID = ?";
+    private static final String DELETE_FAVORITE_PROJECT = "DELETE FROM FavoriteProject\n"
+            + "WHERE projectID = ? and seekerID = ?";
+    
+     public boolean checkDuplicate(int projectID, int seekerID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_DUPLICATE);
+                ptm.setInt(1, projectID);
+                ptm.setInt(2, seekerID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+
+        return check;
+    }
+
+    public boolean deleteFavoriteProject(int projectID, int seekerID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_FAVORITE_PROJECT);
+                ptm.setInt(1, projectID);
+                ptm.setInt(2, seekerID);
+                check = ptm.executeUpdate() > 0;
+                if (check) {
+                    check = true;
+                }
+//                if (rs.next()) {
+//                    check = true;
+//                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+
+        return check;
+    }
 
     public List<ProjectDTO> getListFavoriteProject(int seekerID) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();

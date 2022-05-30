@@ -39,6 +39,8 @@ public class MainController extends HttpServlet {
     private static final String FILTER_PRICE_CONTROLLER = "FilterPriceController";
     private static final String FILTER_LEVEL= "FilterLevel";
     private static final String FILTER_LEVEL_CONTROLLER = "FilterLevelController";
+        private static final String CREATE_FAVORITE_PROJECT = "CreateFavoriteProject";
+    private static final String CREATE_FAVORITE_PROJECT_CONTROLLER = "CreateFavoriteProjectController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -75,7 +77,9 @@ public class MainController extends HttpServlet {
                 
             } else if (FILTER_LEVEL.equals(action)) {
                 url = FILTER_LEVEL_CONTROLLER;
-                
+             } else if (CREATE_FAVORITE_PROJECT.equals(action)) {
+                url = CREATE_FAVORITE_PROJECT_CONTROLLER;
+                    
             }  else {
                 HttpSession session = request.getSession();
                 session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");
