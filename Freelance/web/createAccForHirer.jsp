@@ -24,7 +24,8 @@
             fullName: <input type="text" name="fullName" value="${param.fullName}" required=""/>
                 <font style="color: red">${requestScope.ERROR_CREATE.fullName}</font><br>
             email: <input type="text" name="email" value="${param.email}" required=""/>
-                <font style="color: red">${requestScope.ERROR_CREATE.email}</font><br>
+                <font style="color: red">${requestScope.ERROR_CREATE.email}</font>
+                <font style="color: red">${requestScope.ERROR_CREATE.emailExist}</font><br>
             phone: <input type="text" name="phone" value="${param.phone}" required=""/>
                 <font style="color: red">${requestScope.ERROR_CREATE.phone}</font><br>
             location: <input type="text" name="location" value="${param.location}" required=""/>

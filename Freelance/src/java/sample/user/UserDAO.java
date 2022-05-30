@@ -25,7 +25,40 @@ public class UserDAO {
     private static final String CREATE_USER = "INSERT INTO [User](password, userName, fullName, email, phone, location, registrationDate, balance) VALUES(?,?,?,?,?,?,?,?)";
     private static final String CREATE_HIRER = "INSERT INTO Hirer(hirerID, conpanyName) VALUES(?, ?)";
     private static final String CREATE_SEEKER = "INSERT INTO Seeker(seekerID, overview, titileBio, moneyPerHour, education) VALUES (?, ?, ?, ?, ?)";
+    private static final String COUNT_EMAIL = "SELECT COUNT(*) as countEmail FROM [User] WHERE email = ?";
 
+    
+    public int checkEmailExist(String email) throws SQLException {
+       int check = 0;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(COUNT_EMAIL);
+                ptm.setString(1, email);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    check = Integer.parseInt(rs.getString("countEmail"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
     public boolean createSeeker(SeekerDTO seeker) throws SQLException {
         boolean check = false;
         Connection con = null;
@@ -217,8 +250,6 @@ public class UserDAO {
         }
         return user;
     }
-
-    
 
 
 }

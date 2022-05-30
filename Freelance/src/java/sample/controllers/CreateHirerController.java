@@ -34,6 +34,8 @@ public class CreateHirerController extends HttpServlet {
         boolean checkError = false;
         UserErrorDTO error = new UserErrorDTO();
         try {
+            UserDAO dao = new UserDAO();
+            
             String userName = request.getParameter("userName");
             String password = request.getParameter("password");
             String conform = request.getParameter("conform");
@@ -63,6 +65,10 @@ public class CreateHirerController extends HttpServlet {
                 checkError = true;
                 error.setEmail("format must be ...@gmail.com.");
             }
+            if(dao.checkEmailExist(email) > 3){
+                checkError = true;
+                error.setEmailExist("email linked to another account.");
+            }
             if(phone.trim().length() < 0 || phone.trim().length() > 10){
                 checkError = true;
                 error.setPhone("must be 0 .. 10 character.");
@@ -82,8 +88,6 @@ public class CreateHirerController extends HttpServlet {
             if(checkError == false){
                 //tạo user
                 UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance);
-
-                UserDAO dao = new UserDAO();
 
                 boolean checkCreateAcc = dao.createUser(user);
                 if(checkCreateAcc){

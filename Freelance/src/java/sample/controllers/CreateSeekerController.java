@@ -33,6 +33,8 @@ public class CreateSeekerController extends HttpServlet {
         boolean checkError = false;
         UserErrorDTO error = new UserErrorDTO();
         try {
+            UserDAO dao = new UserDAO();
+            
             String userName = request.getParameter("userName");
             String password = request.getParameter("password");
             String conform = request.getParameter("conform");
@@ -87,13 +89,15 @@ public class CreateSeekerController extends HttpServlet {
                 checkError = true;
                 error.setLocation("must be 0 .. 255 character.");
             }
+            if(dao.checkEmailExist(email) > 3){
+                checkError = true;
+                error.setEmailExist("email linked to another account.");
+            }
             
             
             if(checkError == false){
                 //tạo user
                 UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance);
-
-                UserDAO dao = new UserDAO();
 
                 boolean checkCreateAcc = dao.createUser(user);
                 if(checkCreateAcc){

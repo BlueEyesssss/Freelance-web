@@ -22,6 +22,16 @@ public class UserErrorDTO {
     private String conpanyName;
     private String titileBio;
     private String education;
+    private String emailExist;
+
+    public String getEmailExist() {
+        return emailExist;
+    }
+
+    public void setEmailExist(String emailExist) {
+        this.emailExist = emailExist;
+    }
+    
 
     public String getTitileBio() {
         return titileBio;
