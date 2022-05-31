@@ -121,9 +121,9 @@
                                             <div> 4,5/5 points</div>
                                         </div>
                                         <div class="seeker-skill-wrapper">
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
+                                            <div class="seeker-skill"><%= project.getSkillneed()%></div>
+<!--                                            <div class="seeker-skill">Front-end Developer</div>
+                                            <div class="seeker-skill">Front-end Developer</div>-->
                                         </div>
                                         <div class="seeker-dividen"></div>
                                         <div class="lightbox-project-detail">
@@ -189,10 +189,10 @@
                                                         </div>
                                                         <div class="lb-jobdetail-div">
                                                             <div class="lb-heading-text">Skill and Expertise</div>
+                                                            <div class="expected-skill"><%= project.getSkillneed()%></div>
+<!--                                                            <div class="expected-skill">My skill</div>
                                                             <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
+                                                            <div class="expected-skill">My skill</div>-->
                                                         </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">
@@ -268,9 +268,9 @@
                                             <div> 4,5/5 points</div>
                                         </div>
                                         <div class="seeker-skill-wrapper">
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
+                                            <div class="seeker-skill"><%= project.getSkillneed()%></div>
+<!--                                            <div class="seeker-skill">Front-end Developer</div>
+                                            <div class="seeker-skill">Front-end Developer</div>-->
                                         </div>
                                         <div class="seeker-dividen"></div>
                                         <div class="lightbox-project-detail">
@@ -336,10 +336,10 @@
                                                         </div>
                                                         <div class="lb-jobdetail-div">
                                                             <div class="lb-heading-text">Skill and Expertise</div>
+                                                            <div class="expected-skill"><%= project.getSkillneed()%></div>
+<!--                                                            <div class="expected-skill">My skill</div>
                                                             <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
+                                                            <div class="expected-skill">My skill</div>-->
                                                         </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">
@@ -412,9 +412,9 @@
                                             <div> 4,5/5 points</div>
                                         </div>
                                         <div class="seeker-skill-wrapper">
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
+                                            <div class="seeker-skill"><%= project.getSkillneed()%></div>
+<!--                                            <div class="seeker-skill">Front-end Developer</div>
+                                            <div class="seeker-skill">Front-end Developer</div>-->
                                         </div>
                                         <div class="seeker-dividen"></div>
                                         <div class="lightbox-project-detail">
@@ -480,10 +480,10 @@
                                                         </div>
                                                         <div class="lb-jobdetail-div">
                                                             <div class="lb-heading-text">Skill and Expertise</div>
+                                                            <div class="expected-skill"><%= project.getSkillneed()%></div>
+<!--                                                            <div class="expected-skill">My skill</div>
                                                             <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
+                                                            <div class="expected-skill">My skill</div>-->
                                                         </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">

@@ -42,6 +42,45 @@ public class ProjectDAO {
     private static final String DELETE_FAVORITE_PROJECT = "DELETE FROM FavoriteProject\n"
             + "WHERE projectID = ? and seekerID = ?";
     
+    private static final String GET_SKILL_NEED_PROJECT = "SELECT nd.projectID, s.skillName FROM NeededSkills nd, Skill s WHERE nd.skillID = s.skillID AND nd.projectID = ?";
+    
+    public String getSkillNeedOfProject(int projectID) throws SQLException {
+       String skillNeed = "";
+       Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SKILL_NEED_PROJECT);
+                ptm.setInt(1, projectID);
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    String skillName = rs.getString("skillName");
+                    //if(rs.next()){
+                        skillNeed += skillName + ", ";
+//                    }else{
+//                        skillNeed += skillName;
+//                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+       return skillNeed;
+    }
+    
      public boolean checkDuplicate(int projectID, int seekerID) throws SQLException {
         boolean check = false;
         Connection conn = null;

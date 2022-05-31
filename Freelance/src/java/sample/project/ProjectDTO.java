@@ -24,6 +24,16 @@ public class ProjectDTO {
     private LocalDate createdDate;
     private String location;
     private int hoursPerWeek;
+    
+    private String skillneed;
+
+    public String getSkillneed() {
+        return skillneed;
+    }
+
+    public void setSkillneed(String skillneed) {
+        this.skillneed = skillneed;
+    }
 
     public ProjectDTO(int projectID, String projectName, String description, String complexity, String hirer, double paymentAmount, String expectedDurationID, String deadlineDate, LocalDate createdDate, String location, int hoursPerWeek) {
         this.projectID = projectID;

@@ -44,6 +44,10 @@ public class ViewAllProjectController extends HttpServlet {
             ProjectDAO dao = new ProjectDAO();
             List<ProjectDTO> listAllProject = dao.getListAllProject();
             if (listAllProject.size() > 0) {
+                for (ProjectDTO projectDTO : listAllProject) {
+                    String skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
+                    projectDTO.setSkillneed(skillneed);
+                }
                 request.setAttribute("LIST_PROJECT", listAllProject);
                 url = SUCCESS;
             }
