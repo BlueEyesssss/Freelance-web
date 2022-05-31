@@ -4,6 +4,7 @@
     Author     : LENOVO
 --%>
 
+<%@page import="sample.user.UserGoogleDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,7 +13,8 @@
         <title>Create Account Page</title>
     </head>
     <body>
-        <a href="createAccForGoogleHirer.jsp">Hirer</a> <br>
-        <a href="createAccForGoogleSeeker.jsp">Seeker</a>
+        
+        <a href="createAccForHirer.jsp">Hirer</a> <br>
+        <a href="createAccForSeeker.jsp">Seeker</a>
     </body>
 </html>

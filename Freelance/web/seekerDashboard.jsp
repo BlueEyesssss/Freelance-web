@@ -35,7 +35,7 @@
     </head>
 
     <%
-        UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+        SeekerDTO loginUser = (SeekerDTO) session.getAttribute("USER_LOGIN");
 
 
     %>
@@ -79,7 +79,7 @@
                 <div class="left-side">
                     <div class="welcome">
                         <div class="text-block-3">Thursday, May 19th</div>
-                        <h1 class="heading-2">Good morning,<br />Thien Pham</h1><img
+                        <h1 class="heading-2">Good morning,<br /> <%= loginUser.getFullName() %></h1><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d887819668059765d21d0_Charco%20Notifications%20(1).png"
                             loading="lazy" alt="" class="image-4" />
                     </div>
@@ -543,8 +543,8 @@
                                 loading="lazy" sizes="(max-width: 479px) 100vw, 100px"
                                 srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                 alt="" class="image-5" />
-                            <h2 class="heading-3">Thien Pham</h2>
-                            <div class="text-block-4">Web desinger, front-end devleoper |<br />Figma, HTML/CSS, Webflow
+                            <h2 class="heading-3"><%= loginUser.getFullName() %></h2>
+                            <div class="text-block-4"><%= loginUser.getTitileBio() %><br /> <%= loginUser.getRegistrationDate() %>
                             </div>
                             <div class="ividen"></div>
                         </div>

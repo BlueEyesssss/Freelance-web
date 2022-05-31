@@ -26,8 +26,84 @@ public class UserDAO {
     private static final String CREATE_HIRER = "INSERT INTO Hirer(hirerID, conpanyName) VALUES(?, ?)";
     private static final String CREATE_SEEKER = "INSERT INTO Seeker(seekerID, overview, titileBio, moneyPerHour, education) VALUES (?, ?, ?, ?, ?)";
     private static final String COUNT_EMAIL = "SELECT COUNT(*) as countEmail FROM [User] WHERE email = ?";
+    private static final String CHECK_EXIST_EMAIL = "USE FreelanceManagement\n" +
+"SELECT email \n" +
+"FROM [User] \n" +
+"WHERE email = ?";
     private static final String UPDATE_USER_PROFILE = "UPDATE [User] SET userName = ?, fullName = ?, email = ?, location = ?,password = ? WHERE userID = ?";
     private static final String UPDATE_SEEKER_PROFILE = "UPDATE Seeker SET overview = ?, titileBio = ?, moneyPerHour = ?,education = ? WHERE seekerID = ?";
+    private static final String GET_USER_BY_EMAIL = "SELECT  userID, password, userName, fullName, email, phone, location, registrationDate, balance FROM [User] WHERE email = ?";
+    public UserDTO getUser(String email) throws SQLException {
+        UserDTO user = null;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(GET_USER_BY_EMAIL);
+                ptm.setString(1, email);
+                
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    int userID = rs.getInt("userID");
+                    String password = rs.getString("password");
+                    String userName = rs.getString("userName");
+                    String fullName = rs.getString("fullName");
+                    
+                    String phone = rs.getString("phone");
+                    String location = rs.getString("location");
+                    String registrationDate = rs.getString("registrationDate");
+                    float balance = rs.getFloat("balance");
+                    user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return user;
+    }
+    
+    public boolean checkDuplicateEmail(String email) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(CHECK_EXIST_EMAIL);
+                ptm.setString(1, email);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
 
     public boolean UpdateSeekerProfile(SeekerDTO seeker) throws SQLException {
          boolean check = false;
@@ -87,7 +163,7 @@ public class UserDAO {
     }
     
     public int checkEmailExist(String email) throws SQLException {
-       int check = 0;
+        int check = 0;
         Connection con = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
