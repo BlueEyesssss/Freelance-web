@@ -35,72 +35,76 @@ public class UpdateSeekerProfileController extends HttpServlet {
         boolean checkError = false;
         UserErrorDTO error = new UserErrorDTO();
         try {
-            UserDAO dao = new UserDAO();
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            int seekerID = Integer.parseInt(request.getParameter("seekerID"));
-            String userName = request.getParameter("userName");
-            String password = request.getParameter("password");
-            String fullName = request.getParameter("fullName");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String location = request.getParameter("location");
-            String registrationDate = request.getParameter("registrationDate");
-            float balance = Float.parseFloat(request.getParameter("balance"));
-            String overview = request.getParameter("overview");
-            String titileBio = request.getParameter("titileBio");
-            int moneyPerHour = Integer.parseInt(request.getParameter("moneyPerHour"));
-            String education = request.getParameter("education");
-            UserDTO user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance);
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                SeekerDTO user_login = (SeekerDTO) session.getAttribute("USER_LOGIN");
+                UserDAO dao = new UserDAO();
+                int userID = Integer.parseInt(request.getParameter("userID"));
+                int seekerID = Integer.parseInt(request.getParameter("seekerID"));
+                String userName = request.getParameter("userName");
+                String password = request.getParameter("password");
+                String fullName = request.getParameter("fullName");
+                String email = request.getParameter("email");
+                String phone = request.getParameter("phone");
+                String location = request.getParameter("location");
+                String registrationDate = request.getParameter("registrationDate");
+                float balance = Float.parseFloat(request.getParameter("balance"));
+                String overview = request.getParameter("overview");
+                String titileBio = request.getParameter("titileBio");
+                int moneyPerHour = Integer.parseInt(request.getParameter("moneyPerHour"));
+                String education = request.getParameter("education");
+                UserDTO user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance);
 
-            if (userName.trim().length() < 0 || userName.trim().length() > 32) {
-                checkError = true;
-                error.setUserName("must be 0 .. 32 character.");
-            }
-            if (password.trim().length() < 0 || password.trim().length() > 32) {
-                checkError = true;
-                error.setPassword("must be 0 .. 32 character.");
-            }
-            if (fullName.trim().length() < 0 || fullName.trim().length() > 32) {
-                checkError = true;
-                error.setFullName("must be 0 .. 32 character.");
-            }
-            if (email.trim().length() < 10 || email.trim().length() > 128) {
-                checkError = true;
-                error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
-            } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
-                checkError = true;
-                error.setEmail("format must be ...@gmail.com.");
-            }
-            if (phone.trim().length() < 0 || phone.trim().length() > 10) {
-                checkError = true;
-                error.setPhone("must be 0 .. 10 character.");
-            }
-            if (location.trim().length() < 0 || location.trim().length() > 255) {
-                checkError = true;
-                error.setLocation("must be 0 .. 255 character.");
-            }
-            if (titileBio.trim().length() < 0 || titileBio.trim().length() > 255) {
-                checkError = true;
-                error.setLocation("must be 0 .. 255 character.");
-            }
-            if (education.trim().length() < 0 || education.trim().length() > 255) {
-                checkError = true;
-                error.setLocation("must be 0 .. 255 character.");
-            }
-            if (dao.checkEmailExist(email) > 3) {
-                checkError = true;
-                error.setEmailExist("email linked to another account.");
-            }
+                if (userName.trim().length() < 0 || userName.trim().length() > 32) {
+                    checkError = true;
+                    error.setUserName("must be 0 .. 32 character.");
+                }
+                if (password.trim().length() < 0 || password.trim().length() > 32) {
+                    checkError = true;
+                    error.setPassword("must be 0 .. 32 character.");
+                }
+                if (fullName.trim().length() < 0 || fullName.trim().length() > 32) {
+                    checkError = true;
+                    error.setFullName("must be 0 .. 32 character.");
+                }
+                if (email.trim().length() < 10 || email.trim().length() > 128) {
+                    checkError = true;
+                    error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
+                } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
+                    checkError = true;
+                    error.setEmail("format must be ...@gmail.com.");
+                }
+                if (phone.trim().length() < 0 || phone.trim().length() > 10) {
+                    checkError = true;
+                    error.setPhone("must be 0 .. 10 character.");
+                }
+                if (location.trim().length() < 0 || location.trim().length() > 255) {
+                    checkError = true;
+                    error.setLocation("must be 0 .. 255 character.");
+                }
+                if (titileBio.trim().length() < 0 || titileBio.trim().length() > 255) {
+                    checkError = true;
+                    error.setLocation("must be 0 .. 255 character.");
+                }
+                if (education.trim().length() < 0 || education.trim().length() > 255) {
+                    checkError = true;
+                    error.setLocation("must be 0 .. 255 character.");
+                }
+                if (!email.equals(user_login.getEmail())) {
+                    if (dao.checkEmailExist(email) > 3) {
+                        checkError = true;
+                        error.setEmailExist("email linked to another account.");
+                    }
+                }
 
-            if (checkError == false) {
-                boolean checkUpdateUser = dao.UpdateUserProfile(user);
-                if (checkUpdateUser) {
-                    SeekerDTO seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education);
-                    boolean checkUpdateSeeker = dao.UpdateSeekerProfile(seeker);
-                    if (checkUpdateSeeker) {
-                        //cập nhật lại USER_LOGIN
-                        HttpSession session = request.getSession(false);
-                        if (session != null) {
+                if (checkError == false) {
+                    boolean checkUpdateUser = dao.UpdateUserProfile(user);
+                    if (checkUpdateUser) {
+                        SeekerDTO seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education);
+                        boolean checkUpdateSeeker = dao.UpdateSeekerProfile(seeker);
+                        if (checkUpdateSeeker) {
+                            //cập nhật lại USER_LOGIN
+
                             UserDTO userAfterUpdate = dao.getUser(userName, password);
 
                             SeekerDTO seekerAfterUpdate = dao.checkAccSeeker(seekerID);
@@ -117,17 +121,18 @@ public class UpdateSeekerProfileController extends HttpServlet {
                             session.setAttribute("USER_LOGIN", seekerAfterUpdate);
 
                             request.setAttribute("UPDATE_STATUS", "Update successfully.");
-                        }
-                        url = SUCCESS;
 
+                            url = SUCCESS;
+
+                        } else {
+                            request.setAttribute("UPDATE_STATUS", "Update error.");
+                        }
                     } else {
                         request.setAttribute("UPDATE_STATUS", "Update error.");
                     }
                 } else {
-                    request.setAttribute("UPDATE_STATUS", "Update error.");
+                    request.setAttribute("ERROR_UPDATE", error);
                 }
-            } else {
-                request.setAttribute("ERROR_UPDATE", error);
             }
         } catch (Exception e) {
             log("error at UpdateSeekerProfileController: " + e.getMessage());
