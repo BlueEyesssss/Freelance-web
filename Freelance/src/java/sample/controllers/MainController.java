@@ -43,6 +43,8 @@ public class MainController extends HttpServlet {
     private static final String CREATE_FAVORITE_PROJECT_CONTROLLER = "CreateFavoriteProjectController";
     private static final String VIEW_PROPOSAL = "ViewProposal";
     private static final String VIEW_PROPOSAL_CONTROLLER = "ViewProposalController";
+    private static final String UPDATE_PROFILE_SEEKER = "Update Profile";
+    private static final String UPDATE_PROFILE_SEEKER_CONTROLLER = "UpdateSeekerProfileController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -85,6 +87,9 @@ public class MainController extends HttpServlet {
                 
             } else if (VIEW_PROPOSAL.equals(action)) {
                 url = VIEW_PROPOSAL_CONTROLLER;
+
+            } else if (UPDATE_PROFILE_SEEKER.equals(action)) {
+                url = UPDATE_PROFILE_SEEKER_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();

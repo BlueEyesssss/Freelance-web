@@ -30,7 +30,7 @@
                 <font style="color: red">${requestScope.ERROR_CREATE.phone}</font><br>
             location: <input type="text" name="location" value="${param.location}" required=""/>
                 <font style="color: red">${requestScope.ERROR_CREATE.location}</font><br>
-            balance: <input type="number" name="balance" value="${param.balance}" required="" min="0"/><br>
+            balance: <input type="number" name="balance" value="0" required="" min="0" readonly=""/><br>
             
             
             overview: <input type="text" name="overview" value="${param.overview}" required=""/><br>

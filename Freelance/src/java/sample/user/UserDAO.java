@@ -26,7 +26,65 @@ public class UserDAO {
     private static final String CREATE_HIRER = "INSERT INTO Hirer(hirerID, conpanyName) VALUES(?, ?)";
     private static final String CREATE_SEEKER = "INSERT INTO Seeker(seekerID, overview, titileBio, moneyPerHour, education) VALUES (?, ?, ?, ?, ?)";
     private static final String COUNT_EMAIL = "SELECT COUNT(*) as countEmail FROM [User] WHERE email = ?";
+    private static final String UPDATE_USER_PROFILE = "UPDATE [User] SET userName = ?, fullName = ?, email = ?, location = ?,password = ? WHERE userID = ?";
+    private static final String UPDATE_SEEKER_PROFILE = "UPDATE Seeker SET overview = ?, titileBio = ?, moneyPerHour = ?,education = ? WHERE seekerID = ?";
 
+    public boolean UpdateSeekerProfile(SeekerDTO seeker) throws SQLException {
+         boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_SEEKER_PROFILE);
+                ptm.setString(1, seeker.getOverview());
+                ptm.setString(2, seeker.getTitileBio());
+                ptm.setInt(3, seeker.getMoneyPerHour());
+                ptm.setString(4, seeker.getEducation());
+                ptm.setInt(5, seeker.getSeekerID());
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean UpdateUserProfile(UserDTO user) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_USER_PROFILE);
+                ptm.setString(1, user.getUserName());
+                ptm.setString(2, user.getFullName());
+                ptm.setString(3, user.getEmail());
+                ptm.setString(4, user.getLocation());
+                ptm.setString(5, user.getPassword());
+                ptm.setInt(6, user.getUserID());
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
     
     public int checkEmailExist(String email) throws SQLException {
        int check = 0;
@@ -250,6 +308,8 @@ public class UserDAO {
         }
         return user;
     }
+
+    
 
 
 }

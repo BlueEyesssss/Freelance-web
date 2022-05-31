@@ -32,8 +32,8 @@ public class SeekerDTO extends UserDTO{
         this.titileBio = titileBio;
         this.moneyPerHour = moneyPerHour;
         this.education = education;
-    }
-
+    }      
+            
     public int getSeekerID() {
         return seekerID;
     }

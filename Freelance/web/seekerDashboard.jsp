@@ -21,7 +21,7 @@
                 search = "";
             }
         %>
-        <p>Hello ${sessionScope.USER_LOGIN.fullName}</p>
+        <p>Hello ${sessionScope.USER_LOGIN.fullName}/ <a href="seekerProfile.jsp">My profile</a></p>
         <form action="MainController">
             Search Job<input type="text" name="search" value="<%= search%>" placeholder="input job name"/>
             <input type="submit" name="action" value="Search Job By Name"/>
