@@ -20,5 +20,7 @@
         </form>
         <font style="color: red">${requestScope.LOGIN_ERROR}</font><br>
         <a href="createAcc.jsp">Sign up</a>
+        <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/Freelance/LoginGoogleController&response_type=code
+		   &client_id=540837116728-5a0vpu4mt0ll88qmcb76m7l9ulltkbqu.apps.googleusercontent.com&approval_prompt=force">Login with google</a>
     </body>
 </html>

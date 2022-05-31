@@ -24,7 +24,7 @@ public class UserDTO {
         this.userID = 0;
         this.password = "";
         this.userName = "";
-        this.fullName = fullName;
+        this.fullName = "";
         this.email = "";
         this.phone = "";
         this.location = "";
