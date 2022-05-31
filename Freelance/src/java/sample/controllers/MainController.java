@@ -31,16 +31,18 @@ public class MainController extends HttpServlet {
     private static final String VIEW_BEST_MATCH_PROJECT_CONTROLLER = "ViewBestMatchProjectController";
     private static final String CREATE_ACC_HIRER = "Create Hirer";
     private static final String CREATE_ACC_HIRER_CONTROLLER = "CreateHirerController";
-    private static final String CREATE_ACC_SEEKER= "Create Seeker";
+    private static final String CREATE_ACC_SEEKER = "Create Seeker";
     private static final String CREATE_ACC_SEEKER_CONTROLLER = "CreateSeekerController";
-    private static final String FILTER_HIRER= "FilterHirer";
+    private static final String FILTER_HIRER = "FilterHirer";
     private static final String FILTER_HIRER_CONTROLLER = "FilterHirerController";
-    private static final String FILTER_PRICE= "FilterPrice";
+    private static final String FILTER_PRICE = "FilterPrice";
     private static final String FILTER_PRICE_CONTROLLER = "FilterPriceController";
-    private static final String FILTER_LEVEL= "FilterLevel";
+    private static final String FILTER_LEVEL = "FilterLevel";
     private static final String FILTER_LEVEL_CONTROLLER = "FilterLevelController";
-        private static final String CREATE_FAVORITE_PROJECT = "CreateFavoriteProject";
+    private static final String CREATE_FAVORITE_PROJECT = "CreateFavoriteProject";
     private static final String CREATE_FAVORITE_PROJECT_CONTROLLER = "CreateFavoriteProjectController";
+    private static final String VIEW_PROPOSAL = "ViewProposal";
+    private static final String VIEW_PROPOSAL_CONTROLLER = "ViewProposalController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,37 +52,41 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
             if (LOGIN.equals(action)) {
                 url = LOGIN_CONTROLLER;
-                
+
             } else if ("Search Job By Name".equals(action)) {
                 url = SEARCH_JOB_BY_NAME;
-                
+
             } else if (VIEW_ALL_PROJECT.equals(action)) {
                 url = VIEW_ALL_PROJECT_CONTROLLER;
-                
+
             } else if (VIEW_FAVORITE_PROJECT.equals(action)) {
                 url = VIEW_FAVORITE_PROJECT_CONTROLLER;
-                
+
             } else if (VIEW_BEST_MATCH_PROJECT.equals(action)) {
                 url = VIEW_BEST_MATCH_PROJECT_CONTROLLER;
-                
+
             } else if (CREATE_ACC_HIRER.equals(action)) {
                 url = CREATE_ACC_HIRER_CONTROLLER;
-                
+
             } else if (CREATE_ACC_SEEKER.equals(action)) {
                 url = CREATE_ACC_SEEKER_CONTROLLER;
-                
+
             } else if (FILTER_HIRER.equals(action)) {
                 url = FILTER_HIRER_CONTROLLER;
-                
+
             } else if (FILTER_PRICE.equals(action)) {
                 url = FILTER_PRICE_CONTROLLER;
-                
+
             } else if (FILTER_LEVEL.equals(action)) {
                 url = FILTER_LEVEL_CONTROLLER;
-             } else if (CREATE_FAVORITE_PROJECT.equals(action)) {
+                
+            } else if (CREATE_FAVORITE_PROJECT.equals(action)) {
                 url = CREATE_FAVORITE_PROJECT_CONTROLLER;
-                    
-            }  else {
+                
+            } else if (VIEW_PROPOSAL.equals(action)) {
+                url = VIEW_PROPOSAL_CONTROLLER;
+
+            } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");
             }
