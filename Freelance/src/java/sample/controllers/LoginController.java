@@ -24,7 +24,7 @@ import sample.user.UserDTO;
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
     private static final String ERROR = "login.jsp";
-    private static final String SEEKER_PAGE = "seekerDashboard.jsp";
+    private static final String SEEKER_PAGE = "ViewSeekerDashboardController";
     private static final String HIRER_PAGE = "hirerDashboard.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

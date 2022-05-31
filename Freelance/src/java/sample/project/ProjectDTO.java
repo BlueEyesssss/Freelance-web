@@ -5,6 +5,8 @@
  */
 package sample.project;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author LENOVO
@@ -19,6 +21,24 @@ public class ProjectDTO {
     private double paymentAmount;
     private String expectedDurationID;
     private String deadlineDate;
+    private LocalDate createdDate;
+    private String location;
+    private int hoursPerWeek;
+
+    public ProjectDTO(int projectID, String projectName, String description, String complexity, String hirer, double paymentAmount, String expectedDurationID, String deadlineDate, LocalDate createdDate, String location, int hoursPerWeek) {
+        this.projectID = projectID;
+        this.projectName = projectName;
+        this.description = description;
+        this.complexity = complexity;
+        this.hirer = hirer;
+        this.paymentAmount = paymentAmount;
+        this.expectedDurationID = expectedDurationID;
+        this.deadlineDate = deadlineDate;
+        this.createdDate = createdDate;
+        this.location = location;
+        this.hoursPerWeek = hoursPerWeek;
+    }
+    
 
     public ProjectDTO() {
     }
