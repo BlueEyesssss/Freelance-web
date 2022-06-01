@@ -1,94 +1,82 @@
+<%-- 
+    Document   : SeekerPage
+    Created on : May 23, 2022, 3:49:09 PM
+    Author     : Admin
+--%>
 
+<%@page import="sample.user.UserDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="sample.seeker.SeekerDTO"%>
 <%@page import="sample.project.ProjectDTO"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.List"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8" />
-    <title>Seeker Dashboard</title>
-    <meta content="Seeker Dashboard" property="og:title" />
-    <meta content="Seeker Dashboard" property="twitter:title" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Webflow" name="generator" />
-    <link href="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/css/upwork-7e964a.webflow.4888bde78.css"
-        rel="stylesheet" type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-    <script
-        type="text/javascript">WebFont.load({ google: { families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"] } });</script>
-    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif]-->
-    <script
-        type="text/javascript">!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);</script>
-    <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
-</head>
-<%
+    <head>
+        <meta charset="utf-8" />
+        <title>Seeker Dashboard</title>
+        <meta content="Seeker Dashboard" property="og:title" />
+        <meta content="Seeker Dashboard" property="twitter:title" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="Webflow" name="generator" />
+        <link href="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/css/upwork-7e964a.webflow.fc15cbe35.css"
+              rel="stylesheet" type="text/css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+        <script
+        type="text/javascript">WebFont.load({google: {families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"]}});</script>
+        <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif]-->
+        <script
+            type="text/javascript">!function (o, c) {
+                    var n = c.documentElement, t = " w-mod-";
+                    n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+                }(window, document);</script>
+        <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
+    </head>
+
+    <%
         SeekerDTO loginUser = (SeekerDTO) session.getAttribute("USER_LOGIN");
 
 
     %>
-<body class="user-body">
-    <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
-        role="banner" class="navigation seeker w-nav">
-        <div class="navigation-container">
-            <div class="navigation-menu"><a href="#" class="brand w-nav-brand"><img
-                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
-                        loading="lazy" alt="" class="logo-image biglogo" /></a>
-                <div class="nav-search-wrapper">
-                    <div class="nav-icon-search"><img
-                            src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296b474e000b451cf79e812_search-white.svg"
-                            loading="lazy" alt="" /></div>
-                    <div class="nav-search-input"></div>
+
+    <body class="body-2">
+        <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
+             role="banner" class="navigation seeker w-nav">
+            <div class="navigation-container">
+                <div class="navigation-menu"><a href="#" class="brand w-nav-brand"><img
+                            src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
+                            loading="lazy" alt="" class="logo-image" /></a>
+                    <div class="nav-search-wrapper"></div>
                 </div>
-            </div>
-            <div class="icon-wrapper">
-                <div>
-                    <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
-                        <div class="dropdown-toggle-2 w-dropdown-toggle">
-                            <div class="text-block-22">Find Work</div>
+                <div class="icon-wrapper">
+                    <div><a href="#" class="link nav-link">Find Work</a><a href="#" class="link nav-link">My job</a></div><a
+                        href="#" class="w-inline-block"><img
+                            src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
+                            loading="lazy" alt="" class="image-3" /></a><a href="#" class="w-inline-block"><img
+                            src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d69352ef8ea1801f37308_bell.png"
+                            loading="lazy" alt="" /></a>
+                    <div class="navigation-button-wrapper">
+                        <div data-hover="false" data-delay="0" class="w-dropdown">
+                            <div class="dropdown-toggle w-dropdown-toggle"><img
+                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                    loading="lazy" width="90"
+                                    sizes="(max-width: 479px) 100vw, (max-width: 767px) 54.384765625px, (max-width: 991px) 9vw, 90px"
+                                    srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                    alt="" class="image-2" /></div>
+                            <nav class="dropdown-list w-dropdown-list"><a href="#" class="dropdown-link w-dropdown-link">My
+                                    Profile</a><a href="#" class="dropdown-link w-dropdown-link">Log out</a></nav>
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Save Jobs</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
-                    </div>
-                    <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
-                        <div class="dropdown-toggle-3 w-dropdown-toggle">
-                            <div class="text-block-22">My Job</div>
-                        </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">My Job</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">All Constract</a></nav>
-                    </div>
-                </div><a href="#" class="w-inline-block"><img
-                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
-                        loading="lazy" alt="" class="image-3" /></a><a href="#" class="w-inline-block"><img
-                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d69352ef8ea1801f37308_bell.png"
-                        loading="lazy" alt="" /></a>
-                <div class="navigation-button-wrapper">
-                    <div data-hover="false" data-delay="0" class="w-dropdown">
-                        <div class="dropdown-toggle w-dropdown-toggle"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
-                                loading="lazy" width="90"
-                                sizes="(max-width: 479px) 100vw, (max-width: 767px) 26.95833396911621px, 6vw"
-                                srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
-                                alt="" class="avatar-img-nav" /></div>
-                        <nav class="dropdown-list w-dropdown-list"><a href="#" class="dropdown-link w-dropdown-link">My
-                                Profile</a><a href="#" class="dropdown-link w-dropdown-link">Log out</a></nav>
                     </div>
                 </div>
-            </div>
-            <div class="menu-button w-nav-button">
-                <div class="w-icon-nav-menu"></div>
+                <div class="menu-button w-nav-button">
+                    <div class="w-icon-nav-menu"></div>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <div class="seeker-main-sec wf-section">
-        <div class="container-90 w-container">
-            <div class="left-side">
+        <div class="seeker-main-sec wf-section">
+            <div class="container-3 w-container">
+                <div class="left-side">
                     <div class="welcome">
                         <div class="text-block-3">Thursday, May 19th</div>
                         <h1 class="heading-2">Good morning,<br /> <%= loginUser.getFullName() %></h1><img
@@ -219,7 +207,7 @@
                                                     <div class="lb-jobdetail-right">
                                                         <div class="lb-joblist-button-wrapper"><a href="#"
                                                                                                   class="primary-button w-button">Submit a proposal</a><a
-                                                                                                      href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID() %>" class="primary-button sub w-button"> ? Save
+                                                                                                      href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID() %>" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
                                                                       class="lb-flag-wrapper w-inline-block"><img loading="lazy"
                                                                                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948a9d2d0c46f777b5b766_flag.svg"
@@ -375,7 +363,7 @@
                                                     <div class="lb-jobdetail-right">
                                                         <div class="lb-joblist-button-wrapper"><a href="#"
                                                                                                   class="primary-button w-button">Submit a proposal</a><a
-                                                                                                  href="#" class="primary-button sub w-button"> ? Save
+                                                                                                  href="#" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
                                                                       class="lb-flag-wrapper w-inline-block"><img loading="lazy"
                                                                                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948a9d2d0c46f777b5b766_flag.svg"
@@ -526,7 +514,7 @@
                                                     <div class="lb-jobdetail-right">
                                                         <div class="lb-joblist-button-wrapper"><a href="#"
                                                                                                   class="primary-button w-button">Submit a proposal</a><a
-                                                                                                  href="#" class="primary-button sub w-button"> ? Save
+                                                                                                  href="#" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
                                                                       class="lb-flag-wrapper w-inline-block"><img loading="lazy"
                                                                                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948a9d2d0c46f777b5b766_flag.svg"
@@ -573,34 +561,28 @@
                         </div>
                     </div>
                 </div>
-            <div class="right-side">
-                <div class="right-wrapper">
-                    <div class="heading-right-container"><img
-                            src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
-                            loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 767px) 14vw, 100px"
-                            srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
-                            alt="" class="image-5" />
-                        <h2 class="heading-3">Thien Pham</h2>
-                        <div class="text-block-4"><strong>Web desinger, front-end devleoper</strong> |<br />Figma,
-                            HTML/CSS, Webflow</div>
-                    </div>
-                    <div class="ividen"></div>
-                    <div class="div-block-22">
-                        <div class="text-block-19">Number of working jobs</div>
-                        <div id="progress-bar" class="progress-bar"></div>
-                        <div class="text-block-20">10/100</div>
+                <div class="right-side">
+                    <div class="div-block-4">
+                        <div class="div-block-5"><img
+                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                loading="lazy" sizes="(max-width: 479px) 100vw, 100px"
+                                srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                alt="" class="image-5" />
+                            <h2 class="heading-3"><%= loginUser.getFullName() %></h2>
+                            <div class="text-block-4"><%= loginUser.getTitileBio() %><br /> <%= loginUser.getRegistrationDate() %>
+                            </div>
+                            <div class="ividen"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=628aea177e2bdc5cebb3b655"
-        type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=628aea177e2bdc5cebb3b655"
+                type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>
-    <script src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/js/webflow.3ee470baa.js"
+        <script src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/js/webflow.a999dcc1a.js"
         type="text/javascript"></script>
-    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
-</body>
+        <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    </body>
 
 </html>
