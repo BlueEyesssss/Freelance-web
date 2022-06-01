@@ -198,7 +198,7 @@
                                                     <div class="lb-jobdetail-right">
                                                         <div class="lb-joblist-button-wrapper"><a href="#"
                                                                                                   class="primary-button w-button">Submit a proposal</a><a
-                                                                                                  href="#" class="primary-button sub w-button"> ♡ Save
+                                                                                                      href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID() %>" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
                                                                       class="lb-flag-wrapper w-inline-block"><img loading="lazy"
                                                                                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948a9d2d0c46f777b5b766_flag.svg"
