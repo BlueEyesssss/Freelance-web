@@ -45,7 +45,7 @@ public class ViewAllProjectController extends HttpServlet {
             List<ProjectDTO> listAllProject = dao.getListAllProject();
             if (listAllProject.size() > 0) {
                 for (ProjectDTO projectDTO : listAllProject) {
-                    String skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
+                    List<String> skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
                     projectDTO.setSkillneed(skillneed);
                 }
                 request.setAttribute("LIST_PROJECT", listAllProject);

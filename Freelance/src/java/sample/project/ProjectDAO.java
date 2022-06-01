@@ -44,8 +44,8 @@ public class ProjectDAO {
     
     private static final String GET_SKILL_NEED_PROJECT = "SELECT nd.projectID, s.skillName FROM NeededSkills nd, Skill s WHERE nd.skillID = s.skillID AND nd.projectID = ?";
     
-    public String getSkillNeedOfProject(int projectID) throws SQLException {
-       String skillNeed = "";
+    public List<String> getSkillNeedOfProject(int projectID) throws SQLException {
+       List<String> skillNeed = new ArrayList<>();
        Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -58,7 +58,7 @@ public class ProjectDAO {
                 while(rs.next()){
                     String skillName = rs.getString("skillName");
                     //if(rs.next()){
-                        skillNeed += skillName + ", ";
+                        skillNeed.add(skillName);
 //                    }else{
 //                        skillNeed += skillName;
 //                    }

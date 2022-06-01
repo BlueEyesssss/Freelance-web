@@ -49,7 +49,7 @@ public class ViewSeekerDashboardController extends HttpServlet {
             List<ProjectDTO> listFavoriteProject = dao.getListFavoriteProject(seekerID);
             if (listFavoriteProject.size() > 0) {
                 for (ProjectDTO projectDTO : listFavoriteProject) {
-                    String skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
+                    List<String> skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
                     projectDTO.setSkillneed(skillneed);
                 }
                 request.setAttribute("LIST_FAVORITE_PROJECT", listFavoriteProject);
@@ -60,7 +60,7 @@ public class ViewSeekerDashboardController extends HttpServlet {
             List<ProjectDTO> listAllProject = dao.getListAllProject();
             if (listAllProject.size() > 0) {
                 for (ProjectDTO projectDTO : listAllProject) {
-                    String skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
+                    List<String> skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
                     projectDTO.setSkillneed(skillneed);
                 }
                 request.setAttribute("LIST_ALL_PROJECT", listAllProject);
@@ -71,7 +71,7 @@ public class ViewSeekerDashboardController extends HttpServlet {
             List<ProjectDTO> list = dao.getListProjectBestMatch(seekerID);
             if (!list.isEmpty()) {
                 for (ProjectDTO projectDTO : list) {
-                    String skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
+                    List<String> skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
                     projectDTO.setSkillneed(skillneed);
                 }
                 request.setAttribute("LIST_BEST_MATCH_PROJECT", list);

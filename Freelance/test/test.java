@@ -10,10 +10,7 @@
  */
 public class test {
     public static void main(String[] args) {
-        String s = "vuamessi9@gmail.com";
-        String s1 = "12345";
-        System.out.println("length s1: "+ s1.charAt(4));
-        System.out.println("length s1: "+ s1.length());
-        System.out.println("sub s: "+ s.substring(s.length() - 10, s.length()));
+        String array[] = null;
+        //array += "hello";
     }
 }

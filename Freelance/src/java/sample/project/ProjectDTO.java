@@ -6,6 +6,7 @@
 package sample.project;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -25,13 +26,13 @@ public class ProjectDTO {
     private String location;
     private int hoursPerWeek;
     
-    private String skillneed;
+    private List<String> skillneed;
 
-    public String getSkillneed() {
+    public List<String> getSkillneed() {
         return skillneed;
     }
 
-    public void setSkillneed(String skillneed) {
+    public void setSkillneed(List<String> skillneed) {
         this.skillneed = skillneed;
     }
 
