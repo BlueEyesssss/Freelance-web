@@ -77,12 +77,15 @@
 
 
             overview: <input type="text" name="overview" value="${param.overview}" required=""/><br>
-            titileBio: <input type="text" name="titileBio" value="${param.titileBio}" required=""/>
-            <font style="color: red">${requestScope.ERROR_CREATE.titileBio}</font><br>
+            
+<!--            titileBio: <input type="text" name="titileBio" value="$ {param.titileBio}" required=""/>
+            <font style="color: red">$ {requestScope.ERROR_CREATE.titileBio}</font><br>-->
+            
             moneyPerHour: <input type="number" name="moneyPerHour" value="${param.moneyPerHour}" required="" min="0"/><br>
             education: <input type="text" name="education" value="${param.education}" required=""/>
             <font style="color: red">${requestScope.ERROR_CREATE.education}</font><br>
-            <input type="submit" value="Create Seeker" name="action" />
+            <!--<input type="submit" value="Create Seeker" name="action" />-->
+            <input type="submit" value="Next" name="action" />
         </form>
         <%
             }

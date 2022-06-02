@@ -49,6 +49,8 @@ public class MainController extends HttpServlet {
     private static final String CREATE_GOOGLE_SEEKER_CONTROLLER = "CreateGoogleSeekerController";
     private static final String LOGOUT = "Logout";
     private static final String LOGOUT_CONTROLLER = "LogoutController";
+    private static final String NEXT_CHOOSE_SKILL = "Next";
+    private static final String NEXT_CHOOSE_SKILL_CONTROLLER = "NextChooseSkillController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -100,6 +102,9 @@ public class MainController extends HttpServlet {
     
             } else if (LOGOUT.equals(action)) {
                 url = LOGOUT_CONTROLLER;
+    
+            } else if (NEXT_CHOOSE_SKILL.equals(action)) {
+                url = NEXT_CHOOSE_SKILL_CONTROLLER;
     
             } else {
                 HttpSession session = request.getSession();

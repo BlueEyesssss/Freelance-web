@@ -12,7 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.seeker.SeekerDTO;
+import sample.skill.SkillDAO;
 import sample.user.UserDAO;
 import sample.user.UserDTO;
 import sample.user.UserErrorDTO;
@@ -23,104 +25,53 @@ import sample.user.UserErrorDTO;
  */
 @WebServlet(name = "CreateSeekerController", urlPatterns = {"/CreateSeekerController"})
 public class CreateSeekerController extends HttpServlet {
+
     private static final String ERROR = "createAccForSeeker.jsp";
     private static final String SUCCESS = "login.jsp";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        boolean checkError = false;
-        UserErrorDTO error = new UserErrorDTO();
         try {
+            HttpSession session = request.getSession();
             UserDAO dao = new UserDAO();
+            SkillDAO daoSkill = new SkillDAO();
+            UserDTO user = (UserDTO)session.getAttribute("CREATE_USER_SEEKER");
+            SeekerDTO seeker = (SeekerDTO)session.getAttribute("CREATE_USER_SEEKER1");
             
-            String userName = request.getParameter("userName");
-            String password = request.getParameter("password");
-            String conform = request.getParameter("conform");
-            String fullName = request.getParameter("fullName");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String location = request.getParameter("location");
-            float balance = Float.parseFloat(request.getParameter("balance"));
-            String registrationDate = java.time.LocalDate.now() + "";
-            
-            String overview = request.getParameter("overview");
-            String titileBio = request.getParameter("titileBio");
-            int moneyPerHour = Integer.parseInt(request.getParameter("moneyPerHour"));
-            String education = request.getParameter("education");
-            
-            if(userName.trim().length() < 0 || userName.trim().length() > 32){
-                checkError = true;
-                error.setUserName("must be 0 .. 32 character.");
-            }
-            if(password.trim().length() < 0 || password.trim().length() > 32){
-                checkError = true;
-                error.setPassword("must be 0 .. 32 character.");
-            }
-            if(fullName.trim().length() < 0 || fullName.trim().length() > 32){
-                checkError = true;
-                error.setFullName("must be 0 .. 32 character.");
-            }
-            if(email.trim().length() < 10 || email.trim().length() > 128){
-                checkError = true;
-                error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
-            }else if(!email.substring(email.length() - 10, email.length()).equals("@gmail.com")){
-                checkError = true;
-                error.setEmail("format must be ...@gmail.com.");
-            }
-            if(phone.trim().length() < 0 || phone.trim().length() > 10){
-                checkError = true;
-                error.setPhone("must be 0 .. 10 character.");
-            }
-            if(location.trim().length() < 0 || location.trim().length() > 255){
-                checkError = true;
-                error.setLocation("must be 0 .. 255 character.");
-            }
-            if(!conform.equals(password)){
-                checkError = true;
-                error.setConfirm("password and confirm not match.");
-            }
-            if(titileBio.trim().length() < 0 || titileBio.trim().length() > 255){
-                checkError = true;
-                error.setLocation("must be 0 .. 255 character.");
-            }
-            if(education.trim().length() < 0 || education.trim().length() > 255){
-                checkError = true;
-                error.setLocation("must be 0 .. 255 character.");
-            }
-            if(dao.checkEmailExist(email) > 3){
-                checkError = true;
-                error.setEmailExist("email linked to another account.");
-            }
-            
-            
-            if(checkError == false){
-                //tạo user
-                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance);
-
-                boolean checkCreateAcc = dao.createUser(user);
-                if(checkCreateAcc){
-                    //tạo seeker
-                    int seekerID = dao.getUser(userName, password).getUserID();
-                    SeekerDTO seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education);
-
-                    boolean checkCreateHirer = dao.createSeeker(seeker);
-                    if(checkCreateHirer){
-                        url = SUCCESS;
-                    }
+            //lấy skill name hay titleBio
+            String titileBio = "";
+            String[] listSkillID = request.getParameterValues("skillName");
+            int count = 0;
+            for (String skillID : listSkillID) {
+                count++;
+                int nameSkill = Integer.parseInt(skillID);
+                if(count == listSkillID.length){
+                    titileBio += daoSkill.getSkillNameByID(nameSkill);
+                }else{
+                    titileBio += daoSkill.getSkillNameByID(nameSkill) + ", ";
                 }
-            }else{
-               request.setAttribute("ERROR_CREATE", error); 
             }
             
-        } catch (Exception e) {
-            if(e.toString().contains("duplicate")){
-                error.setDuplicate("Username already exists");
-                request.setAttribute("ERROR_CREATE", error);
+            //tạo user
+            boolean checkCreateAcc = dao.createUser(user);
+            if (checkCreateAcc) {
+                //tạo seeker
+                int seekerID = dao.getUser(user.getUserName(), user.getPassword()).getUserID();
+                seeker.setSeekerID(seekerID);
+                seeker.setTitileBio(titileBio);
+
+                boolean checkCreateHirer = dao.createSeeker(seeker);
+                if (checkCreateHirer) {
+                    session.invalidate();
+                    url = SUCCESS;
+                }
             }
-            log("error at CreateHirerController: " + e.getMessage());
-        }finally{
+
+        } catch (Exception e) {
+            log("error at CreateSeekerController: " + e.getMessage());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

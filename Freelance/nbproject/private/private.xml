@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/github2/Freelance-web/Freelance/web/seekerDashboard.jsp</file>
-            <file>file:/D:/github2/Freelance-web/Freelance/src/java/sample/util/DBUtil.java</file>
-            <file>file:/D:/github2/Freelance-web/Freelance/src/java/sample/controllers/CreateFavoriteProjectController.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/NextChooseSkillController.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/MainController.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/web/chooseSkillForSeeker.jsp</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/CreateSeekerController.java</file>
         </group>
     </open-files>
 </project-private>
