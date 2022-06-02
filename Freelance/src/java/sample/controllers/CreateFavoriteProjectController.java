@@ -33,8 +33,8 @@ public class CreateFavoriteProjectController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    private static final String ERROR = "ViewFavoriteProjectController";
-    private static final String SUCCESS = "ViewAllProjectController";
+    private static final String ERROR = "ViewSeekerDashboardController";
+    private static final String SUCCESS = "ViewSeekerDashboardController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

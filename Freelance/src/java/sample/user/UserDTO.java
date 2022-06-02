@@ -19,6 +19,31 @@ public class UserDTO {
     private String location;
     private String registrationDate;
     private float balance;
+    private String avatar;
+
+    public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar) {
+        this.userID = userID;
+        this.password = password;
+        this.userName = userName;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.location = location;
+        this.registrationDate = registrationDate;
+        this.balance = balance;
+        this.avatar = avatar;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+    
+    
+    
 
     public UserDTO() {
         this.userID = 0;

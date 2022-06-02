@@ -19,7 +19,7 @@ import sample.util.DBUtil;
  */
 public class UserDAO {
 
-    private static final String GET_USER = "SELECT  userID, password, userName, fullName, email, phone, location, registrationDate, balance FROM [User] WHERE userName = ? AND password = ?";
+    private static final String GET_USER = "SELECT userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar FROM [User] WHERE userName = ? AND password = ?";
     private static final String CHECK_ACC_SEEKER = "SELECT seekerID, overview, titileBio, moneyPerHour, education FROM Seeker WHERE seekerID = ?";
     private static final String CHECK_ACC_HIRER = "SELECT hirerID, conpanyName FROM Hirer WHERE hirerID = ?";
     private static final String CREATE_USER = "INSERT INTO [User](password, userName, fullName, email, phone, location, registrationDate, balance) VALUES(?,?,?,?,?,?,?,?)";
@@ -358,7 +358,7 @@ public class UserDAO {
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     int userID = rs.getInt("userID");
-                    String pass = rs.getString("password");
+                    password = rs.getString("password");
                     String userName = rs.getString("userName");
                     String fullName = rs.getString("fullName");
                     String email = rs.getString("email");
@@ -366,7 +366,8 @@ public class UserDAO {
                     String location = rs.getString("location");
                     String registrationDate = rs.getString("registrationDate");
                     float balance = rs.getFloat("balance");
-                    user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance);
+                    String avatar = rs.getString("avatar");
+                    user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar);
                 }
             }
         } catch (Exception e) {
