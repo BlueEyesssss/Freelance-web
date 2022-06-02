@@ -12,7 +12,9 @@
         <title>Create Account Page</title>
     </head>
     <body>
-        <a href="createAccForGoogleHirer.jsp">Hirer</a> <br>
-        <a href="createAccForGoogleSeeker.jsp">Seeker</a>
+        <a href="createAccForHirer.jsp">Hirer</a> <br>
+        <a href="createAccForSeeker.jsp">Seeker</a>
+<!--        <a href="createAccForGoogleHirer.jsp">Hirer</a> <br>
+        <a href="createAccForGoogleSeeker.jsp">Seeker</a>-->
     </body>
 </html>

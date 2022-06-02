@@ -42,10 +42,11 @@
                     <form action="MainController" id="email-form" name="email-form" data-name="Email Form" method="get" class="form"><label
                             for="name" class="username">Username or Email</label><input type="text"
                             class="username-type w-input" maxlength="256" name="userName" data-name="Name"
-                            placeholder="Username/Email" id="name" required="" /><label for="email"
+                            placeholder="Username/Email" id="name" required="" />
+                            <label for="email"
                             class="password">Password</label><input  class="password-type w-input"
                             maxlength="256" name="password" data-name="Email" placeholder="Password" id="email"
-                            required="" />
+                            required="" type="password"/>
                     <div class="w-form-done">
                         <div>Thank you! Your submission has been received!</div>
                     </div>

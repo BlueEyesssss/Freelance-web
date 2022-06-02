@@ -75,8 +75,10 @@
                                 sizes="(max-width: 479px) 100vw, (max-width: 767px) 26.95833396911621px, 6vw"
                                 srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                 alt="" class="avatar-img-nav" /></div>
-                        <nav class="dropdown-list w-dropdown-list"><a href="#" class="dropdown-link w-dropdown-link">My
-                                Profile</a><a href="#" class="dropdown-link w-dropdown-link">Log out</a></nav>
+                        <nav class="dropdown-list w-dropdown-list">
+                            <a href="#" class="dropdown-link w-dropdown-link">My Profile</a>
+                            <a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a>
+                        </nav>
                     </div>
                 </div>
             </div>

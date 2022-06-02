@@ -47,6 +47,8 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_PROFILE_SEEKER_CONTROLLER = "UpdateSeekerProfileController";
     private static final String CREATE_GOOGLE_SEEKER = "CreateGoogleSeeker";
     private static final String CREATE_GOOGLE_SEEKER_CONTROLLER = "CreateGoogleSeekerController";
+    private static final String LOGOUT = "Logout";
+    private static final String LOGOUT_CONTROLLER = "LogoutController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -92,8 +94,12 @@ public class MainController extends HttpServlet {
 
             } else if (UPDATE_PROFILE_SEEKER.equals(action)) {
                 url = UPDATE_PROFILE_SEEKER_CONTROLLER;
+                
             } else if (CREATE_GOOGLE_SEEKER.equals(action)) {
                 url = CREATE_GOOGLE_SEEKER_CONTROLLER;
+    
+            } else if (LOGOUT.equals(action)) {
+                url = LOGOUT_CONTROLLER;
     
             } else {
                 HttpSession session = request.getSession();
