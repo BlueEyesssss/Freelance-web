@@ -18,19 +18,18 @@
     <body>
         <h1>Hello Seeker!</h1>
         <%
-            List<SkillDTO> listSkill = (List<SkillDTO>)request.getAttribute("LIST_SKILL");
-            UserDTO user = (UserDTO)request.getAttribute("CREATE_USER_SEEKER");
-            SeekerDTO seeker = (SeekerDTO)request.getAttribute("CREATE_USER_SEEKER1");
+            List<SkillDTO> listSkill = (List<SkillDTO>)session.getAttribute("LIST_SKILL");
         %>
         <form action="MainController">
             <%
                 for (SkillDTO skill : listSkill) {
                         %>
-                        <input type="checkbox" name="skillName" value="<%= skill.getSkillID()%>" /> <%= skill.getSkillName()%> <br>
+                        <input type="checkbox" name="skillID" value="<%= skill.getSkillID()%>" /> <%= skill.getSkillName()%> <br>
             <%
                     }
             %>
             <input type="submit" value="Create Seeker" name="action" />
         </form>
+            ${requestScope.chooseSkillForSeeker}
     </body>
 </html>

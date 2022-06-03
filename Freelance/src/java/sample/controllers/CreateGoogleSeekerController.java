@@ -102,13 +102,13 @@ public class CreateGoogleSeekerController extends HttpServlet {
             
             if(checkError == false){
                 //tạo user
-                UserDTO user = new UserDTO("12345798", userName, fullName, email, phone, location, registrationDate, balance);
+                UserDTO user = new UserDTO("12345798", userName, fullName, email, phone, location, registrationDate, balance, null);
 
                 boolean checkCreateAcc = dao.createUser(user);
                 if(checkCreateAcc){
                     //tạo seeker
                     int seekerID = dao.getUser(userName, "12345798").getUserID();
-                    SeekerDTO seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education);
+                    SeekerDTO seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, null, null);
 
                     boolean checkCreateSeeker = dao.createSeeker(seeker);
                     if(checkCreateSeeker){

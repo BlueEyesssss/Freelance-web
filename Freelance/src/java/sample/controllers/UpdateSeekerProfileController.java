@@ -49,11 +49,16 @@ public class UpdateSeekerProfileController extends HttpServlet {
                 String location = request.getParameter("location");
                 String registrationDate = request.getParameter("registrationDate");
                 float balance = Float.parseFloat(request.getParameter("balance"));
+                String avatar = request.getParameter("avatar");
+
                 String overview = request.getParameter("overview");
                 String titileBio = request.getParameter("titileBio");
                 int moneyPerHour = Integer.parseInt(request.getParameter("moneyPerHour"));
                 String education = request.getParameter("education");
-                UserDTO user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance);
+                String major = request.getParameter("major");
+                String degree = request.getParameter("degree");
+
+                UserDTO user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar);
 
                 if (userName.trim().length() < 0 || userName.trim().length() > 32) {
                     checkError = true;
@@ -96,11 +101,23 @@ public class UpdateSeekerProfileController extends HttpServlet {
                         error.setEmailExist("email linked to another account.");
                     }
                 }
+                if (!avatar.equals(null)) {
+                    if (!avatar.substring(avatar.length() - 4, avatar.length()).equals(".jpg")
+                            || !avatar.substring(avatar.length() - 4, avatar.length()).equals(".png")
+                            || !avatar.substring(0, 8).equals("https://")) {
+                        checkError = true;
+                        error.setAvatar("format must start by https://... or must end by .jpg or .png");
+                    }
+                }
+                if (major.trim().length() < 0 || major.trim().length() > 50) {
+                    checkError = true;
+                    error.setMajor("major must 0..50 character.");
+                }
 
                 if (checkError == false) {
                     boolean checkUpdateUser = dao.UpdateUserProfile(user);
                     if (checkUpdateUser) {
-                        SeekerDTO seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education);
+                        SeekerDTO seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major);
                         boolean checkUpdateSeeker = dao.UpdateSeekerProfile(seeker);
                         if (checkUpdateSeeker) {
                             //cập nhật lại USER_LOGIN

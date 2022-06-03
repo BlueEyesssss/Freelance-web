@@ -87,7 +87,7 @@ public class CreateHirerController extends HttpServlet {
             }
             if(checkError == false){
                 //tạo user
-                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance);
+                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance, null);
 
                 boolean checkCreateAcc = dao.createUser(user);
                 if(checkCreateAcc){

@@ -26,7 +26,7 @@ import sample.user.UserErrorDTO;
 @WebServlet(name = "CreateSeekerController", urlPatterns = {"/CreateSeekerController"})
 public class CreateSeekerController extends HttpServlet {
 
-    private static final String ERROR = "createAccForSeeker.jsp";
+    private static final String ERROR = "chooseSkillForSeeker.jsp";
     private static final String SUCCESS = "login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -37,22 +37,12 @@ public class CreateSeekerController extends HttpServlet {
             HttpSession session = request.getSession();
             UserDAO dao = new UserDAO();
             SkillDAO daoSkill = new SkillDAO();
-            UserDTO user = (UserDTO)session.getAttribute("CREATE_USER_SEEKER");
-            SeekerDTO seeker = (SeekerDTO)session.getAttribute("CREATE_USER_SEEKER1");
+
+            UserDTO user = (UserDTO) session.getAttribute("CREATE_USER_SEEKER");
+            SeekerDTO seeker = (SeekerDTO) session.getAttribute("CREATE_USER_SEEKER1");
             
-            //lấy skill name hay titleBio
-            String titileBio = "";
-            String[] listSkillID = request.getParameterValues("skillName");
-            int count = 0;
-            for (String skillID : listSkillID) {
-                count++;
-                int nameSkill = Integer.parseInt(skillID);
-                if(count == listSkillID.length){
-                    titileBio += daoSkill.getSkillNameByID(nameSkill);
-                }else{
-                    titileBio += daoSkill.getSkillNameByID(nameSkill) + ", ";
-                }
-            }
+            System.out.println(user.toString());
+            System.out.println(seeker.toString());
             
             //tạo user
             boolean checkCreateAcc = dao.createUser(user);
@@ -60,12 +50,26 @@ public class CreateSeekerController extends HttpServlet {
                 //tạo seeker
                 int seekerID = dao.getUser(user.getUserName(), user.getPassword()).getUserID();
                 seeker.setSeekerID(seekerID);
-                seeker.setTitileBio(titileBio);
 
                 boolean checkCreateHirer = dao.createSeeker(seeker);
                 if (checkCreateHirer) {
                     session.invalidate();
-                    url = SUCCESS;
+                        
+                    //lấy skill name
+                    String[] listSkillID = request.getParameterValues("skillID");
+                    boolean checkWrongCreateSkillSeeker = false;
+                    for (String skillID : listSkillID) {
+                        boolean checkCreateSkillSeeker = daoSkill.createSkillSeekerHas(Integer.parseInt(skillID), seekerID);
+                        if(!checkCreateSkillSeeker){
+                            checkWrongCreateSkillSeeker = true;
+                            break;
+                        }
+                    }
+                    if(checkWrongCreateSkillSeeker){
+                        request.setAttribute("CREATE_SKILL_SEEKER_HAS", "OOps, something wrong went create skill for seeker.");
+                    }else{
+                        url = SUCCESS;
+                    }
                 }
             }
 

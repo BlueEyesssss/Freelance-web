@@ -17,22 +17,52 @@ public class SeekerDTO extends UserDTO{
     private String titileBio;
     private int moneyPerHour;
     private String education;
+    private String degree;
+    private String major;
 
+    @Override
+    public String toString() {
+        return "SeekerDTO{" + "seekerID=" + seekerID + ", overview=" + overview + ", titileBio=" + titileBio + ", moneyPerHour=" + moneyPerHour + ", education=" + education + ", degree=" + degree + ", major=" + major + '}';
+    }
+
+    
+    
     public SeekerDTO() {
         this.seekerID = 0;
         this.overview = "";
         this.titileBio = "";
         this.moneyPerHour = 0;
         this.education = "";
+        this.degree = "";
+        this.major = "";
     }
 
-    public SeekerDTO(int seekerID, String overview, String titileBio, int moneyPerHour, String education) {
+    public SeekerDTO(int seekerID, String overview, String titileBio, int moneyPerHour, String education, String degree, String major) {
         this.seekerID = seekerID;
         this.overview = overview;
         this.titileBio = titileBio;
         this.moneyPerHour = moneyPerHour;
         this.education = education;
-    }      
+        this.degree = degree;
+        this.major = major;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+    
             
     public int getSeekerID() {
         return seekerID;

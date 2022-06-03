@@ -20,6 +20,19 @@ public class UserDTO {
     private String registrationDate;
     private float balance;
     private String avatar;
+    
+    
+    public UserDTO(String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar) {
+        this.password = password;
+        this.userName = userName;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.location = location;
+        this.registrationDate = registrationDate;
+        this.balance = balance;
+        this.avatar = avatar;
+    }
 
     public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar) {
         this.userID = userID;
@@ -34,6 +47,8 @@ public class UserDTO {
         this.avatar = avatar;
     }
 
+    
+
     public String getAvatar() {
         return avatar;
     }
@@ -41,9 +56,7 @@ public class UserDTO {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
-    
-    
-    
+
 
     public UserDTO() {
         this.userID = 0;
@@ -55,31 +68,8 @@ public class UserDTO {
         this.location = "";
         this.registrationDate = "";
         this.balance = 0;
+        this.avatar = "https://anhdepfree.com/wp-content/uploads/2019/01/avatar-facebook-mau-den_015640017.jpg";
     }
-
-    public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance) {
-        this.userID = userID;
-        this.password = password;
-        this.userName = userName;
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.location = location;
-        this.registrationDate = registrationDate;
-        this.balance = balance;
-    }
-
-    public UserDTO(String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance) {
-        this.password = password;
-        this.userName = userName;
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.location = location;
-        this.registrationDate = registrationDate;
-        this.balance = balance;
-    }
-    
     
 
     public int getUserID() {
@@ -152,6 +142,11 @@ public class UserDTO {
 
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" + "userID=" + userID + ", password=" + password + ", userName=" + userName + ", fullName=" + fullName + ", email=" + email + ", phone=" + phone + ", location=" + location + ", registrationDate=" + registrationDate + ", balance=" + balance + ", avatar=" + avatar + '}';
     }
     
 }

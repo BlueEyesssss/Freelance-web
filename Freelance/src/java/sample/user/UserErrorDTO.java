@@ -23,6 +23,26 @@ public class UserErrorDTO {
     private String titileBio;
     private String education;
     private String emailExist;
+    private String major;
+    private String avatar;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+    
+    
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
 
     public String getEmailExist() {
         return emailExist;

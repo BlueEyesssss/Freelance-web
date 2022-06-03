@@ -20,11 +20,11 @@ import sample.util.DBUtil;
 public class UserDAO {
 
     private static final String GET_USER = "SELECT userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar FROM [User] WHERE userName = ? AND password = ?";
-    private static final String CHECK_ACC_SEEKER = "SELECT seekerID, overview, titileBio, moneyPerHour, education FROM Seeker WHERE seekerID = ?";
+    private static final String CHECK_ACC_SEEKER = "SELECT seekerID, overview, titileBio, moneyPerHour, education, degree, major FROM Seeker WHERE seekerID = ?";
     private static final String CHECK_ACC_HIRER = "SELECT hirerID, conpanyName FROM Hirer WHERE hirerID = ?";
-    private static final String CREATE_USER = "INSERT INTO [User](password, userName, fullName, email, phone, location, registrationDate, balance) VALUES(?,?,?,?,?,?,?,?)";
+    private static final String CREATE_USER = "INSERT INTO [User](password, userName, fullName, email, phone, location, registrationDate, balance, avatar) VALUES(?,?,?,?,?,?,?,?,?)";
     private static final String CREATE_HIRER = "INSERT INTO Hirer(hirerID, conpanyName) VALUES(?, ?)";
-    private static final String CREATE_SEEKER = "INSERT INTO Seeker(seekerID, overview, titileBio, moneyPerHour, education) VALUES (?, ?, ?, ?, ?)";
+    private static final String CREATE_SEEKER = "INSERT INTO Seeker(seekerID, overview, titileBio, moneyPerHour, education, degree, major) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String COUNT_EMAIL = "SELECT COUNT(*) as countEmail FROM [User] WHERE email = ?";
     private static final String CHECK_EXIST_EMAIL = "USE FreelanceManagement\n" +
 "SELECT email \n" +
@@ -32,7 +32,7 @@ public class UserDAO {
 "WHERE email = ?";
     private static final String UPDATE_USER_PROFILE = "UPDATE [User] SET userName = ?, fullName = ?, email = ?, location = ?,password = ? WHERE userID = ?";
     private static final String UPDATE_SEEKER_PROFILE = "UPDATE Seeker SET overview = ?, titileBio = ?, moneyPerHour = ?,education = ? WHERE seekerID = ?";
-    private static final String GET_USER_BY_EMAIL = "SELECT  userID, password, userName, fullName, email, phone, location, registrationDate, balance FROM [User] WHERE email = ?";
+    private static final String GET_USER_BY_EMAIL = "SELECT  userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar FROM [User] WHERE email = ?";
     private static final String CHECK_DUPLICATE_USERNAME = "SELECT userName FROM [User] WHERE userName = ?";
 
     public boolean checkDuplicateUsername(String userName) throws SQLException {
@@ -88,7 +88,8 @@ public class UserDAO {
                     String location = rs.getString("location");
                     String registrationDate = rs.getString("registrationDate");
                     float balance = rs.getFloat("balance");
-                    user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance);
+                    String avatar = rs.getString("avatar");
+                    user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar);
                 }
             }
         } catch (Exception e) {
@@ -239,6 +240,8 @@ public class UserDAO {
                 ptm.setString(3, seeker.getTitileBio());
                 ptm.setInt(4, seeker.getMoneyPerHour());
                 ptm.setString(5, seeker.getEducation());
+                ptm.setString(6, seeker.getDegree());
+                ptm.setString(7, seeker.getMajor());
                 check = ptm.executeUpdate()>0?true:false;
             }
         } catch (Exception e) {
@@ -295,6 +298,7 @@ public class UserDAO {
                 ptm.setString(6, user.getLocation());
                 ptm.setString(7, user.getRegistrationDate());
                 ptm.setFloat(8, user.getBalance());
+                ptm.setString(9, user.getAvatar());
                 check = ptm.executeUpdate()>0?true:false;
             }
         }  finally {
@@ -358,7 +362,9 @@ public class UserDAO {
                     String titileBio = rs.getString("titileBio");
                     int moneyPerHour = rs.getInt("moneyPerHour");
                     String education = rs.getString("education");
-                    seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education);
+                    String degree = rs.getString("degree");
+                    String major = rs.getString("major");
+                    seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major);
                 }
             }
         } catch (Exception e) {

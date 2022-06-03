@@ -20,22 +20,20 @@ import sample.util.DBUtil;
 public class SkillDAO {
 
     private final String GET_LIST_SKILL = "SELECT skillID, skillName FROM Skill";
-    private final String GET_SKILL_NAME = "SELECT skillName FROM Skill WHERE skillID = ?";
+    private final String CREATE_SKILL_SEEKER_HAS = "INSERT INTO HasSkill(skillID, seekerID) VALUES (?, ?)";
 
-    public String getSkillNameByID(int nameSkill) throws SQLException {
-        String name = null;
+    public boolean createSkillSeekerHas(int skillID, int seekerID) throws SQLException {
+        boolean check = false;
         Connection con = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
             con = DBUtil.getConnection();
             if (con != null) {
-                ptm = con.prepareStatement(GET_SKILL_NAME);
-                ptm.setInt(1, nameSkill);
-                rs = ptm.executeQuery();
-                if (rs.next()) {
-                    name = rs.getString("skillName");
-                }
+                ptm = con.prepareStatement(CREATE_SKILL_SEEKER_HAS);
+                ptm.setInt(1, skillID);
+                ptm.setInt(2, seekerID);
+                check = ptm.executeUpdate()>0?true:false;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +48,7 @@ public class SkillDAO {
                 con.close();
             }
         }
-        return name;
+        return check;
     }
 
     public List<SkillDTO> getListSkill() throws SQLException {
@@ -84,5 +82,5 @@ public class SkillDAO {
         }
         return list;
     }
-    
+
 }

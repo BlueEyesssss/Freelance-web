@@ -53,6 +53,10 @@ public class NextChooseSkillController extends HttpServlet {
             String overview = request.getParameter("overview");
             int moneyPerHour = Integer.parseInt(request.getParameter("moneyPerHour"));
             String education = request.getParameter("education");
+            String titleBio = request.getParameter("titileBio");
+            String major = request.getParameter("major");
+            String degree = request.getParameter("degree");
+            String avatar = request.getParameter("avatar");
 
             if (userName.trim().length() < 0 || userName.trim().length() > 32) {
                 checkError = true;
@@ -97,22 +101,43 @@ public class NextChooseSkillController extends HttpServlet {
                 checkError = true;
                 error.setEmailExist("email linked to another account.");
             }
+            if (major.trim().length() < 0 || major.trim().length() > 50) {
+                checkError = true;
+                error.setMajor("major must 0..50 character.");
+            }
+            if (!avatar.equals("")) {
+                if(avatar.trim().length() < 4){
+                    checkError = true;
+                    error.setAvatar("format must start by https://... or must end by .jpg or .png");
+                } else
+                if (!avatar.substring(avatar.length() - 4, avatar.length()).equals(".jpg")
+                        || !avatar.substring(avatar.length() - 4, avatar.length()).equals(".png")
+                        || !avatar.substring(0, 8).equals("https://")) {
+                    checkError = true;
+                    error.setAvatar("format must start by https://... or must end by .jpg or .png");
+                }
+            }
 
             if (checkError == false) {
+                if (avatar.equals("")) {
+                    avatar = "https://anhdepfree.com/wp-content/uploads/2019/01/avatar-facebook-mau-den_015640017.jpg";
+                }
                 //tạo user
-                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance);
+                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance, avatar);
                 //tạo seeker
-                SeekerDTO seeker = new SeekerDTO(0, overview, "", moneyPerHour, education);
+                SeekerDTO seeker = new SeekerDTO(0, overview, titleBio, moneyPerHour, education, degree, major);
 
+                //---------------------
                 System.out.println("in NextChooseSkillController:");
                 System.out.println(user.toString());
                 System.out.println(seeker.toString());
                 System.out.println("----------------------\n");
+                //---------------------
 
                 List<SkillDTO> listSkill = daoSkill.getListSkill();
                 if (!listSkill.isEmpty()) {
                     HttpSession session = request.getSession();
-                    request.setAttribute("LIST_SKILL", listSkill);
+                    session.setAttribute("LIST_SKILL", listSkill);
                     session.setAttribute("CREATE_USER_SEEKER", user);
                     session.setAttribute("CREATE_USER_SEEKER1", seeker);
                     url = SUCCESS;
