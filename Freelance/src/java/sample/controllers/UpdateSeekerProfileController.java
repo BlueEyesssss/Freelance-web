@@ -102,9 +102,11 @@ public class UpdateSeekerProfileController extends HttpServlet {
                     }
                 }
                 if (!avatar.equals(null)) {
-                    if (!avatar.substring(avatar.length() - 4, avatar.length()).equals(".jpg")
-                            || !avatar.substring(avatar.length() - 4, avatar.length()).equals(".png")
-                            || !avatar.substring(0, 8).equals("https://")) {
+                    if (avatar.substring(avatar.length() - 4, avatar.length()).equals(".jpg")
+                            || avatar.substring(avatar.length() - 4, avatar.length()).equals(".png")
+                            || avatar.substring(0, 8).equals("https://")) {
+                        
+                    } else{
                         checkError = true;
                         error.setAvatar("format must start by https://... or must end by .jpg or .png");
                     }
@@ -115,6 +117,9 @@ public class UpdateSeekerProfileController extends HttpServlet {
                 }
 
                 if (checkError == false) {
+                    if(user.getAvatar().equals("")){
+                        user.setAvatar("https://anhdepfree.com/wp-content/uploads/2019/01/avatar-facebook-mau-den_015640017.jpg");
+                    }
                     boolean checkUpdateUser = dao.UpdateUserProfile(user);
                     if (checkUpdateUser) {
                         SeekerDTO seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major);
@@ -134,6 +139,7 @@ public class UpdateSeekerProfileController extends HttpServlet {
                             seekerAfterUpdate.setLocation(user.getLocation());
                             seekerAfterUpdate.setRegistrationDate(user.getRegistrationDate());
                             seekerAfterUpdate.setBalance(user.getBalance());
+                            seekerAfterUpdate.setAvatar(user.getAvatar());
 
                             session.setAttribute("USER_LOGIN", seekerAfterUpdate);
 

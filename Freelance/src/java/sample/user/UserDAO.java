@@ -31,7 +31,7 @@ public class UserDAO {
 "FROM [User] \n" +
 "WHERE email = ?";
     private static final String UPDATE_USER_PROFILE = "UPDATE [User] SET userName = ?, fullName = ?, email = ?, location = ?,password = ? WHERE userID = ?";
-    private static final String UPDATE_SEEKER_PROFILE = "UPDATE Seeker SET overview = ?, titileBio = ?, moneyPerHour = ?,education = ? WHERE seekerID = ?";
+    private static final String UPDATE_SEEKER_PROFILE = "UPDATE Seeker SET overview = ?, titileBio = ?, moneyPerHour = ?,education = ?, degree = ?, major = ?  WHERE seekerID = ?";
     private static final String GET_USER_BY_EMAIL = "SELECT  userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar FROM [User] WHERE email = ?";
     private static final String CHECK_DUPLICATE_USERNAME = "SELECT userName FROM [User] WHERE userName = ?";
 
@@ -151,7 +151,9 @@ public class UserDAO {
                 ptm.setString(2, seeker.getTitileBio());
                 ptm.setInt(3, seeker.getMoneyPerHour());
                 ptm.setString(4, seeker.getEducation());
-                ptm.setInt(5, seeker.getSeekerID());
+                ptm.setString(5, seeker.getDegree());
+                ptm.setString(6, seeker.getMajor());
+                ptm.setInt(7, seeker.getSeekerID());
                 check = ptm.executeUpdate()>0?true:false;
             }
         } catch (Exception e) {

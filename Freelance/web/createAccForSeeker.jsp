@@ -88,7 +88,8 @@
                         <option value="university degree">university degree</option>
                         <option value="Master's degree">Master's degree</option>
                       </select><br>
-            major: <input type="text" name="major" value="${param.major}" required=""/><br>
+            major: <input type="text" name="major" value="${param.major}" required=""/>
+                <font style="color: red">${requestScope.ERROR_CREATE.major}</font><br>
                 <input type="submit" value="Next" name="action" />
         </form>
         <%

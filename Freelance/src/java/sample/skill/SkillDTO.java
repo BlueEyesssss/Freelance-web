@@ -5,11 +5,13 @@
  */
 package sample.skill;
 
+import java.io.Serializable;
+
 /**
  *
  * @author LENOVO
  */
-public class SkillDTO {
+public class SkillDTO implements Serializable{
     private int skillID;
     private String skillName;
 

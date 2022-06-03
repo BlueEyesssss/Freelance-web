@@ -44,8 +44,27 @@ public class CreateHirerController extends HttpServlet {
             String phone = request.getParameter("phone");
             String location = request.getParameter("location");
             float balance = Float.parseFloat(request.getParameter("balance"));
-            String conpanyName = request.getParameter("conpanyName");
             String registrationDate = java.time.LocalDate.now() + "";
+            String avatar = request.getParameter("avatar");
+            
+            String conpanyName = request.getParameter("conpanyName");
+            
+            if (!avatar.equals("")) {
+                if(avatar.trim().length() < 4){
+                    checkError = true;
+                    error.setAvatar("format must start by https://... or must end by .jpg or .png");
+                } else
+                if (!avatar.equals(null)) {
+                    if (avatar.substring(avatar.length() - 4, avatar.length()).equals(".jpg")
+                            || avatar.substring(avatar.length() - 4, avatar.length()).equals(".png")
+                            || avatar.substring(0, 8).equals("https://")) {
+                        
+                    } else{
+                        checkError = true;
+                        error.setAvatar("format must start by https://... or must end by .jpg or .png");
+                    }
+                }
+            }
             if(userName.trim().length() < 0 || userName.trim().length() > 32){
                 checkError = true;
                 error.setUserName("must be 0 .. 32 character.");
@@ -87,7 +106,7 @@ public class CreateHirerController extends HttpServlet {
             }
             if(checkError == false){
                 //tạo user
-                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance, null);
+                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance, avatar);
 
                 boolean checkCreateAcc = dao.createUser(user);
                 if(checkCreateAcc){

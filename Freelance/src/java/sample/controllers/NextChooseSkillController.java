@@ -110,11 +110,15 @@ public class NextChooseSkillController extends HttpServlet {
                     checkError = true;
                     error.setAvatar("format must start by https://... or must end by .jpg or .png");
                 } else
-                if (!avatar.substring(avatar.length() - 4, avatar.length()).equals(".jpg")
-                        || !avatar.substring(avatar.length() - 4, avatar.length()).equals(".png")
-                        || !avatar.substring(0, 8).equals("https://")) {
-                    checkError = true;
-                    error.setAvatar("format must start by https://... or must end by .jpg or .png");
+                if (!avatar.equals(null)) {
+                    if (avatar.substring(avatar.length() - 4, avatar.length()).equals(".jpg")
+                            || avatar.substring(avatar.length() - 4, avatar.length()).equals(".png")
+                            || avatar.substring(0, 8).equals("https://")) {
+                        
+                    } else{
+                        checkError = true;
+                        error.setAvatar("format must start by https://... or must end by .jpg or .png");
+                    }
                 }
             }
 
