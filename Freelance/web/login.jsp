@@ -51,9 +51,10 @@
                         <div>Thank you! Your submission has been received!</div>
                     </div>
                     <div class="w-form-fail">
-                        <div>Oops! Something went wrong while submitting the form.</div>
+                        <div></div>
                     </div>
                 </div>
+                ${requestScope.LOGIN_ERROR}
                 <div><button type="submit" name="action" value="Login"class="log-in"><a class="button w-button">Log in</a></button> </div>
                 </form>
                 <div class="text-block-11">Or</div>
