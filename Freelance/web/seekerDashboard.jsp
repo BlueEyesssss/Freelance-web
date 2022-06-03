@@ -56,8 +56,8 @@
                             <div class="dropdown-toggle-2 w-dropdown-toggle">
                                 <div class="text-block-22">Find Work</div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="#"
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerDashboard"
+                                                                            class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="#" 
                                                                             class="dropdown-link-nav w-dropdown-link">Save Jobs</a><a href="#"
                                                                             class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
                         </div>
@@ -538,7 +538,7 @@
                                                     <div class="lb-jobdetail-right">
                                                         <div class="lb-joblist-button-wrapper"><a href="#"
                                                                                                   class="primary-button w-button">Submit a proposal</a><a
-                                                                                                  href="#" class="primary-button sub w-button"> ? Save
+                                                                                                  href="#" class="primary-button sub w-button"> <3 Save
                                                                 job</a><a href="#"
                                                                       class="lb-flag-wrapper w-inline-block"><img loading="lazy"
                                                                                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948a9d2d0c46f777b5b766_flag.svg"
