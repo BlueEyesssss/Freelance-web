@@ -57,6 +57,9 @@ public class CreateSeekerController extends HttpServlet {
                         
                     //lấy skill name
                     String[] listSkillID = request.getParameterValues("skillID");
+                    for (String skill : listSkillID) {
+                        System.out.println(skill);
+                    }
                     boolean checkWrongCreateSkillSeeker = false;
                     for (String skillID : listSkillID) {
                         boolean checkCreateSkillSeeker = daoSkill.createSkillSeekerHas(Integer.parseInt(skillID), seekerID);
