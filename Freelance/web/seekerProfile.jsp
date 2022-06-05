@@ -419,24 +419,30 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                             </div>
                                             <div class="lb-form-edit-wrapper">
                                                 <div class="w-form">
-                                                    <form id="email-form" name="email-form" data-name="Email Form"
+                                                    <form id="email-form" name="email-form" data-name="Email Form" action="MainController"
                                                         method="get" class="edit-lightbox-form">
-                                                        <div class="div-vertical"><label for="Language-3"
+                                                        <div class="div-vertical">
+                                                            <label for="Language-3"
                                                                 class="field-label-3">Tittle</label>
                                                             <div class="text-block-27">Enter a single sentence
                                                                 description of your professional skills/experience (e.g.
-                                                                Expert Web Designer with Ajax experience)</div><input
+                                                                Expert Web Designer with Ajax experience)</div>
+                                                            <input
                                                                 type="text" class="text-field-4 w-input" maxlength="256"
-                                                                name="tittle" data-name="tittle"
+                                                                name="titileBio" value="<%= seeker.getTitileBio() %>" data-name="tittle"
                                                                 placeholder="Enter your tittle" id="tittle"
                                                                 required="" />
+                                                            ${requestScope.ERROR_UPDATE_INF_SEEKER}
                                                         </div>
-                                                        <div class="lb-edit-button-wrapper"><a
+                                                        <div class="lb-edit-button-wrapper">
+                                                            <a
                                                                 data-w-id="841e3707-ccc3-2999-1ca6-14a7bb0d8edb"
                                                                 href="#"
-                                                                class="main-button sub-button seeker-lb w-button">Cancel</a><input
-                                                                type="submit" value="Save" data-wait="Please wait..."
-                                                                class="main-button w-button" /></div>
+                                                                class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                            <input
+                                                                type="submit" name="action" value="Save Title" data-wait="Please wait..."
+                                                                class="main-button w-button" />
+                                                        </div>
                                                     </form>
                                                     <div class="w-form-done">
                                                         <div>Thank you! Your submission has been received!</div>
