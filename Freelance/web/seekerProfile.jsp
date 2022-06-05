@@ -302,6 +302,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                 <option value="Native or Bilingual">Native or Bilingual</option>
                                                             </select>
                                                     </div>
+                                                    ${requestScope.ERROR_UPDATE_INF_SEEKER}
                                                 </form>
                                                 <div class="w-form-done">
                                                     <div>Thank you! Your submission has been received!</div>
@@ -318,7 +319,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                     loading="lazy" data-w-id="f441bf14-03b2-ab52-d3de-43b8583cfacb" alt=""
                                     class="icon-edit" />
                             </div>
-                            <div class="text-block-seeker"><strong><%= seeker.getLanguage() %>: </strong>Native or Bilingual<br /></div>
+                            <div class="text-block-seeker"><strong><%= seeker.getLanguage() %>: </strong><%= seeker.getLanguagelv()%><br /></div>
                         </div>
                         <div class="seeker-left-inforwrapper">
                             <div class="div-horizon spacing-between">

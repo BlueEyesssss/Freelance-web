@@ -118,6 +118,9 @@ public class MainController extends HttpServlet {
             } else if (SAVE_HOUR_PER_WEEK.equals(action)) {
                 url = SAVE_HOUR_PER_WEEK_CONTROLLER;
     
+            } else if (SAVE_LANG_LV.equals(action)) {
+                url = SAVE_LANG_LV_CONTROLLER;
+    
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");
