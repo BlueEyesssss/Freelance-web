@@ -1,3 +1,4 @@
+<%@page import="sample.user.UserDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.skill.SkillDTO"%>
@@ -645,26 +646,43 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                         </div>
                                         <div class="lb-form-edit-wrapper">
                                             <div class="w-form">
-                                                <form id="email-form" name="email-form" data-name="Email Form"
+                                                <form id="email-form" name="email-form" data-name="Email Form" action="MainController"
                                                     method="get" class="edit-lightbox-form">
                                                     <div><strong>Skills</strong></div>
                                                     <div class="text-block-29">Keeping your skills up to date helps you
                                                         get the jobs you want.<br /></div>
-                                                    <div class="checkbox-skill-wrapper"><label
-                                                            class="w-checkbox check-box-skill-element">
-                                                            <div
-                                                                class="w-checkbox-input w-checkbox-input--inputType-custom checkbox">
-                                                            </div><input type="checkbox" name="skill" id="skill"
-                                                                data-name="skill"
-                                                                style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                class="checkbox-label w-form-label" for="skill">Skills
-                                                                query from database nha</span>
-                                                        </label></div>
-                                                    <div class="lb-edit-button-wrapper"><a
+                                                    <div class="checkbox-skill-wrapper">
+                                                        
+                                                            <%
+                                                                List<SkillDTO> listSkillSeeker = (List<SkillDTO>) session.getAttribute("LIST_SKILL_OF_SEEKER");
+                                                                List<SkillDTO> listSkillAll = (List<SkillDTO>)session.getAttribute("LIST_SKILL_ALL");
+                                                                for (SkillDTO elem : listSkillAll) {
+                                                                        %>
+                                                                   <label
+                                                                        class="w-checkbox check-box-skill-element">
+                                                                        <div
+                                                                            class="w-checkbox-input w-checkbox-input--inputType-custom checkbox">
+                                                                        </div>
+                                                                        <input type="checkbox" name="skillID" id="skill"
+                                                                               data-name="skill" value="<%= elem.getSkillID() %>"
+                                                                                style="opacity:0;position:absolute;z-index:-1"/>
+                                                                        <span
+                                                                            class="checkbox-label w-form-label" for="skillID"><%= elem.getSkillName()%></span>  
+                                                                    </label>
+                                                            <%
+                                                                    }
+                                                            %>
+                                                        
+                                                    </div>
+                                                            ${requestScope.CREATE_SKILL_SEEKER_HAS}
+                                                    <div class="lb-edit-button-wrapper">
+                                                        <a
                                                             data-w-id="ddcb0870-bf12-8ad0-90b9-3a89f2741aad" href="#"
-                                                            class="main-button sub-button seeker-lb w-button">Cancel</a><input
-                                                            type="submit" value="Save" data-wait="Please wait..."
-                                                            class="main-button w-button" /></div>
+                                                            class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                        <input
+                                                            type="submit" value="Save Skill" data-wait="Please wait..." name="action"
+                                                            class="main-button w-button" />
+                                                    </div>
                                                 </form>
                                                 <div class="w-form-done">
                                                     <div>Thank you! Your submission has been received!</div>
@@ -680,7 +698,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                             </div>
                             <div class="div-horizon">
                                 <%
-                                    List<SkillDTO> listSkillSeeker = (List<SkillDTO>) session.getAttribute("LIST_SKILL_OF_SEEKER");
+                                    
                                     for (SkillDTO skill : listSkillSeeker) {
                                             %>
                                             <div class="seeker-skill"><%= skill.getSkillName() %></div>

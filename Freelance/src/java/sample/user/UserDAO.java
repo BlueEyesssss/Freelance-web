@@ -9,8 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import sample.hirer.HirerDTO;
 import sample.seeker.SeekerDTO;
+import sample.skill.SkillDTO;
 import sample.util.DBUtil;
 
 /**
@@ -37,6 +39,16 @@ public class UserDAO {
     private static final String UPDATE_LANGUAGE_LV = "UPDATE [User] SET languagelv = ? WHERE userID = ?";
     private static final String UPDATE_PASSWORD = "UPDATE [User] SET password = ? WHERE userID = ?";
 
+    public boolean checkSkillMatch(int SkillID, List<SkillDTO> listSkill){
+        boolean check = false;
+        for (SkillDTO ele : listSkill) {
+            if(ele.getSkillID() == SkillID){
+                check = true;
+            }
+        }
+        return check;
+    }
+    
     public boolean UpdatePassword(int seekerID, String newpassword) throws SQLException {
         boolean check = false;
         Connection con = null;

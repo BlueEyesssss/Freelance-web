@@ -22,7 +22,32 @@ public class SkillDAO {
     private final String GET_LIST_SKILL = "SELECT skillID, skillName FROM Skill";
     private final String CREATE_SKILL_SEEKER_HAS = "INSERT INTO HasSkill(skillID, seekerID) VALUES (?, ?)";
     private final String GET_LIST_SKILL_OF_SEEKER = "SELECT hs.seekerID ,hs.skillID, s.skillName FROM HasSkill hs inner join Skill s on hs.skillID = s.skillID WHERE seekerID = ?";
+    private final String CLEAR_SKILL = "DELETE FROM HasSkill WHERE seekerID = ?";
 
+    public boolean clearSkillSeeker(int seekerID)  throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(CLEAR_SKILL);
+                ptm.setInt(1, seekerID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
     public List<SkillDTO> getListSkillIDOfSeeker(int seekerID) throws SQLException {
         List<SkillDTO> list = new ArrayList<>();
         Connection con = null;
@@ -116,6 +141,8 @@ public class SkillDAO {
         }
         return list;
     }
+
+    
 
     
 

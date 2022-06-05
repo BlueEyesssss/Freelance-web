@@ -70,6 +70,10 @@ public class LoginController extends HttpServlet {
                     List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
                     session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
                     
+                    //lấy list skill trong Skill
+                    List<SkillDTO> listSkillAll = daoSkill.getListSkill();
+                    session.setAttribute("LIST_SKILL_ALL", listSkillAll);
+                    
                     url = SEEKER_PAGE;
                 } else{ //tương tự vs Hirer
                             //1.lấy hirer
