@@ -9,24 +9,32 @@
  * @author LENOVO
  */
 public class test {
+    private String name;
+    private String pass;
 
+    public test(String name, String pass) {
+        this.name = name;
+        this.pass = pass;
+    }
+
+    public test() {
+        this.name = "kha";
+        this.pass = "kha pass";
+    }
+
+    public test(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "test{" + "name=" + name + ", pass=" + pass + '}';
+    }
+    
     public static void main(String[] args) {
-        String avatar = "hello.jpg";
-        String email = "vuamessi99999@gmail.com";
-        String link = "https://ba12855.jpg";
-
-//        System.out.println();
-//        System.out.println(email.length());
-//        System.out.println(email.substring(email.length() - 10, email.length()));
-//        System.out.println(link.substring(0, 8));
-        System.out.println(avatar.substring(avatar.length() - 4, avatar.length()));
-        if (avatar.substring(avatar.length() - 4, avatar.length()).equals(".jpg")
-                || avatar.substring(avatar.length() - 4, avatar.length()).equals(".png")
-                || avatar.substring(0, 8).equals("https://")) {
-            
-            System.out.println("correct form");
-        }else{
-            System.out.println("format must start by https://... or must end by .jpg or .png");
-        }
+        test pp = new test();
+        System.out.println(pp);
+        pp = new test("kha");
+        System.out.println(pp);
     }
 }

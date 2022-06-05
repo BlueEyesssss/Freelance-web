@@ -20,8 +20,17 @@ public class UserDTO {
     private String registrationDate;
     private float balance;
     private String avatar;
+    private String language;
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
     
-    
+    //contructor ko có id, language argument
     public UserDTO(String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar) {
         this.password = password;
         this.userName = userName;
@@ -32,8 +41,10 @@ public class UserDTO {
         this.registrationDate = registrationDate;
         this.balance = balance;
         this.avatar = avatar;
+        this.language = "English";
     }
-
+    
+    //contructor ko có language argument
     public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar) {
         this.userID = userID;
         this.password = password;
@@ -45,9 +56,22 @@ public class UserDTO {
         this.registrationDate = registrationDate;
         this.balance = balance;
         this.avatar = avatar;
+        this.language = "English";
     }
 
-    
+    public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar, String language) {
+        this.userID = userID;
+        this.password = password;
+        this.userName = userName;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.location = location;
+        this.registrationDate = registrationDate;
+        this.balance = balance;
+        this.avatar = avatar;
+        this.language = language;
+    }
 
     public String getAvatar() {
         return avatar;
@@ -69,6 +93,7 @@ public class UserDTO {
         this.registrationDate = "";
         this.balance = 0;
         this.avatar = "https://anhdepfree.com/wp-content/uploads/2019/01/avatar-facebook-mau-den_015640017.jpg";
+        this.language = "English";
     }
     
 

@@ -57,6 +57,8 @@ public class LoginController extends HttpServlet {
                     seeker.setRegistrationDate(user.getRegistrationDate());
                     seeker.setBalance(user.getBalance());
                     seeker.setAvatar(user.getAvatar());
+                    seeker.setLanguage(user.getLanguage());
+                    
                     session.setAttribute("USER_LOGIN", seeker);
                     url = SEEKER_PAGE;
                 } else{ //tương tự vs Hirer
@@ -73,7 +75,8 @@ public class LoginController extends HttpServlet {
                         hirer.setLocation(user.getLocation());
                         hirer.setRegistrationDate(user.getRegistrationDate());
                         hirer.setBalance(user.getBalance());
-                                            hirer.setAvatar(user.getAvatar());
+                        hirer.setAvatar(user.getAvatar());
+                        hirer.setLanguage(user.getLanguage());
 
                         session.setAttribute("USER_LOGIN", hirer);
                         url = HIRER_PAGE;

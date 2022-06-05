@@ -57,7 +57,7 @@
             <%
                     }
             %>
-
+            ${requestScope.CREATE_SKILL_SEEKER_HAS}
                 <div class="w-form-done">
                     <div>Thank you! Your submission has been received!</div>
                 </div>
