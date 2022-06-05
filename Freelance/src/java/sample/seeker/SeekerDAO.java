@@ -22,7 +22,33 @@ public class SeekerDAO {
     private static final String UPDATE_MAJOR = "UPDATE Seeker SET major = ? WHERE seekerID = ?";
     private static final String UPDATE_TITLE = "UPDATE Seeker SET titileBio = ? WHERE seekerID = ?";
     private static final String UPDATE_MONEY_PER_HOUR = "UPDATE Seeker SET moneyPerHour = ? WHERE seekerID = ?";
+    private static final String UPDATE_OVERVIEW = "UPDATE Seeker SET overview = ? WHERE seekerID = ?";
 
+    public boolean UpdateOverview(int seekerID, String overview) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if(con != null){
+                ptm = con.prepareStatement(UPDATE_TITLE);
+                ptm.setString(1, overview);
+                ptm.setInt(2, seekerID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
     public boolean UpdateMoneyPerHour(int seekerID, int moneyPerHour)throws SQLException {
         boolean check = false;
         Connection con = null;
@@ -172,6 +198,7 @@ public class SeekerDAO {
         }
         return check;
     }
+
 
     
 

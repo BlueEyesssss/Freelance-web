@@ -541,7 +541,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                         </div>
                                         <div class="lb-form-edit-wrapper">
                                             <div class="w-form">
-                                                <form id="email-form" name="email-form" data-name="Email Form"
+                                                <form id="email-form" name="email-form" data-name="Email Form" action="MainController"
                                                     method="get" class="edit-lightbox-form">
                                                     <div class="div-vertical"><label for="Language-4"
                                                             class="field-label-3">Tittle</label>
@@ -553,16 +553,21 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             <li>Highlight projects, accomplishments and education<br />
                                                             </li>
                                                             <li>Keep it short and make sure it&#x27;s error-free</li>
-                                                        </ul><textarea
-                                                            placeholder="? My name is Thien Pham, I am passionate in creating friendly digital product that can help people save their time and enhance their productivity"
-                                                            maxlength="5000" id="overview" name="overview"
+                                                        </ul>
+                                                        <textarea
+                                                            placeholder="overview" type="text"
+                                                            maxlength="5000" id="overview" name="overview" value="<%= seeker.getOverview() %>"
                                                             data-name="field" class="textarea w-input"></textarea>
+                                                            ${requestScope.ERROR_UPDATE_INF_SEEKER}
                                                     </div>
-                                                    <div class="lb-edit-button-wrapper"><a
+                                                    <div class="lb-edit-button-wrapper">
+                                                        <a
                                                             data-w-id="bd308e16-273c-1240-339c-0654c6fc7b02" href="#"
-                                                            class="main-button sub-button seeker-lb w-button">Cancel</a><input
-                                                            type="submit" value="Save" data-wait="Please wait..."
-                                                            class="main-button w-button" /></div>
+                                                            class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                        <input
+                                                            type="submit" value="Save Overview" data-wait="Please wait..." name="action"
+                                                            class="main-button w-button" />
+                                                    </div>
                                                 </form>
                                                 <div class="w-form-done">
                                                     <div>Thank you! Your submission has been received!</div>
