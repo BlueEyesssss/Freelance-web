@@ -53,6 +53,8 @@ public class MainController extends HttpServlet {
     private static final String NEXT_CHOOSE_SKILL_CONTROLLER = "NextChooseSkillController";
     private static final String VIEW_SEEKER_DASHBOARD = "ViewSeekerDashboard";
     private static final String VIEW_SEEKER_DASHBOARD_CONTROLLER = "ViewSeekerDashboardController";
+    private static final String SAVE_HOUR_PER_WEEK = "Save Hour Per Week";
+    private static final String SAVE_HOUR_PER_WEEK_CONTROLLER = "SaveHourPerWeekController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -107,8 +109,12 @@ public class MainController extends HttpServlet {
     
             } else if (NEXT_CHOOSE_SKILL.equals(action)) {
                 url = NEXT_CHOOSE_SKILL_CONTROLLER;
-             } else if (VIEW_SEEKER_DASHBOARD.equals(action)) {
+             
+            } else if (VIEW_SEEKER_DASHBOARD.equals(action)) {
                 url = VIEW_SEEKER_DASHBOARD_CONTROLLER;
+    
+            } else if (SAVE_HOUR_PER_WEEK.equals(action)) {
+                url = SAVE_HOUR_PER_WEEK_CONTROLLER;
     
             } else {
                 HttpSession session = request.getSession();

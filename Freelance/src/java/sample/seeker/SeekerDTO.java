@@ -19,18 +19,18 @@ public class SeekerDTO extends UserDTO{
     private String education;
     private String degree;
     private String major;
-    private int hourPerWeek;
+    private String hourPerWeek;
 
     @Override
     public String toString() {
         return "SeekerDTO{" + "seekerID=" + seekerID + ", overview=" + overview + ", titileBio=" + titileBio + ", moneyPerHour=" + moneyPerHour + ", education=" + education + ", degree=" + degree + ", major=" + major + '}';
     }
 
-    public int getHourPerWeek() {
+    public String getHourPerWeek() {
         return hourPerWeek;
     }
 
-    public void setHourPerWeek(int hourPerWeek) {
+    public void setHourPerWeek(String hourPerWeek) {
         this.hourPerWeek = hourPerWeek;
     }
 
@@ -44,7 +44,7 @@ public class SeekerDTO extends UserDTO{
         this.education = "";
         this.degree = "";
         this.major = "";
-        this.hourPerWeek = 0;
+        this.hourPerWeek = "None";
     }
     //thiếu hourPerWeek argument
     public SeekerDTO(int seekerID, String overview, String titileBio, int moneyPerHour, String education, String degree, String major) {
@@ -55,10 +55,10 @@ public class SeekerDTO extends UserDTO{
         this.education = education;
         this.degree = degree;
         this.major = major;
-        this.hourPerWeek = 2;
+        this.hourPerWeek = "None";
     }
 
-    public SeekerDTO(int seekerID, String overview, String titileBio, int moneyPerHour, String education, String degree, String major, int hourPerWeek) {
+    public SeekerDTO(int seekerID, String overview, String titileBio, int moneyPerHour, String education, String degree, String major, String hourPerWeek) {
         this.seekerID = seekerID;
         this.overview = overview;
         this.titileBio = titileBio;

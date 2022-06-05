@@ -1,11 +1,8 @@
-<%@page import="java.util.List"%>
-<%@page import="java.util.List"%>
 <%@page import="sample.skill.SkillDTO"%>
-<%@page import="sample.seeker.SeekerDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="sample.seeker.SeekerDTO"%>
 <!DOCTYPE html>
-<html data-wf-page="6296b69f7f3f296ebff1f241"
-data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
+<html>
 
 <head>
     <meta charset="utf-8" />
@@ -24,11 +21,6 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
         type="text/javascript">!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);</script>
     <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
-    <style>
-        .w-webflow-badge{
-            display: none !important;
-        }
-    </style>
 </head>
 
 <body class="user-body">
@@ -195,62 +187,39 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                         <div class="lb-form-edit-wrapper">
                                             <div class="w-form">
                                                 <form id="email-form" name="email-form" data-name="Email Form"
-                                                    method="get" class="edit-lightbox-form" action="MainController">
+                                                    method="get" class="edit-lightbox-form">
                                                     <div class="text-block-25">Knowing how much you can work helps
-                                                        Collab find the right jobs for you.</div>
-                                                    <label
-                                                        class="field-label-2">I can currently work<br /></label>
-                                                        
-                                                        <label class="radio-button-field-3 w-radio">
-                                                            <input type="radio" name="hourPerWeek" id="More-than-30-hrs-week"
+                                                        Collab find the right jobs for you.</div><label
+                                                        class="field-label-2">I can currently work<br /></label><label
+                                                        class="radio-button-field-3 w-radio"><input type="radio"
+                                                            name="workingHour" id="More-than-30-hrs-week"
                                                             value="More than 30 hrs/week" data-name="workingHour"
                                                             required=""
-                                                            class="w-form-formradioinput w-radio-input" />
-                                                            <span
+                                                            class="w-form-formradioinput w-radio-input" /><span
                                                             class="w-form-label" for="More-than-30-hrs-week">More than
-                                                            30 hrs/week<br /></span>
-                                                        </label>
-                                                    
-                                                    <label
+                                                            30 hrs/week<br /></span></label><label
                                                         class="radio-button-field-3 w-radio"><input type="radio"
-                                                            name="hourPerWeek" id="Less-than-30-hrs-week"
+                                                            name="workingHour" id="Less-than-30-hrs-week"
                                                             value="Less than 30 hrs/week" data-name="workingHour"
-                                                            class="w-form-formradioinput w-radio-input" />
-                                                        <span
+                                                            class="w-form-formradioinput w-radio-input" /><span
                                                             class="w-form-label" for="Less-than-30-hrs-week">Less than
-                                                            30 hrs/week<br /></span>
-                                                    </label>
-                                                    
-                                                    <label
-                                                        class="radio-button-field-3 w-radio">
-                                                        <input type="radio"
-                                                            name="hourPerWeek" id="As-needed---open-to-offers"
+                                                            30 hrs/week<br /></span></label><label
+                                                        class="radio-button-field-3 w-radio"><input type="radio"
+                                                            name="workingHour" id="As-needed---open-to-offers"
                                                             value="As needed - open to offers" data-name="workingHour"
-                                                            class="w-form-formradioinput w-radio-input" />
-                                                        <span
+                                                            class="w-form-formradioinput w-radio-input" /><span
                                                             class="w-form-label" for="As-needed---open-to-offers">As
-                                                            needed - open to offers<br /></span>
-                                                    </label>
-                                                    
-                                                    <label
-                                                        class="radio-button-field-3 w-radio">
-                                                        <input type="radio"
-                                                            name="hourPerWeek" id="None" value="None"
+                                                            needed - open to offers<br /></span></label><label
+                                                        class="radio-button-field-3 w-radio"><input type="radio"
+                                                            name="workingHour" id="None" value="None"
                                                             data-name="workingHour"
-                                                            class="w-form-formradioinput w-radio-input" />
-                                                        <span
-                                                            class="w-form-label" for="None">None</span>
-                                                    </label>
-                                                    <div class="lb-edit-button-wrapper">
-                                                        <a
+                                                            class="w-form-formradioinput w-radio-input" /><span
+                                                            class="w-form-label" for="None">None</span></label>
+                                                    <div class="lb-edit-button-wrapper"><a
                                                             data-w-id="6c6e52ad-360e-7c57-e874-39f1af237e44" href="#"
-                                                            class="main-button sub-button seeker-lb w-button">Cancel</a>
-                                                            
-                                                            <input
-                                                            type="submit" value="Save Hour Per Week" data-wait="Please wait..."
-                                                            class="main-button w-button" name="action"/>
-                                                    </div>
-                                                    ${requestScope.ERROR_UPDATE_INF_SEEKER}
+                                                            class="main-button sub-button seeker-lb w-button">Cancel</a><input
+                                                            type="submit" value="Save" data-wait="Please wait..."
+                                                            class="main-button w-button" /></div>
                                                 </form>
                                                 <div class="w-form-done">
                                                     <div>Thank you! Your submission has been received!</div>
@@ -264,7 +233,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                     <div data-w-id="971ed25c-7e83-0169-54b2-9e91d3a56eac" class="close-lb-div"></div>
                                 </div>
                             </div>
-                            <div class="text-block-seeker"><%= seeker.getHourPerWeek() %><br /></div>
+                            <div class="text-block-seeker">More than <%= seeker.getHourPerWeek() %> hrs/week<br /></div>
                         </div>
                         <div class="seeker-left-inforwrapper">
                             <div class="div-horizon spacing-between">
@@ -487,7 +456,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                 </div>
                             </div>
                             <div class="div-horizon">
-                                <div class="my-bio"><%= seeker.getOverview() %>
+                                <div class="my-bio">? <%= seeker.getOverview() %>
                                 </div><img
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
                                     loading="lazy" data-w-id="26dc12a6-71cb-d054-39eb-b11436d77b91" alt=""
@@ -663,9 +632,9 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                             loading="lazy" width="34" alt="" class="image-16" />
                     </div>
                     <div class="div-horizon"><img
-                            src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                            src="<%= seeker.getAvatar() %>"
                             loading="lazy" sizes="50px"
-                            srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                            srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, <%= seeker.getAvatar() %> 960w"
                             alt="" class="image-15" />
                         <div class="div-vertical">
                             <h4 class="heading-19">Ecommerce Director - Lazada</h4>

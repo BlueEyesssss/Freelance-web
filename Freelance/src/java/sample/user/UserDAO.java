@@ -366,7 +366,7 @@ public class UserDAO {
                     String education = rs.getString("education");
                     String degree = rs.getString("degree");
                     String major = rs.getString("major");
-                    int hourPerWeek = rs.getInt("hourPerWeek");
+                    String hourPerWeek = rs.getString("hourPerWeek");
                     seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek);
                 }
             }
