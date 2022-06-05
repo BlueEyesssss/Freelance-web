@@ -35,8 +35,34 @@ public class UserDAO {
     private static final String GET_USER_BY_EMAIL = "SELECT  userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar FROM [User] WHERE email = ?";
     private static final String CHECK_DUPLICATE_USERNAME = "SELECT userName FROM [User] WHERE userName = ?";
     private static final String UPDATE_LANGUAGE_LV = "UPDATE [User] SET languagelv = ? WHERE userID = ?";
+    private static final String UPDATE_PASSWORD = "UPDATE [User] SET password = ? WHERE userID = ?";
 
-     public boolean UpdateLanguageLv(int seekerID, String languagelv) throws SQLException {
+    public boolean UpdatePassword(int seekerID, String newpassword) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if(con != null){
+                ptm = con.prepareStatement(UPDATE_PASSWORD);
+                ptm.setString(1, newpassword);
+                ptm.setInt(2, seekerID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean UpdateLanguageLv(int seekerID, String languagelv) throws SQLException {
         boolean check = false;
         Connection con = null;
         PreparedStatement ptm = null;
@@ -455,6 +481,8 @@ public class UserDAO {
         }
         return user;
     }
+
+    
 
    
 

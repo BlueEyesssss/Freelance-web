@@ -134,35 +134,45 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                 </div>
                                 <div class="lb-form-edit-wrapper">
                                     <div class="w-form">
-                                        <form id="email-form" name="email-form" data-name="Email Form" method="get"
+                                        <form id="email-form" name="email-form" data-name="Email Form" method="get" action="MainController"
                                             class="edit-lightbox-form">
                                             <div class="div-vertical">
                                                 <div class="div-vertical _w-80">
-                                                    <div class="text-block-33">Current password</div><input
+                                                    <div class="text-block-33">Current password</div>
+                                                    <input value=""
                                                         type="password" class="text-field-4 password w-input"
                                                         maxlength="256" name="currentPassword"
                                                         data-name="currentPassword" placeholder="" id="currentPassword"
                                                         required="" />
+                                                    <font style="color: red">${requestScope.ERROR_CREATE.passwordNotCorrect}</font>
                                                 </div>
                                                 <div class="div-vertical _w-80">
-                                                    <div class="text-block-33">New password</div><input type="password"
+                                                    <div class="text-block-33">New password</div>
+                                                    <input type="password"
                                                         class="text-field-4 password w-input" maxlength="256"
                                                         name="newpassword" data-name="newpassword" placeholder=""
                                                         id="newpassword" required="" />
+                                                    <font style="color: red">${requestScope.ERROR_CREATE.password}</font>
                                                 </div>
                                                 <div class="div-vertical _w-80">
-                                                    <div class="text-block-33">Confirm password</div><input
+                                                    <div class="text-block-33">Confirm password</div>
+                                                    <input
                                                         type="password" class="text-field-4 password w-input"
                                                         maxlength="256" name="confirmpassword"
                                                         data-name="confirmpassword" placeholder="" id="confirmpassword"
                                                         required="" />
+                                                    <font style="color: red">${requestScope.ERROR_CREATE.confirm}</font>
                                                 </div>
                                             </div>
-                                            <div class="lb-edit-button-wrapper"><a
+                                            <div class="lb-edit-button-wrapper">
+                                                <a
                                                     data-w-id="04fb8490-9608-6320-7985-aa7a3aac9cd1" href="#"
-                                                    class="main-button sub-button seeker-lb w-button">Cancel</a><input
-                                                    type="submit" value="Save" data-wait="Please wait..."
-                                                    class="main-button w-button" /></div>
+                                                    class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                <input
+                                                    type="submit" value="Save Password" name="action" data-wait="Please wait..."
+                                                    class="main-button w-button" />
+                                            </div>
+                                                    ${requestScope.ERROR_UPDATE_INF_SEEKER}
                                         </form>
                                         <div class="w-form-done">
                                             <div>Thank you! Your submission has been received!</div>

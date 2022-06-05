@@ -13,6 +13,7 @@ public class UserErrorDTO {
 
     private String userName;
     private String password;
+    private String passwordNotCorrect;
     private String fullName;
     private String email;
     private String phone;
@@ -32,6 +33,14 @@ public class UserErrorDTO {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getPasswordNotCorrect() {
+        return passwordNotCorrect;
+    }
+
+    public void setPasswordNotCorrect(String passwordNotCorrect) {
+        this.passwordNotCorrect = passwordNotCorrect;
     }
     
     
