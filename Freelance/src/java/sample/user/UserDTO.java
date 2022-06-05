@@ -21,6 +21,15 @@ public class UserDTO {
     private float balance;
     private String avatar;
     private String language;
+    private String languagelv;
+
+    public String getLanguagelv() {
+        return languagelv;
+    }
+
+    public void setLanguagelv(String languagelv) {
+        this.languagelv = languagelv;
+    }
 
     public String getLanguage() {
         return language;
@@ -30,7 +39,7 @@ public class UserDTO {
         this.language = language;
     }
     
-    //contructor ko có id, language argument
+    //contructor ko có id, language, languagelv argument
     public UserDTO(String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar) {
         this.password = password;
         this.userName = userName;
@@ -42,9 +51,10 @@ public class UserDTO {
         this.balance = balance;
         this.avatar = avatar;
         this.language = "English";
+        this.languagelv = "Basic";
     }
     
-    //contructor ko có language argument
+    //contructor ko có language, languagelv argument
     public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar) {
         this.userID = userID;
         this.password = password;
@@ -57,9 +67,10 @@ public class UserDTO {
         this.balance = balance;
         this.avatar = avatar;
         this.language = "English";
+        this.languagelv = "Basic";
     }
 
-    public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar, String language) {
+    public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar, String language, String languagelv) {
         this.userID = userID;
         this.password = password;
         this.userName = userName;
@@ -71,7 +82,10 @@ public class UserDTO {
         this.balance = balance;
         this.avatar = avatar;
         this.language = language;
+        this.languagelv = languagelv;
     }
+
+    
 
     public String getAvatar() {
         return avatar;

@@ -279,23 +279,29 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                         </div>
                                         <div class="lb-form-edit-wrapper">
                                             <div class="w-form">
-                                                <form id="email-form" name="email-form" data-name="Email Form"
-                                                    method="get" class="edit-lightbox-form">
-                                                    <div class="lb-edit-button-wrapper"><a
+                                                <form id="email-form" name="email-form" data-name="Email Form" 
+                                                    method="get" class="edit-lightbox-form" action="MainController">
+                                                    <div class="lb-edit-button-wrapper">
+                                                        <a
                                                             data-w-id="2429e3ac-9328-3e75-e03b-9c0ad29687d6" href="#"
-                                                            class="main-button sub-button seeker-lb w-button">Cancel</a><input
-                                                            type="submit" value="Save" data-wait="Please wait..."
-                                                            class="main-button w-button" /></div>
-                                                    <div class="div-horizon space-between"><label for="language-3"
-                                                            class="field-label-3">English</label><select id="language-3"
-                                                            name="language" data-name="language" required=""
-                                                            class="select-field w-select">
-                                                            <option value="Basic">Basic</option>
-                                                            <option value="Third">Conversational</option>
-                                                            <option value="Fluent">Fluent</option>
-                                                            <option value="Native or Bilingual">Native or Bilingual
-                                                            </option>
-                                                        </select></div>
+                                                            class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                            
+                                                        <input
+                                                            type="submit" value="Save Language Level" name="action" data-wait="Please wait..." 
+                                                            class="main-button w-button" />
+                                                    </div>
+                                                    <div class="div-horizon space-between">
+                                                        <label for="language-3"
+                                                            class="field-label-3">English</label>
+                                                            <select id="language-3"
+                                                                name="languagelv" data-name="language" required=""
+                                                                class="select-field w-select">
+                                                                <option value="Basic">Basic</option>
+                                                                <option value="Conversational">Conversational</option>
+                                                                <option value="Fluent">Fluent</option>
+                                                                <option value="Native or Bilingual">Native or Bilingual</option>
+                                                            </select>
+                                                    </div>
                                                 </form>
                                                 <div class="w-form-done">
                                                     <div>Thank you! Your submission has been received!</div>

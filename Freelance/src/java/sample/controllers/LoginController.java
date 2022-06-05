@@ -62,6 +62,7 @@ public class LoginController extends HttpServlet {
                     seeker.setBalance(user.getBalance());
                     seeker.setAvatar(user.getAvatar());
                     seeker.setLanguage(user.getLanguage());
+                    seeker.setLanguagelv(user.getLanguagelv());
                     
                     session.setAttribute("USER_LOGIN", seeker);
                     
@@ -86,6 +87,7 @@ public class LoginController extends HttpServlet {
                         hirer.setBalance(user.getBalance());
                         hirer.setAvatar(user.getAvatar());
                         hirer.setLanguage(user.getLanguage());
+                        hirer.setLanguagelv(user.getLanguagelv());
 
                         session.setAttribute("USER_LOGIN", hirer);
                         url = HIRER_PAGE;

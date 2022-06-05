@@ -55,6 +55,8 @@ public class MainController extends HttpServlet {
     private static final String VIEW_SEEKER_DASHBOARD_CONTROLLER = "ViewSeekerDashboardController";
     private static final String SAVE_HOUR_PER_WEEK = "Save Hour Per Week";
     private static final String SAVE_HOUR_PER_WEEK_CONTROLLER = "SaveHourPerWeekController";
+    private static final String SAVE_LANG_LV = "Save Language Level";
+    private static final String SAVE_LANG_LV_CONTROLLER = "SaveLanguageLevelController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
