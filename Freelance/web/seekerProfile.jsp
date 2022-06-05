@@ -337,31 +337,40 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                         </div>
                                         <div class="lb-form-edit-wrapper">
                                             <div class="w-form">
-                                                <form id="email-form" name="email-form" data-name="Email Form"
+                                                <form id="email-form" name="email-form" data-name="Email Form" action="MainController"
                                                     method="get" class="edit-lightbox-form">
-                                                    <div class="lb-edit-button-wrapper"><a
+                                                    <div class="lb-edit-button-wrapper">
+                                                        <a
                                                             data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208d3" href="#"
-                                                            class="main-button sub-button seeker-lb w-button">Cancel</a><input
-                                                            type="submit" value="Save" data-wait="Please wait..."
-                                                            class="main-button w-button" /></div>
-                                                    <div><label for="university"><strong>School</strong></label><input
+                                                            class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                        <input name="action"
+                                                            type="submit" value="Save Academic level" data-wait="Please wait..."
+                                                            class="main-button w-button" />
+                                                    </div>
+                                                    <div>
+                                                        <label for="education"><strong>School</strong></label>
+                                                        <input
                                                             type="text" class="text-field-3 w-input" maxlength="256"
-                                                            name="university" data-name="university"
+                                                            name="education" value="<%= seeker.getEducation() %>" data-name="university"
                                                             placeholder="University of People" id="university"
-                                                            required="" /><label for="degree"><strong>Degree
-                                                            </strong></label><select id="degree" name="degree"
+                                                            required="" />
+                                                        
+                                                        <label for="degree"><strong>Degree</strong></label>
+                                                        <select id="degree" name="degree"
                                                             data-name="degree" class="select-field-4 w-select">
-                                                            <option value="">Select one...</option>
-                                                            <option value="College">College</option>
-                                                            <option value="Bachelor">Bachelor</option>
-                                                            <option value="Master">Master</option>
-                                                            <option value="Ph.D">Ph.D</option>
-                                                            <option value="Others">Others</option>
-                                                        </select><label for="major"><strong>Area of Study
-                                                                (Optional)</strong></label><input type="text"
-                                                            class="w-input" maxlength="256" name="major"
+                                                            <option value="None">None</option>
+                                                            <option value="College degree">College degree</option>
+                                                            <option value="University degree">University degree</option>
+                                                            <option value="Master's degree">Master's degree</option>
+                                                        </select>
+                                                        
+                                                        <label for="major"><strong>Area of Study(Optional)</strong></label>
+                                                        <input type="text"
+                                                               class="w-input" maxlength="256" name="major" value="<%= seeker.getMajor() %>"
                                                             data-name="major" placeholder="Software Engineer" id="major"
-                                                            required="" /></div>
+                                                            required="" />
+                                                    </div>
+                                                               ${requestScope.ERROR_UPDATE_INF_SEEKER}
                                                 </form>
                                                 <div class="w-form-done">
                                                     <div>Thank you! Your submission has been received!</div>

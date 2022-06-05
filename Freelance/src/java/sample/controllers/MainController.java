@@ -57,6 +57,8 @@ public class MainController extends HttpServlet {
     private static final String SAVE_HOUR_PER_WEEK_CONTROLLER = "SaveHourPerWeekController";
     private static final String SAVE_LANG_LV = "Save Language Level";
     private static final String SAVE_LANG_LV_CONTROLLER = "SaveLanguageLevelController";
+    private static final String SAVE_ACADEMIC_LV = "Save Academic level";
+    private static final String SAVE_ACADEMIC_LV_CONTROLLER = "SaveAcademicLevelController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -120,6 +122,9 @@ public class MainController extends HttpServlet {
     
             } else if (SAVE_LANG_LV.equals(action)) {
                 url = SAVE_LANG_LV_CONTROLLER;
+    
+            } else if (SAVE_ACADEMIC_LV.equals(action)) {
+                url = SAVE_ACADEMIC_LV_CONTROLLER;
     
             } else {
                 HttpSession session = request.getSession();
