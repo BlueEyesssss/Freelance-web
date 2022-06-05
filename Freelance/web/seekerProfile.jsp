@@ -231,7 +231,7 @@
                                     <div data-w-id="971ed25c-7e83-0169-54b2-9e91d3a56eac" class="close-lb-div"></div>
                                 </div>
                             </div>
-                            <div class="text-block-seeker">More than 30 hrs/week<br /></div>
+                            <div class="text-block-seeker">More than <%= seeker.getHourPerWeek() %> hrs/week<br /></div>
                         </div>
                         <div class="seeker-left-inforwrapper">
                             <div class="div-horizon spacing-between">

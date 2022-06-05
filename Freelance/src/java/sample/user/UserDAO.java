@@ -20,7 +20,7 @@ import sample.util.DBUtil;
 public class UserDAO {
 
     private static final String GET_USER = "SELECT userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar, language FROM [User] WHERE userName = ? AND password = ?";
-    private static final String CHECK_ACC_SEEKER = "SELECT seekerID, overview, titileBio, moneyPerHour, education, degree, major FROM Seeker WHERE seekerID = ?";
+    private static final String CHECK_ACC_SEEKER = "SELECT seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek FROM Seeker WHERE seekerID = ?";
     private static final String CHECK_ACC_HIRER = "SELECT hirerID, conpanyName FROM Hirer WHERE hirerID = ?";
     private static final String CREATE_USER = "INSERT INTO [User](password, userName, fullName, email, phone, location, registrationDate, balance, avatar) VALUES(?,?,?,?,?,?,?,?,?)";
     private static final String CREATE_HIRER = "INSERT INTO Hirer(hirerID, conpanyName) VALUES(?, ?)";
@@ -366,7 +366,8 @@ public class UserDAO {
                     String education = rs.getString("education");
                     String degree = rs.getString("degree");
                     String major = rs.getString("major");
-                    seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major);
+                    int hourPerWeek = rs.getInt("hourPerWeek");
+                    seeker = new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek);
                 }
             }
         } catch (Exception e) {
