@@ -21,7 +21,41 @@ public class SkillDAO {
 
     private final String GET_LIST_SKILL = "SELECT skillID, skillName FROM Skill";
     private final String CREATE_SKILL_SEEKER_HAS = "INSERT INTO HasSkill(skillID, seekerID) VALUES (?, ?)";
+    private final String GET_LIST_SKILL_OF_SEEKER = "SELECT hs.seekerID ,hs.skillID, s.skillName FROM HasSkill hs inner join Skill s on hs.skillID = s.skillID WHERE seekerID = ?";
 
+    public List<SkillDTO> getListSkillIDOfSeeker(int seekerID) throws SQLException {
+        List<SkillDTO> list = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(GET_LIST_SKILL_OF_SEEKER);
+                ptm.setInt(1, seekerID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int skillID = rs.getInt("skillID");
+                    String skillName = rs.getString("skillName");
+                    list.add(new SkillDTO(skillID, skillName));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return list;
+    }
+    
     public boolean createSkillSeekerHas(int skillID, int seekerID) throws SQLException {
         boolean check = false;
         Connection con = null;
@@ -82,5 +116,7 @@ public class SkillDAO {
         }
         return list;
     }
+
+    
 
 }

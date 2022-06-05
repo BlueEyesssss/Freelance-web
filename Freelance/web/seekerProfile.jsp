@@ -1,3 +1,5 @@
+<%@page import="sample.skill.SkillDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="sample.seeker.SeekerDTO"%>
 <!DOCTYPE html>
 <html>
@@ -84,7 +86,7 @@
                                 srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, <%= seeker.getAvatar() %> 960w"
                                 alt="" class="avatar-img-nav" /></div>
                         <nav class="dropdown-list w-dropdown-list"><a href="#" class="dropdown-link w-dropdown-link">My
-                                Profile</a><a href="#" class="dropdown-link w-dropdown-link">Log out</a></nav>
+                                Profile</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
                     </div>
                 </div>
             </div>
@@ -602,10 +604,14 @@
                                 </div>
                             </div>
                             <div class="div-horizon">
-                                <div class="seeker-skill">Front-end Developer</div>
-                                <div class="seeker-skill">Front-end Developer</div>
-                                <div class="seeker-skill">Front-end Developer</div>
-                                <div class="seeker-skill">Front-end Developer</div>
+                                <%
+                                    List<SkillDTO> listSkillSeeker = (List<SkillDTO>) session.getAttribute("LIST_SKILL_OF_SEEKER");
+                                    for (SkillDTO skill : listSkillSeeker) {
+                                            %>
+                                            <div class="seeker-skill"><%= skill.getSkillName() %></div>
+                                <%
+                                        }
+                                %>
                             </div>
                         </div>
                     </div>

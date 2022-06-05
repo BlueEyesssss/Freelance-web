@@ -6,6 +6,7 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.hirer.HirerDTO;
 import sample.seeker.SeekerDTO;
+import sample.skill.SkillDAO;
+import sample.skill.SkillDTO;
 import sample.user.UserDAO;
 import sample.user.UserDTO;
 
@@ -35,6 +38,7 @@ public class LoginController extends HttpServlet {
             String username = request.getParameter("userName");
             String password = request.getParameter("password");
             UserDAO dao = new UserDAO();
+            SkillDAO daoSkill = new SkillDAO();
             UserDTO user = new UserDTO();
             SeekerDTO seeker = new SeekerDTO();
             HirerDTO hirer = new HirerDTO();
@@ -60,6 +64,11 @@ public class LoginController extends HttpServlet {
                     seeker.setLanguage(user.getLanguage());
                     
                     session.setAttribute("USER_LOGIN", seeker);
+                    
+                    //lấy listID các skill của seeker
+                    List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
+                    session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
+                    
                     url = SEEKER_PAGE;
                 } else{ //tương tự vs Hirer
                             //1.lấy hirer
