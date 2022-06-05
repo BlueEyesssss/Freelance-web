@@ -471,7 +471,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                 </div>
                                                 <div class="lb-form-edit-wrapper">
                                                     <div class="w-form">
-                                                        <form id="email-form" name="email-form" data-name="Email Form"
+                                                        <form id="email-form" name="email-form" data-name="Email Form" action="MainController"
                                                             method="get" class="edit-lightbox-form">
                                                             <div class="div-vertical"><label for="Language-4"
                                                                     class="field-label-3">Hour Rate</label>
@@ -483,24 +483,31 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                         <div>Total amount the client will see</div>
                                                                     </div>
                                                                     <div class="div-horizon _w-50 pad-20">
-                                                                        <div class="hour-rate-input-wrapper"><img
+                                                                        <div class="hour-rate-input-wrapper">
+                                                                            <img
                                                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629423f2cd8d721f22e4bafb_moeny.png"
-                                                                                loading="lazy" alt="" /><input
-                                                                                type="text" class="text-field-5 w-input"
-                                                                                maxlength="256" name="hourRate"
-                                                                                data-name="hourRate" placeholder="12"
-                                                                                id="hourRate" required="" /></div>
+                                                                                loading="lazy" alt="" />
+                                                                            <input
+                                                                                type="number" class="text-field-5 w-input"
+                                                                                maxlength="256" name="moneyPerHour" value="<%= seeker.getMoneyPerHour() %>"
+                                                                                data-name="hourRate" placeholder="12" min="0"
+                                                                                id="hourRate" required="" />
+                                                                        </div>
                                                                         <div>/hr</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="lb-edit-button-wrapper"><a
+                                                                                ${requestScope.ERROR_UPDATE_INF_SEEKER}
+                                                            <div class="lb-edit-button-wrapper">
+                                                                <a
                                                                     data-w-id="238c6d0a-eefb-ea63-a37d-b1661d121f91"
                                                                     href="#"
-                                                                    class="main-button sub-button seeker-lb w-button">Cancel</a><input
-                                                                    type="submit" value="Save"
+                                                                    class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                                <input
+                                                                    type="submit" value="Save Hour Rate" name="action"
                                                                     data-wait="Please wait..."
-                                                                    class="main-button w-button" /></div>
+                                                                    class="main-button w-button" />
+                                                            </div>
                                                         </form>
                                                         <div class="w-form-done">
                                                             <div>Thank you! Your submission has been received!</div>

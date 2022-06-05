@@ -63,6 +63,8 @@ public class MainController extends HttpServlet {
     private static final String SAVE_PASSWORD_CONTROLLER = "SavePasswordController";
     private static final String SAVE_TITLE = "Save Title";
     private static final String SAVE_TITLE_CONTROLLER = "SaveTitleController";
+    private static final String SAVE_HOUR_RATE = "Save Hour Rate";
+    private static final String SAVE_HOUR_RATE_CONTROLLER = "SaveHourRateController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -135,6 +137,9 @@ public class MainController extends HttpServlet {
     
             } else if (SAVE_TITLE.equals(action)) {
                 url = SAVE_TITLE_CONTROLLER;
+    
+            } else if (SAVE_HOUR_RATE.equals(action)) {
+                url = SAVE_HOUR_RATE_CONTROLLER;
     
             } else {
                 HttpSession session = request.getSession();
