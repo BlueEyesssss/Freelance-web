@@ -41,7 +41,7 @@
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
              role="banner" class="navigation-2 seeker w-nav">
             <div class="navigation-container-2">
-                <div class="navigation-menu-2"><a href="seekerDashboard.jsp" class="brand-2 w-nav-brand"><img
+                <div class="navigation-menu-2"><a href="MainController?action=ViewSeekerDashboard" class="brand-2 w-nav-brand"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                             loading="lazy" alt="" class="logo-image biglogo" /></a>
                     <div class="nav-search-wrapper-2">
@@ -93,7 +93,7 @@
                             <div class="dropdown-toggle w-dropdown-toggle"><img
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                     loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="seekerProfile.jsp"
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerProfile"
                                                                             class="dropdown-link w-dropdown-link">My Profile</a><a href="MainController?action=Logout"
                                                                             class="dropdown-link w-dropdown-link">Log out</a></nav>
                         </div>

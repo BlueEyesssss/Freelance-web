@@ -70,6 +70,8 @@ public class MainController extends HttpServlet {
     private static final String SAVE_OVERVIEW_CONTROLLER = "SaveOverviewController";
     private static final String SAVE_SKILL = "Save Skill";
     private static final String SAVE_SKILL_CONTROLLER = "SaveSkillController";
+    private static final String VIEW_SEEKER_PROFILE = "ViewSeekerProfile";
+    private static final String VIEW_SEEKER_PROFILE_CONTROLLER = "ViewSeekerProfileController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -151,6 +153,9 @@ public class MainController extends HttpServlet {
     
             } else if (SAVE_SKILL.equals(action)) {
                 url = SAVE_SKILL_CONTROLLER;
+                
+            } else if (VIEW_SEEKER_PROFILE.equals(action)) {
+                url = VIEW_SEEKER_PROFILE_CONTROLLER;
     
             } else {
                 HttpSession session = request.getSession();
