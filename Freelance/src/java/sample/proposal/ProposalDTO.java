@@ -18,11 +18,16 @@ public class ProposalDTO {
     private double clientGrade;
     private String clientComment;
     private double seekerGrade;
+    private String seekerComment;
+    private String coverLetter;
+    private String attachment;
+    private String createdDate;
+    private String expectedDurationID;
+    private String projectName;
 
-    public ProposalDTO() {
-    }
+   
 
-    public ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, String proposalStatusName, double clientGrade, String clientComment, double seekerGrade) {
+    public ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, String proposalStatusName, double clientGrade, String clientComment, double seekerGrade, String seekerComment, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName) {
         this.proposalID = proposalID;
         this.projectID = projectID;
         this.seekerID = seekerID;
@@ -31,7 +36,65 @@ public class ProposalDTO {
         this.clientGrade = clientGrade;
         this.clientComment = clientComment;
         this.seekerGrade = seekerGrade;
+        this.seekerComment = seekerComment;
+        this.coverLetter = coverLetter;
+        this.attachment = attachment;
+        this.createdDate = createdDate;
+        this.expectedDurationID = expectedDurationID;
+        this.projectName = projectName;
     }
+
+    public ProposalDTO() {
+    }
+
+    public String getSeekerComment() {
+        return seekerComment;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public void setSeekerComment(String seekerComment) {
+        this.seekerComment = seekerComment;
+    }
+
+    public String getCoverLetter() {
+        return coverLetter;
+    }
+
+    public void setCoverLetter(String coverLetter) {
+        this.coverLetter = coverLetter;
+    }
+
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getExpectedDurationID() {
+        return expectedDurationID;
+    }
+
+    public void setExpectedDurationID(String expectedDurationID) {
+        this.expectedDurationID = expectedDurationID;
+    }
+
 
     public int getProposalID() {
         return proposalID;

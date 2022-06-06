@@ -39,7 +39,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation seeker w-nav">
         <div class="navigation-container">
-            <div class="navigation-menu"><a href="/" class="brand w-nav-brand"><img
+            <div class="navigation-menu"><a href="seekerDashboard.jsp" class="brand w-nav-brand"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                         loading="lazy" alt="" class="logo-image biglogo" /></a>
                 <div class="nav-search-wrapper">
@@ -70,7 +70,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                         </div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
                                 class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Save Jobs</a><a href="#"
+                                class="dropdown-link-nav w-dropdown-link">Save Jobs</a><a href="MainController?action=ViewProposal"
                                 class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
                     </div>
                     <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">

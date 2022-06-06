@@ -19,14 +19,14 @@ import sample.util.DBUtil;
  */
 public class ProposalDAO {
 
-    private static final String VIEW_INVITATIONS_PROPOSAL = "SELECT proposalID, projectID, seekerID, paymentAmount, B.statusName, clientGrade, clientComment, seekerGrade "
-            + " FROM Proposal A, ProposalStatus B"
-            + " WHERE A.seekerID = ? AND B.statusName LIKE 'proposal invite' AND A.proposalStatusID = B.proposalStatusID ";
-    
-    private static final String VIEW_SUBMITTED_PROPOSAL = "SELECT proposalID, projectID, seekerID, paymentAmount, B.statusName, clientGrade, clientComment, seekerGrade "
-            + " FROM Proposal A, ProposalStatus B"
-            + " WHERE A.seekerID = ? AND B.statusName LIKE 'proposal sent' AND A.proposalStatusID = B.proposalStatusID ";
-    
+    private static final String VIEW_INVITATIONS_PROPOSAL = " SELECT proposalID, A.projectID, seekerID, A.paymentAmount, B.statusName, clientGrade, clientComment, seekerGrade,seekerComment,coverLetter,attachment,A.createdDate,A.expectedDurationID,C.projectName"
+            + " FROM Proposal A, ProposalStatus B, Project C"
+            + " WHERE A.seekerID = ? AND B.statusName LIKE 'proposal invite' AND A.proposalStatusID = B.proposalStatusID AND A.projectID = C.projectID ";
+
+    private static final String VIEW_SUBMITTED_PROPOSAL = " SELECT proposalID, A.projectID, seekerID, A.paymentAmount, B.statusName, clientGrade, clientComment, seekerGrade,seekerComment,coverLetter,attachment,A.createdDate,A.expectedDurationID,C.projectName"
+            + " FROM Proposal A, ProposalStatus B, Project C"
+            + " WHERE A.seekerID = ? AND B.statusName LIKE 'proposal sent' AND A.proposalStatusID = B.proposalStatusID AND A.projectID = C.projectID ";
+
     public List<ProposalDTO> getListInvitationProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -47,8 +47,14 @@ public class ProposalDAO {
                     double clientGrade = rs.getDouble("clientGrade");
                     String clientComment = rs.getString("clientComment");
                     double seekerGrade = rs.getDouble("seekerGrade");
+                    String seekerComment = rs.getString("seekerComment");
+                    String coverLetter = rs.getString("coverLetter");
+                    String attachment = rs.getString("attachment");
+                    String createdDate = rs.getString("createdDate");
+                    String expectedDurationID = rs.getString("expectedDurationID");
+                    String projectName = rs.getString("projectName");
 
-                    list.add(new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusName, clientGrade, clientComment, seekerGrade));
+                    list.add(new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusName, clientGrade, clientComment, seekerGrade, seekerComment, coverLetter, attachment, createdDate, expectedDurationID, projectName));
                 }
             }
 
@@ -67,7 +73,7 @@ public class ProposalDAO {
         }
         return list;
     }
-    
+
     public List<ProposalDTO> getListSubmittedProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -88,8 +94,14 @@ public class ProposalDAO {
                     double clientGrade = rs.getDouble("clientGrade");
                     String clientComment = rs.getString("clientComment");
                     double seekerGrade = rs.getDouble("seekerGrade");
+                    String seekerComment = rs.getString("seekerComment");
+                    String coverLetter = rs.getString("coverLetter");
+                    String attachment = rs.getString("attachment");
+                    String createdDate = rs.getString("createdDate");
+                    String expectedDurationID = rs.getString("expectedDurationID");
+                    String projectName = rs.getString("projectName");
 
-                    list.add(new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusName, clientGrade, clientComment, seekerGrade));
+                    list.add(new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusName, clientGrade, clientComment, seekerGrade, seekerComment, coverLetter, attachment, createdDate, expectedDurationID, projectName));
                 }
             }
 
@@ -108,5 +120,5 @@ public class ProposalDAO {
         }
         return list;
     }
-    
+
 }

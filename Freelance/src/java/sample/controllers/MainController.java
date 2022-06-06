@@ -22,7 +22,8 @@ public class MainController extends HttpServlet {
     private static final String ERROR = "error.html";
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SEARCH_JOB_BY_NAME = "SearchJobByNameController";
+    private static final String SEARCH_JOB_BY_NAME = "Search Job By Name";
+    private static final String SEARCH_JOB_BY_NAME_CONTROLLER = "SearchJobByNameController";
     private static final String VIEW_ALL_PROJECT = "ViewAllProject";
     private static final String VIEW_ALL_PROJECT_CONTROLLER = "ViewAllProjectController";
     private static final String VIEW_FAVORITE_PROJECT = "ViewFavoriteProject";
@@ -79,8 +80,8 @@ public class MainController extends HttpServlet {
             if (LOGIN.equals(action)) {
                 url = LOGIN_CONTROLLER;
 
-            } else if ("Search Job By Name".equals(action)) {
-                url = SEARCH_JOB_BY_NAME;
+            } else if (SEARCH_JOB_BY_NAME.equals(action)) {
+                url = SEARCH_JOB_BY_NAME_CONTROLLER;
 
             } else if (VIEW_ALL_PROJECT.equals(action)) {
                 url = VIEW_ALL_PROJECT_CONTROLLER;
