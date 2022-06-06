@@ -38,12 +38,7 @@ public class ViewProposalController extends HttpServlet {
             SeekerDTO seeker = (SeekerDTO)session.getAttribute("USER_LOGIN");
             int userID = seeker.getUserID();
             ProposalDAO dao = new ProposalDAO();
-            
-            List<ProposalDTO> listOfferProposal = dao.getListOfferProposal(userID);
-            if (listOfferProposal.size() > 0) {
-                request.setAttribute("LIST_OFFER_PROPOSAL", listOfferProposal);
-                url = SUCCESS;
-            }
+                        
             
             List<ProposalDTO> listInvitationProposal = dao.getListInvitationProposal(userID);
             if (listInvitationProposal.size() > 0) {
@@ -51,11 +46,6 @@ public class ViewProposalController extends HttpServlet {
                 url = SUCCESS;
             }
             
-            List<ProposalDTO> listActiveProposal = dao.getListActiveProposal(userID);
-            if (listActiveProposal.size() > 0) {
-                request.setAttribute("LIST_ACTIVE_PROPOSAL", listActiveProposal);
-                url = SUCCESS;
-            }
             
             List<ProposalDTO> listSubmittedProposal = dao.getListSubmittedProposal(userID);
             if (listSubmittedProposal.size() > 0) {
