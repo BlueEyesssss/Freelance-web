@@ -31,7 +31,7 @@ public class SeekerDAO {
         try {
             con = DBUtil.getConnection();
             if(con != null){
-                ptm = con.prepareStatement(UPDATE_TITLE);
+                ptm = con.prepareStatement(UPDATE_OVERVIEW);
                 ptm.setString(1, overview);
                 ptm.setInt(2, seekerID);
                 check = ptm.executeUpdate()>0?true:false;

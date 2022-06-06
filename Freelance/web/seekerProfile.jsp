@@ -427,7 +427,8 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                 class="field-label-3">Tittle</label>
                                                             <div class="text-block-27">Enter a single sentence
                                                                 description of your professional skills/experience (e.g.
-                                                                Expert Web Designer with Ajax experience)</div>
+                                                                Expert Web Designer with Ajax experience)
+                                                            </div>
                                                             <input
                                                                 type="text" class="text-field-4 w-input" maxlength="256"
                                                                 name="titileBio" value="<%= seeker.getTitileBio() %>" data-name="tittle"
