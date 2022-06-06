@@ -83,7 +83,7 @@
                                     srcset="<%= loginUser.getAvatar() %> 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                     alt="" class="avatar-img-nav" /></div>
                             <nav class="dropdown-list w-dropdown-list">
-                                <a href="seekerProfile.jsp" class="dropdown-link w-dropdown-link">My Profile</a>
+                                <a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My Profile</a>
                                 <a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a>
                             </nav>
                         </div>

@@ -1,3 +1,4 @@
+<%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="sample.project.ProjectDTO"%>
 <%@page import="sample.user.UserDAO"%>
 <%@page import="java.util.List"%>
@@ -23,10 +24,10 @@
         type="text/javascript">WebFont.load({google: {families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"]}});</script>
         <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif]-->
         <script
-        type="text/javascript">!function (o, c) {
-                var n = c.documentElement, t = " w-mod-";
-                n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
-            }(window, document);</script>
+            type="text/javascript">!function (o, c) {
+                    var n = c.documentElement, t = " w-mod-";
+                    n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+                }(window, document);</script>
         <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
         <style>
@@ -593,12 +594,16 @@
                             <div class="seeker-right-information-wrapper">
                                 <h1 class="heading-tittle">Work History<br /></h1>
                                 <div class="div-vertical">     
-                                    <div class="text-block-seeker">No work yet. Once you start getting hired on Upwork, your
-                                        work with clients will show up here.</div>
+                                    <%            List<ProposalDTO> listHistoryProject = (List<ProposalDTO>) request.getAttribute("LIST_HISTORY_PROJECT");
+                                        if (listHistoryProject != null) {
+                                            if (listHistoryProject.size() > 0) {
+                                                for (ProposalDTO proposal : listHistoryProject) {
+                                    %>
+
                                     <div class="job-history-wrapper">
                                         <div class="job-history-element">
                                             <div class="history-left">
-                                                <h4 class="heading-18">Front-end e-comerce website</h4>
+                                                <h4 class="heading-18"><%= proposal.getProjectName()%></h4>
                                                 <div>June 2021 - July 2021</div>
                                                 <div class="no-feedback">If no feedback: No feedback</div>
                                                 <div class="review-feedback">If has feedback: Excellent!</div>
@@ -613,26 +618,19 @@
                                                 <div class="text-block-30">$10$ / h</div>
                                                 <div class="text-block-30">$200 earned</div>
                                             </div>
-                                        </div>
-                                        <div class="job-history-element">
-                                            <div class="history-left">
-                                                <h4 class="heading-18">Data Scientist for predicting the stock price</h4>
-                                                <div class="text-block-seeker">June 2021 - July 2021</div>
-                                                <div class="no-feedback">No feedback</div>
-                                                <div class="review-feedback">Excellent!</div>
-                                                <div class="review-stars-wrapper"><img loading="lazy"
-                                                                                       src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
-                                                                                       alt="" />
-                                                    <div> 4,5/5 points</div>
-                                                </div>
-                                            </div>
-                                            <div class="history-right">
-                                                <h4 class="heading-17">20 hours</h4>
-                                                <div class="text-block-30">$10$ / h</div>
-                                                <div class="text-block-30">$200 earned</div>
-                                            </div>
-                                        </div>
+                                        </div>                      
                                     </div>
+                                    <%
+                                            }
+                                        }
+                                    } else {
+                                    %>
+                                    <div class="text-block-seeker">No work yet. Once you start getting hired on Upwork, your
+                                        work with clients will show up here.</div>
+                                        <%
+                                            }
+                                        %>
+
                                 </div>
                             </div>
                             <div class="seeker-right-information-wrapper">
