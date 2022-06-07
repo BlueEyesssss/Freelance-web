@@ -226,7 +226,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">
-                                                        <div class="lb-joblist-button-wrapper"><a href="#"
+                                                        <div class="lb-joblist-button-wrapper"><a href="MainController?action=FormSentProposal&projectID=<%= project.getProjectID()%>"
                                                                                                   class="primary-button w-button">Submit a proposal</a><a
                                                                                                   href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID()%>" class="primary-button sub w-button"> <3 Save
                                                                 job</a><a href="#"
@@ -385,7 +385,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">
-                                                        <div class="lb-joblist-button-wrapper"><a href="#"
+                                                        <div class="lb-joblist-button-wrapper"><a href="MainController?action=FormSentProposal&projectID=<%= project.getProjectID()%>"
                                                                                                   class="primary-button w-button">Submit a proposal</a><a
                                                                                                   href="#" class="primary-button sub w-button"> ? Save
                                                                 job</a><a href="#"
@@ -536,7 +536,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">
-                                                        <div class="lb-joblist-button-wrapper"><a href="#"
+                                                        <div class="lb-joblist-button-wrapper"><a href="MainController?action=FormSentProposal&projectID=<%= project.getProjectID()%>"
                                                                                                   class="primary-button w-button">Submit a proposal</a><a
                                                                                                   href="#" class="primary-button sub w-button"> <3 Save
                                                                 job</a><a href="#"

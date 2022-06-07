@@ -31,6 +31,11 @@ public class ProposalDAO {
             + " FROM Proposal A, ProposalStatus B, Project C"
             + " WHERE A.seekerID = ? AND B.statusName LIKE 'job finished successfully' AND A.proposalStatusID = B.proposalStatusID AND A.projectID = C.projectID ";
 
+    private static final String INSERT_PROPOSAL = "INSERT INTO Proposal(projectID,seekerID,paymentAmount,proposalStatusID,coverLetter,attachment)"
+            + " VALUES(?,?,?,?,?,?)";
+
+    private static final String CHECK_IS_PROPOSAL = " SELECT projectID FROM Proposal WHERE projectID =?";
+
     public List<ProposalDTO> getListInvitationProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -124,7 +129,7 @@ public class ProposalDAO {
         }
         return list;
     }
-    
+
     public List<ProposalDTO> getHistoryProject(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -171,6 +176,66 @@ public class ProposalDAO {
         }
         return list;
     }
-    
+
+    public boolean submitProposal(int projectID, int userID, double paymentAmount, String coverLetter, String attachment) throws SQLException {
+        boolean checkSubmitProposal = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(INSERT_PROPOSAL);
+                ptm.setInt(1, projectID);
+                ptm.setInt(2, userID);
+                ptm.setDouble(3, paymentAmount);
+                ptm.setInt(4, 1);
+                ptm.setString(5, coverLetter);
+                ptm.setString(6, attachment);
+                checkSubmitProposal = ptm.executeUpdate() > 0;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return checkSubmitProposal;
+    }
+
+    public boolean isActiveProposal(int projectID) throws SQLException {
+        boolean checkIsActiveProposal = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_IS_PROPOSAL);
+                ptm.setInt(1, projectID);
+                rs = ptm.executeQuery();
+                if (rs != null) {
+                    checkIsActiveProposal = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return checkIsActiveProposal;
+    }
 
 }

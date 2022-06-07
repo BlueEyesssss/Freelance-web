@@ -72,6 +72,10 @@ public class MainController extends HttpServlet {
     private static final String SAVE_SKILL_CONTROLLER = "SaveSkillController";
     private static final String VIEW_SEEKER_PROFILE = "ViewSeekerProfile";
     private static final String VIEW_SEEKER_PROFILE_CONTROLLER = "ViewSeekerProfileController";
+    private static final String FORM_SENT_PROPOSAL = "FormSentProposal";
+    private static final String FORM_SENT_PROPOSAL_CONTROLLER = "FormSentProposalController";    
+    private static final String SUBMIT_A_PROPOSAL = "SubmitAProposal";
+    private static final String SUBMIT_A_PROPOSAL_CONTROLLER = "SubmitAProposalController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -156,6 +160,12 @@ public class MainController extends HttpServlet {
                 
             } else if (VIEW_SEEKER_PROFILE.equals(action)) {
                 url = VIEW_SEEKER_PROFILE_CONTROLLER;
+                
+            } else if (FORM_SENT_PROPOSAL.equals(action)) {
+                url = FORM_SENT_PROPOSAL_CONTROLLER;
+                
+            } else if (SUBMIT_A_PROPOSAL.equals(action)) {
+                url = SUBMIT_A_PROPOSAL_CONTROLLER;
     
             } else {
                 HttpSession session = request.getSession();

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import sample.util.DBUtil;
@@ -43,6 +44,8 @@ public class ProjectDAO {
             + "WHERE projectID = ? and seekerID = ?";
     
     private static final String GET_SKILL_NEED_PROJECT = "SELECT nd.projectID, s.skillName FROM NeededSkills nd, Skill s WHERE nd.skillID = s.skillID AND nd.projectID = ?";
+    
+    private static final String SELECT_PROJECT_CURRENT = "SELECT P.*,E.durationText,H.conpanyName FROM Project P, ExpectedDuration E, Hirer H WHERE P.projectID=? AND P.expectedDurationID=E.expectedDurationID AND P.hirerID=H.hirerID ";
     
     public List<String> getSkillNeedOfProject(int projectID) throws SQLException {
        List<String> skillNeed = new ArrayList<>();
@@ -381,5 +384,47 @@ public class ProjectDAO {
         } catch (Exception e) {
         }
         return list;
+    }
+    
+    public ProjectDTO getProjectCurrent(int projectID) throws SQLException {
+        ProjectDTO project = new ProjectDTO();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                String sql = SELECT_PROJECT_CURRENT;
+                stm = conn.prepareStatement(sql);
+                stm.setInt(1, projectID);
+                rs = stm.executeQuery();
+                while (rs.next()) {                    
+                    String description = rs.getString("description");
+                    String projectName = rs.getString("projectName");
+                    String complexity = rs.getString("complexity");
+                    String hirer = rs.getString("conpanyName");
+                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
+                    String durationText = rs.getString("durationText");
+                    String location = rs.getString("location");
+                    String createdDate = rs.getString("createdDate");
+                    int hoursPerWeek = Integer.parseInt(rs.getString("hoursPerWeek"));
+                    String major = rs.getString("major");
+                    project = new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, createdDate, createdDate, LocalDate.MAX, location, hoursPerWeek);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return project;
     }
 }
