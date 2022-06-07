@@ -649,7 +649,8 @@
                                             </div>
                                             <div class="lb-form-edit-wrapper">
                                                 <div class="w-form">
-                                                    <form id="email-form" name="email-form" data-name="Email Form" action="MainController"
+                                                    
+                                                     <form id="email-form" name="email-form" data-name="Email Form" action="MainController"
                                                           method="get" class="edit-lightbox-form">
                                                         <div><strong>Skills</strong></div>
                                                         <div class="text-block-29">Keeping your skills up to date helps you
@@ -660,19 +661,40 @@
                                                                 List<SkillDTO> listSkillSeeker = (List<SkillDTO>) session.getAttribute("LIST_SKILL_OF_SEEKER");
                                                                 List<SkillDTO> listSkillAll = (List<SkillDTO>) session.getAttribute("LIST_SKILL_ALL");
                                                                 for (SkillDTO elem : listSkillAll) {
+                                                                    UserDAO dao = new UserDAO();
+                                                                    if(dao.checkSkillMatch(elem.getSkillID(), listSkillSeeker)){
                                                             %>
                                                             <label
                                                                 class="w-checkbox check-box-skill-element">
                                                                 <div
-                                                                    class="w-checkbox-input w-checkbox-input--inputType-custom checkbox">
+                                                                    class="w-checkbox-input w-checkbox-input--inputType-custom checkbox 
+                                                                                        w--redirected-checked
+                                                                                 ">
                                                                 </div>
                                                                 <input type="checkbox" name="skillID" id="skill"
-                                                                       data-name="skill" value="<%= elem.getSkillID()%>"
+                                                                       data-name="skill" value="<%= elem.getSkillID()%>" checked=""
                                                                        style="opacity:0;position:absolute;z-index:-1"/>
                                                                 <span
                                                                     class="checkbox-label w-form-label" for="skillID"><%= elem.getSkillName()%></span>  
                                                             </label>
                                                             <%
+                                                                    }else{
+                                                                         %>
+                                                                         <label
+                                                                            class="w-checkbox check-box-skill-element">
+                                                                            <div
+                                                                                class="w-checkbox-input w-checkbox-input--inputType-custom checkbox 
+                                                                                                    
+                                                                                             ">
+                                                                            </div>
+                                                                            <input type="checkbox" name="skillID" id="skill"
+                                                                                   data-name="skill" value="<%= elem.getSkillID()%>" 
+                                                                                   style="opacity:0;position:absolute;z-index:-1"/>
+                                                                            <span
+                                                                                class="checkbox-label w-form-label" for="skillID"><%= elem.getSkillName()%></span>  
+                                                                        </label>
+                                                            <%
+                                                                    }
                                                                 }
                                                             %>
 
@@ -687,6 +709,7 @@
                                                                 class="main-button w-button" />
                                                         </div>
                                                     </form>
+                                                        
                                                     <div class="w-form-done">
                                                         <div>Thank you! Your submission has been received!</div>
                                                     </div>

@@ -25,41 +25,87 @@ import sample.skill.SkillDTO;
  */
 @WebServlet(name = "SaveSkillController", urlPatterns = {"/SaveSkillController"})
 public class SaveSkillController extends HttpServlet {
+
     private static final String ERROR = "seekerProfile.jsp";
     private static final String SUCCESS = "seekerProfile.jsp";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             HttpSession session = request.getSession(false);
-            if(session != null){
+            if (session != null) {
                 SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
                 SkillDAO daoSkill = new SkillDAO();
-                //clear skill current
-                daoSkill.clearSkillSeeker(seeker.getSeekerID());
+
+                //check skill current seeker
+                List<SkillDTO> listSkillCurrentOfSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
+                if (listSkillCurrentOfSeeker.size() != 0) {
+                    //clear skill current
+                    daoSkill.clearSkillSeeker(seeker.getSeekerID());
                     //lay list skill name checked
                     String[] listSkillIDToSave = request.getParameterValues("skillID");
-                    for (String skill : listSkillIDToSave) {
+                    //check skill choose again
+                    if (listSkillIDToSave != null) {
+                        for (String skill : listSkillIDToSave) {
                             System.out.println(skill);
                         }
                         boolean checkWrongCreateSkillSeeker = false;
                         for (String skillID : listSkillIDToSave) {
                             boolean checkCreateSkillSeeker = daoSkill.createSkillSeekerHas(Integer.parseInt(skillID), seeker.getSeekerID());
-                            if(!checkCreateSkillSeeker){
+                            if (!checkCreateSkillSeeker) {
                                 checkWrongCreateSkillSeeker = true;
                                 break;
                             }
                         }
-                        if(checkWrongCreateSkillSeeker){
+                        if (checkWrongCreateSkillSeeker) {
                             request.setAttribute("CREATE_SKILL_SEEKER_HAS", "OOps, something wrong went create skill for seeker.");
-                        }else{
+                        } else {
                             //reload listID các skill của seeker
                             List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
                             session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
                             url = SUCCESS;
                         }
+                    } else {
+                        //reload listID các skill của seeker
+                        List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
+                        session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
+                        url = SUCCESS;
+                    }
+
+                } else {
+                    //lay list skill name checked
+                    String[] listSkillIDToSave = request.getParameterValues("skillID");
+                    //check skill choose again
+                    if (listSkillIDToSave != null) {
+                        for (String skill : listSkillIDToSave) {
+                            System.out.println(skill);
+                        }
+                        boolean checkWrongCreateSkillSeeker = false;
+                        for (String skillID : listSkillIDToSave) {
+                            boolean checkCreateSkillSeeker = daoSkill.createSkillSeekerHas(Integer.parseInt(skillID), seeker.getSeekerID());
+                            if (!checkCreateSkillSeeker) {
+                                checkWrongCreateSkillSeeker = true;
+                                break;
+                            }
+                        }
+                        if (checkWrongCreateSkillSeeker) {
+                            request.setAttribute("CREATE_SKILL_SEEKER_HAS", "OOps, something wrong went create skill for seeker.");
+                        } else {
+                            //reload listID các skill của seeker
+                            List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
+                            session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
+                            url = SUCCESS;
+                        }
+                    } else {
+                        //reload listID các skill của seeker
+                        List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
+                        session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
+                        url = SUCCESS;
+                    }
+                }
+
             }
         } catch (Exception e) {
             log("Error at SaveSkillController:" + e.toString());
