@@ -31,14 +31,14 @@ public class ProjectDAO {
 "and FavoriteProject.seekerID = Seeker.seekerID \n" +
 "and ExpectedDuration.expectedDurationID = Project.expectedDurationID \n" +
 "and FavoriteProject.seekerID = ?";
-    private static final String WIEW_BEST_MATCH_PROJECT = "SELECT P.projectID,projectName, description, complexity, H.conpanyName, paymentAmount, E.durationText, deadlineDate\n"
-            + "                         FROM Project P,Hirer H, ExpectedDuration E,\n"
-            + "                         (SELECT N.projectID, COUNT(N.skillID)AS matchSkill\n"
-            + "                         FROM NeededSkills N,HasSkill H\n"
-            + "                          WHERE H.seekerID = ? AND N.skillID = H.skillID\n"
-            + "                         GROUP BY N.projectID) Q\n"
-            + "						 WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID\n"
-            + "                         ORDER BY matchSkill DESC";
+    private static final String WIEW_BEST_MATCH_PROJECT = "SELECT P.projectID, P.hirerID, projectName, description, complexity, paymentAmount, E.durationText, deadlineDate, major, createdDate, hoursPerWeek\n" +
+"FROM Project P,Hirer H, ExpectedDuration E,\n" +
+"(SELECT N.projectID, COUNT(N.skillID)AS matchSkill\n" +
+"FROM NeededSkills N,HasSkill H\n" +
+"WHERE H.seekerID = ? AND N.skillID = H.skillID\n" +
+"GROUP BY N.projectID) Q\n" +
+"WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID" +
+"ORDER BY matchSkill DESC";
     private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount,P.expectedDurationID , E.durationText, deadlineDate "
             + " FROM Project P, Hirer H, ExpectedDuration E "
             + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";

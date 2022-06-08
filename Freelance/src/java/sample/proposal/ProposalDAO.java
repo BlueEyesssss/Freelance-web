@@ -35,7 +35,128 @@ public class ProposalDAO {
             + " VALUES(?,?,?,?,?,?)";
 
     private static final String CHECK_IS_PROPOSAL = " SELECT projectID FROM Proposal WHERE projectID =?";
+    private static final String VIEW_DONE_PROPOSAL = "SELECT B.projectName, a.createdDate\n" +
+"FROM Proposal A, Project B\n" +
+"WHERE A.projectID = B.projectID \n" +
+"AND (A.proposalStatusID = 6 OR A.proposalStatusID = 7)\n" +
+"AND A.seekerID = ?";
+    private static final String VIEW_WAITING_PROPOSAL = "SELECT B.projectName, a.createdDate\n" +
+"FROM Proposal A, Project B\n" +
+"WHERE A.projectID = B.projectID \n" +
+"AND A.proposalStatusID = 5\n" +
+"AND A.seekerID = ?";
+    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT B.projectName, a.createdDate\n" +
+"FROM Proposal A, Project B\n" +
+"WHERE A.projectID = B.projectID \n" +
+"AND A.proposalStatusID = 4\n" +
+"AND A.seekerID = ?";
+    
+    public List<ProposalDTO> getListJobStartedProposal(int userID) throws SQLException {
+        List<ProposalDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_JOB_STARTED_PROPOSAL);
+                ptm.setInt(1, userID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String projectName = rs.getString("projectName");
+                    String createdDate = rs.getString("createdDate");
 
+                    list.add(new ProposalDTO(projectName, createdDate));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    
+    public List<ProposalDTO> getListWaitingProposal(int userID) throws SQLException {
+        List<ProposalDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_WAITING_PROPOSAL);
+                ptm.setInt(1, userID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String projectName = rs.getString("projectName");
+                    String createdDate = rs.getString("createdDate");
+
+                    list.add(new ProposalDTO(projectName, createdDate));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<ProposalDTO> getListDoneProposal(int userID) throws SQLException {
+        List<ProposalDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_DONE_PROPOSAL);
+                ptm.setInt(1, userID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String projectName = rs.getString("projectName");
+                    String createdDate = rs.getString("createdDate");
+
+                    list.add(new ProposalDTO(projectName, createdDate));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
     public List<ProposalDTO> getListInvitationProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;

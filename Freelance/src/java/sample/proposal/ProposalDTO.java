@@ -47,6 +47,11 @@ public class ProposalDTO {
     public ProposalDTO() {
     }
 
+    ProposalDTO(String projectName, String createdDate) {
+        this.projectName = projectName;
+        this.createdDate = createdDate;
+    }
+
     public String getSeekerComment() {
         return seekerComment;
     }

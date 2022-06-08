@@ -76,7 +76,11 @@ public class MainController extends HttpServlet {
     private static final String FORM_SENT_PROPOSAL_CONTROLLER = "FormSentProposalController";    
     private static final String SUBMIT_A_PROPOSAL = "SubmitAProposal";
     private static final String SUBMIT_A_PROPOSAL_CONTROLLER = "SubmitAProposalController";
-
+    private static final String VIEW_CONTRACT = "ViewContract";
+    private static final String VIEW_CONTRACT_CONTROLLER = "ViewContractController";
+    private static final String VIEW_MY_JOB = "ViewMyJob";
+    private static final String VIEW_MY_JOB_CONTROLLER = "ViewMyJobController";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -166,7 +170,12 @@ public class MainController extends HttpServlet {
                 
             } else if (SUBMIT_A_PROPOSAL.equals(action)) {
                 url = SUBMIT_A_PROPOSAL_CONTROLLER;
+            } else if (VIEW_CONTRACT.equals(action)) {
+                url = VIEW_CONTRACT_CONTROLLER;
+            } else if (VIEW_MY_JOB.equals(action)) {
+                url = VIEW_MY_JOB_CONTROLLER;
     
+                
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");

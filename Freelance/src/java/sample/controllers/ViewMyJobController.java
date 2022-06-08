@@ -5,7 +5,7 @@
 package sample.controllers;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,19 +13,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sample.project.ProjectDAO;
-import sample.project.ProjectDTO;
+import sample.proposal.ProposalDAO;
+import sample.proposal.ProposalDTO;
 import sample.seeker.SeekerDTO;
 
 /**
  *
- * @author Admin
+ * @author Phat
  */
-@WebServlet(name = "ViewBestMatchProjectController", urlPatterns = {"/ViewBestMatchProjectController"})
-public class ViewBestMatchProjectController extends HttpServlet {
+@WebServlet(name = "ViewMyJobController", urlPatterns = {"/ViewMyJobController"})
+public class ViewMyJobController extends HttpServlet {
 
-    private static final String ERROR = "error.html";
-    private static final String SUCCESS = "seekerDashboard.jsp";
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    private static final String ERROR = "myJobPage.jsp";
+    private static final String SUCCESS = "myJobPage.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,17 +42,23 @@ public class ViewBestMatchProjectController extends HttpServlet {
         String url = ERROR;
         try {
             HttpSession session = request.getSession();
-            SeekerDTO seekerLogin = (SeekerDTO)session.getAttribute("USER_LOGIN");
-            int seekerID = seekerLogin.getSeekerID();
-            ProjectDAO dao = new ProjectDAO();
-            List<ProjectDTO> list = dao.getListProjectBestMatch(seekerID);
-            if(!list.isEmpty()) {
-                request.setAttribute("LIST_PROJECT", list);
+            SeekerDTO seeker = (SeekerDTO)session.getAttribute("USER_LOGIN");
+            int userID = seeker.getUserID();
+            ProposalDAO dao = new ProposalDAO();
+                        
+            
+            List<ProposalDTO> listJobStartedProposal = dao.getListJobStartedProposal(userID);
+            if (listJobStartedProposal.size() > 0) {
+                request.setAttribute("LIST_JOB_STARTED", listJobStartedProposal);
                 url = SUCCESS;
             }
+            
+            
+            
+            
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
-        }finally {
+            log("Error at MyJobController: " + e.toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
