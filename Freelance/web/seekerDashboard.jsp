@@ -15,25 +15,25 @@
         <meta content="Seeker Dashboard" property="twitter:title" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Webflow" name="generator" />
-        <link href="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/css/upwork-7e964a.webflow.4888bde78.css"
-              rel="stylesheet" type="text/css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+        <link href="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/css/upwork-7e964a.webflow.870b4ffa2.css"
+        rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
         <script
         type="text/javascript">WebFont.load({google: {families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"]}});</script>
         <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif]-->
         <script
-        type="text/javascript">!function (o, c) {
-                var n = c.documentElement, t = " w-mod-";
-                n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
-            }(window, document);</script>
+            type="text/javascript">!function (o, c) {
+                    var n = c.documentElement, t = " w-mod-";
+                    n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+                }(window, document);</script>
         <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
     </head>
     <%
         SeekerDTO loginUser = (SeekerDTO) session.getAttribute("USER_LOGIN");
         LocalDate localDate = LocalDate.now();
-        String weekday = localDate.getDayOfWeek().name().substring(0, 1)  +  localDate.getDayOfWeek().name().substring(1).toLowerCase();
-        String month = localDate.getMonth().name().substring(0, 1)  +  localDate.getMonth().name().substring(1).toLowerCase();
+        String weekday = localDate.getDayOfWeek().name().substring(0, 1) + localDate.getDayOfWeek().name().substring(1).toLowerCase();
+        String month = localDate.getMonth().name().substring(0, 1) + localDate.getMonth().name().substring(1).toLowerCase();
 
     %>
     <body class="user-body">
@@ -44,11 +44,19 @@
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                             loading="lazy" alt="" class="logo-image biglogo" /></a>
                     <div class="nav-search-wrapper">
-                        <div class="nav-icon-search"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296b474e000b451cf79e812_search-white.svg"
-                                loading="lazy" alt="" /></div>
-                        <div class="nav-search-input"></div>
+                    <div class="nav-icon-search"><img src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296b474e000b451cf79e812_search-white.svg" loading="lazy" alt=""></div>
+                    <div class="nav-search-input">
+                        <div class="w-form">
+                            <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get" aria-label="Email Form 2"><input type="text" class="search-input w-input" maxlength="256" name="name" data-name="Name" placeholder="" id="name"><input type="submit" value="Submit" data-wait="Please wait..." class="submit-button-2 w-button"></form>
+                            <div class="w-form-done" tabindex="-1" role="region" aria-label="Email Form 2 success">
+                                <div>Thank you! Your submission has been received!</div>
+                            </div>
+                            <div class="w-form-fail" tabindex="-1" role="region" aria-label="Email Form 2 failure">
+                                <div>Oops! Something went wrong while submitting the form.</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
                 </div>
                 <div class="icon-wrapper">
                     <div>
@@ -80,7 +88,7 @@
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                     loading="lazy" width="90"
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 26.95833396911621px, 6vw"
-                                    srcset="<%= loginUser.getAvatar() %> 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                    srcset="<%= loginUser.getAvatar()%> 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                     alt="" class="avatar-img-nav" /></div>
                             <nav class="dropdown-list w-dropdown-list">
                                 <a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My Profile</a>
@@ -99,12 +107,25 @@
             <div class="container-90 w-container">
                 <div class="left-side">
                     <div class="welcome">
-                        <div class="text-block-3"><%= weekday %>, <%= month %> <%= localDate.getDayOfMonth()%></div>
+                        <div class="text-block-3"><%= weekday%>, <%= month%> <%= localDate.getDayOfMonth()%></div>
                         <h1 class="heading-2">Good morning,<br /> <%= loginUser.getFullName()%></h1><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d887819668059765d21d0_Charco%20Notifications%20(1).png"
                             loading="lazy" alt="" class="image-4" />
                     </div>
-                    <div class="search-seeker"></div>
+                    <div class="search-seeker">
+                        <div class="seeker-main-inputsearch">
+                            <div class="form-block-3 w-form">
+                                <form id="email-form-3" name="email-form-3" data-name="Email Form 3" method="get" class="form-4" aria-label="Email Form 3"><input type="text" class="search-input-seeker-dashboard w-input" maxlength="256" name="email" data-name="Email" placeholder="" id="email" required=""><input type="submit" value="Submit" data-wait="Please wait..." class="submit-button-3 w-button"></form>
+                                <div class="w-form-done" tabindex="-1" role="region" aria-label="Email Form 3 success">
+                                    <div>Thank you! Your submission has been received!</div>
+                                </div>
+                                <div class="w-form-fail" tabindex="-1" role="region" aria-label="Email Form 3 failure">
+                                    <div>Oops! Something went wrong while submitting the form.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-block-24"><img src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296b474e000b451cf79e812_search-white.svg" loading="lazy" alt=""></div>
+                    </div>
                     <div class="seeker-main">
                         <h2 class="heading-4">Job you may like</h2>
                         <div data-current="Tab 1" data-easing="ease" data-duration-in="300" data-duration-out="100"
@@ -131,6 +152,8 @@
                                                 for (ProjectDTO project : listBestMatchProject) {
                                     %>
 
+                                    
+                                    
                                     <div class="joblist-wrapper"><a href="#" class="click-link w-inline-block">
                                             <h3 class="heading-13"> <%= project.getProjectName()%> </h3>
                                         </a>
@@ -286,9 +309,9 @@
                                         int count = 0;
                                         if (listAllProject != null) {
                                             if (listAllProject.size() > 0) {
-                                                
+
                                                 for (ProjectDTO project : listAllProject) {
-                                                count++;
+                                                    count++;
                                     %>
                                     <div class="joblist-wrapper"><a href="#" class="click-link w-inline-block">
                                             <h3 class="heading-13"> <%= project.getProjectName()%> </h3>
@@ -590,16 +613,16 @@
                         <div class="heading-right-container"><img
                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                 loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 767px) 14vw, 100px"
-                                srcset="<%= loginUser.getAvatar() %> 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                srcset="<%= loginUser.getAvatar()%> 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                 alt="" class="image-5" />
-                            <h2 class="heading-3"><%= loginUser.getFullName() %></h2>
+                            <h2 class="heading-3"><%= loginUser.getFullName()%></h2>
                             <div class="text-block-4"><strong><%= loginUser.getOverview()%></strong></div>
                         </div>
                         <div class="ividen"></div>
                         <div class="div-block-22">
                             <div class="text-block-19">Number of working jobs</div>
                             <div id="progress-bar" class="progress-bar"></div>
-                            <div class="text-block-20"><%= count %>/100</div>
+                            <div class="text-block-20"><%= count%>/100</div>
                         </div>
                     </div>
                 </div>

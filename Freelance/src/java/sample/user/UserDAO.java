@@ -332,7 +332,7 @@ public class UserDAO {
             if (con != null) {
                 ptm = con.prepareStatement(CREATE_HIRER);
                 ptm.setInt(1, hirer.getHirerID());
-                ptm.setString(2, hirer.getConpanyName());
+                ptm.setString(2, hirer.getCompanyName());
                 check = ptm.executeUpdate()>0?true:false;
             }
         } catch (Exception e) {

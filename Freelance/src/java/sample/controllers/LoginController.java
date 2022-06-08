@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.hirer.HirerDAO;
 import sample.hirer.HirerDTO;
 import sample.seeker.SeekerDTO;
 import sample.skill.SkillDAO;
@@ -26,6 +27,7 @@ import sample.user.UserDTO;
  */
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
+
     private static final String ERROR = "login.jsp";
     private static final String SEEKER_PAGE = "ViewSeekerDashboardController";
     private static final String HIRER_PAGE = "hirerDashboard.jsp";
@@ -42,15 +44,16 @@ public class LoginController extends HttpServlet {
             UserDTO user = new UserDTO();
             SeekerDTO seeker = new SeekerDTO();
             HirerDTO hirer = new HirerDTO();
+            HirerDAO daoHirer = new HirerDAO();
             user = dao.getUser(username, password);
-            if(user != null){
+            if (user != null) {
                 HttpSession session = request.getSession();
-                
+
                 //check xem nó có phải seeker hay ko
-                    //1.lấy seeker ra
+                //1.lấy seeker ra
                 seeker = dao.checkAccSeeker(user.getUserID());
-                    //2.check null
-                if(seeker != null){
+                //2.check null
+                if (seeker != null) {
                     seeker.setUserID(user.getUserID());
                     seeker.setPassword(user.getPassword());
                     seeker.setUserName(user.getUserName());
@@ -65,21 +68,31 @@ public class LoginController extends HttpServlet {
                     seeker.setLanguagelv(user.getLanguagelv());
                     
                     session.setAttribute("USER_LOGIN", seeker);
-                    
+
                     //lấy listID các skill của seeker
                     List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
                     session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
-                    
+
                     //lấy list skill trong Skill
                     List<SkillDTO> listSkillAll = daoSkill.getListSkill();
                     session.setAttribute("LIST_SKILL_ALL", listSkillAll);
                     
+                    
+                    List<HirerDTO> listHirer = daoHirer.getListHirer();
+                    
+                    for (HirerDTO element : listHirer) {
+                        element.setReviewGrade(daoHirer.getReviewGrade(element.getHirerID()));
+                        element.setJobPosted(daoHirer.getJobPosted(element.getHirerID()));
+                        
+                    }
+                    
+                    session.setAttribute("LIST_HIRER", listHirer);
                     url = SEEKER_PAGE;
-                } else{ //tương tự vs Hirer
-                            //1.lấy hirer
-                    hirer = dao.checkAccHirer(user.getUserID()); 
-                            //2.check hirer
-                    if(hirer != null){ 
+                } else { //tương tự vs Hirer
+                    //1.lấy hirer
+                    hirer = dao.checkAccHirer(user.getUserID());
+                    //2.check hirer
+                    if (hirer != null) {                        
                         hirer.setUserID(user.getUserID());
                         hirer.setPassword(user.getPassword());
                         hirer.setUserName(user.getUserName());
@@ -92,17 +105,17 @@ public class LoginController extends HttpServlet {
                         hirer.setAvatar(user.getAvatar());
                         hirer.setLanguage(user.getLanguage());
                         hirer.setLanguagelv(user.getLanguagelv());
-
+                        
                         session.setAttribute("USER_LOGIN", hirer);
                         url = HIRER_PAGE;
                     }
                 }
-            }else{
+            } else {
                 request.setAttribute("LOGIN_ERROR", "username or password don't correct");
             }
         } catch (Exception e) {
             log("error at LoginController: " + e.getMessage());
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

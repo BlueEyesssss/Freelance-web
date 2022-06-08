@@ -34,7 +34,7 @@ public class ViewSeekerDashboardController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "seekerDashboard.jsp";
+    private static final String SUCCESS = "seekerDashboardTest1.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
