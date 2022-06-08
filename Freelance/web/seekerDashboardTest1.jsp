@@ -181,7 +181,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                         hiring preferences.<br />Ordered by most relevant.</div>
                                     <div class="seeker-dividen"></div>
                        
-                                     <%            List<ProjectDTO> listBestMatchProject = (List<ProjectDTO>) request.getAttribute("LIST_ALL_PROJECT");
+                                     <%            List<ProjectDTO> listBestMatchProject = (List<ProjectDTO>) request.getAttribute("LIST_BEST_MATCH_PROJECT");
                                             if (listBestMatchProject != null) {
                                                 if (listBestMatchProject.size() > 0) {
                                                     for (ProjectDTO project : listBestMatchProject) {
@@ -294,9 +294,9 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">
-                                                        <div class="lb-joblist-button-wrapper"><a href="#"
+                                                        <div class="lb-joblist-button-wrapper"><a href="MainController?action=FormSentProposal&projectID=<%= project.getProjectID()%>"
                                                                 class="primary-button w-button">Submit a proposal</a><a
-                                                                href="#" class="primary-button sub w-button"> ♡ Save
+                                                                href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID()%>" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
                                                                 class="lb-flag-wrapper w-inline-block"><img
                                                                     loading="lazy"
@@ -307,6 +307,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             <div class="lb-text">Feel free to approach</div>
                                                         </div>
                                                         <div class="dividen"></div>
+                                                        
                                                                    
                                                         
                                                         <div class="lb-about-client-wrapper">
@@ -323,13 +324,13 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
                                                                 <h4 class="heading-12"><%= hirer.getJobPosted() %> Job Posted</h4>
-                                                                <div>79% hire rate, 1 open job</div>
+                                                                <div>The total number of posted job</div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
                                                                 <h4 class="heading-12">$100k+ total spent</h4>
-                                                                <div>90 hires, 12 active</div>
+                                                                <div>90 hires, 12 active - cho nay chua lam</div>
                                                             </div>
-                                                            <div>Member since May 30, 2022</div>
+                                                            <div>Member since <%= hirer.getRegistrationDate() %></div>
                                                         </div>
                                                          
                                                                     
@@ -351,36 +352,52 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                     <div class="text-block-5">Browse jobs that match your experience to a client&#x27;s
                                         hiring preferences.<br />Ordered by most relevant.</div>
                                     <div class="seeker-dividen"></div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <%            List<ProjectDTO> listAllProject = (List<ProjectDTO>) request.getAttribute("LIST_ALL_PROJECT");
+                                            if (listAllProject != null) {
+                                                if (listAllProject.size() > 0) {
+                                                    for (ProjectDTO project : listAllProject) {
+                                        %>
+                                        
+                                        <%
+                                                                    List<HirerDTO> listHirer = (List<HirerDTO>) session.getAttribute("LIST_HIRER");
+                                                                    HirerDTO hirer = null;
+                                                                    for (HirerDTO elem : listHirer) {
+                                                                        if (elem.getHirerID() == project.getHirerID()) {
+                                                                            hirer = elem;
+                                                                        }
+                                                                    }
+                                                        %>  
+                                        
                                     <div class="joblist-wrapper"><a href="#" class="click-link w-inline-block">
-                                            <h3 class="heading-13">Front-end development website</h3>
-                                        </a>
-                                        <div class="heart-wrapper"><img data-w-id="fe4f6527-8a62-9794-1300-dc0de06c34a3"
-                                                loading="lazy"
-                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62962a3a870f5430ff35871f_heart.svg"
-                                                alt="" class="icon-heart" /><img style="display:none"
-                                                data-w-id="fe4f6527-8a62-9794-1300-dc0de06c34a4"
-                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62962a3896c88f623a54351f_heart-fill.svg"
-                                                loading="lazy" alt="" class="icon-heart-fill" /></div>
-                                        <div>Price: 20$ - Entry Level - Post 10h ago</div>
-                                        <p class="paragraph">I have a store I installed a pixel into but it is not
-                                            working and won&#x27;t show anything. I can&#x27;t get the events to work so
-                                            even though it is pasted into the header it is not working at all. I am
-                                            unsure of what to do and just need someone who can go to the back end set
-                                            this up for me properly basically. Trustworthy and kind who does a great
-                                            job!</p>
-                                        <div class="review-stars-wrapper"><img loading="lazy"
-                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
-                                                alt="" />
-                                            <div> 4,5/5 points</div>
-                                        </div>
+                                            <h3 class="heading-13"> <%= project.getProjectName()%> </h3>
+                                            </a>
+                                            <div>Price: <%= project.getPaymentAmount()%> - <%= project.getComplexity()%> - Post <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear() %> days Ago</div>
+                                            <p class="paragraph"> <%= project.getDescription()%></p>
+                                            <div class="div-block-7"><img loading="lazy"
+                                                                          src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
+                                                                          alt="" />
+                                                <div> <%= hirer.getReviewGrade() %>/5 points</div>
+                                            </div>
+                                            
                                         <div class="seeker-skill-wrapper">
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
+                                                <%
+                                                    for (String skill : project.getSkillneed()) {
+                                                %>
+                                                <div class="seeker-skill"><%= skill%></div>
+                                                <%
+                                                    }
+                                                %>
+                                           
                                         </div>
+                                            
                                         <div class="seeker-dividen"></div>
                                         <div class="lightbox-project-detail">
-                                            <div data-w-id="fe4f6527-8a62-9794-1300-dc0de06c34b6" class="close-div">
+                                            <div data-w-id="9066dcf3-f84c-cbf2-e3fb-4d1d61584a24" class="close-div">
                                             </div>
                                             <div class="light-box-job-content">
                                                 <div class="div-block-16"><img width="46" loading="lazy"
@@ -389,26 +406,19 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                 <div class="lb-jobdetail-wrapper">
                                                     <div class="lb-jobdetail-left">
                                                         <div class="lb-jobdetail-div">
-                                                            <h1 class="heading-10">Webflow Personal Website</h1>
+                                                            <h1 class="heading-10"><%= project.getProjectName()%></h1>
                                                         </div>
                                                         <div class="lb-jobdetail-div">
-                                                            <div class="lb-heading-text">Web design</div>
-                                                            <div class="lb-text head">Posted 1 day ago</div>
+                                                            <div class="lb-heading-text"><%= project.getMajor()%></div>
+                                                            <div class="lb-text head">Post <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear() %> Days Ago</div>
                                                             <div class="lb-location-wrapper"><img loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629436cf2d0c464f33b2ff23_map-pin.svg"
                                                                     alt="" class="image-7" />
-                                                                <div> Saigon</div>
+                                                                <div> <%= project.getLocation() %></div>
                                                             </div>
                                                         </div>
                                                         <div class="lb-jobdetail-div">
-                                                            <div class="lb-text">Discription: Hi! I have a personal
-                                                                Webflow site that is almost done (based on an existing
-                                                                Webflow template). It needs some small tweaks (eg.
-                                                                centering nav bar, formatting text, linking to external
-                                                                links, and images, removing some items from the
-                                                                template, updating CMS collection). No creative input
-                                                                needed, I will send very specific instructions! Thank
-                                                                you<br /></div>
+                                                            <div class="lb-text"><%= project.getDescription() %><br /></div>
                                                         </div>
                                                         <div class="lb-jobdetail-div horizontal">
                                                             <div class="specific-wrapper"><img loading="lazy"
@@ -416,8 +426,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                     alt="" class="image-8" />
                                                                 <div>
                                                                     <div class="text-block-16"><strong
-                                                                            class="lb-condition-bold-text">Less than 30
-                                                                            hrs/week</strong></div>
+                                                                            class="lb-condition-bold-text"><%= project.getHoursPerWeek()%> Hours</strong></div>
                                                                     <div class="lb-small-text">Hourly</div>
                                                                 </div>
                                                             </div>
@@ -425,8 +434,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948564b5cf0e21235cdf86_calendar.png"
                                                                     alt="" class="image-8" />
                                                                 <div>
-                                                                    <div><strong class="lb-condition-bold-text">Less
-                                                                            than a month</strong></div>
+                                                                    <div><strong class="lb-condition-bold-text"><%= project.getExpectedDurationID()%></strong></div>
                                                                     <div class="text-block-14">Project Length</div>
                                                                 </div>
                                                             </div>
@@ -435,10 +443,9 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                     alt="" class="image-8" />
                                                                 <div>
                                                                     <div class="lb-condition-bold-text"><strong
-                                                                            class="bold-text">Intermediate</strong>
+                                                                            class="bold-text"><%= project.getComplexity()%></strong>
                                                                     </div>
-                                                                    <div class="text-block-12">I am looking for a mix of
-                                                                        experience and value</div>
+                                                                    <div class="text-block-12">Understanding of Major</div>
                                                                 </div>
                                                             </div>
                                                             <div class="specific-wrapper"><img loading="lazy"
@@ -446,23 +453,26 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                     alt="" class="image-8" />
                                                                 <div>
                                                                     <div class="lb-condition-bold-text">
-                                                                        <strong>100$</strong></div>
+                                                                        <strong><%= project.getPaymentAmount()%>$</strong></div>
                                                                     <div class="text-block-12">Budget</div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="lb-jobdetail-div">
-                                                            <div class="lb-heading-text">Skill and Expertise</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                        </div>
+                                                                                                                    <div class="lb-jobdetail-div">
+                                                                <div class="lb-heading-text">Skill and Expertise</div>
+                                                                <%
+                                                                    for (String skill : project.getSkillneed()) {
+                                                                %>
+                                                                <div class="expected-skill"><%= skill%></div>
+                                                                <%
+                                                                    }
+                                                                %>
+                                                            </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">
-                                                        <div class="lb-joblist-button-wrapper"><a href="#"
+                                                        <div class="lb-joblist-button-wrapper"><a href="MainController?action=FormSentProposal&projectID=<%= project.getProjectID()%>"
                                                                 class="primary-button w-button">Submit a proposal</a><a
-                                                                href="#" class="primary-button sub w-button"> ♡ Save
+                                                                href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID()%>" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
                                                                 class="lb-flag-wrapper w-inline-block"><img
                                                                     loading="lazy"
@@ -473,68 +483,101 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             <div class="lb-text">Feel free to approach</div>
                                                         </div>
                                                         <div class="dividen"></div>
+                                                        
+                                                                   
+                                                        
                                                         <div class="lb-about-client-wrapper">
                                                             <h3 class="heading-11">About client</h3>
                                                             <div class="lb-review-wrapper"><img loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                     alt="" class="image-10" />
-                                                                <div class="lb-review-text">4.5/5 Reviews<br />of 999
+                                                                <div class="lb-review-text"><%= hirer.getReviewGrade() %> Stars <br />of 999
                                                                     reviews</div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
-                                                                <h4 class="heading-12">ABC Company</h4>
-                                                                <div>Saigon</div>
+                                                                <h4 class="heading-12">Company: <%= hirer.getCompanyName() %></h4>
+                                                                <div><%= hirer.getLocation() %></div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
-                                                                <h4 class="heading-12">15 jobs posted</h4>
-                                                                <div>79% hire rate, 1 open job</div>
+                                                                <h4 class="heading-12"><%= hirer.getJobPosted() %> Job Posted</h4>
+                                                                <div>The total number of posted job</div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
                                                                 <h4 class="heading-12">$100k+ total spent</h4>
-                                                                <div>90 hires, 12 active</div>
+                                                                <div>90 hires, 12 active - cho nay chua lam</div>
                                                             </div>
-                                                            <div>Member since May 30, 2022</div>
+                                                            <div>Member since <%= hirer.getRegistrationDate() %></div>
                                                         </div>
+                                                         
+                                                                    
+                                                              
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                                                    
+                                        <%
+                                                    }
+                                                }
+                                            }
+                                        %>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                 </div>
                                 <div data-w-tab="Tab 3" class="w-tab-pane">
                                     <div class="text-block-5">Browse jobs that match your experience to a client&#x27;s
                                         hiring preferences.<br />Ordered by most relevant.</div>
                                     <div class="seeker-dividen"></div>
+                                    
+                                    <%            List<ProjectDTO> listFavoriteProject = (List<ProjectDTO>) request.getAttribute("LIST_FAVORITE_PROJECT");
+                                            if (listFavoriteProject != null) {
+                                                if (listFavoriteProject.size() > 0) {
+                                                    for (ProjectDTO project : listFavoriteProject) {
+                                        %>
+                                        
+                                        <%
+                                                                    List<HirerDTO> listHirer = (List<HirerDTO>) session.getAttribute("LIST_HIRER");
+                                                                    HirerDTO hirer = null;
+                                                                    for (HirerDTO elem : listHirer) {
+                                                                        if (elem.getHirerID() == project.getHirerID()) {
+                                                                            hirer = elem;
+                                                                        }
+                                                                    }
+                                                        %>  
+                                        
                                     <div class="joblist-wrapper"><a href="#" class="click-link w-inline-block">
-                                            <h3 class="heading-13">Front-end development website</h3>
-                                        </a>
-                                        <div class="heart-wrapper"><img data-w-id="c080e0e1-15a0-8d54-c957-b0328a8b97b5"
-                                                loading="lazy"
-                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62962a3a870f5430ff35871f_heart.svg"
-                                                alt="" class="icon-heart" /><img style="display:none"
-                                                data-w-id="c080e0e1-15a0-8d54-c957-b0328a8b97b6"
-                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62962a3896c88f623a54351f_heart-fill.svg"
-                                                loading="lazy" alt="" class="icon-heart-fill" /></div>
-                                        <div>Price: 20$ - Entry Level - Post 10h ago</div>
-                                        <p class="paragraph">I have a store I installed a pixel into but it is not
-                                            working and won&#x27;t show anything. I can&#x27;t get the events to work so
-                                            even though it is pasted into the header it is not working at all. I am
-                                            unsure of what to do and just need someone who can go to the back end set
-                                            this up for me properly basically. Trustworthy and kind who does a great
-                                            job!</p>
-                                        <div class="review-stars-wrapper"><img loading="lazy"
-                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
-                                                alt="" />
-                                            <div> 4,5/5 points</div>
-                                        </div>
+                                            <h3 class="heading-13"> <%= project.getProjectName()%> </h3>
+                                            </a>
+                                            <div>Price: <%= project.getPaymentAmount()%> - <%= project.getComplexity()%> - Post <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear() %> days Ago</div>
+                                            <p class="paragraph"> <%= project.getDescription()%></p>
+                                            <div class="div-block-7"><img loading="lazy"
+                                                                          src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
+                                                                          alt="" />
+                                                <div> <%= hirer.getReviewGrade() %>/5 points</div>
+                                            </div>
+                                            
                                         <div class="seeker-skill-wrapper">
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
-                                            <div class="seeker-skill">Front-end Developer</div>
+                                                <%
+                                                    for (String skill : project.getSkillneed()) {
+                                                %>
+                                                <div class="seeker-skill"><%= skill%></div>
+                                                <%
+                                                    }
+                                                %>
+                                           
                                         </div>
+                                            
                                         <div class="seeker-dividen"></div>
                                         <div class="lightbox-project-detail">
-                                            <div data-w-id="c080e0e1-15a0-8d54-c957-b0328a8b97c8" class="close-div">
+                                            <div data-w-id="9066dcf3-f84c-cbf2-e3fb-4d1d61584a24" class="close-div">
                                             </div>
                                             <div class="light-box-job-content">
                                                 <div class="div-block-16"><img width="46" loading="lazy"
@@ -543,26 +586,19 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                 <div class="lb-jobdetail-wrapper">
                                                     <div class="lb-jobdetail-left">
                                                         <div class="lb-jobdetail-div">
-                                                            <h1 class="heading-10">Webflow Personal Website</h1>
+                                                            <h1 class="heading-10"><%= project.getProjectName()%></h1>
                                                         </div>
                                                         <div class="lb-jobdetail-div">
-                                                            <div class="lb-heading-text">Web design</div>
-                                                            <div class="lb-text head">Posted 1 day ago</div>
+                                                            <div class="lb-heading-text"><%= project.getMajor()%></div>
+                                                            <div class="lb-text head">Post <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear() %> Days Ago</div>
                                                             <div class="lb-location-wrapper"><img loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629436cf2d0c464f33b2ff23_map-pin.svg"
                                                                     alt="" class="image-7" />
-                                                                <div> Saigon</div>
+                                                                <div> <%= project.getLocation() %></div>
                                                             </div>
                                                         </div>
                                                         <div class="lb-jobdetail-div">
-                                                            <div class="lb-text">Discription: Hi! I have a personal
-                                                                Webflow site that is almost done (based on an existing
-                                                                Webflow template). It needs some small tweaks (eg.
-                                                                centering nav bar, formatting text, linking to external
-                                                                links, and images, removing some items from the
-                                                                template, updating CMS collection). No creative input
-                                                                needed, I will send very specific instructions! Thank
-                                                                you<br /></div>
+                                                            <div class="lb-text"><%= project.getDescription() %><br /></div>
                                                         </div>
                                                         <div class="lb-jobdetail-div horizontal">
                                                             <div class="specific-wrapper"><img loading="lazy"
@@ -570,8 +606,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                     alt="" class="image-8" />
                                                                 <div>
                                                                     <div class="text-block-16"><strong
-                                                                            class="lb-condition-bold-text">Less than 30
-                                                                            hrs/week</strong></div>
+                                                                            class="lb-condition-bold-text"><%= project.getHoursPerWeek()%> Hours</strong></div>
                                                                     <div class="lb-small-text">Hourly</div>
                                                                 </div>
                                                             </div>
@@ -579,8 +614,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948564b5cf0e21235cdf86_calendar.png"
                                                                     alt="" class="image-8" />
                                                                 <div>
-                                                                    <div><strong class="lb-condition-bold-text">Less
-                                                                            than a month</strong></div>
+                                                                    <div><strong class="lb-condition-bold-text"><%= project.getExpectedDurationID()%></strong></div>
                                                                     <div class="text-block-14">Project Length</div>
                                                                 </div>
                                                             </div>
@@ -589,10 +623,9 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                     alt="" class="image-8" />
                                                                 <div>
                                                                     <div class="lb-condition-bold-text"><strong
-                                                                            class="bold-text">Intermediate</strong>
+                                                                            class="bold-text"><%= project.getComplexity()%></strong>
                                                                     </div>
-                                                                    <div class="text-block-12">I am looking for a mix of
-                                                                        experience and value</div>
+                                                                    <div class="text-block-12">Understanding of Major</div>
                                                                 </div>
                                                             </div>
                                                             <div class="specific-wrapper"><img loading="lazy"
@@ -600,23 +633,26 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                     alt="" class="image-8" />
                                                                 <div>
                                                                     <div class="lb-condition-bold-text">
-                                                                        <strong>100$</strong></div>
+                                                                        <strong><%= project.getPaymentAmount()%>$</strong></div>
                                                                     <div class="text-block-12">Budget</div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="lb-jobdetail-div">
-                                                            <div class="lb-heading-text">Skill and Expertise</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                            <div class="expected-skill">My skill</div>
-                                                        </div>
+                                                                                                                    <div class="lb-jobdetail-div">
+                                                                <div class="lb-heading-text">Skill and Expertise</div>
+                                                                <%
+                                                                    for (String skill : project.getSkillneed()) {
+                                                                %>
+                                                                <div class="expected-skill"><%= skill%></div>
+                                                                <%
+                                                                    }
+                                                                %>
+                                                            </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">
-                                                        <div class="lb-joblist-button-wrapper"><a href="#"
+                                                        <div class="lb-joblist-button-wrapper"><a href="MainController?action=FormSentProposal&projectID=<%= project.getProjectID()%>"
                                                                 class="primary-button w-button">Submit a proposal</a><a
-                                                                href="#" class="primary-button sub w-button"> ♡ Save
+                                                                href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID()%>" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
                                                                 class="lb-flag-wrapper w-inline-block"><img
                                                                     loading="lazy"
@@ -627,33 +663,52 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             <div class="lb-text">Feel free to approach</div>
                                                         </div>
                                                         <div class="dividen"></div>
+                                                        
+                                                                   
+                                                        
                                                         <div class="lb-about-client-wrapper">
                                                             <h3 class="heading-11">About client</h3>
                                                             <div class="lb-review-wrapper"><img loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                     alt="" class="image-10" />
-                                                                <div class="lb-review-text">4.5/5 Reviews<br />of 999
+                                                                <div class="lb-review-text"><%= hirer.getReviewGrade() %> Stars <br />of 999
                                                                     reviews</div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
-                                                                <h4 class="heading-12">ABC Company</h4>
-                                                                <div>Saigon</div>
+                                                                <h4 class="heading-12">Company: <%= hirer.getCompanyName() %></h4>
+                                                                <div><%= hirer.getLocation() %></div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
-                                                                <h4 class="heading-12">15 jobs posted</h4>
-                                                                <div>79% hire rate, 1 open job</div>
+                                                                <h4 class="heading-12"><%= hirer.getJobPosted() %> Job Posted</h4>
+                                                                <div>The total number of posted job</div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
                                                                 <h4 class="heading-12">$100k+ total spent</h4>
-                                                                <div>90 hires, 12 active</div>
+                                                                <div>90 hires, 12 active - cho nay chua lam</div>
                                                             </div>
-                                                            <div>Member since May 30, 2022</div>
+                                                            <div>Member since <%= hirer.getRegistrationDate() %></div>
                                                         </div>
+                                                         
+                                                                    
+                                                              
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                                                    
+                                        <%
+                                                    }
+                                                }
+                                            }
+                                        %>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -664,11 +719,10 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                         <div class="heading-right-container"><img
                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                 loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 767px) 14vw, 100px"
-                                srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                srcset="<%= loginUser.getAvatar()%> 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                 alt="" class="image-5" />
-                            <h2 class="heading-3">Thien Pham</h2>
-                            <div class="text-block-4"><strong>Web desinger, front-end devleoper</strong> |<br />Figma,
-                                HTML/CSS, Webflow</div>
+                            <h2 class="heading-3"><%= loginUser.getFullName()%></h2>
+                            <div class="text-block-4"><strong><%= loginUser.getMajor()%></strong> |<br /> <%= loginUser.getOverview()%> </div>
                         </div>
                         <div class="ividen"></div>
                         <div class="div-block-22">

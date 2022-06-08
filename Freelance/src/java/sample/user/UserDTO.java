@@ -5,6 +5,8 @@
  */
 package sample.user;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author LENOVO
@@ -22,6 +24,12 @@ public class UserDTO {
     private String avatar;
     private String language;
     private String languagelv;
+
+    UserDTO(int userID, String location, String registrationDate) {
+        this.userID = userID;
+        this.location = location;
+        this.registrationDate = registrationDate;
+    }
 
     public String getLanguagelv() {
         return languagelv;

@@ -77,8 +77,21 @@ public class LoginController extends HttpServlet {
                     List<SkillDTO> listSkillAll = daoSkill.getListSkill();
                     session.setAttribute("LIST_SKILL_ALL", listSkillAll);
                     
+                    UserDAO daoUser = new UserDAO();
                     
                     List<HirerDTO> listHirer = daoHirer.getListHirer();
+                    List<UserDTO> listUser = daoUser.getListUser();
+                    
+                    for (UserDTO userDTO : listUser) {
+                        for (HirerDTO hirerDTO : listHirer) {
+                            if (userDTO.getUserID() == hirerDTO.getHirerID()) {
+                                hirerDTO.setLocation(userDTO.getLocation());
+                                hirerDTO.setRegistrationDate(userDTO.getRegistrationDate());
+                            }
+                            
+                        }
+                    }
+                    
                     
                     for (HirerDTO element : listHirer) {
                         element.setReviewGrade(daoHirer.getReviewGrade(element.getHirerID()));

@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import sample.hirer.HirerDTO;
 import sample.seeker.SeekerDTO;
@@ -38,6 +40,49 @@ public class UserDAO {
     private static final String CHECK_DUPLICATE_USERNAME = "SELECT userName FROM [User] WHERE userName = ?";
     private static final String UPDATE_LANGUAGE_LV = "UPDATE [User] SET languagelv = ? WHERE userID = ?";
     private static final String UPDATE_PASSWORD = "UPDATE [User] SET password = ? WHERE userID = ?";
+    
+        private static final String GET_LIST_ALL_USER = "SELECT U.userID, U.location, U.registrationDate\n" +
+"FROM [User] U";
+        
+        public List<UserDTO> getListUser() throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+               
+                stm = conn.prepareStatement(GET_LIST_ALL_USER);
+            
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int userID = rs.getInt("userID");
+                    String location = rs.getString("location");
+                    
+                    String registrationDate = rs.getString("registrationDate");
+                    
+                    list.add(new UserDTO(userID, location, registrationDate));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+        
+        
 
     public boolean checkSkillMatch(int SkillID, List<SkillDTO> listSkill){
         boolean check = false;
