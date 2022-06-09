@@ -95,10 +95,9 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                             <div class="text-block-22">Find Work</div>
                         </div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerDashboard"
-                                                                            class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="MainController?action=ViewSeekerDashboard"
-                                                                            class="dropdown-link-nav w-dropdown-link">Save Jobs</a><a href="MainController?action=ViewProposal"
+                                                                            class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="MainController?action=ViewProposal"
                                                                             class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
-                    </div>
+                    </div>s
                     <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
                         <div class="dropdown-toggle-3 w-dropdown-toggle">
                             <div class="text-block-22">My Job</div>
