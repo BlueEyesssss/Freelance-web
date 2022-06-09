@@ -70,17 +70,16 @@
                             <div class="dropdown-toggle-2 w-dropdown-toggle">
                                 <div class="text-block-22">Find Work</div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerDashboard"
                                                                             class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">Save Jobs</a><a href="#"
                                                                             class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
                         </div>
                         <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                             <div class="dropdown-toggle-3 w-dropdown-toggle">
                                 <div class="text-block-22">My Job</div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">My Job</a><a href="#"
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewMyJob"
+                                                                            class="dropdown-link-nav w-dropdown-link">My Job</a><a href="MainController?action=ViewContract"
                                                                             class="dropdown-link-nav w-dropdown-link">All Constract</a></nav>
                         </div>
                     </div><a href="#" class="link-block w-inline-block"><img

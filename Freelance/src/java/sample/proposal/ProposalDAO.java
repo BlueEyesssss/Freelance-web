@@ -35,6 +35,9 @@ public class ProposalDAO {
             + " VALUES(?,?,?,?,?,?)";
 
     private static final String CHECK_IS_PROPOSAL = " SELECT projectID FROM Proposal WHERE projectID =?";
+    
+    private static final String CHECK_PROPOSAL_ALREADY_SUBMIT = " SELECT projectID FROM Proposal WHERE projectID =? AND seekerID=?";
+    
     private static final String VIEW_DONE_PROPOSAL = "SELECT B.projectName, a.createdDate\n" +
 "FROM Proposal A, Project B\n" +
 "WHERE A.projectID = B.projectID \n" +
@@ -357,6 +360,38 @@ public class ProposalDAO {
             }
         }
         return checkIsActiveProposal;
+    }
+    
+    public boolean alreadySubmitProposal(int projectID, int seekerID) throws SQLException {
+        boolean checkAlreadySubmitProposal = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_PROPOSAL_ALREADY_SUBMIT);
+                ptm.setInt(1, projectID);
+                ptm.setInt(2, seekerID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    checkAlreadySubmitProposal = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return checkAlreadySubmitProposal;
     }
 
 }

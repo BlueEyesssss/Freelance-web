@@ -51,7 +51,7 @@ public class ProjectDAO {
     
     private static final String GET_SKILL_NEED_PROJECT = "SELECT nd.projectID, s.skillName FROM NeededSkills nd, Skill s WHERE nd.skillID = s.skillID AND nd.projectID = ?";
     
-    private static final String SELECT_PROJECT_CURRENT = "SELECT P.*,E.durationText,H.conpanyName FROM Project P, ExpectedDuration E, Hirer H WHERE P.projectID=? AND P.expectedDurationID=E.expectedDurationID AND P.hirerID=H.hirerID ";
+    private static final String SELECT_PROJECT_CURRENT = "SELECT P.*,E.durationText,H.companyName FROM Project P, ExpectedDuration E, Hirer H WHERE P.projectID=? AND P.expectedDurationID=E.expectedDurationID AND P.hirerID=H.hirerID ";
     
     public List<String> getSkillNeedOfProject(int projectID) throws SQLException {
        List<String> skillNeed = new ArrayList<>();
@@ -422,7 +422,7 @@ public class ProjectDAO {
                     String description = rs.getString("description");
                     String projectName = rs.getString("projectName");
                     String complexity = rs.getString("complexity");
-                    String hirer = rs.getString("conpanyName");
+                    String hirer = rs.getString("companyName");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
                     String durationText = rs.getString("durationText");
                     String location = rs.getString("location");

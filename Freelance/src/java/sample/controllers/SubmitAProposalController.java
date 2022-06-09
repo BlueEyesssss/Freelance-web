@@ -23,7 +23,7 @@ import sample.user.UserDTO;
 public class SubmitAProposalController extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "seekerDashboard.jsp";
+    private static final String SUCCESS = "ViewSeekerDashboardController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -38,11 +38,14 @@ public class SubmitAProposalController extends HttpServlet {
             String attachment = request.getParameter("attachment");
             ProposalDAO dao = new ProposalDAO();
             boolean checkIsActiveProposal = dao.isActiveProposal(projectID);
-            if (!checkIsActiveProposal) {
+            boolean checkAlreadySubmitProposal = dao.alreadySubmitProposal(projectID,user.getUserID());
+            if (!checkIsActiveProposal || !checkAlreadySubmitProposal) {
                 boolean checkSubmitProposal = dao.submitProposal(projectID, user.getUserID(), paymentAmount, coverLetter, attachment);
                 if (checkSubmitProposal) {
                     url = SUCCESS;
                 }
+            }else{
+                request.setAttribute("ERROR_MESSAGE", "Job invalid");//hien o dau?
             }
 
         } catch (Exception e) {
