@@ -5,6 +5,7 @@
  */
 package sample.hirer;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import sample.user.UserDTO;
 
@@ -12,7 +13,7 @@ import sample.user.UserDTO;
  *
  * @author LENOVO
  */
-public class HirerDTO extends UserDTO{
+public class HirerDTO extends UserDTO implements Serializable{
     private int hirerID;
     private String companyName;
     private int reviewGrade;

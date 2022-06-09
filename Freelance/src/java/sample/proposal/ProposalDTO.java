@@ -14,6 +14,7 @@ public class ProposalDTO {
     private int projectID;
     private int seekerID;
     private double paymentAmount;
+    private int proposalStatusID;
     private String proposalStatusName;
     private double clientGrade;
     private String clientComment;
@@ -24,9 +25,62 @@ public class ProposalDTO {
     private String createdDate;
     private String expectedDurationID;
     private String projectName;
+    private String durationText;
+    private int hirerID;
 
-   
+    public int getHirerID() {
+        return hirerID;
+    }
 
+    public void setHirerID(int hirerID) {
+        this.hirerID = hirerID;
+    }
+    
+    
+
+    public String getDurationText() {
+        return durationText;
+    }
+
+    public int getProposalStatusID() {
+        return proposalStatusID;
+    }
+
+    public void setProposalStatusID(int proposalStatusID) {
+        this.proposalStatusID = proposalStatusID;
+    }
+
+    
+    
+    public void setDurationText(String durationText) {
+        this.durationText = durationText;
+    }
+
+    //full
+    public ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, int proposalStatusID, String proposalStatusName, double clientGrade, String clientComment, double seekerGrade, String seekerComment, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName, String durationText) {
+        this.proposalID = proposalID;
+        this.projectID = projectID;
+        this.seekerID = seekerID;
+        this.paymentAmount = paymentAmount;
+        this.proposalStatusID = proposalStatusID;
+        this.proposalStatusName = proposalStatusName;
+        this.clientGrade = clientGrade;
+        this.clientComment = clientComment;
+        this.seekerGrade = seekerGrade;
+        this.seekerComment = seekerComment;
+        this.coverLetter = coverLetter;
+        this.attachment = attachment;
+        this.createdDate = createdDate;
+        this.expectedDurationID = expectedDurationID;
+        this.projectName = projectName;
+        this.durationText = durationText;
+    }
+
+    
+
+    
+    
+    //thiếu durationText đầu vào
     public ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, String proposalStatusName, double clientGrade, String clientComment, double seekerGrade, String seekerComment, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName) {
         this.proposalID = proposalID;
         this.projectID = projectID;

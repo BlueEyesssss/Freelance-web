@@ -80,6 +80,8 @@ public class MainController extends HttpServlet {
     private static final String VIEW_CONTRACT_CONTROLLER = "ViewContractController";
     private static final String VIEW_MY_JOB = "ViewMyJob";
     private static final String VIEW_MY_JOB_CONTROLLER = "ViewMyJobController";
+    private static final String PROPOSAL_DETAIL = "ProposalDetail";
+    private static final String PROPOSAL_DETAIL_CONTROLLER = "ProposalDetailController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -170,12 +172,16 @@ public class MainController extends HttpServlet {
                 
             } else if (SUBMIT_A_PROPOSAL.equals(action)) {
                 url = SUBMIT_A_PROPOSAL_CONTROLLER;
+                
             } else if (VIEW_CONTRACT.equals(action)) {
                 url = VIEW_CONTRACT_CONTROLLER;
+                
             } else if (VIEW_MY_JOB.equals(action)) {
                 url = VIEW_MY_JOB_CONTROLLER;
     
-                
+            } else if (PROPOSAL_DETAIL.equals(action)) {
+                url = PROPOSAL_DETAIL_CONTROLLER;
+    
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");

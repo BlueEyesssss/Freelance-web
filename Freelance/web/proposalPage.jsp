@@ -14,7 +14,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Proposal</title>
+        <title>Proposal hihi</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Webflow" name="generator" />
         <link href="https://uploads-ssl.webflow.com/62963198e315b0b2ad4afa7a/css/proposal-dd5572.webflow.3654e43a5.css"
@@ -116,7 +116,7 @@
                 %>
                 <div class="submit-1">
                     <div class="time-submit">Initiated <%= proposal.getCreatedDate()%></div>
-                    <div class="project-submit"><a href="#" class="job-submit"><%= proposal.getProjectName()%></a></div>
+                    <div class="project-submit"><a href="MainController?action=ProposalDetail&proposalID=<%= proposal.getProposalID() %>" class="job-submit"><%= proposal.getProjectName()%></a></div>
                     <div class="general-profile">General Profile</div>
                 </div>
                 <%
@@ -135,7 +135,7 @@
                 %>
                 <div class="submit-1">
                     <div class="time-submit">Initiated <%= proposal.getCreatedDate()%></div>
-                    <div class="project-submit"><a href="#" class="job-submit"><%= proposal.getProjectName()%></a></div>
+                    <div class="project-submit"><a href="MainController?action=ProposalDetail&proposalID=<%= proposal.getProposalID() %>" class="job-submit"><%= proposal.getProjectName()%></a></div>
                     <div class="general-profile">General Profile</div>
                 </div>
                 <%

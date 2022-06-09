@@ -53,6 +53,41 @@ public class ProjectDAO {
 
     private static final String SELECT_PROJECT_CURRENT = "SELECT P.*,E.durationText,H.companyName FROM Project P, ExpectedDuration E, Hirer H WHERE P.projectID=? AND P.expectedDurationID=E.expectedDurationID AND P.hirerID=H.hirerID ";
 
+    private static final String GET_HIRERID_BY_PROJECTID = "select hirerID\n" +
+"from Project\n" +
+"where projectID = ?";
+    public int getHirerIdFromProjectId(int projectId) throws SQLException{
+        int hirerid = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_HIRERID_BY_PROJECTID);
+                ptm.setInt(1, projectId);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    hirerid = rs.getInt("hirerID");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return hirerid;
+    }
+    
     public List<String> getSkillNeedOfProject(int projectID) throws SQLException {
         List<String> skillNeed = new ArrayList<>();
         Connection conn = null;

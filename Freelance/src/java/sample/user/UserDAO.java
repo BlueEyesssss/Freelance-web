@@ -25,9 +25,9 @@ public class UserDAO {
 
     private static final String GET_USER = "SELECT userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar, language, languagelv FROM [User] WHERE userName = ? AND password = ?";
     private static final String CHECK_ACC_SEEKER = "SELECT seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek FROM Seeker WHERE seekerID = ?";
-    private static final String CHECK_ACC_HIRER = "SELECT hirerID, conpanyName FROM Hirer WHERE hirerID = ?";
+    private static final String CHECK_ACC_HIRER = "SELECT hirerID, companyName FROM Hirer WHERE hirerID = ?";
     private static final String CREATE_USER = "INSERT INTO [User](password, userName, fullName, email, phone, location, registrationDate, balance, avatar) VALUES(?,?,?,?,?,?,?,?,?)";
-    private static final String CREATE_HIRER = "INSERT INTO Hirer(hirerID, conpanyName) VALUES(?, ?)";
+    private static final String CREATE_HIRER = "INSERT INTO Hirer(hirerID, companyName) VALUES(?, ?)";
     private static final String CREATE_SEEKER = "INSERT INTO Seeker(seekerID, overview, titileBio, moneyPerHour, education, degree, major) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String COUNT_EMAIL = "SELECT COUNT(*) as countEmail FROM [User] WHERE email = ?";
     private static final String CHECK_EXIST_EMAIL = "USE FreelanceManagement\n" +
@@ -436,7 +436,7 @@ public class UserDAO {
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     int hirerID = rs.getInt("hirerID");
-                    String conpanyName = rs.getString("conpanyName");
+                    String conpanyName = rs.getString("companyName");
                     hirer = new HirerDTO(hirerID, conpanyName);
                 }
             }
