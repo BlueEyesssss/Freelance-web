@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ki%205/SWP/Freelance-web/Freelance/src/java/sample/controllers/SubmitAProposalController.java</file>
+            <file>file:/D:/ki%205/SWP/Freelance-web/Freelance/src/java/sample/controllers/ViewAllProjectController.java</file>
+            <file>file:/D:/ki%205/SWP/Freelance-web/Freelance/src/java/sample/project/ProjectDAO.java</file>
+            <file>file:/D:/ki%205/SWP/Freelance-web/Freelance/web/seekerDashboard.jsp</file>
+            <file>file:/D:/ki%205/SWP/Freelance-web/Freelance/src/java/sample/controllers/ViewFavoriteProjectController.java</file>
+            <file>file:/D:/ki%205/SWP/Freelance-web/Freelance/src/java/sample/controllers/ViewSeekerDashboardController.java</file>
+            <file>file:/D:/ki%205/SWP/Freelance-web/Freelance/src/java/sample/controllers/ViewBestMatchProjectController.java</file>
         </group>
     </open-files>
 </project-private>

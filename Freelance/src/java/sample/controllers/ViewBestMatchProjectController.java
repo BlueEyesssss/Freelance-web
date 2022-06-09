@@ -37,10 +37,14 @@ public class ViewBestMatchProjectController extends HttpServlet {
             int seekerID = seekerLogin.getSeekerID();
             ProjectDAO dao = new ProjectDAO();
             List<ProjectDTO> list = dao.getListProjectBestMatch(seekerID);
-            if(!list.isEmpty()) {
+            if (!list.isEmpty()) {
+                for (ProjectDTO projectDTO : list) {
+                    List<String> skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
+                    projectDTO.setSkillneed(skillneed);
+                }
                 request.setAttribute("LIST_PROJECT", list);
                 url = SUCCESS;
-            }
+            }           
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
         }finally {

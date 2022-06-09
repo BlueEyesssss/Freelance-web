@@ -21,41 +21,41 @@ import sample.util.DBUtil;
  */
 public class ProjectDAO {
 
-    private static final String VIEW_ALL_PROJECT = "SELECT projectID, hirerID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, major, createdDate, location, hoursPerWeek\n" +
-"FROM Project P, ExpectedDuration E\n" +
-"WHERE P.expectedDurationID = E.expectedDurationID";
+    private static final String VIEW_ALL_PROJECT = "SELECT projectID, hirerID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, major, createdDate, location, hoursPerWeek\n"
+            + "FROM Project P, ExpectedDuration E\n"
+            + "WHERE P.expectedDurationID = E.expectedDurationID";
     private static final String CREATE_NEW_FAVORITE_PROJECT = "INSERT INTO FavoriteProject(projectID, seekerID) VALUES(?,?)";
-    private static final String VIEW_FAVORITE_PROJECT = "SELECT FavoriteProject.projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, hirerID, Project.major, createdDate, location, hoursPerWeek \n" +
-"FROM FavoriteProject, Project, Seeker, ExpectedDuration \n" +
-"WHERE FavoriteProject.projectID = Project.projectID \n" +
-"and FavoriteProject.seekerID = Seeker.seekerID \n" +
-"and ExpectedDuration.expectedDurationID = Project.expectedDurationID \n" +
-"and FavoriteProject.seekerID = ?";
-    private static final String WIEW_BEST_MATCH_PROJECT = "SELECT P.projectID, P.hirerID, projectName, description, complexity, paymentAmount, E.durationText, deadlineDate, major, createdDate, hoursPerWeek\n" +
-"FROM Project P,Hirer H, ExpectedDuration E,\n" +
-"(SELECT N.projectID, COUNT(N.skillID)AS matchSkill\n" +
-"FROM NeededSkills N,HasSkill H\n" +
-"WHERE H.seekerID = ? AND N.skillID = H.skillID\n" +
-"GROUP BY N.projectID) Q\n" +
-"WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID" +
-"ORDER BY matchSkill DESC";
+    private static final String VIEW_FAVORITE_PROJECT = "SELECT FavoriteProject.projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, hirerID, Project.major, createdDate, location, hoursPerWeek \n"
+            + "FROM FavoriteProject, Project, Seeker, ExpectedDuration \n"
+            + "WHERE FavoriteProject.projectID = Project.projectID \n"
+            + "and FavoriteProject.seekerID = Seeker.seekerID \n"
+            + "and ExpectedDuration.expectedDurationID = Project.expectedDurationID \n"
+            + "and FavoriteProject.seekerID = ?";
+    private static final String WIEW_BEST_MATCH_PROJECT = "SELECT P.projectID, P.hirerID, projectName, description, complexity, paymentAmount, E.durationText, deadlineDate, major, createdDate, hoursPerWeek,location"
+            + " FROM Project P,Hirer H, ExpectedDuration E,"
+            + " (SELECT N.projectID, COUNT(N.skillID)AS matchSkill"
+            + " FROM NeededSkills N,HasSkill H"
+            + " WHERE H.seekerID = ? AND N.skillID = H.skillID"
+            + " GROUP BY N.projectID) Q"
+            + " WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID"
+            + " ORDER BY matchSkill DESC";
     private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount,P.expectedDurationID , E.durationText, deadlineDate "
             + " FROM Project P, Hirer H, ExpectedDuration E "
             + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";
-    
+
     private static final String CHECK_DUPLICATE = "SELECT projectID, seekerID\n"
             + "FROM FavoriteProject\n"
             + "WHERE projectID = ? and seekerID = ?";
     private static final String DELETE_FAVORITE_PROJECT = "DELETE FROM FavoriteProject\n"
             + "WHERE projectID = ? and seekerID = ?";
-    
+
     private static final String GET_SKILL_NEED_PROJECT = "SELECT nd.projectID, s.skillName FROM NeededSkills nd, Skill s WHERE nd.skillID = s.skillID AND nd.projectID = ?";
-    
+
     private static final String SELECT_PROJECT_CURRENT = "SELECT P.*,E.durationText,H.companyName FROM Project P, ExpectedDuration E, Hirer H WHERE P.projectID=? AND P.expectedDurationID=E.expectedDurationID AND P.hirerID=H.hirerID ";
-    
+
     public List<String> getSkillNeedOfProject(int projectID) throws SQLException {
-       List<String> skillNeed = new ArrayList<>();
-       Connection conn = null;
+        List<String> skillNeed = new ArrayList<>();
+        Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
@@ -64,10 +64,10 @@ public class ProjectDAO {
                 ptm = conn.prepareStatement(GET_SKILL_NEED_PROJECT);
                 ptm.setInt(1, projectID);
                 rs = ptm.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
                     String skillName = rs.getString("skillName");
                     //if(rs.next()){
-                        skillNeed.add(skillName);
+                    skillNeed.add(skillName);
 //                    }else{
 //                        skillNeed += skillName;
 //                    }
@@ -87,10 +87,10 @@ public class ProjectDAO {
                 rs.close();
             }
         }
-       return skillNeed;
+        return skillNeed;
     }
-    
-     public boolean checkDuplicate(int projectID, int seekerID) throws SQLException {
+
+    public boolean checkDuplicate(int projectID, int seekerID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -214,7 +214,7 @@ public class ProjectDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(VIEW_ALL_PROJECT);
-                
+
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     int projectID = rs.getInt("projectID");
@@ -364,7 +364,7 @@ public class ProjectDAO {
         }
         return list;
     }
-    
+
     public List<ProjectDTO> getListProjectByHirerName(List<ProjectDTO> listBeforeFilter, String hirer) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
 
@@ -379,7 +379,7 @@ public class ProjectDAO {
         return list;
     }
 
-    public List<ProjectDTO> getListProjectBaseOnPrice(List<ProjectDTO> listBeforeFilter,int price1, int price2) throws SQLException {
+    public List<ProjectDTO> getListProjectBaseOnPrice(List<ProjectDTO> listBeforeFilter, int price1, int price2) throws SQLException {
         //price1 < price2 
         List<ProjectDTO> list = new ArrayList<>();
         try {
@@ -393,7 +393,7 @@ public class ProjectDAO {
         return list;
     }
 
-    public List<ProjectDTO> getListProjectByExperienceLevel(List<ProjectDTO> listBeforeFilter,String experienceLevel) throws SQLException {
+    public List<ProjectDTO> getListProjectByExperienceLevel(List<ProjectDTO> listBeforeFilter, String experienceLevel) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
         try {
             for (ProjectDTO project : listBeforeFilter) {
@@ -405,7 +405,7 @@ public class ProjectDAO {
         }
         return list;
     }
-    
+
     public ProjectDTO getProjectCurrent(int projectID) throws SQLException {
         ProjectDTO project = new ProjectDTO();
         Connection conn = null;
@@ -418,7 +418,7 @@ public class ProjectDAO {
                 stm = conn.prepareStatement(sql);
                 stm.setInt(1, projectID);
                 rs = stm.executeQuery();
-                while (rs.next()) {                    
+                while (rs.next()) {
                     String description = rs.getString("description");
                     String projectName = rs.getString("projectName");
                     String complexity = rs.getString("complexity");

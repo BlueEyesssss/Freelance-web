@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import sample.project.ProjectDAO;
 import sample.project.ProjectDTO;
 import sample.seeker.SeekerDTO;
+import sample.user.UserDTO;
 
 /**
  *
@@ -44,8 +45,8 @@ public class ViewSeekerDashboardController extends HttpServlet {
         try {
             //favorite
             ProjectDAO dao = new ProjectDAO();
-            SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
-            int seekerID = seeker.getSeekerID();
+            UserDTO user = (UserDTO) session.getAttribute("USER_LOGIN");
+            int seekerID = user.getUserID();
             List<ProjectDTO> listFavoriteProject = dao.getListFavoriteProject(seekerID);
             if (listFavoriteProject.size() > 0) {
                 for (ProjectDTO projectDTO : listFavoriteProject) {
