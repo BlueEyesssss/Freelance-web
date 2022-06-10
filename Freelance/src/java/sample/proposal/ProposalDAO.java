@@ -54,6 +54,66 @@ public class ProposalDAO {
 "AND A.proposalStatusID = 4\n" +
 "AND A.seekerID = ?";
     
+    private static final String GET_PROPOSAL = "SELECT p.proposalID, p.projectID,pr.projectName , p.seekerID, p.paymentAmount,p.proposalStatusID, ps.statusName, \n" +
+"	p.clientGrade, p.clientComment, p.seekerGrade, p.seekerComment, p.coverLetter, p.attachment, p.createdDate\n" +
+"	, p.expectedDurationID, e.durationText\n" +
+"FROM Proposal p, ExpectedDuration e,ProposalStatus ps, Project pr\n" +
+"WHERE p.expectedDurationID = e.expectedDurationID\n" +
+"AND P.proposalStatusID = ps.proposalStatusID\n" +
+"AND p.projectID = pr.projectID\n" +
+"AND p.proposalID = 11";
+    
+     public ProposalDTO getProposal(int proposalIDd) throws SQLException {
+         ProposalDTO item = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PROPOSAL);
+                ptm.setInt(1, proposalIDd);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int proposalID = Integer.parseInt(rs.getString("proposalID")) ;
+                    int projectID = Integer.parseInt(rs.getString("projectID")) ;
+                    int seekerID = Integer.parseInt(rs.getString("seekerID")) ;
+                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
+                    int proposalStatusID = Integer.parseInt(rs.getString("proposalStatusID")) ;
+                    String proposalStatusName = rs.getString("statusName");
+                    double clientGrade = Double.parseDouble(rs.getString("clientGrade")) ;
+                    String clientComment = rs.getString("clientComment");
+                    double seekerGrade = Double.parseDouble(rs.getString("seekerGrade")) ;
+                    String seekerComment = rs.getString("seekerComment");
+                    String coverLetter = rs.getString("coverLetter");
+                    String attachment = rs.getString("attachment");
+                    String createdDate = rs.getString("createdDate");
+                    String expectedDurationID = rs.getString("expectedDurationID");
+                    String projectName = rs.getString("projectName");
+                    String durationText = rs.getString("durationText");
+                    
+                    item = new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusID,
+                            proposalStatusName, clientGrade, clientComment, seekerGrade, seekerComment, 
+                            coverLetter, attachment, createdDate, expectedDurationID, projectName, durationText);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return item;
+     }
+    
     public List<ProposalDTO> getListJobStartedProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -393,5 +453,7 @@ public class ProposalDAO {
         }
         return checkAlreadySubmitProposal;
     }
+
+   
 
 }
