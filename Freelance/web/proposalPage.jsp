@@ -14,7 +14,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Proposal hihi</title>
+        <title>Proposal</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Webflow" name="generator" />
         <link href="https://uploads-ssl.webflow.com/62963198e315b0b2ad4afa7a/css/proposal-dd5572.webflow.3654e43a5.css"

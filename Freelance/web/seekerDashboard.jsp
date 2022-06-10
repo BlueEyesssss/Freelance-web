@@ -65,7 +65,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation seeker w-nav">
         <div class="navigation-container">
-            <div class="navigation-menu"><a href="/" class="brand w-nav-brand"><img
+            <div class="navigation-menu"><a href="#" class="brand w-nav-brand"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                         loading="lazy" alt="" class="logo-image biglogo" /></a>
                 <div class="nav-search-wrapper">
