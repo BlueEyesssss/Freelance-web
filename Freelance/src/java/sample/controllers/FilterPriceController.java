@@ -24,7 +24,7 @@ import sample.project.ProjectDTO;
 @WebServlet(name = "FilterPriceController", urlPatterns = {"/FilterPriceController"})
 public class FilterPriceController extends HttpServlet {
 
-    private static final String ERROR = "error.html";
+    private static final String ERROR = "filterPage.jsp";
     private static final String SUCCESS = "filterPage.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

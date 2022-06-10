@@ -626,10 +626,11 @@ public class ProjectDAO {
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
                     String durationText = rs.getString("durationText");
                     String location = rs.getString("location");
-                    String createdDate = rs.getString("createdDate");
+                    LocalDate createdDate = LocalDate.parse(rs.getString("createdDate"));
+                    String deadlineDate = rs.getString("deadlineDate");
                     int hoursPerWeek = Integer.parseInt(rs.getString("hoursPerWeek"));
                     String major = rs.getString("major");
-                    project = new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, createdDate, createdDate, LocalDate.MAX, location, hoursPerWeek);
+                    project = new ProjectDTO(projectID, projectID, projectName, description, complexity, major, paymentAmount,durationText, deadlineDate,  createdDate, location, hoursPerWeek);
                 }
             }
         } catch (Exception e) {

@@ -34,13 +34,14 @@ public class SubmitAProposalController extends HttpServlet {
             UserDTO user = (UserDTO) session.getAttribute("USER_LOGIN");
             int projectID = Integer.parseInt(request.getParameter("projectID"));
             double paymentAmount = Double.parseDouble(request.getParameter("paymentAmount"));
+            int durationID = Integer.parseInt(request.getParameter("durationID"));
             String coverLetter = request.getParameter("coverLetter");
             String attachment = request.getParameter("attachment");
             ProposalDAO dao = new ProposalDAO();
             boolean checkIsActiveProposal = dao.isActiveProposal(projectID);
             boolean checkAlreadySubmitProposal = dao.alreadySubmitProposal(projectID,user.getUserID());
             if (!checkIsActiveProposal || !checkAlreadySubmitProposal) {
-                boolean checkSubmitProposal = dao.submitProposal(projectID, user.getUserID(), paymentAmount, coverLetter, attachment);
+                boolean checkSubmitProposal = dao.submitProposal(projectID, user.getUserID(), paymentAmount,durationID, coverLetter, attachment);
                 if (checkSubmitProposal) {
                     url = SUCCESS;
                 }

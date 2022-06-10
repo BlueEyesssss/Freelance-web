@@ -31,8 +31,8 @@ public class ProposalDAO {
             + " FROM Proposal A, ProposalStatus B, Project C"
             + " WHERE A.seekerID = ? AND B.statusName LIKE 'job finished successfully' AND A.proposalStatusID = B.proposalStatusID AND A.projectID = C.projectID ";
 
-    private static final String INSERT_PROPOSAL = "INSERT INTO Proposal(projectID,seekerID,paymentAmount,proposalStatusID,coverLetter,attachment)"
-            + " VALUES(?,?,?,?,?,?)";
+    private static final String INSERT_PROPOSAL = "INSERT INTO Proposal(projectID,seekerID,paymentAmount,proposalStatusID,coverLetter,attachment,expectedDurationID)"
+            + " VALUES(?,?,?,?,?,?,?)";
 
     private static final String CHECK_IS_PROPOSAL = " SELECT projectID FROM Proposal WHERE projectID =?";
     
@@ -361,7 +361,7 @@ public class ProposalDAO {
         return list;
     }
 
-    public boolean submitProposal(int projectID, int userID, double paymentAmount, String coverLetter, String attachment) throws SQLException {
+    public boolean submitProposal(int projectID, int userID, double paymentAmount, int durationID, String coverLetter, String attachment) throws SQLException {
         boolean checkSubmitProposal = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -375,6 +375,7 @@ public class ProposalDAO {
                 ptm.setInt(4, 1);
                 ptm.setString(5, coverLetter);
                 ptm.setString(6, attachment);
+                ptm.setInt(7, durationID);
                 checkSubmitProposal = ptm.executeUpdate() > 0;
             }
 
