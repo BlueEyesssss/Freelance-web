@@ -21,8 +21,8 @@ import sample.project.ProjectDTO;
  *
  * @author Admin
  */
-@WebServlet(name = "FilterPriceController", urlPatterns = {"/FilterPriceController"})
-public class FilterPriceController extends HttpServlet {
+@WebServlet(name = "SearchJobByCompanyController", urlPatterns = {"/SearchJobByCompanyController"})
+public class SearchJobByCompanyController extends HttpServlet {
 
     private static final String ERROR = "error.html";
     private static final String SUCCESS = "filterPage.jsp";
@@ -32,43 +32,18 @@ public class FilterPriceController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int price1 = 0;
-            int price2 = 0;
-            String price = request.getParameter("price");
-            switch(price){
-                case "lessThan100":
-                    price1 = 0;
-                    price2 = 100;
-                    break;
-                case "100To500":
-                    price1 = 100;
-                    price2 = 500;
-                    break;
-                case "500To1k":
-                    price1 = 500;
-                    price2 = 1000;
-                    break;
-                case "1kTo5k":
-                    price1 = 1000;
-                    price2 = 5000;
-                    break;
-                case "largerThan5k":
-                    price1 = 5000;
-                    price2 = 99999999;
-                    break;
-            }
-            
+            String company = request.getParameter("company");
             ProjectDAO dao = new ProjectDAO();
             HttpSession session = request.getSession();
-            List<ProjectDTO> listBeforeFilter = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
-            List<ProjectDTO> list = dao.getListProjectBaseOnPrice(listBeforeFilter,price1, price2);
+                List<ProjectDTO> listBeforeFilter = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
+            List<ProjectDTO> list = dao.getListProjectByHirerName(listBeforeFilter,company);
             if(!list.isEmpty()) {
                 session.setAttribute("LIST_PROJECT", list);
                 url = SUCCESS;
             }
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
-        }finally {
+        }finally {            
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

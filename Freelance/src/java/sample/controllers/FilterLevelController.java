@@ -25,7 +25,7 @@ import sample.project.ProjectDTO;
 public class FilterLevelController extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "FIlterPage.jsp";
+    private static final String SUCCESS = "filterPage.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

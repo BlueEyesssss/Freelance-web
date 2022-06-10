@@ -53,10 +53,11 @@ public class ProjectDAO {
 
     private static final String SELECT_PROJECT_CURRENT = "SELECT P.*,E.durationText,H.companyName FROM Project P, ExpectedDuration E, Hirer H WHERE P.projectID=? AND P.expectedDurationID=E.expectedDurationID AND P.hirerID=H.hirerID ";
 
-    private static final String GET_HIRERID_BY_PROJECTID = "select hirerID\n" +
-"from Project\n" +
-"where projectID = ?";
-    public int getHirerIdFromProjectId(int projectId) throws SQLException{
+    private static final String GET_HIRERID_BY_PROJECTID = "select hirerID\n"
+            + "from Project\n"
+            + "where projectID = ?";
+    
+    public int getHirerIdFromProjectId(int projectId) throws SQLException {
         int hirerid = 0;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -87,7 +88,7 @@ public class ProjectDAO {
         }
         return hirerid;
     }
-    
+
     public List<String> getSkillNeedOfProject(int projectID) throws SQLException {
         List<String> skillNeed = new ArrayList<>();
         Connection conn = null;
@@ -404,12 +405,12 @@ public class ProjectDAO {
         return list;
     }
 
-    public List<ProjectDTO> getListProjectByHirerName(List<ProjectDTO> listBeforeFilter, String hirer) throws SQLException {
+    public List<ProjectDTO> getListProjectByHirerName(List<ProjectDTO> listBeforeFilter, String company) throws SQLException {
         List<ProjectDTO> list = new ArrayList<>();
 
         try {
             for (ProjectDTO project : listBeforeFilter) {
-                if (project.getHirer().equalsIgnoreCase(hirer)) {
+                if (project.getHirer().contains(company)) {
                     list.add(project);
                 }
             }
@@ -486,4 +487,19 @@ public class ProjectDAO {
         }
         return project;
     }
+
+    public List<ProjectDTO> getListProjectByDuration(List<ProjectDTO> listBeforeFilter, String duration) {
+        List<ProjectDTO> list = new ArrayList<>();
+
+        try {
+            for (ProjectDTO project : listBeforeFilter) {
+                if (project.getExpectedDurationID().trim().equalsIgnoreCase(duration.trim())) {
+                    list.add(project);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
 }

@@ -38,11 +38,12 @@ public class SearchJobByNameController extends HttpServlet {
             if(!list.isEmpty()) {
                 HttpSession session = request.getSession();
                 session.setAttribute("LIST_PROJECT", list);
+                request.setAttribute("search", search);
                 url = SUCCESS;
             }
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
-        }finally {
+        }finally {            
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

@@ -24,6 +24,8 @@ public class MainController extends HttpServlet {
     private static final String LOGIN_CONTROLLER = "LoginController";
     private static final String SEARCH_JOB_BY_NAME = "Search Job By Name";
     private static final String SEARCH_JOB_BY_NAME_CONTROLLER = "SearchJobByNameController";
+    private static final String SEARCH_JOB_BY_COMPANY = "Search Job By Company";
+    private static final String SEARCH_JOB_BY_COMPANY_CONTROLLER = "SearchJobByCompanyController";
     private static final String VIEW_ALL_PROJECT = "ViewAllProject";
     private static final String VIEW_ALL_PROJECT_CONTROLLER = "ViewAllProjectController";
     private static final String VIEW_FAVORITE_PROJECT = "ViewFavoriteProject";
@@ -38,6 +40,8 @@ public class MainController extends HttpServlet {
     private static final String FILTER_HIRER_CONTROLLER = "FilterHirerController";
     private static final String FILTER_PRICE = "FilterPrice";
     private static final String FILTER_PRICE_CONTROLLER = "FilterPriceController";
+    private static final String FILTER_DURATION = "FilterDuration";
+    private static final String FILTER_DURATION_CONTROLLER = "FilterDurationController";
     private static final String FILTER_LEVEL = "FilterLevel";
     private static final String FILTER_LEVEL_CONTROLLER = "FilterLevelController";
     private static final String CREATE_FAVORITE_PROJECT = "CreateFavoriteProject";
@@ -94,6 +98,9 @@ public class MainController extends HttpServlet {
 
             } else if (SEARCH_JOB_BY_NAME.equals(action)) {
                 url = SEARCH_JOB_BY_NAME_CONTROLLER;
+                
+            } else if (SEARCH_JOB_BY_COMPANY.equals(action)) {
+                url = SEARCH_JOB_BY_COMPANY_CONTROLLER;
 
             } else if (VIEW_ALL_PROJECT.equals(action)) {
                 url = VIEW_ALL_PROJECT_CONTROLLER;
@@ -115,6 +122,9 @@ public class MainController extends HttpServlet {
 
             } else if (FILTER_PRICE.equals(action)) {
                 url = FILTER_PRICE_CONTROLLER;
+                
+            } else if (FILTER_DURATION.equals(action)) {
+                url = FILTER_DURATION_CONTROLLER;
 
             } else if (FILTER_LEVEL.equals(action)) {
                 url = FILTER_LEVEL_CONTROLLER;
