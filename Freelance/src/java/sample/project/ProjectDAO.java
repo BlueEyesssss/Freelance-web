@@ -39,9 +39,9 @@ public class ProjectDAO {
             + " GROUP BY N.projectID) Q"
             + " WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID"
             + " ORDER BY matchSkill DESC";
-    private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = "SELECT projectID, hirerID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, major, createdDate, location, hoursPerWeek\n"
-            + "FROM Project P, ExpectedDuration E\n"
-            + "WHERE P.projectName LIKE '?' AND P.expectedDurationID = E.expectedDurationID";
+    private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = "SELECT projectID, hirerID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, major, createdDate, location, hoursPerWeek"
+            + " FROM Project P, ExpectedDuration E"
+            + " WHERE P.projectName LIKE ? AND P.expectedDurationID = E.expectedDurationID";
 
     private static final String CHECK_DUPLICATE = "SELECT projectID, seekerID\n"
             + "FROM FavoriteProject\n"

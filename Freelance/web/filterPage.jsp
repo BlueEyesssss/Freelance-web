@@ -1,3 +1,7 @@
+<%@page import="sample.project.ProjectDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.time.LocalTime"%>
+<%@page import="java.time.LocalDate"%>
 <!DOCTYPE html>
 <html data-wf-domain="upwork-7e964a.webflow.io" data-wf-page="6296b682f8b462fb53aec689"
     data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
@@ -268,8 +272,17 @@
                                     <div class="text-block-5">Browse jobs that match your experience to a client&#x27;s
                                         hiring preferences.<br />Ordered by most relevant.</div>
                                     <div class="seeker-dividen"></div>
+                                    <%   
+                                         LocalTime localTime = LocalTime.now();
+                                         LocalDate localDate = LocalDate.now();
+                                         List<ProjectDTO> listProject = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
+                                            if (listProject != null) {
+                                                if (listProject.size() > 0) {
+                                                    for (ProjectDTO project : listProject) {
+                                                    
+                                        %>
                                     <div class="joblist-wrapper"><a href="#" class="click-link w-inline-block">
-                                            <h3 class="heading-13">Front-end development website</h3>
+                                            <h3 class="heading-13"><%= project.getProjectName()%></h3>
                                         </a>
                                         <div class="heart-wrapper"><img data-w-id="011c4548-0ebf-31d0-aab3-7b0951569f2b"
                                                 loading="lazy"
@@ -278,13 +291,8 @@
                                                 data-w-id="011c4548-0ebf-31d0-aab3-7b0951569f2c"
                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62962a3896c88f623a54351f_heart-fill.svg"
                                                 loading="lazy" alt="" class="icon-heart-fill" /></div>
-                                        <div>Price: 20$ - Entry Level - Post 10h ago</div>
-                                        <p class="paragraph">I have a store I installed a pixel into but it is not
-                                            working and won&#x27;t show anything. I can&#x27;t get the events to work so
-                                            even though it is pasted into the header it is not working at all. I am
-                                            unsure of what to do and just need someone who can go to the back end set
-                                            this up for me properly basically. Trustworthy and kind who does a great
-                                            job!</p>
+                                        <div>Price: <%= project.getPaymentAmount()%>  - <%= project.getComplexity()%> - Post <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear() %> Days Ago</div>
+                                        <p class="paragraph"><%= project.getDescription()%></p>
                                         <div class="review-stars-wrapper"><img loading="lazy"
                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                 alt="" />
@@ -417,6 +425,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <%
+                                                    }
+                                                }
+                                            }
+                                        %>
                                 </div>
                                 <div data-w-tab="Tab 3" class="w-tab-pane">
                                     <div class="text-block-5">Browse jobs that match your experience to a client&#x27;s
