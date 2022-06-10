@@ -75,8 +75,8 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                     <div class="nav-search-input">
                         <div class="w-form">
                             <form action="MainController" id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
-                                        type="text" class="search-input w-input" maxlength="256" name="name"
-                                        data-name="Name" placeholder="" id="name" /><input action="searchProjectByName" type="submit" value="Submit"
+                                        type="text" class="search-input w-input" maxlength="256" name="search"
+                                        data-name="Name" placeholder="Find job here" id="name" /><input  type="submit" name="action" value="Search Job By Name" 
                                         data-wait="Please wait..." class="submit-button-2 w-button" /></form>
                             <div class="w-form-done">
                                 <div>Thank you! Your submission has been received!</div>

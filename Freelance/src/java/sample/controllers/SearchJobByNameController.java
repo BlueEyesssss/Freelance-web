@@ -24,7 +24,7 @@ import sample.project.ProjectDTO;
 public class SearchJobByNameController extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "FIlterPage.jsp";
+    private static final String SUCCESS = "filterPage.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -38,7 +38,6 @@ public class SearchJobByNameController extends HttpServlet {
             if(!list.isEmpty()) {
                 HttpSession session = request.getSession();
                 session.setAttribute("LIST_PROJECT", list);
-//                request.setAttribute("LIST_PROJECT", list);
                 url = SUCCESS;
             }
         } catch (Exception e) {

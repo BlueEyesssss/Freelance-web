@@ -39,9 +39,9 @@ public class ProjectDAO {
             + " GROUP BY N.projectID) Q"
             + " WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID"
             + " ORDER BY matchSkill DESC";
-    private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = " SELECT projectID, projectName, description, complexity, H.conpanyName, paymentAmount,P.expectedDurationID , E.durationText, deadlineDate "
-            + " FROM Project P, Hirer H, ExpectedDuration E "
-            + " WHERE P.projectName like ? AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID";
+    private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = "SELECT projectID, hirerID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, major, createdDate, location, hoursPerWeek\n"
+            + "FROM Project P, ExpectedDuration E\n"
+            + "WHERE P.projectName LIKE '?' AND P.expectedDurationID = E.expectedDurationID";
 
     private static final String CHECK_DUPLICATE = "SELECT projectID, seekerID\n"
             + "FROM FavoriteProject\n"
@@ -290,16 +290,20 @@ public class ProjectDAO {
                 stm.setString(1, "%" + search + "%");
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    int projectID = Integer.parseInt(rs.getString("projectID"));
+                    int projectID = rs.getInt("projectID");
+                    int hirerID = rs.getInt("hirerID");
                     String description = rs.getString("description");
-                    String projectName = rs.getString("projectName");
                     String complexity = rs.getString("complexity");
-                    String hirer = rs.getString("conpanyName");
-                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    String expectedDurationID = rs.getString("expectedDurationID");
+                    String projectName = rs.getString("projectName");
+                    double paymentAmount = rs.getDouble("paymentAmount");
+                    String durationText = rs.getString("durationText");
                     String deadlineDate = rs.getString("deadlineDate");
+                    String major = rs.getString("major");
+                    LocalDate createdDate = LocalDate.parse(rs.getString("createdDate"));
+                    String location = rs.getString("location");
+                    int hoursPerWeek = rs.getInt("hoursPerWeek");
 
-                    list.add(new ProjectDTO(projectID, projectName, description, complexity, hirer, paymentAmount, expectedDurationID, deadlineDate));
+                    list.add(new ProjectDTO(projectID, hirerID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, major, createdDate, location, hoursPerWeek));
                 }
             }
         } catch (Exception e) {
