@@ -6,6 +6,7 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,10 +21,10 @@ import sample.project.ProjectDTO;
  *
  * @author Admin
  */
-@WebServlet(name = "SearchJobByNameController", urlPatterns = {"/SearchJobByNameController"})
-public class SearchJobByNameController extends HttpServlet {
+@WebServlet(name = "FilterSkillController", urlPatterns = {"/FilterSkillController"})
+public class FilterSkillController extends HttpServlet {
 
-    private static final String ERROR = "error.html";
+    private static final String ERROR = "filterPage.jsp";
     private static final String SUCCESS = "filterPage.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -31,23 +32,18 @@ public class SearchJobByNameController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-
-            String search = request.getParameter("search");
+            String skill = request.getParameter("skill");
             ProjectDAO dao = new ProjectDAO();
-            List<ProjectDTO> list = dao.getListProjectByName(search);
-            if (!list.isEmpty()) {
-                for (ProjectDTO projectDTO : list) {
-                    List<String> skillneed = dao.getSkillNeedOfProject(projectDTO.getProjectID());
-                    projectDTO.setSkillneed(skillneed);
-                }
-            }
             HttpSession session = request.getSession();
-            session.setAttribute("LIST_PROJECT", list);
-            request.setAttribute("search", search);
-            url = SUCCESS;
+                List<ProjectDTO> listBeforeFilter = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
+            List<ProjectDTO> list = dao.getListProjectBySkill(listBeforeFilter,skill);
+            if(!list.isEmpty()) {
+                session.setAttribute("LIST_PROJECT", list);
+                url = SUCCESS;
+            }
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
-        } finally {
+            log("Error at FilterSkillController: " + e.toString());
+        }finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

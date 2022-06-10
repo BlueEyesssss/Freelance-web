@@ -22,7 +22,7 @@ import sample.user.UserDTO;
 @WebServlet(name = "SubmitAProposalController", urlPatterns = {"/SubmitAProposalController"})
 public class SubmitAProposalController extends HttpServlet {
 
-    private static final String ERROR = "error.html";
+    private static final String ERROR = "ViewSeekerDashboardController";
     private static final String SUCCESS = "ViewSeekerDashboardController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

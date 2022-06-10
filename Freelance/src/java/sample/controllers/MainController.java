@@ -44,6 +44,8 @@ public class MainController extends HttpServlet {
     private static final String FILTER_DURATION_CONTROLLER = "FilterDurationController";
     private static final String FILTER_LEVEL = "FilterLevel";
     private static final String FILTER_LEVEL_CONTROLLER = "FilterLevelController";
+    private static final String FILTER_SKILL = "FilterSkill";
+    private static final String FILTER_SKILL_CONTROLLER = "FilterSkillController";
     private static final String CREATE_FAVORITE_PROJECT = "CreateFavoriteProject";
     private static final String CREATE_FAVORITE_PROJECT_CONTROLLER = "CreateFavoriteProjectController";
     private static final String VIEW_PROPOSAL = "ViewProposal";
@@ -77,7 +79,7 @@ public class MainController extends HttpServlet {
     private static final String VIEW_SEEKER_PROFILE = "ViewSeekerProfile";
     private static final String VIEW_SEEKER_PROFILE_CONTROLLER = "ViewSeekerProfileController";
     private static final String FORM_SENT_PROPOSAL = "FormSentProposal";
-    private static final String FORM_SENT_PROPOSAL_CONTROLLER = "FormSentProposalController";    
+    private static final String FORM_SENT_PROPOSAL_CONTROLLER = "FormSentProposalController";
     private static final String SUBMIT_A_PROPOSAL = "SubmitAProposal";
     private static final String SUBMIT_A_PROPOSAL_CONTROLLER = "SubmitAProposalController";
     private static final String VIEW_CONTRACT = "ViewContract";
@@ -88,7 +90,7 @@ public class MainController extends HttpServlet {
     private static final String PROPOSAL_DETAIL_CONTROLLER = "ProposalDetailController";
     private static final String UPDATE_PROPOSAL_DETAIL = "SubmitProposalDetail";
     private static final String UPDATE_PROPOSAL_DETAIL_CONTROLLER = "SubmitProposalDetailController";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -100,7 +102,7 @@ public class MainController extends HttpServlet {
 
             } else if (SEARCH_JOB_BY_NAME.equals(action)) {
                 url = SEARCH_JOB_BY_NAME_CONTROLLER;
-                
+
             } else if (SEARCH_JOB_BY_COMPANY.equals(action)) {
                 url = SEARCH_JOB_BY_COMPANY_CONTROLLER;
 
@@ -124,79 +126,82 @@ public class MainController extends HttpServlet {
 
             } else if (FILTER_PRICE.equals(action)) {
                 url = FILTER_PRICE_CONTROLLER;
-                
+
             } else if (FILTER_DURATION.equals(action)) {
                 url = FILTER_DURATION_CONTROLLER;
 
             } else if (FILTER_LEVEL.equals(action)) {
                 url = FILTER_LEVEL_CONTROLLER;
-                
+
+            } else if (FILTER_SKILL.equals(action)) {
+                url = FILTER_SKILL_CONTROLLER;
+
             } else if (CREATE_FAVORITE_PROJECT.equals(action)) {
                 url = CREATE_FAVORITE_PROJECT_CONTROLLER;
-                
+
             } else if (VIEW_PROPOSAL.equals(action)) {
                 url = VIEW_PROPOSAL_CONTROLLER;
 
             } else if (UPDATE_PROFILE_SEEKER.equals(action)) {
                 url = UPDATE_PROFILE_SEEKER_CONTROLLER;
-                
+
             } else if (CREATE_GOOGLE_SEEKER.equals(action)) {
                 url = CREATE_GOOGLE_SEEKER_CONTROLLER;
-    
+
             } else if (LOGOUT.equals(action)) {
                 url = LOGOUT_CONTROLLER;
-    
+
             } else if (NEXT_CHOOSE_SKILL.equals(action)) {
                 url = NEXT_CHOOSE_SKILL_CONTROLLER;
-             
+
             } else if (VIEW_SEEKER_DASHBOARD.equals(action)) {
                 url = VIEW_SEEKER_DASHBOARD_CONTROLLER;
-    
+
             } else if (SAVE_HOUR_PER_WEEK.equals(action)) {
                 url = SAVE_HOUR_PER_WEEK_CONTROLLER;
-    
+
             } else if (SAVE_LANG_LV.equals(action)) {
                 url = SAVE_LANG_LV_CONTROLLER;
-    
+
             } else if (SAVE_ACADEMIC_LV.equals(action)) {
                 url = SAVE_ACADEMIC_LV_CONTROLLER;
-    
+
             } else if (SAVE_PASSWORD.equals(action)) {
                 url = SAVE_PASSWORD_CONTROLLER;
-    
+
             } else if (SAVE_TITLE.equals(action)) {
                 url = SAVE_TITLE_CONTROLLER;
-    
+
             } else if (SAVE_HOUR_RATE.equals(action)) {
                 url = SAVE_HOUR_RATE_CONTROLLER;
-    
+
             } else if (SAVE_OVERVIEW.equals(action)) {
                 url = SAVE_OVERVIEW_CONTROLLER;
-    
+
             } else if (SAVE_SKILL.equals(action)) {
                 url = SAVE_SKILL_CONTROLLER;
-                
+
             } else if (VIEW_SEEKER_PROFILE.equals(action)) {
                 url = VIEW_SEEKER_PROFILE_CONTROLLER;
-                
+
             } else if (FORM_SENT_PROPOSAL.equals(action)) {
                 url = FORM_SENT_PROPOSAL_CONTROLLER;
-                
+
             } else if (SUBMIT_A_PROPOSAL.equals(action)) {
                 url = SUBMIT_A_PROPOSAL_CONTROLLER;
-                
+
             } else if (VIEW_CONTRACT.equals(action)) {
                 url = VIEW_CONTRACT_CONTROLLER;
-                
+
             } else if (VIEW_MY_JOB.equals(action)) {
                 url = VIEW_MY_JOB_CONTROLLER;
-    
+
             } else if (PROPOSAL_DETAIL.equals(action)) {
                 url = PROPOSAL_DETAIL_CONTROLLER;
-    
+
             } else if (UPDATE_PROPOSAL_DETAIL.equals(action)) {
                 url = UPDATE_PROPOSAL_DETAIL_CONTROLLER;
-    
+
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("ERROR_MESSAGE", "function is not avaiable!");

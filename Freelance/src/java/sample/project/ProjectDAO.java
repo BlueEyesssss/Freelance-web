@@ -57,27 +57,27 @@ public class ProjectDAO {
     private static final String GET_HIRERID_BY_PROJECTID = "select hirerID\n"
             + "from Project\n"
             + "where projectID = ?";
-    
-    private static final String GET_PROJECT_BY_ID = "SELECT p.projectID, p.projectName, p.description, p.complexity, p.hirerID\n" +
-"	, p.paymentAmount, p.deadlineDate, p.location, p.createdDate, p.hoursPerWeek\n" +
-"	, p.major, e.durationText\n" +
-"FROM Project p, ExpectedDuration e\n" +
-"WHERE p.expectedDurationID = e.expectedDurationID\n" +
-"AND p.projectID = ?";
-    
-    private static final String GET_PAYMENT_DURATION_PROPOSAL = "SELECT p.paymentAmount, e.durationText\n" +
-"FROM Proposal p, ExpectedDuration e\n" +
-"WHERE p.expectedDurationID = e.expectedDurationID\n" +
-"AND p.proposalID = ?";
-    
-    private static final String GET_DURATION_ID_BY_NAME = "SELECT expectedDurationID\n" +
-"FROM ExpectedDuration\n" +
-"WHERE durationText = ?";
-    
-    private static final String UPDATE_PROPOSAL_DETAIL = "UPDATE Proposal\n" +
-"SET paymentAmount = ?, expectedDurationID = ?\n" +
-"WHERE proposalID = ?";
-    
+
+    private static final String GET_PROJECT_BY_ID = "SELECT p.projectID, p.projectName, p.description, p.complexity, p.hirerID\n"
+            + "	, p.paymentAmount, p.deadlineDate, p.location, p.createdDate, p.hoursPerWeek\n"
+            + "	, p.major, e.durationText\n"
+            + "FROM Project p, ExpectedDuration e\n"
+            + "WHERE p.expectedDurationID = e.expectedDurationID\n"
+            + "AND p.projectID = ?";
+
+    private static final String GET_PAYMENT_DURATION_PROPOSAL = "SELECT p.paymentAmount, e.durationText\n"
+            + "FROM Proposal p, ExpectedDuration e\n"
+            + "WHERE p.expectedDurationID = e.expectedDurationID\n"
+            + "AND p.proposalID = ?";
+
+    private static final String GET_DURATION_ID_BY_NAME = "SELECT expectedDurationID\n"
+            + "FROM ExpectedDuration\n"
+            + "WHERE durationText = ?";
+
+    private static final String UPDATE_PROPOSAL_DETAIL = "UPDATE Proposal\n"
+            + "SET paymentAmount = ?, expectedDurationID = ?\n"
+            + "WHERE proposalID = ?";
+
     public boolean updateProposalDetail(int proposalID, double paymentAmount, int durationTextID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -89,7 +89,7 @@ public class ProjectDAO {
                 ptm.setDouble(1, paymentAmount);
                 ptm.setInt(2, durationTextID);
                 ptm.setInt(3, proposalID);
-                check = ptm.executeUpdate()>0?true:false;
+                check = ptm.executeUpdate() > 0 ? true : false;
             }
 
         } catch (Exception e) {
@@ -104,7 +104,7 @@ public class ProjectDAO {
         }
         return check;
     }
-    
+
     public int getExpectedDurationIDByName(String durationText) throws SQLException {
         int num = 0;
         Connection conn = null;
@@ -136,7 +136,7 @@ public class ProjectDAO {
         }
         return num;
     }
-    
+
     public ProposalDTO getProposalPaymentAndDuration(int proposalid) throws SQLException {
         ProposalDTO proposal = null;
         Connection conn = null;
@@ -169,8 +169,8 @@ public class ProjectDAO {
             }
         }
         return proposal;
-     }
-    
+    }
+
     public ProjectDTO getProjectByID(int projectid) throws SQLException {
         ProjectDTO project = null;
         Connection conn = null;
@@ -183,20 +183,20 @@ public class ProjectDAO {
                 ptm.setInt(1, projectid);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
-                    int projectID = Integer.parseInt(rs.getString("projectID")) ;
+                    int projectID = Integer.parseInt(rs.getString("projectID"));
                     String projectName = rs.getString("projectName");
                     String description = rs.getString("description");
                     String complexity = rs.getString("complexity");
-                    int hirerID = Integer.parseInt(rs.getString("hirerID")) ;
-                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount")) ;
+                    int hirerID = Integer.parseInt(rs.getString("hirerID"));
+                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
                     String deadlineDate = rs.getString("deadlineDate");
                     String location = rs.getString("location");
                     LocalDate createdDate = LocalDate.parse(rs.getString("createdDate"));
                     String major = rs.getString("major");
                     String durationText = rs.getString("durationText");
-                    int hoursPerWeek = Integer.parseInt(rs.getString("hoursPerWeek")) ;
-                    project = new ProjectDTO(projectID, hirerID, projectName, description, 
-                            complexity, major, paymentAmount, deadlineDate, createdDate, 
+                    int hoursPerWeek = Integer.parseInt(rs.getString("hoursPerWeek"));
+                    project = new ProjectDTO(projectID, hirerID, projectName, description,
+                            complexity, major, paymentAmount, deadlineDate, createdDate,
                             location, hoursPerWeek, durationText);
                 }
             }
@@ -216,7 +216,7 @@ public class ProjectDAO {
         }
         return project;
     }
-    
+
     public int getHirerIdFromProjectId(int projectId) throws SQLException {
         int hirerid = 0;
         Connection conn = null;
@@ -656,6 +656,25 @@ public class ProjectDAO {
                 if (project.getExpectedDurationID().trim().equalsIgnoreCase(duration.trim())) {
                     list.add(project);
                 }
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public List<ProjectDTO> getListProjectBySkill(List<ProjectDTO> listBeforeFilter, String skill) {
+        List<ProjectDTO> list = new ArrayList<>();
+
+        try {
+            for (ProjectDTO project : listBeforeFilter) {
+                List<String> skillNeed = project.getSkillneed();
+                for (String elem : skillNeed) {
+                    if (elem.equalsIgnoreCase(skill)) {
+                        list.add(project);
+                        break;
+                    }
+                }
+
             }
         } catch (Exception e) {
         }

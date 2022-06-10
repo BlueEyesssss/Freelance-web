@@ -1,3 +1,4 @@
+<%@page import="sample.skill.SkillDTO"%>
 <%@page import="sample.project.ProjectDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.LocalTime"%>
@@ -131,16 +132,16 @@
                                 </div>
                                 <div class="filter-accordion-wrapper">
                                     <form action="MainController"><div class="filter-accordion-heading">
-                                        <div class="text-block-5-copy"><strong>Company</strong></div><img
-                                            src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62943201437de47785dfbc00_chevron-left.png"
-                                            loading="lazy" alt="" class="image-18" />
-                                    </div>
-                                    <div class="filter-accordion-content"><input type="text" class="w-input"
-                                                                                 maxlength="256" name="company" data-name="company"
-                                                                                 placeholder="FPT Software" id="company-3" />
-                                    <input  type="submit" name="action" value="Search Job By Company" 
+                                            <div class="text-block-5-copy"><strong>Company</strong></div><img
+                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62943201437de47785dfbc00_chevron-left.png"
+                                                loading="lazy" alt="" class="image-18" />
+                                        </div>
+                                        <div class="filter-accordion-content"><input type="text" class="w-input"
+                                                                                     maxlength="256" name="company" data-name="company"
+                                                                                     placeholder="FPT Software" id="company-3" />
+                                            <input  type="submit" name="action" value="Search Job By Company" 
                                                     data-wait="Please wait..." class="submit-button-2 w-button" />
-                                    </div>
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="filter-accordion-wrapper">
@@ -257,14 +258,23 @@
                                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62943201437de47785dfbc00_chevron-left.png"
                                             loading="lazy" alt="" class="image-18" />
                                     </div>
+                                    <%
+                                        List<SkillDTO> listSkillAll = (List<SkillDTO>) session.getAttribute("LIST_SKILL_ALL");
+                                        for (SkillDTO elem : listSkillAll) {
+
+                                    %>
                                     <div class="filter-accordion-content"><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
-                                            </div><input type="checkbox" name="skillName" id="skillName"
+                                            </div><a href="MainController?action=FilterSkill&skill=<%= elem.getSkillName()%>"><input type="checkbox" name="skillName" id="skillName"
                                                          data-name="skillName"
                                                          style="opacity:0;position:absolute;z-index:-1" /><span
-                                                         class="checkbox-label-2 w-form-label" for="skillName">Query from data
-                                                base - $ <span class="filter-small-label">(23803)</span></span>
+                                                         class="checkbox-label-2 w-form-label" for="skillName"><%=elem.getSkillName()%>- $ <span class="filter-small-label">(23803)</span></span></a>
                                         </label></div>
+                                        <%                                        }
+
+                                        %>
+
+
                                 </div>
                             </div>
 
@@ -291,8 +301,7 @@
                                         <div class="text-block-5">Browse jobs that match your experience to a client&#x27;s
                                             hiring preferences.<br />Ordered by most relevant.</div>
                                         <div class="seeker-dividen"></div>
-                                        <%
-                                            LocalTime localTime = LocalTime.now();
+                                        <%                                            LocalTime localTime = LocalTime.now();
                                             LocalDate localDate = LocalDate.now();
                                             List<ProjectDTO> listProject = (List<ProjectDTO>) session.getAttribute("LIST_PROJECT");
                                             if (listProject != null) {
