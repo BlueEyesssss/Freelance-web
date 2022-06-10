@@ -36,7 +36,11 @@ public class ProposalDTO {
         this.hirerID = hirerID;
     }
     
-    
+    public ProposalDTO(int proposalID, double paymentAmount, String durationText) {
+        this.proposalID = proposalID;
+        this.paymentAmount = paymentAmount;
+        this.durationText = durationText;
+    }
 
     public String getDurationText() {
         return durationText;

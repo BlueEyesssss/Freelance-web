@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import sample.proposal.ProposalDTO;
 
 import sample.util.DBUtil;
 
@@ -56,6 +57,165 @@ public class ProjectDAO {
     private static final String GET_HIRERID_BY_PROJECTID = "select hirerID\n"
             + "from Project\n"
             + "where projectID = ?";
+    
+    private static final String GET_PROJECT_BY_ID = "SELECT p.projectID, p.projectName, p.description, p.complexity, p.hirerID\n" +
+"	, p.paymentAmount, p.deadlineDate, p.location, p.createdDate, p.hoursPerWeek\n" +
+"	, p.major, e.durationText\n" +
+"FROM Project p, ExpectedDuration e\n" +
+"WHERE p.expectedDurationID = e.expectedDurationID\n" +
+"AND p.projectID = ?";
+    
+    private static final String GET_PAYMENT_DURATION_PROPOSAL = "SELECT p.paymentAmount, e.durationText\n" +
+"FROM Proposal p, ExpectedDuration e\n" +
+"WHERE p.expectedDurationID = e.expectedDurationID\n" +
+"AND p.proposalID = ?";
+    
+    private static final String GET_DURATION_ID_BY_NAME = "SELECT expectedDurationID\n" +
+"FROM ExpectedDuration\n" +
+"WHERE durationText = ?";
+    
+    private static final String UPDATE_PROPOSAL_DETAIL = "UPDATE Proposal\n" +
+"SET paymentAmount = ?, expectedDurationID = ?\n" +
+"WHERE proposalID = ?";
+    
+    public boolean updateProposalDetail(int proposalID, double paymentAmount, int durationTextID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_PROPOSAL_DETAIL);
+                ptm.setDouble(1, paymentAmount);
+                ptm.setInt(2, durationTextID);
+                ptm.setInt(3, proposalID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public int getExpectedDurationIDByName(String durationText) throws SQLException {
+        int num = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_DURATION_ID_BY_NAME);
+                ptm.setString(1, durationText);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    num = Integer.parseInt(rs.getString("expectedDurationID"));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return num;
+    }
+    
+    public ProposalDTO getProposalPaymentAndDuration(int proposalid) throws SQLException {
+        ProposalDTO proposal = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PAYMENT_DURATION_PROPOSAL);
+                ptm.setInt(1, proposalid);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
+                    String durationText = rs.getString("durationText");
+                    proposal = new ProposalDTO(proposalid, paymentAmount, durationText);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return proposal;
+     }
+    
+    public ProjectDTO getProjectByID(int projectid) throws SQLException {
+        ProjectDTO project = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PROJECT_BY_ID);
+                ptm.setInt(1, projectid);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int projectID = Integer.parseInt(rs.getString("projectID")) ;
+                    String projectName = rs.getString("projectName");
+                    String description = rs.getString("description");
+                    String complexity = rs.getString("complexity");
+                    int hirerID = Integer.parseInt(rs.getString("hirerID")) ;
+                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount")) ;
+                    String deadlineDate = rs.getString("deadlineDate");
+                    String location = rs.getString("location");
+                    LocalDate createdDate = LocalDate.parse(rs.getString("createdDate"));
+                    String major = rs.getString("major");
+                    String durationText = rs.getString("durationText");
+                    int hoursPerWeek = Integer.parseInt(rs.getString("hoursPerWeek")) ;
+                    project = new ProjectDTO(projectID, hirerID, projectName, description, 
+                            complexity, major, paymentAmount, deadlineDate, createdDate, 
+                            location, hoursPerWeek, durationText);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return project;
+    }
     
     public int getHirerIdFromProjectId(int projectId) throws SQLException {
         int hirerid = 0;

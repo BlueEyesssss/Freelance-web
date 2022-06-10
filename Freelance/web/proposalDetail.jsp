@@ -1,14 +1,17 @@
 
+<%@page import="sample.proposal.ProposalDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="sample.project.ProjectDTO"%>
 <!DOCTYPE html>
 <html data-wf-domain="proposal-detail.webflow.io" data-wf-page="629c424355a84f54beb5f94c"
     data-wf-site="629c424355a84f5cdfb5f94b">
 
 <head>
     <meta charset="utf-8" />
-    <title>Proposal detail</title>
+    <title>Submit Proposal detail</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
-    <link href="https://uploads-ssl.webflow.com/629c424355a84f5cdfb5f94b/css/proposal-detail.webflow.0efff4f25.css"
+    <link href="https://uploads-ssl.webflow.com/629c424355a84f5cdfb5f94b/css/proposal-detail.webflow.be6333e12.css"
         rel="stylesheet" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
     <script
@@ -87,9 +90,7 @@
             </div>
         </div>
     </div>
-    <div class="w-container">
-        <div class="proposal-detail">Proposal details</div>
-    </div>
+    <div class="proposal-detail">Proposal details</div>
     <div class="proposal-detail-wrapped w-container">
         <div class="proposal-text">
             <div class="div-block">
@@ -98,39 +99,45 @@
                         <div class="job-details">Job details</div>
                     </div>
                 </div>
+                <%
+                    ProjectDTO project = (ProjectDTO)session.getAttribute("PROJECT_DETAIL");
+                    List<String> listSkill = (List<String>)session.getAttribute("SKILL_PROJECT_NEED");
+                    ProposalDTO proposalINf = (ProposalDTO)session.getAttribute("PROPOSAL_PAYMENT_DURATION");
+                %>
                 <div class="div-block-2">
                     <div class="looking-for-details">
                         <div class="java-backend-wrapper">
-                            <div class="java-backend">NFL WishList Spot</div>
+                            <div class="java-backend"><%= project.getProjectName() %></div>
                         </div>
                         <div class="backend-dev-wrapper">
                             <div class="backend-dev">
-                                <div class="backend-dev-text">Back-End Development</div>
+                                <div class="backend-dev-text"><%= project.getMajor()%></div>
                             </div>
                             <div class="posted">
-                                <div class="post-time">Posted June 1, 2022</div>
+                                <div class="post-time">Posted <%= project.getCreatedDate()%></div>
                             </div>
                         </div>
                         <div class="description">
-                            <div class="description-text">Initial milestone is understanding existing code base and
-                                performing the full build and test incorporation process (max $20)<br /><br />There will
-                                be 5 subsequent milestones of (max $36 each) for incremental
-                                development.<br /><br />Thus a total of 6 milestones.</div>
+                            <div class="description-text"><%= project.getDescription()%>.</div>
                         </div>
                     </div>
                     <div class="intermediate">
                         <div>
-                            <div class="intermediate-wrapper"><strong class="intermediate">Intermediate</strong></div>
+                            <div class="intermediate-wrapper"><strong class="intermediate">About <%= project.getHoursPerWeek()%> hours/week</strong></div>
                         </div>
                         <div class="experience-wrapper">
-                            <div class="experience">Experience Level<br />?</div>
+                            <div class="experience">Hourly</div>
                         </div>
                         <div class="_1-to-3-months-wrapper">
-                            <div class="_1-to-3-months"><strong>1 to 3 months</strong></div>
+                            <div class="_1-to-3-months"><strong><%= project.getDurationText()%></strong></div>
                         </div>
                         <div class="project-length-wrapper">
                             <div class="project-length">Project Length</div>
+                            <div class="_1-to-3-months"><strong><%= project.getComplexity()%></strong></div>
                         </div>
+                        <div class="project-length">I am looking for mix of experience<br />and value</div>
+                        <div class="_1-to-3-months"><strong><%= project.getPaymentAmount()%> $</strong></div>
+                        <div class="project-length">Budget</div>
                     </div>
                 </div>
                 <div class="div-block-3">
@@ -138,7 +145,14 @@
                         <div class="skills-and-expertise">Skills and expertise</div>
                     </div>
                     <div class="java-wrapper">
-                        <div class="java">Java</div>
+                        <%
+                            for (String elem : listSkill) {
+                                    %>
+                                    <div class="java"><%= elem %></div>
+                        <%
+                                }
+                        %>
+                        
                     </div>
                 </div>
                 <div class="job-term">
@@ -153,13 +167,14 @@
                                     see.</div>
                             </div>
                             <div>
-                                <div class="money">$298.00</div>
+                                <div class="money">$<%= proposalINf.getPaymentAmount() %></div>
                             </div>
+                            <div class="text-block-53">Expected duration: <%= proposalINf.getDurationText()%></div>
                         </div>
                     </div>
                     <div class="budget">
                         <div class="client-s-budget-wrapper">
-                            <div class="client-s-budget">Client&#x27;s budget: $200.00 USD</div>
+                            <div class="client-s-budget"></div>
                         </div>
                     </div>
                 </div>
@@ -191,10 +206,13 @@
                                     </div>
                                     <div class="money-wrapped">
                                         <div class="w-form">
-                                            <form id="email-form-3" name="email-form-3" data-name="Email Form 3"
-                                                method="get"><input type="text" class="money-inputted w-input"
-                                                    maxlength="256" name="field" data-name="Field" placeholder=""
-                                                    id="field" required="" /></form>
+                                            <form id="email-form-3" name="email-form-3" data-name="Email Form 3" action="MainController"
+                                                method="get">
+                                                
+                                                <input type="number" class="money-inputted w-input"
+                                                       maxlength="256" name="paymentAmount" data-name="Field" placeholder="" value="<%= proposalINf.getPaymentAmount() %>"
+                                                    id="field" required="" min="0"/>
+                                            
                                             <div class="w-form-done">
                                                 <div>Thank you! Your submission has been received!</div>
                                             </div>
@@ -213,18 +231,20 @@
                                 <div>
                                     <div class="w-form">
                                         <form id="email-form-5" name="email-form-5" data-name="Email Form 5"
-                                            method="get"><label for="field-3" class="field-label"><strong>How long do
-                                                    you think this project will take?</strong></label><select
-                                                id="field-3" name="field-3" data-name="Field 3"
-                                                class="select-field w-select">
-                                                <option value="1 day">1 day</option>
-                                                <option value="2-5 days">2-5 days</option>
-                                                <option value="5-10 days">5-10 days</option>
-                                                <option value="">Less than 1 month</option>
-                                                <option value="Third">1 to 3 month</option>
-                                                <option value="Second">3 to 6 month</option>
-                                                <option value="First">More than 6 month</option>
-                                            </select></form>
+                                            method="get">
+                                            <label for="durationText" class="field-label"><strong
+                                                    class="bold-text-6">How long do you think this project will
+                                                    take?</strong></label>
+                                            
+                                            <select id="field-3" name="durationText"
+                                                data-name="Field 3" class="select-field w-select">
+                                                <option value="less than 1 month">Less than 1 month</option>
+                                                <option value="1-3 months">1 to 3 month</option>
+                                                <option value="3-6 months">3 to 6 month</option>
+                                                <option value="6 or more months">More than 6 month</option>
+                                            </select>
+                                            
+                                        <!--</form>-->
                                         <div class="w-form-done">
                                             <div>Thank you! Your submission has been received!</div>
                                         </div>
@@ -239,49 +259,23 @@
                     </div>
                 </div>
             </div>
-            <div data-w-id="77614fae-419d-2924-2913-c3c41101f664" class="div-block-17"><a href="#"
-                    class="button-4 w-button">Submit</a><a data-w-id="3d3901e9-5423-595d-5c12-d4da1b2ed822" href="#"
-                    class="button-3 w-button">Cancel</a></div>
-        </div>
-        <div class="client">
-            <div class="about-the-client-wrapper">
-                <div class="about-the-client">About the client</div>
-            </div>
-            <div class="payment-method-verified-wrapper">
-                <div class="payment-method-verified">Payment method verified</div>
-            </div>
-            <div class="location-wrapper">
-                <div class="location">Location</div>
-            </div>
-            <div class="country_city-wrapper">
-                <div class="viet-nam">Viet Nam</div>
-                <div class="ho-chi-minh-00-01-am">Ho Chi Minh 00:01 AM</div>
-            </div>
-            <div class="history-details">
-                <div class="history-wrapper">
-                    <div class="history">History<br />?</div>
-                </div>
-                <div>
-                    <div class="text-block-23">5 to 10 proposals<br />155 jobs posted<br />$27,684 total spent<br />3
-                        open jobs<br />134 hires<br />Member since: June 1, 2022</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container w-container">
-        <div class="div-block-11">
-            <div class="div-block-12">
-                <div class="text-block-36">Cover letter</div>
-            </div>
-            <div class="div-block-13">
-                <div class="text-block-37">Hello everyone</div>
+            <div data-w-id="77614fae-419d-2924-2913-c3c41101f664" class="div-block-17">
+                <input type="hidden" name="proposalID" value="<%= proposalINf.getProposalID()%>" />
+                <button type="submit" name="action" value="SubmitProposalDetail" >
+                    <a class="button-4 w-button">Submit</a>
+                </button>
+                    
+                <a data-w-id="3d3901e9-5423-595d-5c12-d4da1b2ed822" href="#"
+                    class="button-3 w-button">Cancel</a>
+                    
+            </form>
             </div>
         </div>
     </div>
     <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=629c424355a84f5cdfb5f94b"
         type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>
-    <script src="https://uploads-ssl.webflow.com/629c424355a84f5cdfb5f94b/js/webflow.e80ba2446.js"
+    <script src="https://uploads-ssl.webflow.com/629c424355a84f5cdfb5f94b/js/webflow.a6a2b35d7.js"
         type="text/javascript"></script>
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>

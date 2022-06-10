@@ -7,7 +7,6 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.project.ProjectDAO;
-import sample.project.ProjectDTO;
 import sample.proposal.ProposalDAO;
 import sample.proposal.ProposalDTO;
 
@@ -23,8 +21,8 @@ import sample.proposal.ProposalDTO;
  *
  * @author LENOVO
  */
-@WebServlet(name = "ProposalDetailController", urlPatterns = {"/ProposalDetailController"})
-public class ProposalDetailController extends HttpServlet {
+@WebServlet(name = "SubmitProposalDetailController", urlPatterns = {"/SubmitProposalDetailController"})
+public class SubmitProposalDetailController extends HttpServlet {
     private static final String ERROR = "proposalDetail.jsp";
     private static final String SUCCESS = "proposalDetail.jsp";
     
@@ -34,22 +32,24 @@ public class ProposalDetailController extends HttpServlet {
         String url = ERROR;
         try {
             HttpSession session = request.getSession();
-            String proposalID = request.getParameter("proposalID");
-            String projectID = request.getParameter("projectID");
             ProjectDAO dao = new ProjectDAO();
-            //lấy project
-            ProjectDTO project = dao.getProjectByID( Integer.parseInt(projectID) );
-            //lấy skill project need
-            List<String> listSkill = dao.getSkillNeedOfProject(Integer.parseInt(projectID) );
-            //lấy payment-amout và duration text của proposal
-            ProposalDTO proposal = dao.getProposalPaymentAndDuration(Integer.parseInt(proposalID));
             
-            session.setAttribute("PROJECT_DETAIL", project);
-            session.setAttribute("SKILL_PROJECT_NEED", listSkill);
-            session.setAttribute("PROPOSAL_PAYMENT_DURATION", proposal);
-            url = SUCCESS;
+            String durationText = request.getParameter("durationText");
+            double paymentAmount = Double.parseDouble(request.getParameter("paymentAmount"));
+            int proposalID = Integer.parseInt(request.getParameter("proposalID"));
+            
+            int expectedDurationID = dao.getExpectedDurationIDByName(durationText);
+            
+            boolean checkUpdateProposal = dao.updateProposalDetail(proposalID, paymentAmount, expectedDurationID);
+            if(checkUpdateProposal){
+                //lấy payment-amout và duration text của proposal
+                ProposalDTO proposal = dao.getProposalPaymentAndDuration(proposalID);
+                //load lại proposal detail
+                session.setAttribute("PROPOSAL_PAYMENT_DURATION", proposal);
+            }
+            
         } catch (Exception e) {
-            log("Error at ProposalDetailController: " + e.toString());
+            log("Error at SubmitProposalDetailController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
