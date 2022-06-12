@@ -130,20 +130,20 @@
                                         </div>
                                     </form>
                                 </div>
-<!--                                <div class="filter-accordion-wrapper">
-                                    <form action="MainController"><div class="filter-accordion-heading">
-                                            <div class="text-block-5-copy"><strong>Company</strong></div><img
-                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62943201437de47785dfbc00_chevron-left.png"
-                                                loading="lazy" alt="" class="image-18" />
-                                        </div>
-                                        <div class="filter-accordion-content"><input type="text" class="w-input"
-                                                                                     maxlength="256" name="company" data-name="company"
-                                                                                     placeholder="FPT Software" id="company-3" />
-                                            <input  type="submit" name="action" value="Search Job By Company" 
-                                                    data-wait="Please wait..." class="submit-button-2 w-button" />
-                                        </div>
-                                    </form>
-                                </div>-->
+                                <!--                                <div class="filter-accordion-wrapper">
+                                                                    <form action="MainController"><div class="filter-accordion-heading">
+                                                                            <div class="text-block-5-copy"><strong>Company</strong></div><img
+                                                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62943201437de47785dfbc00_chevron-left.png"
+                                                                                loading="lazy" alt="" class="image-18" />
+                                                                        </div>
+                                                                        <div class="filter-accordion-content"><input type="text" class="w-input"
+                                                                                                                     maxlength="256" name="company" data-name="company"
+                                                                                                                     placeholder="FPT Software" id="company-3" />
+                                                                            <input  type="submit" name="action" value="Search Job By Company" 
+                                                                                    data-wait="Please wait..." class="submit-button-2 w-button" />
+                                                                        </div>
+                                                                    </form>
+                                                                </div>-->
                                 <div class="filter-accordion-wrapper">
                                     <div class="filter-accordion-heading">
                                         <div class="text-block-5-copy"><strong>Experience Level</strong></div><img
@@ -225,30 +225,30 @@
                                     <div class="filter-accordion-content"><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterDuration&duration=less than 1 month"><input type="checkbox" name="lessThan1Month" id="lessThan1Month"
-                                                                                                                   data-name="lessThan1Month"
-                                                                                                                   style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                   class="checkbox-label-2 w-form-label" for="lessThan1Month">Less than 1
+                                                                                                                                   data-name="lessThan1Month"
+                                                                                                                                   style="opacity:0;position:absolute;z-index:-1" /><span
+                                                                                                                                   class="checkbox-label-2 w-form-label" for="lessThan1Month">Less than 1
                                                     month <span class="filter-small-label">(23803)</span></span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterDuration&duration=1-3 months"><input type="checkbox" name="1To3Months" id="1To3Months"
-                                                                                                                   data-name="1To3Months"
-                                                                                                                   style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                   class="checkbox-label-2 w-form-label" for="1To3Months">1 to 3 months
+                                                                                                                            data-name="1To3Months"
+                                                                                                                            style="opacity:0;position:absolute;z-index:-1" /><span
+                                                                                                                            class="checkbox-label-2 w-form-label" for="1To3Months">1 to 3 months
                                                     <span class="filter-small-label">(93474)</span></span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterDuration&duration=3-6 months"><input type="checkbox" name="3To6Months" id="3To6Months"
-                                                                                                                   data-name="3To6Months"
-                                                                                                                   style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                   class="checkbox-label-2 w-form-label" for="3To6Months">3 to 6 months
+                                                                                                                            data-name="3To6Months"
+                                                                                                                            style="opacity:0;position:absolute;z-index:-1" /><span
+                                                                                                                            class="checkbox-label-2 w-form-label" for="3To6Months">3 to 6 months
                                                     <span class="filter-small-label">(55651)</span></span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterDuration&duration=6 or more months"><input type="checkbox" name="MoreThan6Months" id="MoreThan6Months"
-                                                                                                                   data-name="MoreThan6Months"
-                                                                                                                   style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                   class="checkbox-label-2 w-form-label" for="MoreThan6Months">More than 6
+                                                                                                                                  data-name="MoreThan6Months"
+                                                                                                                                  style="opacity:0;position:absolute;z-index:-1" /><span
+                                                                                                                                  class="checkbox-label-2 w-form-label" for="MoreThan6Months">More than 6
                                                     months <span class="filter-small-label">(55651)</span></span></a>
                                         </label></div>
                                 </div>
@@ -266,9 +266,9 @@
                                     <div class="filter-accordion-content"><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterSkill&skill=<%= elem.getSkillName()%>"><input type="checkbox" name="skillName" id="skillName"
-                                                         data-name="skillName"
-                                                         style="opacity:0;position:absolute;z-index:-1" /><span
-                                                         class="checkbox-label-2 w-form-label" for="skillName"><%=elem.getSkillName()%>- $ <span class="filter-small-label">(23803)</span></span></a>
+                                                                                                                                     data-name="skillName"
+                                                                                                                                     style="opacity:0;position:absolute;z-index:-1" /><span
+                                                                                                                                     class="checkbox-label-2 w-form-label" for="skillName"><%=elem.getSkillName()%>- $ <span class="filter-small-label">(23803)</span></span></a>
                                         </label></div>
                                         <%                                        }
 
@@ -454,10 +454,19 @@
                                             </div>
                                         </div>
                                         <%
-                                                    }
-                                                }
                                             }
+                                        } else {
                                         %>
+                                        <div class="text-block-5">No Job Matching!
+                                            <br />Search again</div>
+                                            <%}
+                                            } else {
+                                            %>
+                                        <div class="text-block-5">No Job Matching!
+                                            <br />Search again</div>
+                                            <%
+                                                }
+                                            %>
                                     </div>
                                     <div data-w-tab="Tab 3" class="w-tab-pane">
                                         <div class="text-block-5">Browse jobs that match your experience to a client&#x27;s

@@ -584,7 +584,7 @@ public class ProjectDAO {
         List<ProjectDTO> list = new ArrayList<>();
         try {
             for (ProjectDTO project : listBeforeFilter) {
-                if (project.getPaymentAmount() >= price1 & project.getPaymentAmount() <= price2) {
+                if (project.getPaymentAmount() >= price1 && project.getPaymentAmount() <= price2) {
                     list.add(project);
                 }
             }

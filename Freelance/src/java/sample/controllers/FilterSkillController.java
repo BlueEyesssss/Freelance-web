@@ -40,6 +40,8 @@ public class FilterSkillController extends HttpServlet {
             if(!list.isEmpty()) {
                 session.setAttribute("LIST_PROJECT", list);
                 url = SUCCESS;
+            }else{
+                session.setAttribute("LIST_PROJECT", null);
             }
         } catch (Exception e) {
             log("Error at FilterSkillController: " + e.toString());
