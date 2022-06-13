@@ -78,6 +78,11 @@ public class ProjectDAO {
             + "SET paymentAmount = ?, expectedDurationID = ?\n"
             + "WHERE proposalID = ?";
 
+    private static final String VIEW_UNACTIVE_PROJECT = "SELECT projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, hirerID, major, createdDate, location, hoursPerWeek " +
+"	FROM Project A, ExpectedDuration B" +
+"	WHERE A.hirerID=? AND A.projectID NOT IN (SELECT projectID FROM Proposal" +
+"	WHERE proposalStatusID in (4,5,6,7)) AND A.expectedDurationID=B.expectedDurationID";
+
     public boolean updateProposalDetail(int proposalID, double paymentAmount, int durationTextID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -630,7 +635,7 @@ public class ProjectDAO {
                     String deadlineDate = rs.getString("deadlineDate");
                     int hoursPerWeek = Integer.parseInt(rs.getString("hoursPerWeek"));
                     String major = rs.getString("major");
-                    project = new ProjectDTO(projectID, projectID, projectName, description, complexity, major, paymentAmount,durationText, deadlineDate,  createdDate, location, hoursPerWeek);
+                    project = new ProjectDTO(projectID, projectID, projectName, description, complexity, major, paymentAmount, durationText, deadlineDate, createdDate, location, hoursPerWeek);
                 }
             }
         } catch (Exception e) {
@@ -678,6 +683,52 @@ public class ProjectDAO {
 
             }
         } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public List<ProjectDTO> getListProjectUnactive(int userID) throws SQLException {
+        List<ProjectDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_UNACTIVE_PROJECT);
+                ptm.setInt(1, userID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int projectID = rs.getInt("projectID");
+                    int hirerID = rs.getInt("hirerID");
+                    String description = rs.getString("description");
+                    String complexity = rs.getString("complexity");
+                    String projectName = rs.getString("projectName");
+                    double paymentAmount = rs.getDouble("paymentAmount");
+                    String durationText = rs.getString("durationText");
+                    String deadlineDate = rs.getString("deadlineDate");
+                    String major = rs.getString("major");
+                    LocalDate createdDate = LocalDate.parse(rs.getString("createdDate"));
+                    String location = rs.getString("location");
+                    int hoursPerWeek = rs.getInt("hoursPerWeek");
+
+                    list.add(new ProjectDTO(projectID, hirerID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, major, createdDate, location, hoursPerWeek));
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return list;
     }

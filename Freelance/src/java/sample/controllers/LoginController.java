@@ -30,7 +30,7 @@ public class LoginController extends HttpServlet {
 
     private static final String ERROR = "login.jsp";
     private static final String SEEKER_PAGE = "ViewSeekerDashboardController";
-    private static final String HIRER_PAGE = "hirerDashboard.jsp";
+    private static final String HIRER_PAGE = "ViewHirerDashboardController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
