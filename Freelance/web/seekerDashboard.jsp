@@ -114,10 +114,10 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                 <div class="navigation-button-wrapper">
                     <div data-hover="false" data-delay="0" class="w-dropdown">
                         <div class="dropdown-toggle w-dropdown-toggle"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                src="<%= loginUser.getAvatar()%> "
                                 loading="lazy" width="90"
                                 sizes="(max-width: 479px) 100vw, (max-width: 767px) 25.4296875px, 6vw"
-                                srcset="<%= loginUser.getAvatar()%> 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                srcset="<%= loginUser.getAvatar()%> 500w, <%= loginUser.getAvatar()%>  960w"
                                 alt="" class="avatar-img-nav" /></div>
                         <nav class="dropdown-list w-dropdown-list"><a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
                                     Profile</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
@@ -721,9 +721,9 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                 <div class="right-side">
                     <div class="right-wrapper">
                         <div class="heading-right-container"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                src="<%= loginUser.getAvatar()%> "
                                 loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 767px) 14vw, 100px"
-                                srcset="<%= loginUser.getAvatar()%> 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                srcset="<%= loginUser.getAvatar()%> 500w, <%= loginUser.getAvatar()%>  960w"
                                 alt="" class="image-5" />
                             <h2 class="heading-3"><%= loginUser.getFullName()%></h2>
                             <div class="text-block-4"><strong><%= loginUser.getMajor()%></strong> |<br /> <%= loginUser.getOverview()%> </div>
