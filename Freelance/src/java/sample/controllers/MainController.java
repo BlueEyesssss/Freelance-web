@@ -90,6 +90,8 @@ public class MainController extends HttpServlet {
     private static final String PROPOSAL_DETAIL_CONTROLLER = "ProposalDetailController";
     private static final String UPDATE_PROPOSAL_DETAIL = "SubmitProposalDetail";
     private static final String UPDATE_PROPOSAL_DETAIL_CONTROLLER = "SubmitProposalDetailController";
+    private static final String POST_A_JOB = "PostAJob";
+    private static final String POST_A_JOB_CONTROLLER = "PostAJobController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -201,6 +203,9 @@ public class MainController extends HttpServlet {
 
             } else if (UPDATE_PROPOSAL_DETAIL.equals(action)) {
                 url = UPDATE_PROPOSAL_DETAIL_CONTROLLER;
+                
+            } else if (POST_A_JOB.equals(action)) {
+                url = POST_A_JOB_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();
