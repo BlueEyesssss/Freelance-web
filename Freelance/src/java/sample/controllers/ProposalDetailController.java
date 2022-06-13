@@ -25,9 +25,11 @@ import sample.proposal.ProposalDTO;
  */
 @WebServlet(name = "ProposalDetailController", urlPatterns = {"/ProposalDetailController"})
 public class ProposalDetailController extends HttpServlet {
+
     private static final String ERROR = "proposalDetail.jsp";
     private static final String SUCCESS = "proposalDetail.jsp";
-    
+    private static final String SUCCESS1 = "proposalDetailInterview.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -36,18 +38,25 @@ public class ProposalDetailController extends HttpServlet {
             HttpSession session = request.getSession();
             String proposalID = request.getParameter("proposalID");
             String projectID = request.getParameter("projectID");
+            String ac = request.getParameter("ac");
             ProjectDAO dao = new ProjectDAO();
             //lấy project
-            ProjectDTO project = dao.getProjectByID( Integer.parseInt(projectID) );
+            ProjectDTO project = dao.getProjectByID(Integer.parseInt(projectID));
             //lấy skill project need
-            List<String> listSkill = dao.getSkillNeedOfProject(Integer.parseInt(projectID) );
+            List<String> listSkill = dao.getSkillNeedOfProject(Integer.parseInt(projectID));
             //lấy payment-amout và duration text của proposal
             ProposalDTO proposal = dao.getProposalPaymentAndDuration(Integer.parseInt(proposalID));
-            
+
             session.setAttribute("PROJECT_DETAIL", project);
             session.setAttribute("SKILL_PROJECT_NEED", listSkill);
             session.setAttribute("PROPOSAL_PAYMENT_DURATION", proposal);
-            url = SUCCESS;
+
+            if (ac.equals("interview")) {
+                url = SUCCESS1;
+            } else {
+                url = SUCCESS;
+            }
+
         } catch (Exception e) {
             log("Error at ProposalDetailController: " + e.toString());
         } finally {
