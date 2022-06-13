@@ -11,6 +11,11 @@
     <title>Submit Proposal detail</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
+    <style type="text/css">
+        #fixchange{
+            width: 60%;
+        }
+    </style>
     <link href="https://uploads-ssl.webflow.com/629c424355a84f5cdfb5f94b/css/proposal-detail.webflow.b50ccd48d.css"
         rel="stylesheet" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
@@ -184,95 +189,13 @@
                         </div>
                     </div>
                 </div>
-                <div data-w-id="44c1ec4c-dd34-8d15-fe15-df0002ff96b1" class="div-block-19">
-                    <div class="change-term-button-wrapper"><a data-w-id="48a09ef3-565b-5b16-b49e-78efad102359" href="#"
-                            class="button-term w-button">Change Term</a></div>
-                    <div><a data-w-id="8a651d47-82f3-1225-aab2-bb1ae1e45b75" href="#" class="button-5 w-button">Withdraw
-                            Proposal</a></div>
-                </div>
-                <div class="change-term">
-                    <div class="milestones-include"></div>
-                    <div data-w-id="1e0453a5-44b7-8cac-84c9-7d53f5af0e01" class="animation-div">
-                        <div class="div-wrapper">
-                            <div class="div-block-16"></div>
-                            <div>
-                                <div class="text-block-31"><strong class="bold-text-4">What is the full amount
-                                        you&#x27;d like to bid for this job?</strong></div>
-                            </div>
-                            <div class="div-block-7">
-                                <div class="bid-wrapper">
-                                    <div class="bid">
-                                        <div>
-                                            <div class="text-block-28">Bid</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-block-29">Total amount the client will see on your proposal
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="money-wrapped">
-                                        <div class="w-form">
-                                            <form id="email-form-3" name="email-form-3" data-name="Email Form 3" action="MainController"
-                                                method="get">
-                                                <input type="number"  class="money-inputted w-input"
-                                                    maxlength="256" name="paymentAmount" data-name="Field" placeholder=""  value="<%= proposalINf.getPaymentAmount() %>"
-                                                    id="field" required="" min="0"/>
-                                            <!--</form>-->
-                                            <div class="w-form-done">
-                                                <div>Thank you! Your submission has been received!</div>
-                                            </div>
-                                            <div class="w-form-fail">
-                                                <div>Oops! Something went wrong while submitting the form.</div>
-                                            </div>
-                                        </div><img
-                                            src="https://uploads-ssl.webflow.com/629c424355a84f5cdfb5f94b/629d5ce3e4ddd9049f96a4a7_800px-Dollar_Sign.svg.png"
-                                            loading="lazy" width="23" sizes="100vw"
-                                            srcset="https://uploads-ssl.webflow.com/629c424355a84f5cdfb5f94b/629d5ce3e4ddd9049f96a4a7_800px-Dollar_Sign.svg-p-500.png 500w, https://uploads-ssl.webflow.com/629c424355a84f5cdfb5f94b/629d5ce3e4ddd9049f96a4a7_800px-Dollar_Sign.svg.png 800w"
-                                            alt="" class="image-17" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="div-block-9">
-                                <div>
-                                    <div class="w-form">
-                                        <form id="email-form-5" name="email-form-5" data-name="Email Form 5" action="MainController"
-                                            method="get">
-                                           <label for="durationText" class="field-label"><strong
-                                                    class="bold-text-6">How long do you think this project will
-                                                    take?</strong></label>
-                                            
-                                            <select id="field-3" name="durationText"
-                                                data-name="Field 3" class="select-field w-select">
-                                                <option value="less than 1 month">Less than 1 month</option>
-                                                <option value="1-3 months">1 to 3 month</option>
-                                                <option value="3-6 months">3 to 6 month</option>
-                                                <option value="6 or more months">More than 6 month</option>
-                                            </select>
-                                        <!--</form>-->
-                                        <div class="w-form-done">
-                                            <div>Thank you! Your submission has been received!</div>
-                                        </div>
-                                        <div class="w-form-fail">
-                                            <div>Oops! Something went wrong while submitting the form.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="div-block-14"></div>
-                            </div>
-                        </div>
+                <div data-w-id="d7569efe-aa7d-e650-cf00-40a1b84a7480" class="div-block-19" >
+                    <div class="change-term-button-wrapper" ><a href="#" class="button-term w-button" id="fixchange">Accept </a>
                     </div>
+                    <div><a href="#" data-w-id="d7569efe-aa7d-e650-cf00-40a1b84a7485" class="button-5 w-button">Reject</a></div>
                 </div>
+                
             </div>
-            <div data-w-id="77614fae-419d-2924-2913-c3c41101f664" class="div-block-17">
-                <input type="hidden" name="proposalID" value="<%= proposalINf.getProposalID()%>" />
-                <button type="submit" name="action" value="SubmitProposalDetail" >
-                    <a class="button-4 w-button">Submit</a>
-                </button>
-                    
-                    <a data-w-id="3d3901e9-5423-595d-5c12-d4da1b2ed822" href="#"
-                    class="button-3 w-button">Cancel</a>
-            </div>
-                        </form>
         </div>
     </div>
     <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=629c424355a84f5cdfb5f94b"
