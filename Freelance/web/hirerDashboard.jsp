@@ -102,7 +102,7 @@
                         <div class="text-block-39">Thien Pham</div>
                     </div>
                 </div>
-                <div class="div-block-20"><a href="MainController?action=PostAJob" class="post-a-job-but w-button">Post a Job</a></div>
+                <div class="div-block-20"><a href="postAJob.jsp" class="post-a-job-but w-button">Post a Job</a></div>
             </div>
         </div>
         <div class="container-2 w-container">
@@ -144,7 +144,7 @@
                         <div class="text-block-54">0 posting yet</div>
                         <div class="div-block-40"></div>
 
-                        <div><a href="MainController?action=PostAJob" class="post-a-job-button w-button">Post Now</a></div>
+                        <div><a href="postAJob" class="post-a-job-button w-button">Post Now</a></div>
                     </div>
                     <%
                             }

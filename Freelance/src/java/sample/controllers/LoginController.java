@@ -48,6 +48,8 @@ public class LoginController extends HttpServlet {
             user = dao.getUser(username, password);
             if (user != null) {
                 HttpSession session = request.getSession();
+                 List<SkillDTO> listSkillAll = daoSkill.getListSkill();
+                    session.setAttribute("LIST_SKILL_ALL", listSkillAll);
 
                 //check xem nó có phải seeker hay ko
                 //1.lấy seeker ra
@@ -74,8 +76,7 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
 
                     //lấy list skill trong Skill
-                    List<SkillDTO> listSkillAll = daoSkill.getListSkill();
-                    session.setAttribute("LIST_SKILL_ALL", listSkillAll);
+                   
                     
                     UserDAO daoUser = new UserDAO();
                     

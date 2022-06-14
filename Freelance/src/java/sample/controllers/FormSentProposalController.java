@@ -12,8 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.project.ProjectDAO;
 import sample.project.ProjectDTO;
+import sample.proposal.ProposalDAO;
+import sample.user.UserDTO;
 
 /**
  *
@@ -22,7 +25,7 @@ import sample.project.ProjectDTO;
 @WebServlet(name = "FormSentProposalController", urlPatterns = {"/FormSentProposalController"})
 public class FormSentProposalController extends HttpServlet {
 
-    private static final String ERROR = "error.html";
+    private static final String ERROR = "ViewSeekerDashboardController";
     private static final String SUCCESS = "submitProposal.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -32,14 +35,14 @@ public class FormSentProposalController extends HttpServlet {
         try {
             int projectID = Integer.parseInt(request.getParameter("projectID"));
             ProjectDAO dao = new ProjectDAO();
-            ProjectDTO projectCurrent = dao.getProjectCurrent(projectID);
+            ProjectDTO projectCurrent = dao.getProjectCurrent(projectID);         
             if (projectCurrent != null) {
                 request.setAttribute("PROJECT_CURRENT", projectCurrent);
                 url = SUCCESS;
             }
-
+   
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at FormSentProposalController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -83,6 +83,9 @@ public class ProjectDAO {
 "	WHERE A.hirerID=? AND A.projectID NOT IN (SELECT projectID FROM Proposal" +
 "	WHERE proposalStatusID in (4,5,6,7)) AND A.expectedDurationID=B.expectedDurationID";
 
+    private static final String CREATE_PROJECT ="INSERT INTO Project(projectName,description,complexity,hirerID,paymentAmount,expectedDurationID,deadlineDate,location)" +
+" VALUES(?,?,?,?,?,?,?,?)";
+    
     public boolean updateProposalDetail(int proposalID, double paymentAmount, int durationTextID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -731,6 +734,40 @@ public class ProjectDAO {
             }
         }
         return list;
+    }
+
+    public boolean CreateProject(String projectName, String description, String complexity, int hireID, double budget, int durationID, String deadline, String location) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CREATE_PROJECT);
+                ptm.setString(1, projectName);
+                ptm.setString(2, description);
+                ptm.setString(3, complexity);
+                ptm.setInt(4, hireID);
+                ptm.setDouble(5, budget);
+                ptm.setInt(6, durationID);
+                ptm.setString(7, deadline);
+                ptm.setString(8, location);
+                check = ptm.executeUpdate() > 0;               
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+
+        return check;
     }
 
 }

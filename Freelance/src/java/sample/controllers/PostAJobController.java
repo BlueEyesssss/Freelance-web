@@ -7,11 +7,15 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import sample.project.ProjectDAO;
+import sample.user.UserDTO;
 
 /**
  *
@@ -26,7 +30,31 @@ public class PostAJobController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        String url = ERROR;
+        try {
+            HttpSession session = request.getSession();
+            UserDTO user = (UserDTO) session.getAttribute("USER_LOGIN");
+            int hireID = user.getUserID();
+            int durationID = Integer.parseInt(request.getParameter("durationID"));
+            String projectName = request.getParameter("projectName");
+            String description = request.getParameter("description");
+            String[] skillID = request.getParameterValues("skillID");           
+            String major = request.getParameter("major");
+            String complexity = request.getParameter("complexity");
+            double budget = Double.parseDouble(request.getParameter("budget"));
+            String deadline = request.getParameter("deadline");
+            String location = request.getParameter("location");
+            
+            ProjectDAO dao = new ProjectDAO();
+            boolean checkCreateProject = dao.CreateProject(projectName, description, complexity, hireID, budget, durationID, deadline,location );
+            if(checkCreateProject){
+                url = SUCCESS;
+            }
+        } catch (Exception e) {
+            log("Error at PostAJobController: " + e.toString());
+        }finally{
+            request.getRequestDispatcher(url).forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
