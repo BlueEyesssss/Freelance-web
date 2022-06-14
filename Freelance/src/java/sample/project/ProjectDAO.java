@@ -6,9 +6,11 @@
 package sample.project;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +87,45 @@ public class ProjectDAO {
 
     private static final String CREATE_PROJECT ="INSERT INTO Project(projectName,description,complexity,hirerID,paymentAmount,expectedDurationID,deadlineDate,location)" +
 " VALUES(?,?,?,?,?,?,?,?)";
+    
+    private static final String POST_A_PROJECT ="INSERT INTO Project(projectName, description, complexity, hirerID\n" +
+", paymentAmount, expectedDurationID, deadlineDate, location, createdDate, hoursPerWeek, major)\n" +
+"VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    
+    public boolean postAJob(ProjectDTO project) throws SQLException, ClassNotFoundException {
+        //LocalDate.parse(rs.getString("createdDate"))
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(POST_A_PROJECT);
+                ptm.setString(1, project.getProjectName());
+                ptm.setString(2, project.getDescription());
+                ptm.setString(3, project.getComplexity());
+                ptm.setInt(4, project.getHirerID());
+                ptm.setDouble(5, project.getPaymentAmount());
+                ptm.setInt(6, Integer.parseInt(project.getExpectedDurationID()) );
+                ptm.setString(7,project.getDeadlineDate());
+                ptm.setString(8, project.getLocation());
+                ptm.setString(9, project.getCreatedDate1());
+                ptm.setInt(10, project.getHoursPerWeek());
+                ptm.setString(11, project.getMajor());
+                
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
     
     public boolean updateProposalDetail(int proposalID, double paymentAmount, int durationTextID) throws SQLException {
         boolean check = false;
@@ -769,5 +810,83 @@ public class ProjectDAO {
 
         return check;
     }
+
+    private final String GET_PROJECTID = "SELECT projectID\n" +
+"FROM Project\n" +
+"WHERE projectName = ? \n" +
+" AND complexity = ?\n" +
+"AND paymentAmount = ?\n" +
+"AND hoursPerWeek = ?\n" +
+"AND hirerID = ?\n" +
+"AND major = ?";
+    
+    public int getProject(ProjectDTO project) throws SQLException {
+        int id = -1;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PROJECTID);
+                ptm.setString(1, project.getProjectName());
+                ptm.setString(2, project.getComplexity());
+                ptm.setDouble(3, project.getPaymentAmount());
+                ptm.setInt(4, project.getHoursPerWeek());
+                ptm.setInt(5, project.getHirerID());
+                ptm.setString(6, project.getMajor());
+                
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    id = rs.getInt("projectID");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return  id;
+    }
+    private final String CREATE_SKILL_PROJECT ="INSERT INTO NeededSkills(projectID, skillID)\n" +
+"VALUES(?,?)";
+    public boolean createSkillProjectNeed(int projectID, int parseInt) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CREATE_SKILL_PROJECT);
+                ptm.setInt(1, projectID);
+                ptm.setInt(2, parseInt);
+                check = ptm.executeUpdate() > 0?true:false;               
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+
+        return check;
+    }
+
+    
 
 }

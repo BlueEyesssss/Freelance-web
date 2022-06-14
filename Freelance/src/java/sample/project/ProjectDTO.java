@@ -28,6 +28,16 @@ public class ProjectDTO {
     private String location;
     private int hoursPerWeek;
     private String durationText;
+    String createdDate1;
+
+    public String getCreatedDate1() {
+        return createdDate1;
+    }
+
+    public void setCreatedDate1(String createdDate1) {
+        this.createdDate1 = createdDate1;
+    }
+    
     
     public String getDurationText() {
         return durationText;
@@ -35,6 +45,22 @@ public class ProjectDTO {
 
     public void setDurationText(String durationText) {
         this.durationText = durationText;
+    }
+    
+    public ProjectDTO(String projectName_postAJob, String description, String complexity, 
+            int hirerID, double paymentAmount, String expectedDurationID, String deadlineDate,
+            String location, String createdDate1, int hoursPerWeek, String major){
+        this.projectName = projectName_postAJob;
+        this.description = description;
+        this.complexity = complexity;
+        this.hirerID = hirerID;
+        this.paymentAmount = paymentAmount;
+        this.expectedDurationID = expectedDurationID;
+        this.deadlineDate = deadlineDate;
+        this.location = location;
+        this.createdDate1 = createdDate1;
+        this.hoursPerWeek = hoursPerWeek;
+        this.major = major;
     }
     
     public ProjectDTO(int projectID_proposal_detail, int hirerID, String projectName, String description, String complexity, String major, double paymentAmount, String deadlineDate, LocalDate createdDate, String location, int hoursPerWeek, String durationText) {

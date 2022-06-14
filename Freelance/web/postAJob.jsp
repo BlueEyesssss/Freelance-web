@@ -118,22 +118,28 @@
                                                 <div data-ix="show-content-onslide"
                                                     class="form-section-title-2 tittle-ys">Getting started</div>
                                                 <div class="div-block-134">
-                                                    <div class="ticket-wrapper"><label
+                                                    <div class="ticket-wrapper">
+                                                        <label
                                                             class="radio-button-field-5 w-radio"><img
                                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62a35532cc5e85ef441d1771_clock.svg"
                                                                 loading="lazy" width="43" alt=""
                                                                 class="form-ticket-img" />
                                                             <div
                                                                 class="w-form-formradioinput w-form-formradioinput--inputType-custom radio-button-2 w-radio-input">
-                                                            </div><input type="radio" name="durationID"
+                                                            </div>
+                                                            <input type="radio" name="durationID"
                                                                 id="Less-than-1-month" value="1"
                                                                 data-name="duration"
-                                                                style="opacity:0;position:absolute;z-index:-1" /><span
+                                                                style="opacity:0;position:absolute;z-index:-1" />
+                                                            <span
                                                                 class="radio-button-label-2 bold w-form-label"
                                                                 for="Less-than-1-month"><span
                                                                     class="text-span-12">Short-term
                                                                     Job<br /></span><br />Less than 1 month<br /></span>
-                                                        </label><label class="radio-button-field-5 w-radio"><img
+                                                        </label>
+                                                        
+                                                        <label class="radio-button-field-5 w-radio">
+                                                            <img
                                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62a35532cc5e85ef441d1771_clock.svg"
                                                                 loading="lazy" width="43" alt=""
                                                                 class="form-ticket-img" />
@@ -146,7 +152,9 @@
                                                                 for="1-to-3-months"><span
                                                                     class="text-span-12">Middle-term
                                                                     Job<br /></span><br />1 - 3 months<br /></span>
-                                                        </label><label class="radio-button-field-5 w-radio"><img
+                                                        </label>
+                                                        
+                                                        <label class="radio-button-field-5 w-radio"><img
                                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62a3553330f13997b0684fe7_calendar.svg"
                                                                 loading="lazy" width="33" alt=""
                                                                 class="form-ticket-img" />
@@ -158,13 +166,16 @@
                                                                 class="radio-button-label-2 bold w-form-label"
                                                                 for="3-to-6-months"><span class="text-span-12">Long-term
                                                                     job</span><br /><br />3 - 6 months<br /></span>
-                                                        </label><label class="radio-button-field-5 w-radio"><img
+                                                        </label>
+                                                        
+                                                        <label class="radio-button-field-5 w-radio"><img
                                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62a3553330f13997b0684fe7_calendar.svg"
                                                                 loading="lazy" width="36" alt=""
                                                                 class="form-ticket-img" />
                                                             <div
                                                                 class="w-form-formradioinput w-form-formradioinput--inputType-custom radio-button-2 w-radio-input">
-                                                            </div><input type="radio" name="duration"
+                                                            </div>
+                                                            <input type="radio" name="duration"
                                                                 id="More-than-6-months" value="4"
                                                                 data-name="duration"
                                                                 style="opacity:0;position:absolute;z-index:-1" /><span
@@ -172,7 +183,8 @@
                                                                 for="More-than-6-months"><span class="text-span-12">Long
                                                                     term job<br />?</span><br />More than 6
                                                                 months<br /></span>
-                                                        </label></div>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div data-ix="show-content-onslide" class="step-counter d-none">1/7</div>
@@ -184,10 +196,12 @@
                                                 <h1 class="heading-126">Basic project<br /></h1>
                                                 <div><label for="fullName" class="field-label small"><strong>1. Enter
                                                             the name of your job
-                                                            jost<strong></strong></strong><br /></label><input
+                                                            jost<strong></strong></strong><br /></label>
+                                                    <input
                                                         type="text" class="text-field w-input" maxlength="256"
                                                         name="projectName" data-name="fullName" placeholder=""
-                                                        id="fullName" /></div>
+                                                        id="fullName" />
+                                                </div>
                                                 <div class="div-block-133">
                                                     <div class="text-block-140">First, give your job post a name. A
                                                         clear title makes it easy for talent to quickly decide whether
@@ -216,10 +230,12 @@
                                                 <div><label for="videoSharing" class="field-label small"><strong>2.
                                                             Enter the discription of the job (Not over 5000
                                                             words)<strong><br /></strong></strong></label>
-                                                    <div class="html-embed-20 w-embed"><textarea name="description"
+                                                    <div class="html-embed-20 w-embed">
+                                                        <textarea name="description"
                                                             id="whyJoin" oninput="countWord()" rows="5"
                                                             style="width: 100%; padding: 10px; border-color: #caccd1; border-radius: 7px">
-</textarea></div>
+                                                        </textarea>
+                                                    </div>
                                                     <div class="html-embed-22 w-embed w-script">
                                                         <script>
                                                             function countWord() {
@@ -320,34 +336,47 @@
                                     <div class="step w-slide">
                                         <div class="collaborate-form-step-2 _2">
                                             <div class="form-content-2">
-                                                <div class="div-block-135"><label id="timePerWeek" for="field"
+                                                <div class="div-block-135">
+                                                    <label id="timePerWeek" for="field"
                                                         class="field-label small"><strong>4.
-                                                            Major</strong><br /></label><input type="text" value="major"
-                                                        class="text-field w-input" maxlength="256" name="category"
+                                                            Major</strong><br /></label>
+                                                    <input type="text" value="" 
+                                                        class="text-field w-input" maxlength="256" name="major"
                                                         data-name="Field" placeholder="Example Text" id="field"
-                                                        required="" /></div>
+                                                        required="" />
+                                                </div>
                                                 <div class="div-block-135"><label id="timePerWeek"
                                                         class="field-label small"><strong>5. Choose the
-                                                            complexity</strong><br /></label><label
-                                                        class="radio-field small w-radio"><input type="radio"
+                                                            complexity</strong><br /></label>
+                                                    <label
+                                                        class="radio-field small w-radio">
+                                                        <input type="radio"
                                                             name="complexity" id="Entry-Level" value="Entry"
                                                             data-name="complexity"
-                                                            class="w-form-formradioinput w-radio-input" /><span
+                                                            class="w-form-formradioinput w-radio-input" />
+                                                        <span
                                                             for="Entry-Level"
                                                             class="radio-label-2 small w-form-label">Entry
-                                                            Level</span></label><label
+                                                            Level</span>
+                                                    </label>
+                                                    
+                                                    <label
                                                         class="radio-field w-radio"><input type="radio"
                                                             name="complexity" id="Intermediate-2" value="Intermediate"
                                                             data-name="complexity"
                                                             class="w-form-formradioinput w-radio-input" /><span
                                                             for="Intermediate-2"
-                                                            class="radio-label-2 small w-form-label">Intermediate</span></label><label
+                                                            class="radio-label-2 small w-form-label">Intermediate</span>
+                                                    </label>
+                                                    
+                                                    <label
                                                         class="radio-field w-radio"><input type="radio"
                                                             name="complexity" id="Expert-2" value="Expert"
                                                             data-name="complexity"
                                                             class="w-form-formradioinput w-radio-input" /><span
                                                             for="Expert-2"
-                                                            class="radio-label-2 small w-form-label">Expert</span></label>
+                                                            class="radio-label-2 small w-form-label">Expert</span>
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div data-ix="show-content-onslide" class="step-counter">5/7</div>
@@ -359,19 +388,26 @@
                                             <div class="form-content-2">
                                                 <div><label id="timePerWeek" class="field-label small"><strong>5. Fill
                                                             the budget</strong><br /></label>
-                                                    <div class="hour-rate-input-wrapper budget _w-50"><img
+                                                    <div class="hour-rate-input-wrapper budget _w-50">
+                                                        <img
                                                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629423f2cd8d721f22e4bafb_moeny.png"
-                                                            loading="lazy" alt="" /><input type="text"
+                                                            loading="lazy" alt="" />
+                                                        
+                                                        <input type="number" min="0"
                                                             class="text-field-5 budget _w-100 w-input" maxlength="256"
-                                                            name="budget-3" data-name="Budget 3" placeholder="12"
-                                                            id="budget-3" required="" /></div>
+                                                            name="budget" data-name="Budget 3" placeholder=""
+                                                            id="budget-3" required="" />
+                                                    </div>
                                                 </div>
                                                 <div class="div-block-135"><label id="timePerWeek" for="deadline"
                                                         class="field-label small"><strong>6.
-                                                            Deadline</strong><br /></label><input type="text"
+                                                            Deadline</strong><br /></label>
+                                                    
+                                                    <input type="text"
                                                         class="text-field _w-50 w-input" maxlength="256" name="deadline"
                                                         data-name="deadline" placeholder="Type date nha" id="deadline"
-                                                        required="" /></div>
+                                                        required="" />
+                                                </div>
                                             </div>
                                             <div data-ix="show-content-onslide" class="step-counter">6/7</div>
                                         </div>
@@ -386,10 +422,12 @@
                                                 </div>
                                                 <div data-ix="show-content-onslide" class="step-counter final">6/6</div>
                                                 <div><label for="ticketCode" class="field-label small"><strong
-                                                            class="bold-text-78">10. Location</strong></label><input
+                                                            class="bold-text-78">10. Location</strong></label>
+                                                            <input
                                                         type="text" class="text-field w-input" maxlength="256"
                                                         name="location" data-name="ticketCode" placeholder=""
-                                                        id="ticketCode" /></div>
+                                                        id="ticketCode" />
+                                                </div>
                                             </div><input type="submit" name="action" value="PostAJob"
                                                 data-wait="Calculating Nash Equilibrium..."
                                                 wait="Calculating Nash Equilibrium..." data-ix="show-content-onslide"

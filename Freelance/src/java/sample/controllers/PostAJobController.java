@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
 import sample.user.UserDTO;
 
 /**
@@ -26,7 +27,7 @@ public class PostAJobController extends HttpServlet {
 
     private static final String ERROR = "error.html";
     private static final String SUCCESS = "hirerDashboard.jsp";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -34,25 +35,51 @@ public class PostAJobController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             UserDTO user = (UserDTO) session.getAttribute("USER_LOGIN");
-            int hireID = user.getUserID();
-            int durationID = Integer.parseInt(request.getParameter("durationID"));
+
             String projectName = request.getParameter("projectName");
             String description = request.getParameter("description");
-            String[] skillID = request.getParameterValues("skillID");           
-            String major = request.getParameter("major");
             String complexity = request.getParameter("complexity");
+            int hireID = user.getUserID();
             double budget = Double.parseDouble(request.getParameter("budget"));
+            int durationID = Integer.parseInt(request.getParameter("durationID"));
             String deadline = request.getParameter("deadline");
             String location = request.getParameter("location");
-            
+            String createdDate = java.time.LocalDate.now() + "";
+            int hourPerWeek = 0;
+            String major = request.getParameter("major");
+
+            String[] skillID = request.getParameterValues("skillID");
+
+            ProjectDTO project = new ProjectDTO(projectName, description, complexity, hireID, budget, durationID + "", deadline, location, createdDate, hourPerWeek, major);
+
             ProjectDAO dao = new ProjectDAO();
-            boolean checkCreateProject = dao.CreateProject(projectName, description, complexity, hireID, budget, durationID, deadline,location );
-            if(checkCreateProject){
-                url = SUCCESS;
+            boolean checkCreateProject = dao.postAJob(project);
+            if (checkCreateProject) {
+                int projectID = dao.getProject(project);
+                //check id
+                if (projectID != -1) {
+                    boolean checkCreateSkill = false;
+                    for (String string : skillID) {
+                        if (dao.createSkillProjectNeed(projectID, Integer.parseInt(string))) {
+                            
+                        } else {
+                            checkCreateSkill = true;
+                        }
+                    }
+                    if (checkCreateSkill) {
+                        request.setAttribute("CREATE SKILL FOR PROJECT", "soomething wrong when create skill for project");
+                        
+                    }
+                    url = SUCCESS;
+                } else {
+                    request.setAttribute("CREATE SKILL FOR PROJECT", "soomething wrong when get id project");
+                }
+
             }
         } catch (Exception e) {
+            System.out.println(e.toString());
             log("Error at PostAJobController: " + e.toString());
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
