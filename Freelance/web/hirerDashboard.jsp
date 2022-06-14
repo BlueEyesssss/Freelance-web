@@ -148,11 +148,10 @@
                 <div class="posting-details-wrapper">
                     <div class="full-stack">
                         <div>
-                            <div class="text-block-44"><a href="#" class="full-stack-development">Full Stack
-                                    Development</a></div>
+                            <div class="text-block-44"><a href="#" class="full-stack-development"><%= project.getProjectName()%></a></div>
                         </div>
                         <div>
-                            <div class="text-block-45">Posted 6 days ago by You</div>
+                            <div class="text-block-45">Post <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear() %> Days Ago by You</div>
                         </div>
                     </div>
                     <div class="div-block-28"><a href="#" class="edit-button w-button">Edit</a><a href="#"

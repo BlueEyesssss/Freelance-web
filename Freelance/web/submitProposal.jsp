@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="sample.project.ProjectDTO"%>
 <!DOCTYPE html>
@@ -104,6 +105,7 @@
 
         <%
             LocalDate localDate = LocalDate.now();
+            List<String> listSkill = (List<String>)session.getAttribute("SKILL_PROJECT_NEED");
             ProjectDTO projectCurrent = (ProjectDTO) request.getAttribute("PROJECT_CURRENT");
             if (projectCurrent != null) {
 
@@ -131,8 +133,15 @@
                                     <div class="proposal-divenden"></div>
                                     <div class="div-block-33">
                                         <div class="lb-heading-text">Skill and Expertise</div>
+                                        <%
+                            for (String elem : listSkill) {
+                                    %>
+                                    
+                                    <div class="expected-skill"><%= elem %></div>
+                        <%
+                                }
+                        %>
                                         
-                                        <div class="expected-skill">My skill(can toi uu code cho lay listSkill)</div>
                                           
                                     </div>
                                 </div>
