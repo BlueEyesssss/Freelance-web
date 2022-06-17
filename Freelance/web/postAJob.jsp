@@ -1,4 +1,4 @@
-<%@page import="sample.skill.SkillDTO"%>
+po<%@page import="sample.skill.SkillDTO"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 
@@ -403,7 +403,7 @@
                                                         class="field-label small"><strong>6.
                                                             Deadline</strong><br /></label>
                                                     
-                                                    <input type="text"
+                                                    <input type="date"
                                                         class="text-field _w-50 w-input" maxlength="256" name="deadline"
                                                         data-name="deadline" placeholder="Type date nha" id="deadline"
                                                         required="" />

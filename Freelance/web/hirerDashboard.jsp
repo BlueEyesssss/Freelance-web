@@ -27,6 +27,10 @@
 </head>
 
 <body class="body-2">
+    <%
+                HirerDTO loginUser = (HirerDTO) session.getAttribute("USER_LOGIN");
+
+    %>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation-2 seeker w-nav">
         <div class="navigation-container-2">
@@ -78,7 +82,7 @@
                 <div class="navigation-button-wrapper">
                     <div data-hover="false" data-delay="0" class="w-dropdown">
                         <div class="dropdown-toggle w-dropdown-toggle"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                src=<%= loginUser.getAvatar() %>
                                 loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewHirerProfile"
                                 class="dropdown-link w-dropdown-link">My Profile</a><a href="MainController?action=Logout"
@@ -94,7 +98,6 @@
     <div class="your-dashboard-container w-container">
         <div class="your-dashboard">
             <%
-        HirerDTO loginUser = (HirerDTO) session.getAttribute("USER_LOGIN");
         LocalDate localDate = LocalDate.now();
         String weekday = localDate.getDayOfWeek().name().substring(0, 1) + localDate.getDayOfWeek().name().substring(1).toLowerCase();
         String month = localDate.getMonth().name().substring(0, 1) + localDate.getMonth().name().substring(1).toLowerCase();

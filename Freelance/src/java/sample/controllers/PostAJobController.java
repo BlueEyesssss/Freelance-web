@@ -26,7 +26,7 @@ import sample.user.UserDTO;
 public class PostAJobController extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "hirerDashboard.jsp";
+    private static final String SUCCESS = "ViewHirerDashboardController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
