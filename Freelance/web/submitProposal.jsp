@@ -105,7 +105,7 @@
 
         <%
             LocalDate localDate = LocalDate.now();
-            List<String> listSkill = (List<String>)session.getAttribute("SKILL_PROJECT_NEED");
+            List<String> listSkill = (List<String>)request.getAttribute("SKILL_PROJECT_NEED");
             ProjectDTO projectCurrent = (ProjectDTO) request.getAttribute("PROJECT_CURRENT");
             if (projectCurrent != null) {
 
@@ -204,8 +204,8 @@
                                             <div class="div-horizon _w-300px">
                                                 <div class="hour-rate-input-wrapper"><img
                                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629423f2cd8d721f22e4bafb_moeny.png"
-                                                        loading="lazy" alt="" /><input type="text"
-                                                        class="text-field-5 w-input" maxlength="256" name="hourRate"
+                                                        loading="lazy" alt="" /><input type="number"
+                                                        class="text-field-5 w-input" maxlength="256" name="paymentAmount"
                                                         data-name="hourRate" placeholder="" id="hourRate-3" required="" />
                                                 </div>
                                                 <div>/Job</div>

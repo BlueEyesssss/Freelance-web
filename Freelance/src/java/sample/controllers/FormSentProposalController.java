@@ -7,6 +7,7 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,8 +36,12 @@ public class FormSentProposalController extends HttpServlet {
         try {
             int projectID = Integer.parseInt(request.getParameter("projectID"));
             ProjectDAO dao = new ProjectDAO();
-            ProjectDTO projectCurrent = dao.getProjectCurrent(projectID);         
+            ProjectDTO projectCurrent = dao.getProjectCurrent(projectID);
+            List<String> skillneed = dao.getSkillNeedOfProject(projectCurrent.getProjectID());
+            
+                     
             if (projectCurrent != null) {
+                request.setAttribute("SKILL_PROJECT_NEED", skillneed);
                 request.setAttribute("PROJECT_CURRENT", projectCurrent);
                 url = SUCCESS;
             }
