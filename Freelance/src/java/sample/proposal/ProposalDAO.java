@@ -63,6 +63,9 @@ public class ProposalDAO {
 "AND p.projectID = pr.projectID\n" +
 "AND p.proposalID = 11";
     
+    private static final String DELETE_PROPOSAL = "DELETE FROM PROPOSAL WHERE proposalID = ?";
+    
+    
      public ProposalDTO getProposal(int proposalIDd) throws SQLException {
          ProposalDTO item = null;
         Connection conn = null;
@@ -453,6 +456,36 @@ public class ProposalDAO {
             }
         }
         return checkAlreadySubmitProposal;
+    }
+
+    public boolean withdrawnProposal(int proposalID) throws SQLException {
+        boolean checkForWithdrawn = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+       
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_PROPOSAL);
+                ptm.setInt(1, proposalID);
+                checkForWithdrawn = ptm.executeUpdate() > 0;
+                
+                
+                
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return checkForWithdrawn;
     }
 
    

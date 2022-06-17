@@ -94,6 +94,9 @@ public class MainController extends HttpServlet {
     private static final String POST_A_JOB_CONTROLLER = "PostAJobController";
     private static final String VIEW_HIRER_DASHBOARD = "ViewHirerDashboard";
     private static final String VIEW_HIRER_DASHBOARD_CONTROLLER = "ViewHirerDashboardController";
+    private static final String WITHDRAWN_PROPOSAL = "WithdrawnProposal";
+    private static final String WITHDRAWN_PROPOSAL_CONTROLLER = "WithdrawnProposalController";
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -103,6 +106,10 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
             if (LOGIN.equals(action)) {
                 url = LOGIN_CONTROLLER;
+            } else if (WITHDRAWN_PROPOSAL.equals(action)) {
+                url = WITHDRAWN_PROPOSAL_CONTROLLER;
+    
+                
 
             } else if (SEARCH_JOB_BY_NAME.equals(action)) {
                 url = SEARCH_JOB_BY_NAME_CONTROLLER;

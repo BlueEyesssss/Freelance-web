@@ -143,10 +143,10 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                     <div class="search-seeker">
                         <div class="seeker-main-inputsearch">
                             <div class="form-block-3 w-form">
-                                <form id="email-form-3" name="email-form-3" data-name="Email Form 3" method="get"
+                                <form action="MainController" id="email-form-3" name="email-form-3" data-name="Email Form 3" method="get"
                                     class="form-4"><input type="text" class="search-input-seeker-dashboard w-input"
-                                        maxlength="256" name="email" data-name="Email" placeholder="" id="email"
-                                        required="" /><input type="submit" value="Submit" data-wait="Please wait..."
+                                        maxlength="256" name="search" data-name="Email" placeholder="" id="email"
+                                        required="" /><input type="submit" name="action" value="Search Job By Name" value="Submit" data-wait="Please wait..."
                                         class="submit-button-3 w-button" /></form>
                                 <div class="w-form-done">
                                     <div>Thank you! Your submission has been received!</div>
@@ -181,7 +181,8 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                     <div class="seeker-dividen"></div>
                        
                                      <%   
-                                         
+                                                                                     List<HirerDTO> listHirer = (List<HirerDTO>) session.getAttribute("LIST_HIRER");
+
                                          List<ProjectDTO> listBestMatchProject = (List<ProjectDTO>) request.getAttribute("LIST_BEST_MATCH_PROJECT");
                                             if (listBestMatchProject != null) {
                                                 if (listBestMatchProject.size() > 0) {
@@ -189,8 +190,9 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                     
                                         %>
                                         
-                                        <%
-                                                                    List<HirerDTO> listHirer = (List<HirerDTO>) session.getAttribute("LIST_HIRER");
+                                        <%                          
+                                            
+
                                                                     HirerDTO hirer = null;
                                                                     for (HirerDTO elem : listHirer) {
                                                                         if (elem.getHirerID() == project.getHirerID()) {
@@ -368,7 +370,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                         %>
                                         
                                         <%
-                                                                    List<HirerDTO> listHirer = (List<HirerDTO>) session.getAttribute("LIST_HIRER");
+                                                                     listHirer = (List<HirerDTO>) session.getAttribute("LIST_HIRER");
                                                                     HirerDTO hirer = null;
                                                                     for (HirerDTO elem : listHirer) {
                                                                         if (elem.getHirerID() == project.getHirerID()) {
@@ -548,7 +550,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                         %>
                                         
                                         <%
-                                                                    List<HirerDTO> listHirer = (List<HirerDTO>) session.getAttribute("LIST_HIRER");
+                                                                    listHirer = (List<HirerDTO>) session.getAttribute("LIST_HIRER");
                                                                     HirerDTO hirer = null;
                                                                     for (HirerDTO elem : listHirer) {
                                                                         if (elem.getHirerID() == project.getHirerID()) {

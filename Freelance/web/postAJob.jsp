@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Proposal</title>
+    <title>Post A Job</title>
     <meta content="Proposal" property="og:title" />
     <meta content="Proposal" property="twitter:title" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />

@@ -187,7 +187,7 @@
                 <div data-w-id="44c1ec4c-dd34-8d15-fe15-df0002ff96b1" class="div-block-19">
                     <div class="change-term-button-wrapper"><a data-w-id="48a09ef3-565b-5b16-b49e-78efad102359" href="#"
                             class="button-term w-button">Change Term</a></div>
-                    <div><a data-w-id="8a651d47-82f3-1225-aab2-bb1ae1e45b75" href="#" class="button-5 w-button">Withdraw
+                            <div><a data-w-id="8a651d47-82f3-1225-aab2-bb1ae1e45b75" href="MainController?action=WithdrawnProposal&proposalID=<%= proposalINf.getProposalID() %>" class="button-5 w-button">Withdraw
                             Proposal</a></div>
                 </div>
                 <div class="change-term">
