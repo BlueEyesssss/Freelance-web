@@ -51,6 +51,8 @@ public class ProjectDAO {
             + "WHERE projectID = ? and seekerID = ?";
     private static final String DELETE_FAVORITE_PROJECT = "DELETE FROM FavoriteProject\n"
             + "WHERE projectID = ? and seekerID = ?";
+    private static final String DELETE_PROJECT = "DELETE FROM Project WHERE projectID = ?";
+    private static final String DELETE_FAVORITE_PROJECT_WITH_PROJECTID = "DELETE FROM FavoriteProject WHERE projectID = ?";
 
     private static final String GET_SKILL_NEED_PROJECT = "SELECT nd.projectID, s.skillName FROM NeededSkills nd, Skill s WHERE nd.skillID = s.skillID AND nd.projectID = ?";
 
@@ -870,6 +872,72 @@ public class ProjectDAO {
                 ptm.setInt(1, projectID);
                 ptm.setInt(2, parseInt);
                 check = ptm.executeUpdate() > 0?true:false;               
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+
+        return check;
+    }
+
+    public boolean deleteFavoriteProject(int projectID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_FAVORITE_PROJECT_WITH_PROJECTID);
+                ptm.setInt(1, projectID);
+                
+                check = ptm.executeUpdate() > 0;
+                if (check) {
+                    check = true;
+                }
+//                
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+
+        return check;
+    }
+    
+    public boolean deleteProject(int projectID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_PROJECT);
+                ptm.setInt(1, projectID);
+                
+                check = ptm.executeUpdate() > 0;
+                if (check) {
+                    check = true;
+                }
+//                
             }
 
         } catch (Exception e) {
