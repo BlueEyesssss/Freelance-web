@@ -1,4 +1,5 @@
 
+<%@page import="sample.seeker.SeekerDTO"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.project.ProjectDTO"%>
@@ -24,7 +25,9 @@
 </head>
 
 <body class="body">
-    <%
+    <%              
+                            SeekerDTO loginUser = (SeekerDTO) session.getAttribute("USER_LOGIN");
+
                     ProjectDTO project = (ProjectDTO)session.getAttribute("PROJECT_DETAIL");
                     List<String> listSkill = (List<String>)session.getAttribute("SKILL_PROJECT_NEED");
                     ProposalDTO proposalINf = (ProposalDTO)session.getAttribute("PROPOSAL_PAYMENT_DURATION");
@@ -86,7 +89,7 @@
                 <div class="navigation-button-wrapper">
                     <div data-hover="false" data-delay="0" class="w-dropdown">
                         <div class="dropdown-toggle w-dropdown-toggle"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                src=<%= loginUser.getAvatar() %>
                                 loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerProfile"
                                 class="dropdown-link w-dropdown-link">My Profile</a><a href="MainController?action=Logout"
