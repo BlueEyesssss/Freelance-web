@@ -151,7 +151,7 @@
                 <div class="posting-details-wrapper">
                     <div class="full-stack">
                         <div>
-                            <div class="text-block-44"><a href="#" class="full-stack-development"><%= project.getProjectName()%></a></div>
+                            <div class="text-block-44"><a href="MainController?action=PostedProjectDetail&projectID=<%= project.getProjectID() %>" class="full-stack-development"><%= project.getProjectName()%></a></div>
                         </div>
                         <div>
                             <div class="text-block-45">Post <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear() %> Days Ago by You</div>

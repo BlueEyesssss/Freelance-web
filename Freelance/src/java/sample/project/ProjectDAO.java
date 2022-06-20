@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import sample.proposal.ProposalDTO;
+import sample.seeker.SeekerDTO;
 
 import sample.util.DBUtil;
 
@@ -93,6 +94,9 @@ public class ProjectDAO {
     private static final String POST_A_PROJECT ="INSERT INTO Project(projectName, description, complexity, hirerID\n" +
 ", paymentAmount, expectedDurationID, deadlineDate, location, createdDate, hoursPerWeek, major)\n" +
 "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    
+   
+    
     
     public boolean postAJob(ProjectDTO project) throws SQLException, ClassNotFoundException {
         //LocalDate.parse(rs.getString("createdDate"))
@@ -954,6 +958,8 @@ public class ProjectDAO {
 
         return check;
     }
+
+    
 
     
 

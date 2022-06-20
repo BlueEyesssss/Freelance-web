@@ -9,8 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import sample.seeker.SeekerDTO;
 import sample.util.DBUtil;
 
 /**
@@ -35,39 +37,47 @@ public class ProposalDAO {
             + " VALUES(?,?,?,?,?,?,?)";
 
     private static final String CHECK_IS_PROPOSAL = " SELECT projectID FROM Proposal WHERE projectID =?";
-    
+
     private static final String CHECK_PROPOSAL_ALREADY_SUBMIT = " SELECT projectID FROM Proposal WHERE projectID =? AND seekerID=?";
-    
-    private static final String VIEW_DONE_PROPOSAL = "SELECT B.projectName, a.createdDate\n" +
-"FROM Proposal A, Project B\n" +
-"WHERE A.projectID = B.projectID \n" +
-"AND (A.proposalStatusID = 6 OR A.proposalStatusID = 7)\n" +
-"AND A.seekerID = ?";
-    private static final String VIEW_WAITING_PROPOSAL = "SELECT B.projectName, a.createdDate\n" +
-"FROM Proposal A, Project B\n" +
-"WHERE A.projectID = B.projectID \n" +
-"AND A.proposalStatusID = 5\n" +
-"AND A.seekerID = ?";
-    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT B.projectName, a.createdDate\n" +
-"FROM Proposal A, Project B\n" +
-"WHERE A.projectID = B.projectID \n" +
-"AND A.proposalStatusID = 4\n" +
-"AND A.seekerID = ?";
-    
-    private static final String GET_PROPOSAL = "SELECT p.proposalID, p.projectID,pr.projectName , p.seekerID, p.paymentAmount,p.proposalStatusID, ps.statusName, \n" +
-"	p.clientGrade, p.clientComment, p.seekerGrade, p.seekerComment, p.coverLetter, p.attachment, p.createdDate\n" +
-"	, p.expectedDurationID, e.durationText\n" +
-"FROM Proposal p, ExpectedDuration e,ProposalStatus ps, Project pr\n" +
-"WHERE p.expectedDurationID = e.expectedDurationID\n" +
-"AND P.proposalStatusID = ps.proposalStatusID\n" +
-"AND p.projectID = pr.projectID\n" +
-"AND p.proposalID = 11";
-    
+
+    private static final String VIEW_DONE_PROPOSAL = "SELECT B.projectName, a.createdDate\n"
+            + "FROM Proposal A, Project B\n"
+            + "WHERE A.projectID = B.projectID \n"
+            + "AND (A.proposalStatusID = 6 OR A.proposalStatusID = 7)\n"
+            + "AND A.seekerID = ?";
+    private static final String VIEW_WAITING_PROPOSAL = "SELECT B.projectName, a.createdDate\n"
+            + "FROM Proposal A, Project B\n"
+            + "WHERE A.projectID = B.projectID \n"
+            + "AND A.proposalStatusID = 5\n"
+            + "AND A.seekerID = ?";
+    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT B.projectName, a.createdDate\n"
+            + "FROM Proposal A, Project B\n"
+            + "WHERE A.projectID = B.projectID \n"
+            + "AND A.proposalStatusID = 4\n"
+            + "AND A.seekerID = ?";
+
+    private static final String GET_PROPOSAL = "SELECT p.proposalID, p.projectID,pr.projectName , p.seekerID, p.paymentAmount,p.proposalStatusID, ps.statusName, \n"
+            + "	p.clientGrade, p.clientComment, p.seekerGrade, p.seekerComment, p.coverLetter, p.attachment, p.createdDate\n"
+            + "	, p.expectedDurationID, e.durationText\n"
+            + "FROM Proposal p, ExpectedDuration e,ProposalStatus ps, Project pr\n"
+            + "WHERE p.expectedDurationID = e.expectedDurationID\n"
+            + "AND P.proposalStatusID = ps.proposalStatusID\n"
+            + "AND p.projectID = pr.projectID\n"
+            + "AND p.proposalID = 11";
+
     private static final String DELETE_PROPOSAL = "DELETE FROM PROPOSAL WHERE proposalID = ?";
+
+    private static final String GET_LIST_INVITED_SEEKER = "SELECT seekerID,overview,titileBio,moneyPerHour,educationdegree,major,hourPerWeek "
+            + " FROM Seeker A,Proposal B "
+            + " WHERE B.projectID=? AND B.proposalStatusID =2";
+
+    private static final String GET_LIST_APPLY_SEEKER = "SELECT seekerID,overview,titileBio,moneyPerHour,educationdegree,major,hourPerWeek "
+            + " FROM Seeker A,Proposal B "
+            + " WHERE B.projectID=? AND B.proposalStatusID =1";
     
-    
-     public ProposalDTO getProposal(int proposalIDd) throws SQLException {
-         ProposalDTO item = null;
+            
+    public ProposalDTO getProposal(int proposalIDd) throws SQLException {
+        ProposalDTO item = null;
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -78,15 +88,15 @@ public class ProposalDAO {
                 ptm.setInt(1, proposalIDd);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
-                    int proposalID = Integer.parseInt(rs.getString("proposalID")) ;
-                    int projectID = Integer.parseInt(rs.getString("projectID")) ;
-                    int seekerID = Integer.parseInt(rs.getString("seekerID")) ;
+                    int proposalID = Integer.parseInt(rs.getString("proposalID"));
+                    int projectID = Integer.parseInt(rs.getString("projectID"));
+                    int seekerID = Integer.parseInt(rs.getString("seekerID"));
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
-                    int proposalStatusID = Integer.parseInt(rs.getString("proposalStatusID")) ;
+                    int proposalStatusID = Integer.parseInt(rs.getString("proposalStatusID"));
                     String proposalStatusName = rs.getString("statusName");
-                    double clientGrade = Double.parseDouble(rs.getString("clientGrade")) ;
+                    double clientGrade = Double.parseDouble(rs.getString("clientGrade"));
                     String clientComment = rs.getString("clientComment");
-                    double seekerGrade = Double.parseDouble(rs.getString("seekerGrade")) ;
+                    double seekerGrade = Double.parseDouble(rs.getString("seekerGrade"));
                     String seekerComment = rs.getString("seekerComment");
                     String coverLetter = rs.getString("coverLetter");
                     String attachment = rs.getString("attachment");
@@ -94,9 +104,9 @@ public class ProposalDAO {
                     String expectedDurationID = rs.getString("expectedDurationID");
                     String projectName = rs.getString("projectName");
                     String durationText = rs.getString("durationText");
-                    
+
                     item = new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusID,
-                            proposalStatusName, clientGrade, clientComment, seekerGrade, seekerComment, 
+                            proposalStatusName, clientGrade, clientComment, seekerGrade, seekerComment,
                             coverLetter, attachment, createdDate, expectedDurationID, projectName, durationText);
                 }
             }
@@ -115,8 +125,8 @@ public class ProposalDAO {
             }
         }
         return item;
-     }
-    
+    }
+
     public List<ProposalDTO> getListJobStartedProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -151,8 +161,7 @@ public class ProposalDAO {
         }
         return list;
     }
-    
-    
+
     public List<ProposalDTO> getListWaitingProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -187,7 +196,7 @@ public class ProposalDAO {
         }
         return list;
     }
-    
+
     public List<ProposalDTO> getListDoneProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -222,7 +231,7 @@ public class ProposalDAO {
         }
         return list;
     }
-    
+
     public List<ProposalDTO> getListInvitationProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -425,7 +434,7 @@ public class ProposalDAO {
         }
         return checkIsActiveProposal;
     }
-    
+
     public boolean alreadySubmitProposal(int projectID, int seekerID) throws SQLException {
         boolean checkAlreadySubmitProposal = false;
         Connection conn = null;
@@ -462,22 +471,19 @@ public class ProposalDAO {
         boolean checkForWithdrawn = false;
         Connection conn = null;
         PreparedStatement ptm = null;
-       
+
         try {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(DELETE_PROPOSAL);
                 ptm.setInt(1, proposalID);
                 checkForWithdrawn = ptm.executeUpdate() > 0;
-                
-                
-                
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            
+
             if (ptm != null) {
                 ptm.close();
             }
@@ -488,6 +494,88 @@ public class ProposalDAO {
         return checkForWithdrawn;
     }
 
-   
+    public List<SeekerDTO> getInvitedList(int projectID) throws SQLException {
+        List<SeekerDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_LIST_INVITED_SEEKER);
+                ptm.setInt(1, projectID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int seekerID = rs.getInt("seekerID");
+                    String overview = rs.getString("overview");
+                    String titileBio = rs.getString("titileBio");
+                    int moneyPerHour = rs.getInt("moneyPerHour");
+                    String education = rs.getString("education");
+                    String degree = rs.getString("degree");
+                    String major = rs.getString("major");
+                    String hourPerWeek = rs.getString("hourPerWeek");
+
+                    list.add(new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek));
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<SeekerDTO> getApplyList(int projectID) throws SQLException {
+        List<SeekerDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_LIST_APPLY_SEEKER);
+                ptm.setInt(1, projectID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int seekerID = rs.getInt("seekerID");
+                    String overview = rs.getString("overview");
+                    String titileBio = rs.getString("titileBio");
+                    int moneyPerHour = rs.getInt("moneyPerHour");
+                    String education = rs.getString("education");
+                    String degree = rs.getString("degree");
+                    String major = rs.getString("major");
+                    String hourPerWeek = rs.getString("hourPerWeek");
+
+                    list.add(new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek));
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
 
 }

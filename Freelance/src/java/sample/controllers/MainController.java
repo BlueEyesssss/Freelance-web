@@ -98,6 +98,8 @@ public class MainController extends HttpServlet {
     private static final String WITHDRAWN_PROPOSAL_CONTROLLER = "WithdrawnProposalController";
     private static final String REMOVE_PROJECT = "RemoveProject";
     private static final String REMOVE_PROJECT_CONTROLLER = "RemoveProjectController";
+    private static final String POSTED_PROJECT_DETAIL = "PostedProjectDetail";
+    private static final String POSTED_PROJECT_DETAIL_CONTROLLER = "PostedProjectDetailController";
     
     
 
@@ -222,6 +224,9 @@ public class MainController extends HttpServlet {
                 
             } else if (VIEW_HIRER_DASHBOARD.equals(action)) {
                 url = VIEW_HIRER_DASHBOARD_CONTROLLER;
+                
+            } else if (POSTED_PROJECT_DETAIL.equals(action)) {
+                url = POSTED_PROJECT_DETAIL_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();
