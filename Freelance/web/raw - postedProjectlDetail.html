@@ -1,16 +1,3 @@
-<%-- 
-    Document   : postedProjectDetail
-    Created on : Jun 20, 2022, 5:16:25 PM
-    Author     : Phat
---%>
-
-<%@page import="java.util.List"%>
-<%@page import="java.time.LocalDate"%>
-<%@page import="sample.project.ProjectDTO"%>
-<%@page import="sample.hirer.HirerDTO"%>
-<%@page import="sample.user.UserDTO"%>
-<%@page import="sample.user.UserDTO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html><!-- This site was created in Webflow. http://www.webflow.com -->
 <!-- Last Published: Mon Jun 20 2022 12:11:29 GMT+0000 (Coordinated Universal Time) -->
 <html data-wf-domain="huynh-tan-phats-fantabulous-site.webflow.io" data-wf-page="62aa7d13e81bc53ae8b14b7f"
@@ -18,7 +5,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Posted Project Details</title>
+    <title>Huynh Tan Phat&#x27;s Fantabulous Site</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
     <link
@@ -68,7 +55,7 @@
                         <div class="dropdown-toggle-2 w-dropdown-toggle">
                             <div class="text-block-22">My Job</div>
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
+                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
                                 class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="#"
                                 class="dropdown-link-nav w-dropdown-link">All contract</a><a href="#"
                                 class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
@@ -101,17 +88,9 @@
             </div>
         </div>
     </div>
-    <%
-        HirerDTO loginUser = (HirerDTO) session.getAttribute("USER_LOGIN");
-        ProjectDTO currentProject = (ProjectDTO) request.getAttribute("PROJECT_CURRENT");
-        List<String> listSkill = (List<String>) request.getAttribute("LIST_SKILL");
-        LocalDate localDate = LocalDate.now();
-        
-    %>
-    
     <div class="w-container">
         <div class="div-block-2">
-            <h2 class="heading-4"><%= currentProject.getProjectName() %></h2>
+            <h2 class="heading-4">Full Stack Dev of Ecormerce Website </h2>
         </div>
         <div data-current="Tab 1" data-easing="ease" data-duration-in="300" data-duration-out="100" class="w-tabs">
             <div class="tabs-menu w-tab-menu"><a data-w-tab="Tab 1"
@@ -126,44 +105,44 @@
                 <div data-w-tab="Tab 1" class="tab-pane-tab-1 w-tab-pane w--tab-active">
                     <div class="div-block-30">
                         <div class="div-block-31">
-                            <h3 class="heading-10"><%= currentProject.getProjectName() %></h3>
-                            <div class="text-block-34">Posted <%= localDate.getDayOfYear() - currentProject.getCreatedDate().getDayOfYear() %> days ago</div>
-                            <div class="text-block-34"><%= currentProject.getLocation() %></div>
+                            <h3 class="heading-10">Full Stack Dev of Ecormerce Website</h3>
+                            <div class="text-block-34">Posted 15 days ago</div>
+                            <div class="text-block-34">Worldwide (project location)</div>
                             <div class="div-block-34">
                                 <div class="div-block-35">
                                     <div class="div-block-39">
-                                        <div class="text-block-38"><strong class="bold-text-2"><%= currentProject.getHoursPerWeek() %> Hours Per Weeks</strong>
+                                        <div class="text-block-38"><strong class="bold-text-2">5 Hours per week</strong>
                                         </div>
                                     </div>
                                     <div class="div-block-39">Hourly</div>
                                 </div>
                                 <div class="div-block-36">
-                                    <div class="div-block-39"><strong class="bold-text-3"><%= currentProject.getDurationText() %></strong> <!-- cho nay can sua lai -->
+                                    <div class="div-block-39"><strong class="bold-text-3">Less than 1 month</strong>
                                     </div>
                                     <div class="div-block-39">Project Length</div>
                                 </div>
                                 <div class="div-block-37">
-                                    <div class="div-block-39"><strong><%= currentProject.getComplexity() %> Level</strong></div>
+                                    <div class="div-block-39"><strong>Expert</strong></div>
                                     <div class="div-block-39">Understanding</div>
                                 </div>
                                 <div class="div-block-38">
-                                    <div class="div-block-39"><strong class="bold-text-4"><%= currentProject.getPaymentAmount() %>$</strong></div>
-                                    <div class="div-block-39">Budget</div>
+                                    <div class="div-block-39"><strong class="bold-text-4">111$</strong></div>
+                                    <div class="div-block-39">Buget</div>
                                 </div>
                             </div>
                             <div class="div-block-42">
-                                <p class="paragraph-2">Description: <%= currentProject.getDescription() %></p>
+                                <p class="paragraph-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra
+                                    ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean
+                                    faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus
+                                    tristique posuere. (project detail)</p>
                             </div>
                             <h4 class="heading-11">Skill and Expertise</h4>
                             <div class="div-block-40">
                                 <div class="list-skill-copy">
-                                    <!-- 1 skill -->
-                                    
                                     <div class="skill-wrapper">
-                                        <div class="text-block-26">HTMl></div>
+                                        <div class="text-block-26">HTML</div>
                                     </div>
-                                    
-                                    
                                 </div>
                             </div>
                         </div>
@@ -172,13 +151,12 @@
                                     data-w-id="d246fcf1-5912-f9e7-80d0-1d8cc603abfe" href="#" class="link-6">Delete
                                     Posting</a></div>
                             <div class="div-block-41">
-                                <!-- dang lam toi day -->
                                 <h4 class="heading-12">About the Client</h4>
-                                <div class="text-block-39"><strong>Company: <%= loginUser.getCompanyName() %></strong></div>
-                                <div class="text-block-39-copy"><%= loginUser.getLocation() %></div>
-                                <div class="text-block-39"><strong><%= loginUser.getJobPosted() %> jobs posted</strong></div>
+                                <div class="text-block-39"><strong>Company: Fsoft</strong></div>
+                                <div class="text-block-39-copy">Viet Nam</div>
+                                <div class="text-block-39"><strong>2 jobs posted</strong></div>
                                 <div class="text-block-39-copy">The total number of Job Posted</div>
-                                <div class="text-block-39">Member Since <%= loginUser.getRegistrationDate() %></div>
+                                <div class="text-block-39">Member since 2022-05-22</div>
                             </div>
                         </div>
                     </div>
@@ -311,7 +289,6 @@
             </div>
         </div>
     </div>
-    <!-- 1 cai proposal detail  -->                  
     <div style="display:none;opacity:0" class="div-block-5">
         <div class="div-block-6">
             <div data-w-id="35f16084-260c-5d74-45d9-6d48f0351551" class="div-block-7"><img
@@ -359,9 +336,6 @@
             </div>
         </div>
     </div>
-        <!-- end 1 cai proposal detail  -->                  
-        
-        <!-- bat dau 1 cai invited seeker detail -->
     <div style="display:none;opacity:0" class="div-block-5-copy">
         <div class="div-block-6">
             <div data-w-id="62bffb8e-5c47-477e-7482-8d4c36a1d58a" class="div-block-7-copy"><img
@@ -411,9 +385,6 @@
             </div>
         </div>
     </div>
-            <!-- het 1 cai invited seeker detail -->
-    
-        
     <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=62aa7d13e81bc5858eb14b7e"
         type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>

@@ -6,7 +6,7 @@
 package sample.hirer;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+
 import sample.user.UserDTO;
 
 /**

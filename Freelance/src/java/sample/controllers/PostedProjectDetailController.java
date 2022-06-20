@@ -6,7 +6,8 @@
 package sample.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashSet;
+
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,12 +39,16 @@ public class PostedProjectDetailController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             HirerDTO hirer = (HirerDTO)session.getAttribute("USER_LOGIN");
+            int projectID = Integer.parseInt(request.getParameter("projectID"));
             int userID = hirer.getUserID();
             ProposalDAO dao = new ProposalDAO();
             ProjectDAO daoProject = new ProjectDAO();
-                        
+                       
             
             ProjectDTO project = daoProject.getProjectByID(userID);
+            List<String> listSkill = daoProject.getSkillNeedOfProject(projectID);
+            request.setAttribute("LIST_SKILL", listSkill);
+            
             request.setAttribute("PROJECT_CURRENT", project);
             
             

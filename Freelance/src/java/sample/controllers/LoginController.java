@@ -108,6 +108,7 @@ public class LoginController extends HttpServlet {
                     //2.check hirer
                     if (hirer != null) {                        
                         hirer.setUserID(user.getUserID());
+                        hirer.setHirerID(user.getUserID());
                         hirer.setPassword(user.getPassword());
                         hirer.setUserName(user.getUserName());
                         hirer.setFullName(user.getFullName());
@@ -119,8 +120,10 @@ public class LoginController extends HttpServlet {
                         hirer.setAvatar(user.getAvatar());
                         hirer.setLanguage(user.getLanguage());
                         hirer.setLanguagelv(user.getLanguagelv());
+                        hirer.setJobPosted(daoHirer.getJobPosted(user.getUserID()));
                         
                         session.setAttribute("USER_LOGIN", hirer);
+                        
                         url = HIRER_PAGE;
                     }
                 }
