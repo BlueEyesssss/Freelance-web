@@ -38,7 +38,7 @@ public class ViewHirerProfileController extends HttpServlet {
             HirerDTO hirerLogin = (HirerDTO)session.getAttribute("USER_LOGIN");
             int hirerID = hirerLogin.getHirerID();
             ProposalDAO dao = new ProposalDAO();
-            List<ProposalDTO> list = dao.getHistoryProject(hirerID);
+            List<ProposalDTO> list = dao.getHistoryProjectOfHirer(hirerID);
             if(!list.isEmpty()) {
                 request.setAttribute("LIST_HISTORY_PROJECT", list);
                 url = SUCCESS;
