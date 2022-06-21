@@ -102,6 +102,10 @@ public class MainController extends HttpServlet {
     private static final String POSTED_PROJECT_DETAIL_CONTROLLER = "PostedProjectDetailController";
     private static final String VIEW_HIRER_PROFILE = "ViewHirerProfile";
     private static final String VIEW_HIRER_PROFILE_CONTROLLER = "ViewHirerProfileController";
+    private static final String EDIT_JOB_POST = "EditJobPost";
+    private static final String EDIT_JOB_POST_CONTROLLER = "EditJobPostController";
+    private static final String EDIT_JOB_POST_1 = "EditJobPost1";
+    private static final String EDIT_JOB_POST_1_CONTROLLER = "EditJobPost1Controller";
     
     
 
@@ -232,6 +236,12 @@ public class MainController extends HttpServlet {
                 
             } else if (VIEW_HIRER_PROFILE.equals(action)) {
                 url = VIEW_HIRER_PROFILE_CONTROLLER;
+                
+            } else if (EDIT_JOB_POST.equals(action)) {
+                url = EDIT_JOB_POST_CONTROLLER;
+                
+            } else if (EDIT_JOB_POST_1.equals(action)) {
+                url = EDIT_JOB_POST_1_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();
