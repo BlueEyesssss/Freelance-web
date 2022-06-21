@@ -29,6 +29,7 @@ public class ProjectDTO {
     private int hoursPerWeek;
     private String durationText;
     String createdDate1;
+    private List<String> skillneed;
 
     public String getCreatedDate1() {
         return createdDate1;
@@ -187,7 +188,7 @@ public class ProjectDTO {
         this.hoursPerWeek = hoursPerWeek;
     }
     
-    private List<String> skillneed;
+    
 
     public List<String> getSkillneed() {
         return skillneed;

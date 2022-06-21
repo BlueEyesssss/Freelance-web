@@ -10,6 +10,7 @@ package sample.proposal;
  * @author LENOVO
  */
 public class ProposalDTO {
+
     private int proposalID;
     private int projectID;
     private int seekerID;
@@ -28,6 +29,16 @@ public class ProposalDTO {
     private String durationText;
     private int hirerID;
 
+    ProposalDTO(int proposalID, int seekerID, int proposalStatusID, double paymentAmount, String coverLetter, String attachment, String expectedDurationText) {
+        this.projectID = proposalID;
+        this.seekerID = seekerID;
+        this.proposalStatusID = proposalStatusID;
+        this.paymentAmount = paymentAmount;
+        this.coverLetter = coverLetter;
+        this.attachment = attachment;
+        this.durationText = expectedDurationText;
+    }
+
     public int getHirerID() {
         return hirerID;
     }
@@ -35,7 +46,7 @@ public class ProposalDTO {
     public void setHirerID(int hirerID) {
         this.hirerID = hirerID;
     }
-    
+
     public ProposalDTO(int proposalID, double paymentAmount, String durationText) {
         this.proposalID = proposalID;
         this.paymentAmount = paymentAmount;
@@ -54,8 +65,6 @@ public class ProposalDTO {
         this.proposalStatusID = proposalStatusID;
     }
 
-    
-    
     public void setDurationText(String durationText) {
         this.durationText = durationText;
     }
@@ -80,10 +89,6 @@ public class ProposalDTO {
         this.durationText = durationText;
     }
 
-    
-
-    
-    
     //thiếu durationText đầu vào
     public ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, String proposalStatusName, double clientGrade, String clientComment, double seekerGrade, String seekerComment, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName) {
         this.proposalID = proposalID;
@@ -158,7 +163,6 @@ public class ProposalDTO {
         this.expectedDurationID = expectedDurationID;
     }
 
-
     public int getProposalID() {
         return proposalID;
     }
@@ -222,6 +226,5 @@ public class ProposalDTO {
     public void setSeekerGrade(double seekerGrade) {
         this.seekerGrade = seekerGrade;
     }
-    
-    
+
 }

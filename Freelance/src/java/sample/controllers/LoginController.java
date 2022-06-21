@@ -45,11 +45,12 @@ public class LoginController extends HttpServlet {
             SeekerDTO seeker = new SeekerDTO();
             HirerDTO hirer = new HirerDTO();
             HirerDAO daoHirer = new HirerDAO();
+            UserDAO daoUser = new UserDAO();
             user = dao.getUser(username, password);
             if (user != null) {
                 HttpSession session = request.getSession();
-                 List<SkillDTO> listSkillAll = daoSkill.getListSkill();
-                    session.setAttribute("LIST_SKILL_ALL", listSkillAll);
+                List<SkillDTO> listSkillAll = daoSkill.getListSkill();
+                session.setAttribute("LIST_SKILL_ALL", listSkillAll);
 
                 //check xem nó có phải seeker hay ko
                 //1.lấy seeker ra
@@ -78,7 +79,7 @@ public class LoginController extends HttpServlet {
                     //lấy list skill trong Skill
                    
                     
-                    UserDAO daoUser = new UserDAO();
+                    
                     
                     List<HirerDTO> listHirer = daoHirer.getListHirer();
                     List<UserDTO> listUser = daoUser.getListUser();
@@ -89,16 +90,17 @@ public class LoginController extends HttpServlet {
                                 hirerDTO.setLocation(userDTO.getLocation());
                                 hirerDTO.setRegistrationDate(userDTO.getRegistrationDate());
                             }
-                            
+                            hirerDTO.setReviewGrade(daoHirer.getReviewGrade(hirerDTO.getHirerID()));
+                            hirerDTO.setJobPosted(daoHirer.getJobPosted(hirerDTO.getHirerID()));
                         }
                     }
                     
                     
-                    for (HirerDTO element : listHirer) {
-                        element.setReviewGrade(daoHirer.getReviewGrade(element.getHirerID()));
-                        element.setJobPosted(daoHirer.getJobPosted(element.getHirerID()));
-                        
-                    }
+//                    for (HirerDTO element : listHirer) {
+//                        element.setReviewGrade(daoHirer.getReviewGrade(element.getHirerID()));
+//                        element.setJobPosted(daoHirer.getJobPosted(element.getHirerID()));
+//                        
+//                    }
                     
                     session.setAttribute("LIST_HIRER", listHirer);
                     url = SEEKER_PAGE;

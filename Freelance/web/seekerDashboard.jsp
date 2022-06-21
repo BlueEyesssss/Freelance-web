@@ -216,7 +216,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                 <%
                                                     for (String skill : project.getSkillneed()) {
                                                 %>
-                                                <div class="seeker-skill"><%= skill%></div>
+                                                <div class="seeker-skill"><%= skill %></div>
                                                 <%
                                                     }
                                                 %>

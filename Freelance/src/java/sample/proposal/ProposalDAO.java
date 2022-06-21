@@ -74,8 +74,7 @@ public class ProposalDAO {
     private static final String GET_LIST_APPLY_SEEKER = "SELECT seekerID,overview,titileBio,moneyPerHour,educationdegree,major,hourPerWeek "
             + " FROM Seeker A,Proposal B "
             + " WHERE B.projectID=? AND B.proposalStatusID =1";
-    
-            
+
     public ProposalDTO getProposal(int proposalIDd) throws SQLException {
         ProposalDTO item = null;
         Connection conn = null;
@@ -516,6 +515,56 @@ public class ProposalDAO {
                     String hourPerWeek = rs.getString("hourPerWeek");
 
                     list.add(new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek));
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    private static final String GET_APPLIED_PROPOSAL = "SELECT p.paymentAmount, p.coverLetter, p.attachment, e.durationText, p.proposalID, p.projectID, p.seekerID, p.proposalStatusID, p.createdDate, p.expectedDurationID\n"
+            + "FROM [User] u, Seeker s, Proposal p, ExpectedDuration e\n"
+            + "WHERE u.userID = s.seekerID and s.seekerID = p.seekerID and e.expectedDurationID = p.expectedDurationID\n"
+            + "and p.proposalStatusID = 1 \n"
+            + "and p.projectID = ?";
+
+    public List<ProposalDTO> getAppliedProposals(int projectID) throws SQLException {
+        List<ProposalDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_APPLIED_PROPOSAL);
+                ptm.setInt(1, projectID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int proposalID = rs.getInt("proposalID");
+                    int seekerID = rs.getInt("seekerID");
+                    int proposalStatusID = rs.getInt("proposalStatusID");
+                    
+                    
+                    double paymentAmount = rs.getDouble("paymentAmount");
+                    String coverLetter = rs.getString("coverLetter");
+                    String attachment = rs.getString("attachment");
+                    
+                    String expectedDurationText = rs.getString("durationText");
+
+                    list.add(new ProposalDTO(proposalID, seekerID, proposalStatusID, paymentAmount, coverLetter, attachment, expectedDurationText));
 
                 }
             }

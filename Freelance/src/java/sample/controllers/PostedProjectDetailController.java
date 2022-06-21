@@ -40,15 +40,14 @@ public class PostedProjectDetailController extends HttpServlet {
             HttpSession session = request.getSession();
             HirerDTO hirer = (HirerDTO)session.getAttribute("USER_LOGIN");
             int projectID = Integer.parseInt(request.getParameter("projectID"));
-            int userID = hirer.getUserID();
+            //int userID = hirer.getUserID();
             ProposalDAO dao = new ProposalDAO();
             ProjectDAO daoProject = new ProjectDAO();
                        
             
-            ProjectDTO project = daoProject.getProjectByID(userID);
-            List<String> listSkill = daoProject.getSkillNeedOfProject(projectID);
-            request.setAttribute("LIST_SKILL", listSkill);
-            
+            ProjectDTO project = daoProject.getProjectByID(projectID);
+            List<String> skillneed = daoProject.getSkillNeedOfProject(projectID);
+            project.setSkillneed(skillneed);
             request.setAttribute("PROJECT_CURRENT", project);
             
             

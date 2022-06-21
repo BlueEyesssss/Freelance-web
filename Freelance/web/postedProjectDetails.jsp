@@ -158,10 +158,19 @@
                             <div class="div-block-40">
                                 <div class="list-skill-copy">
                                     <!-- 1 skill -->
-                                    
+                                    <%
+                                       for (String skill : currentProject.getSkillneed()) {
+                                    %>
                                     <div class="skill-wrapper">
-                                        <div class="text-block-26">HTMl></div>
+                                        <div class="text-block-26"><%= skill %></div>
                                     </div>
+                                    <div style="width: 10px">
+                                    </div>
+
+                                    
+                                    <%
+                                        }
+                                    %>
                                     
                                     
                                 </div>
