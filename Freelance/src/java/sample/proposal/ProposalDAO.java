@@ -535,11 +535,11 @@ public class ProposalDAO {
         return list;
     }
 
-    private static final String GET_APPLIED_PROPOSAL = "SELECT p.paymentAmount, p.coverLetter, p.attachment, e.durationText, p.proposalID, p.projectID, p.seekerID, p.proposalStatusID, p.createdDate, p.expectedDurationID\n"
-            + "FROM [User] u, Seeker s, Proposal p, ExpectedDuration e\n"
-            + "WHERE u.userID = s.seekerID and s.seekerID = p.seekerID and e.expectedDurationID = p.expectedDurationID\n"
-            + "and p.proposalStatusID = 1 \n"
-            + "and p.projectID = ?";
+    private static final String GET_APPLIED_PROPOSAL = "SELECT p.paymentAmount, p.coverLetter, p.attachment, e.durationText, p.proposalID, p.projectID, p.seekerID, p.proposalStatusID, p.createdDate, p.expectedDurationID, u.fullName, s.major, u.location, s.seekerID\n" +
+"FROM [User] u, Seeker s, Proposal p, ExpectedDuration e\n" +
+"WHERE u.userID = s.seekerID and s.seekerID = p.seekerID and e.expectedDurationID = p.expectedDurationID\n" +
+"and p.proposalStatusID = 1\n" +
+"and p.projectID = ?";
 
     public List<ProposalDTO> getAppliedProposals(int projectID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
@@ -553,18 +553,24 @@ public class ProposalDAO {
                 ptm.setInt(1, projectID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
+                    SeekerDTO seeker = new SeekerDTO();
                     int proposalID = rs.getInt("proposalID");
                     int seekerID = rs.getInt("seekerID");
+                    String fullName = rs.getString("fullName");
+                    String major = rs.getString("major");
+                    String location = rs.getString("location");
                     int proposalStatusID = rs.getInt("proposalStatusID");
-                    
-                    
                     double paymentAmount = rs.getDouble("paymentAmount");
                     String coverLetter = rs.getString("coverLetter");
                     String attachment = rs.getString("attachment");
-                    
                     String expectedDurationText = rs.getString("durationText");
+                    seeker.setMajor(major);
+                    seeker.setFullName(fullName);
+                    seeker.setLocation(location);
+                    
+                    
 
-                    list.add(new ProposalDTO(proposalID, seekerID, proposalStatusID, paymentAmount, coverLetter, attachment, expectedDurationText));
+                    list.add(new ProposalDTO(proposalID, seekerID, proposalStatusID, paymentAmount, coverLetter, attachment, expectedDurationText, seeker));
 
                 }
             }

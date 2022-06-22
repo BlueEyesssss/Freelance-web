@@ -5,6 +5,8 @@
  */
 package sample.proposal;
 
+import sample.seeker.SeekerDTO;
+
 /**
  *
  * @author LENOVO
@@ -28,6 +30,7 @@ public class ProposalDTO {
     private String projectName;
     private String durationText;
     private int hirerID;
+    private SeekerDTO seeker;
 
     ProposalDTO(int proposalID, int seekerID, int proposalStatusID, double paymentAmount, String coverLetter, String attachment, String expectedDurationText) {
         this.projectID = proposalID;
@@ -37,6 +40,25 @@ public class ProposalDTO {
         this.coverLetter = coverLetter;
         this.attachment = attachment;
         this.durationText = expectedDurationText;
+    }
+
+    ProposalDTO(int proposalID, int seekerID, int proposalStatusID, double paymentAmount, String coverLetter, String attachment, String expectedDurationText, SeekerDTO seeker) {
+        this.projectID = proposalID;
+        this.seekerID = seekerID;
+        this.proposalStatusID = proposalStatusID;
+        this.paymentAmount = paymentAmount;
+        this.coverLetter = coverLetter;
+        this.attachment = attachment;
+        this.durationText = expectedDurationText;
+        this.seeker = seeker;
+    }
+
+    public SeekerDTO getSeeker() {
+        return seeker;
+    }
+
+    public void setSeeker(SeekerDTO seeker) {
+        this.seeker = seeker;
     }
 
     public int getHirerID() {

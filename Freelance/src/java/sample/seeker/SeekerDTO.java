@@ -20,6 +20,17 @@ public class SeekerDTO extends UserDTO{
     private String degree;
     private String major;
     private String hourPerWeek;
+    private int reviewGrade;
+
+    public int getReviewGrade() {
+        return reviewGrade;
+    }
+
+    public void setReviewGrade(int reviewGrade) {
+        this.reviewGrade = reviewGrade;
+        
+    }
+    
 
     @Override
     public String toString() {

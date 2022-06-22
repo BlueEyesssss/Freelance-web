@@ -19,6 +19,8 @@ import sample.hirer.HirerDTO;
 import sample.project.ProjectDAO;
 import sample.project.ProjectDTO;
 import sample.proposal.ProposalDAO;
+import sample.proposal.ProposalDTO;
+import sample.seeker.SeekerDAO;
 import sample.seeker.SeekerDTO;
 
 
@@ -43,7 +45,7 @@ public class PostedProjectDetailController extends HttpServlet {
             //int userID = hirer.getUserID();
             ProposalDAO dao = new ProposalDAO();
             ProjectDAO daoProject = new ProjectDAO();
-                       
+            SeekerDAO daoSeeker = new SeekerDAO();           
             
             ProjectDTO project = daoProject.getProjectByID(projectID);
             List<String> skillneed = daoProject.getSkillNeedOfProject(projectID);
@@ -51,15 +53,26 @@ public class PostedProjectDetailController extends HttpServlet {
             request.setAttribute("PROJECT_CURRENT", project);
             
             
-            List<SeekerDTO> invitedList = dao.getInvitedList(project.getProjectID());
-            if (invitedList != null) {
-                request.setAttribute("LIST_INVITED_SEEKER", invitedList);
-                url = SUCCESS;
-            }
+//            List<SeekerDTO> invitedList = dao.getInvitedList(project.getProjectID());
+//            if (invitedList != null) {
+//                request.setAttribute("LIST_INVITED_SEEKER", invitedList);
+//                url = SUCCESS;
+//            }
             
-            List<SeekerDTO> applyList = dao.getApplyList(project.getProjectID());
+            List<ProposalDTO> applyList = dao.getAppliedProposals(projectID);
             if (applyList != null) {
-                request.setAttribute("LIST_APPLY_SEEKER", invitedList);
+                for (ProposalDTO proposal : applyList) {
+                   SeekerDTO seeker = new SeekerDTO();
+                   seeker.setFullName(proposal.getSeeker().getFullName());
+                   seeker.setLocation(proposal.getSeeker().getLocation());
+                   seeker.setMajor(proposal.getSeeker().getMajor());
+                   seeker.setReviewGrade(daoSeeker.getReviewGrade(projectID));
+                   
+
+                   
+                   proposal.setSeeker(seeker);
+                }
+                request.setAttribute("LIST_APPLY_SEEKER", applyList);
                 url = SUCCESS;
             }
             

@@ -4,12 +4,15 @@
     Author     : Phat
 --%>
 
+<%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="sample.project.ProjectDTO"%>
 <%@page import="sample.hirer.HirerDTO"%>
 <%@page import="sample.user.UserDTO"%>
 <%@page import="sample.user.UserDTO"%>
+<%@page import="sample.seeker.SeekerDTO"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html><!-- This site was created in Webflow. http://www.webflow.com -->
 <!-- Last Published: Mon Jun 20 2022 12:11:29 GMT+0000 (Coordinated Universal Time) -->
@@ -249,6 +252,7 @@
                         </div>
                     </div>
                 </div>
+                            
                 <div data-w-tab="Tab 3" class="tab-pane-tab-3 w-tab-pane">
                     <div class="proposals">
                         <div class="title">
@@ -258,11 +262,14 @@
                             <p class="intro">This is the list of Proposal that freelancer send to you, check the list
                                 and approve what proposal you like!</p>
                         </div>
-                        <div class="div-block-43">
-                            <div class="text-block-40">There is no proposal applied to this project. Do you want to
-                                invite some freelancer? </div><a href="#" class="button-2 w-button">Invite
-                                Freelancer</a>
-                        </div>
+                        <%
+                            List<ProposalDTO> listAppliedProposal = (List<ProposalDTO>) request.getAttribute("LIST_APPLY_SEEKER");                        
+                            if (listAppliedProposal != null) {
+                                if (listAppliedProposal.size() > 0) {
+                                    for (ProposalDTO proposal : listAppliedProposal) {
+                                            
+                        %>
+                                         
                         <div class="proposal">
                             <div class="left-proposal">
                                 <div class="image-container"><img
@@ -274,15 +281,15 @@
                                     <div class="left">
                                         <h4 class="name"><a href="#" class="link-5"><span
                                                     data-w-id="2dc254cf-7628-9b19-a9f0-0ec10b95b2b6"
-                                                    class="text-span-4">Phat H.</span></a></h4>
-                                        <div class="major">Full Stack Development | Front-end Dev </div>
-                                        <div class="location"><span class="text-span-3">Singapore</span></div>
+                                                    class="text-span-4"><%= proposal.getSeeker().getFullName() %></span></a></h4>
+                                        <div class="major"><%= proposal.getSeeker().getMajor() %></div>
+                                        <div class="location"><span class="text-span-3"><%= proposal.getSeeker().getLocation() %></span></div>
                                         <div class="payment-amount-and-rating">
                                             <div class="payment-and-rating">
-                                                <div>10000$</div>
+                                                <div><%= proposal.getPaymentAmount() %>$</div>
                                             </div>
                                             <div class="payment-and-rating">
-                                                <div>4/5 <strong>☆</strong></div>
+                                                <div><%= proposal.getSeeker().getReviewGrade() %>/5 <strong>☆</strong></div>
                                             </div>
                                         </div>
                                     </div>
@@ -290,19 +297,39 @@
                                 </div>
                                 <div class="down">
                                     <div class="cover-letter-wrapper">
-                                        <p class="cover-letter">Cover Letter: Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis
-                                            cursus, mi quis viverra ornare, eros dolor interdum nulla ... (chỗ này giới
-                                            hạn kí tự hiển thị)</p>
+                                        <p class="cover-letter"><%= proposal.getCoverLetter() %></p>
                                     </div>
                                     <div class="list-skill">
+                                        
                                         <div class="skill-wrapper">
                                             <div class="text-block-26">HTML</div>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <%
+                                    }
+                        %>
+                        
+                        <%
+                                        
+                                } else {
+                        %>   
+                        <div class="div-block-43">
+                            <div class="text-block-40">There is no proposal applied to this project. Do you want to
+                                invite some freelancer? </div><a href="#" class="button-2 w-button">Invite
+                                Freelancer</a>
+                        </div>
+                        <%        
+                                }
+                            } 
+                        %>
+                        
+                        
+                        
+                        
                     </div>
                 </div>
             </div>
