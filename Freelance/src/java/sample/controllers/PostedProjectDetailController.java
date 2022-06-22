@@ -67,9 +67,11 @@ public class PostedProjectDetailController extends HttpServlet {
                    seeker.setLocation(proposal.getSeeker().getLocation());
                    seeker.setMajor(proposal.getSeeker().getMajor());
                    seeker.setReviewGrade(daoSeeker.getReviewGrade(projectID));
+                   seeker.setAvatar(proposal.getSeeker().getAvatar());
+                   seeker.setSeekerID(proposal.getSeeker().getSeekerID());
                    
 
-                   
+                   //vi muon them reviewGrade nen moi co doan code nay
                    proposal.setSeeker(seeker);
                 }
                 request.setAttribute("LIST_APPLY_SEEKER", applyList);
