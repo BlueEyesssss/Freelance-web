@@ -21,8 +21,10 @@ public class SkillDAO {
 
     private final String GET_LIST_SKILL = "SELECT skillID, skillName FROM Skill";
     private final String CREATE_SKILL_SEEKER_HAS = "INSERT INTO HasSkill(skillID, seekerID) VALUES (?, ?)";
+    private final String CREATE_SKILL_NEED_FOR_PROJECT = "INSERT INTO NeededSkills(projectID, skillID) VALUES (?, ?)";
     private final String GET_LIST_SKILL_OF_SEEKER = "SELECT hs.seekerID ,hs.skillID, s.skillName FROM HasSkill hs inner join Skill s on hs.skillID = s.skillID WHERE seekerID = ?";
     private final String CLEAR_SKILL = "DELETE FROM HasSkill WHERE seekerID = ?";
+    private final String CLEAR_SKILL_NEED_OF_PROJECT = "DELETE FROM NeededSkills WHERE neededSkillsID = ?";
 
     public boolean clearSkillSeeker(int seekerID)  throws SQLException {
         boolean check = false;
@@ -140,6 +142,59 @@ public class SkillDAO {
             }
         }
         return list;
+    }
+
+    public boolean clearSkillNeedOfProject(int projectID) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(CLEAR_SKILL_NEED_OF_PROJECT);
+                ptm.setInt(1, projectID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean updateSkillNeedOfProject(int projectID,int skillID) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(CREATE_SKILL_NEED_FOR_PROJECT);
+                ptm.setInt(1, projectID);
+                ptm.setInt(2, skillID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
     }
 
     

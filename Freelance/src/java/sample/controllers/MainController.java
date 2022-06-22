@@ -104,7 +104,7 @@ public class MainController extends HttpServlet {
     private static final String VIEW_HIRER_PROFILE_CONTROLLER = "ViewHirerProfileController";
     private static final String EDIT_JOB_POST = "EditJobPost";
     private static final String EDIT_JOB_POST_CONTROLLER = "EditJobPostController";
-    private static final String EDIT_JOB_POST_1 = "EditJobPost1";
+    private static final String EDIT_JOB_POST_1 = "Save Edit";
     private static final String EDIT_JOB_POST_1_CONTROLLER = "EditJobPost1Controller";
     
     

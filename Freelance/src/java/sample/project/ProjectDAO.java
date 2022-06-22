@@ -83,21 +83,23 @@ public class ProjectDAO {
             + "SET paymentAmount = ?, expectedDurationID = ?\n"
             + "WHERE proposalID = ?";
 
-    private static final String VIEW_UNACTIVE_PROJECT = "SELECT projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, hirerID, major, createdDate, location, hoursPerWeek " +
-"	FROM Project A, ExpectedDuration B" +
-"	WHERE A.hirerID=? AND A.projectID NOT IN (SELECT projectID FROM Proposal" +
-"	WHERE proposalStatusID in (4,5,6,7)) AND A.expectedDurationID=B.expectedDurationID";
+    private static final String VIEW_UNACTIVE_PROJECT = "SELECT projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, hirerID, major, createdDate, location, hoursPerWeek "
+            + "	FROM Project A, ExpectedDuration B"
+            + "	WHERE A.hirerID=? AND A.projectID NOT IN (SELECT projectID FROM Proposal"
+            + "	WHERE proposalStatusID in (4,5,6,7)) AND A.expectedDurationID=B.expectedDurationID";
 
-    private static final String CREATE_PROJECT ="INSERT INTO Project(projectName,description,complexity,hirerID,paymentAmount,expectedDurationID,deadlineDate,location)" +
-" VALUES(?,?,?,?,?,?,?,?)";
-    
-    private static final String POST_A_PROJECT ="INSERT INTO Project(projectName, description, complexity, hirerID\n" +
-", paymentAmount, expectedDurationID, deadlineDate, location, createdDate, hoursPerWeek, major)\n" +
-"VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-    
-   
-    
-    
+    private static final String CREATE_PROJECT = "INSERT INTO Project(projectName,description,complexity,hirerID,paymentAmount,expectedDurationID,deadlineDate,location)"
+            + " VALUES(?,?,?,?,?,?,?,?)";
+
+    private static final String POST_A_PROJECT = "INSERT INTO Project(projectName, description, complexity, hirerID\n"
+            + ", paymentAmount, expectedDurationID, deadlineDate, location, createdDate, hoursPerWeek, major)\n"
+            + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+    private static final String UPDATE_JOB_POST = "UPDATE Project" +
+        " SET projectName =?, description = ?,complexity=?,paymentAmount=?,expectedDurationID=?,deadlineDate=?," +
+        " location=?,major= ?" +
+        " WHERE projectID = ?";               
+                    
     public boolean postAJob(ProjectDTO project) throws SQLException, ClassNotFoundException {
         //LocalDate.parse(rs.getString("createdDate"))
         boolean check = false;
@@ -112,13 +114,13 @@ public class ProjectDAO {
                 ptm.setString(3, project.getComplexity());
                 ptm.setInt(4, project.getHirerID());
                 ptm.setDouble(5, project.getPaymentAmount());
-                ptm.setInt(6, Integer.parseInt(project.getExpectedDurationID()) );
-                ptm.setString(7,project.getDeadlineDate());
+                ptm.setInt(6, Integer.parseInt(project.getExpectedDurationID()));
+                ptm.setString(7, project.getDeadlineDate());
                 ptm.setString(8, project.getLocation());
                 ptm.setString(9, project.getCreatedDate1());
                 ptm.setInt(10, project.getHoursPerWeek());
                 ptm.setString(11, project.getMajor());
-                
+
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
 
@@ -132,7 +134,7 @@ public class ProjectDAO {
         }
         return check;
     }
-    
+
     public boolean updateProposalDetail(int proposalID, double paymentAmount, int durationTextID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -799,7 +801,7 @@ public class ProjectDAO {
                 ptm.setInt(6, durationID);
                 ptm.setString(7, deadline);
                 ptm.setString(8, location);
-                check = ptm.executeUpdate() > 0;               
+                check = ptm.executeUpdate() > 0;
             }
 
         } catch (Exception e) {
@@ -817,15 +819,15 @@ public class ProjectDAO {
         return check;
     }
 
-    private final String GET_PROJECTID = "SELECT projectID\n" +
-"FROM Project\n" +
-"WHERE projectName = ? \n" +
-" AND complexity = ?\n" +
-"AND paymentAmount = ?\n" +
-"AND hoursPerWeek = ?\n" +
-"AND hirerID = ?\n" +
-"AND major = ?";
-    
+    private final String GET_PROJECTID = "SELECT projectID\n"
+            + "FROM Project\n"
+            + "WHERE projectName = ? \n"
+            + " AND complexity = ?\n"
+            + "AND paymentAmount = ?\n"
+            + "AND hoursPerWeek = ?\n"
+            + "AND hirerID = ?\n"
+            + "AND major = ?";
+
     public int getProject(ProjectDTO project) throws SQLException {
         int id = -1;
         Connection conn = null;
@@ -841,7 +843,7 @@ public class ProjectDAO {
                 ptm.setInt(4, project.getHoursPerWeek());
                 ptm.setInt(5, project.getHirerID());
                 ptm.setString(6, project.getMajor());
-                
+
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     id = rs.getInt("projectID");
@@ -861,10 +863,11 @@ public class ProjectDAO {
                 conn.close();
             }
         }
-        return  id;
+        return id;
     }
-    private final String CREATE_SKILL_PROJECT ="INSERT INTO NeededSkills(projectID, skillID)\n" +
-"VALUES(?,?)";
+    private final String CREATE_SKILL_PROJECT = "INSERT INTO NeededSkills(projectID, skillID)\n"
+            + "VALUES(?,?)";
+
     public boolean createSkillProjectNeed(int projectID, int parseInt) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -875,7 +878,7 @@ public class ProjectDAO {
                 ptm = conn.prepareStatement(CREATE_SKILL_PROJECT);
                 ptm.setInt(1, projectID);
                 ptm.setInt(2, parseInt);
-                check = ptm.executeUpdate() > 0?true:false;               
+                check = ptm.executeUpdate() > 0 ? true : false;
             }
 
         } catch (Exception e) {
@@ -903,7 +906,7 @@ public class ProjectDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(DELETE_FAVORITE_PROJECT_WITH_PROJECTID);
                 ptm.setInt(1, projectID);
-                
+
                 check = ptm.executeUpdate() > 0;
                 if (check) {
                     check = true;
@@ -925,7 +928,7 @@ public class ProjectDAO {
 
         return check;
     }
-    
+
     public boolean deleteProject(int projectID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -936,7 +939,7 @@ public class ProjectDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(DELETE_PROJECT);
                 ptm.setInt(1, projectID);
-                
+
                 check = ptm.executeUpdate() > 0;
                 if (check) {
                     check = true;
@@ -959,8 +962,41 @@ public class ProjectDAO {
         return check;
     }
 
-    
+    public boolean updateProject(int projectID, String projectName, String description, String complexity, double budget, int durationID, String deadline, String location, String major) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_JOB_POST);
+                ptm.setString(1, projectName);
+                ptm.setString(2, description);
+                ptm.setString(3, complexity);
+                ptm.setDouble(4, budget);
+                ptm.setInt(5, durationID);
+                ptm.setString(6, deadline);
+                ptm.setString(7, location);
+                ptm.setString(8, major);
+                ptm.setInt(9, projectID);
 
-    
+                check = ptm.executeUpdate() > 0;
+                if (check) {
+                    check = true;
+                }              
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 }

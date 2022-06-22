@@ -268,15 +268,15 @@
                                     value="<%= projectCurrent.getPaymentAmount()%>" placeholder="12" id="Budget-4" required="" /></div>
                         </div>
                         <div class="form-element"><label id="timePerWeek" for="Deadline-3"
-                                class="field-label small"><strong>8. Deadline</strong><br /></label><input type="text"
+                                class="field-label small"><strong>8. Deadline</strong><br /></label><input type="date"
                                 class="text-field _w-50 w-input" maxlength="256" name="deadline" value="<%= projectCurrent.getDeadlineDate()%>" 
                                 placeholder="Type date nha" id="Deadline-3" required="" /></div>
                         <div class="form-element"><label for="location" class="field-label small"><strong
                                     class="bold-text-78">9. Location</strong></label><input type="text"
                                           class="text-field edit w-input" maxlength="256" name="location" data-name="<%= projectCurrent.getLocation()%>" value="<%= projectCurrent.getLocation()%>"
                                 placeholder="" id="location" /></div>
-                                <input type="hidden" name="projectID" value="<%= projectCurrent.getProjectID()%>"
-                                <input type="submit" value="EditJobPost1"
+                                <input type="hidden" name="projectID" value="<%= projectCurrent.getProjectID()%>"/>
+                                <input type="submit" value="Save Edit" name="action"
                             data-wait="Please wait..." class="main-button w-button" />
                     </form>
                     <div class="w-form-done">

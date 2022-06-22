@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.project.ProjectDAO;
 import sample.project.ProjectDTO;
+import sample.skill.SkillDAO;
 
 /**
  *
@@ -38,14 +39,36 @@ public class EditJobPost1Controller extends HttpServlet {
             double budget = Double.parseDouble(request.getParameter("budget"));
             int durationID = Integer.parseInt(request.getParameter("durationID"));
             String deadline = request.getParameter("deadline");
-            String location = request.getParameter("location");           
-            int hourPerWeek = 0;
+            String location = request.getParameter("location");
             String major = request.getParameter("major");
-            String[] skillID = request.getParameterValues("skillID");
-            
-            ProjectDAO dao = new ProjectDAO();            
-//            boolean checkUpdateEdit = dao.updateProject();
-            
+            String[] skillIDs = request.getParameterValues("skillID");
+
+            ProjectDAO dao = new ProjectDAO();
+            boolean checkUpdateEdit = dao.updateProject(projectID, projectName, description, complexity, budget, durationID, deadline, location, major);
+            boolean flag =false;
+            if (checkUpdateEdit) {
+                flag = true;
+                SkillDAO skillDao = new SkillDAO();
+                boolean clearSkillNeedOfProject = skillDao.clearSkillNeedOfProject(projectID);
+                if (clearSkillNeedOfProject) {
+                    flag =true;
+                    for (String skillID : skillIDs) {
+                        int skill = Integer.parseInt(skillID);
+                        boolean checkUpdateSkillNeed = skillDao.updateSkillNeedOfProject(projectID, skill);                       
+                        if (!checkUpdateSkillNeed) {//chi can  mot skill add khong thanh cong thi se la false
+                            flag = false;
+                            break;
+                        }else{
+                            flag = true;
+                        }
+                    }                  
+                }else flag = false;
+            }else flag = false;
+            if(flag){
+                url =SUCCESS;
+            }else{
+                request.setAttribute("ERROR_MESSAGE", "Have something wrong!");
+            }
         } catch (Exception e) {
             log("Error at EditJobPost1Controller:" + e.toString());
         } finally {
