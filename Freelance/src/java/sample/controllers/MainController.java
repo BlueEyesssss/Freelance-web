@@ -106,6 +106,8 @@ public class MainController extends HttpServlet {
     private static final String EDIT_JOB_POST_CONTROLLER = "EditJobPostController";
     private static final String EDIT_JOB_POST_1 = "Save Edit";
     private static final String EDIT_JOB_POST_1_CONTROLLER = "EditJobPost1Controller";
+    private static final String CONFIRM_CONTRACT = "ConfirmContract";
+    private static final String CONFIRM_CONTRACT_CONTROLLER = "ConfirmContractController";
     
     
 
@@ -242,6 +244,9 @@ public class MainController extends HttpServlet {
                 
             } else if (EDIT_JOB_POST_1.equals(action)) {
                 url = EDIT_JOB_POST_1_CONTROLLER;
+                
+            } else if (CONFIRM_CONTRACT.equals(action)) {
+                url = CONFIRM_CONTRACT_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();

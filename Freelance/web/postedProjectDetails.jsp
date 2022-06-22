@@ -293,7 +293,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="right"><a href="#" class="hire-button w-button">Hire</a></div>
+                                    <div class="right"><a href="MainController?action=ConfirmContract" class="hire-button w-button">Hire</a></div>
                                 </div>
                                 <div class="down">
                                     <div class="cover-letter-wrapper">
