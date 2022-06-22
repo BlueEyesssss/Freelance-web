@@ -1,3 +1,5 @@
+<%@page import="sample.project.ProjectDTO"%>
+<%@page import="sample.proposal.ProposalDTO"%>
 <!DOCTYPE html><!-- This site was created in Webflow. http://www.webflow.com -->
 <!-- Last Published: Mon Jun 20 2022 08:40:11 GMT+0000 (Coordinated Universal Time) -->
 <html data-wf-domain="hirers-proposal.webflow.io" data-wf-page="62a8a4a79781dc6fea5e3fb2"
@@ -19,6 +21,12 @@
     <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
 </head>
+<%
+    ProposalDTO proposal = (ProposalDTO)request.getAttribute("PROPOSAL");
+    ProjectDTO project = (ProjectDTO)request.getAttribute("PROJECT");
+    if(proposal != null && project != null){
+        %>
+
 
 <body class="body">
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
@@ -97,7 +105,7 @@
                     loading="lazy" alt="" class="image-16" /></div>
             <div class="hiere-title-wrapped">
                 <div>
-                    <div class="hirer-name">Elon Musk</div>
+                    <div class="hirer-name"><%= proposal.getSeeker().getFullName()%></div>
                 </div>
                 <div class="hirer-skill">
                     <div class="text-block-23">Full stack development | Front End Development</div>
@@ -178,5 +186,7 @@
         type="text/javascript"></script>
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
-
+<%
+    }
+%>
 </html>

@@ -12,6 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
+import sample.proposal.ProposalDAO;
+import sample.proposal.ProposalDTO;
 
 /**
  *
@@ -20,17 +24,29 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ConfirmContractController", urlPatterns = {"/ConfirmContractController"})
 public class ConfirmContractController extends HttpServlet {
 
-     private static final String ERROR = "confirmContract.jsp";
+    private static final String ERROR = "confirmContract.jsp";
     private static final String SUCCESS = "confirmContract.jsp";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            
+            int proposalID = Integer.parseInt(request.getParameter("proposalID"));
+            int projectID = Integer.parseInt(request.getParameter("projectID"));           
+            ProposalDAO proposalDao = new ProposalDAO();
+            ProposalDTO proposal = proposalDao.getProposal(proposalID);
+            ProjectDAO projectDao = new ProjectDAO();
+            ProjectDTO project = projectDao.getProjectByID(projectID);
+           
+            if(proposal!= null && project != null ){
+                request.setAttribute("PROPOSAL", proposal);
+                request.setAttribute("PROJECT", project);               
+                url=SUCCESS;
+            }
         } catch (Exception e) {
-        }finally{
+            log("Error at ConfirmContractController: " + e.toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
