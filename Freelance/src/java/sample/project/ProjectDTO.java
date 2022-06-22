@@ -5,6 +5,7 @@
  */
 package sample.project;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @author LENOVO
  */
 public class ProjectDTO {
-
+    
     private int projectID;
     private int hirerID;
     private String projectName;
@@ -300,5 +301,9 @@ public class ProjectDTO {
     public void setDeadlineDate(String deadlineDate) {
         this.deadlineDate = deadlineDate;
     }
-
+    
+    ProjectDAO dao = new ProjectDAO();
+    public List<String> getListSkill(int projectID) throws SQLException {
+        return dao.getSkillNeedOfProject(projectID);
+    }
 }

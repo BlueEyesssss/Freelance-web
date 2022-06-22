@@ -5,6 +5,8 @@
  */
 package sample.seeker;
 
+import java.sql.SQLException;
+import java.util.List;
 import sample.user.UserDTO;
 
 /**
@@ -138,5 +140,10 @@ public class SeekerDTO extends UserDTO{
         this.education = education;
     }
     
+   
+    public List<String> getListSkill() throws SQLException {
+        SeekerDAO dao = new SeekerDAO();
+        return dao.getSkillSeekerHave(this.seekerID);
+    }
     
 }
