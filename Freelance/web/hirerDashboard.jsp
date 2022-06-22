@@ -157,7 +157,7 @@
                             <div class="text-block-45">Post <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear() %> Days Ago by You</div>
                         </div>
                     </div>
-                        <div class="div-block-28"><a href="#" class="edit-button w-button">Edit</a><a href="MainController?action=RemoveProject&projectID=<%= project.getProjectID() %>"
+                        <div class="div-block-28"><a href="MainController?action=EditJobPost&projectID=<%= project.getProjectID() %>" class="edit-button w-button">Edit</a><a href="MainController?action=RemoveProject&projectID=<%= project.getProjectID() %>"
                             class="remove-button w-button">Remove</a></div>
                 </div>
                     <%
