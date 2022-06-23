@@ -32,7 +32,7 @@ public class ProposalDAO {
     private static final String VIEW_HISTORY_PROPOSAL = " SELECT proposalID, A.projectID, seekerID, A.paymentAmount, B.statusName, clientGrade, clientComment, seekerGrade,seekerComment,coverLetter,attachment,A.createdDate,A.expectedDurationID,C.projectName"
             + " FROM Proposal A, ProposalStatus B, Project C"
             + " WHERE A.seekerID = ? AND B.statusName LIKE 'job finished successfully' AND A.proposalStatusID = B.proposalStatusID AND A.projectID = C.projectID ";
-    
+
     private static final String VIEW_HISTORY_PROPOSAL_OF_HIRER = " SELECT proposalID, A.projectID, seekerID, A.paymentAmount, B.statusName, clientGrade, clientComment, seekerGrade,seekerComment,coverLetter,attachment,A.createdDate,A.expectedDurationID,C.projectName"
             + " FROM Proposal A, ProposalStatus B, Project C, Hirer D"
             + " WHERE D.hirerID = ? AND D.hirerID=C.hirerID AND B.statusName LIKE 'job finished successfully' AND A.proposalStatusID = B.proposalStatusID AND A.projectID = C.projectID ";
@@ -59,6 +59,21 @@ public class ProposalDAO {
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID = 4\n"
             + "AND A.seekerID = ?";
+    private static final String VIEW_DONE_PROPOSAL_OF_HIRER = "SELECT B.projectName, a.createdDate\n"
+            + "FROM Proposal A, Project B\n"
+            + "WHERE A.projectID = B.projectID \n"
+            + "AND (A.proposalStatusID = 6 OR A.proposalStatusID = 7)\n"
+            + "AND B.hirerID = ?";
+    private static final String VIEW_WAITING_PROPOSAL_OF_HIRER = "SELECT B.projectName, a.createdDate\n"
+            + "FROM Proposal A, Project B\n"
+            + "WHERE A.projectID = B.projectID \n"
+            + "AND A.proposalStatusID = 5\n"
+            + "AND B.hirerID = ?";
+    private static final String VIEW_JOB_STARTED_PROPOSAL_OF_HIRER = "SELECT B.projectName, a.createdDate\n"
+            + "FROM Proposal A, Project B\n"
+            + "WHERE A.projectID = B.projectID \n"
+            + "AND A.proposalStatusID = 4\n"
+            + "AND B.hirerID = ?";
 
     private static final String GET_PROPOSAL = "SELECT p.proposalID, p.projectID,pr.projectName , p.seekerID, p.paymentAmount,p.proposalStatusID, ps.statusName, \n"
             + "	p.clientGrade, p.clientComment, p.seekerGrade, p.seekerComment, p.coverLetter, p.attachment, p.createdDate\n"
@@ -78,10 +93,11 @@ public class ProposalDAO {
     private static final String GET_LIST_APPLY_SEEKER = "SELECT seekerID,overview,titileBio,moneyPerHour,educationdegree,major,hourPerWeek "
             + " FROM Seeker A,Proposal B "
             + " WHERE B.projectID=? AND B.proposalStatusID =1";
-    
-    private static final String UPDATE_PROPOSAL_STATUS = "UPDATE Proposal\n" +
-"SET proposalStatusID = ?\n" +
-"WHERE projectID = ?";
+
+    private static final String UPDATE_PROPOSAL_STATUS = "UPDATE Proposal\n"
+            + "SET proposalStatusID = ?\n"
+            + "WHERE projectID = ?";
+
     //ham dung de chuyen trang thai cua nhung proposal nao ma thuoc project nao do (statusID 1 : 7)
     public boolean changeStatusProposalOfProject(int projectID, int proposalStatusID) throws SQLException {
         boolean check = false;
@@ -89,11 +105,11 @@ public class ProposalDAO {
         PreparedStatement ptm = null;
         try {
             con = DBUtil.getConnection();
-            if(con != null){
+            if (con != null) {
                 ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS);
                 ptm.setInt(1, projectID);
                 ptm.setInt(2, proposalStatusID);
-                check = ptm.executeUpdate()>0?true:false;
+                check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,8 +123,7 @@ public class ProposalDAO {
         }
         return check;
     }
-    
-    
+
     public ProposalDTO getProposal(int proposalIDd) throws SQLException {
         ProposalDTO item = null;
         Connection conn = null;
@@ -405,7 +420,7 @@ public class ProposalDAO {
         }
         return list;
     }
-    
+
     public List<ProposalDTO> getHistoryProjectOfHirer(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -616,11 +631,11 @@ public class ProposalDAO {
         return list;
     }
 
-    private static final String GET_APPLIED_PROPOSAL = "SELECT p.paymentAmount, p.coverLetter, p.attachment, e.durationText, p.proposalID, p.projectID, p.seekerID, p.proposalStatusID, p.createdDate, p.expectedDurationID, u.fullName, s.major, u.location, s.seekerID, u.avatar\n" +
-"FROM [User] u, Seeker s, Proposal p, ExpectedDuration e\n" +
-"WHERE u.userID = s.seekerID and s.seekerID = p.seekerID and e.expectedDurationID = p.expectedDurationID\n" +
-"and p.proposalStatusID = 1\n" +
-"and p.projectID = ?";
+    private static final String GET_APPLIED_PROPOSAL = "SELECT p.paymentAmount, p.coverLetter, p.attachment, e.durationText, p.proposalID, p.projectID, p.seekerID, p.proposalStatusID, p.createdDate, p.expectedDurationID, u.fullName, s.major, u.location, s.seekerID, u.avatar\n"
+            + "FROM [User] u, Seeker s, Proposal p, ExpectedDuration e\n"
+            + "WHERE u.userID = s.seekerID and s.seekerID = p.seekerID and e.expectedDurationID = p.expectedDurationID\n"
+            + "and p.proposalStatusID = 1\n"
+            + "and p.projectID = ?";
 
     public List<ProposalDTO> getAppliedProposals(int projectID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
@@ -645,14 +660,13 @@ public class ProposalDAO {
                     String attachment = rs.getString("attachment");
                     String expectedDurationText = rs.getString("durationText");
                     String avatar = rs.getString("avatar");
-                    
+
                     SeekerDTO seeker = new SeekerDTO();
                     seeker.setMajor(major);
                     seeker.setFullName(fullName);
                     seeker.setLocation(location);
                     seeker.setSeekerID(seekerID);
                     seeker.setAvatar(avatar);
-                    
 
                     list.add(new ProposalDTO(proposalID, seekerID, proposalStatusID, paymentAmount, coverLetter, attachment, expectedDurationText, seeker));
 
@@ -674,11 +688,12 @@ public class ProposalDAO {
         }
         return list;
     }
-    
-    private static final String GET_PROPOSAL_BY_ID = "SELECT p.paymentAmount, p.coverLetter, p.attachment, e.durationText, p.proposalID, p.projectID, p.seekerID, p.proposalStatusID, p.createdDate, p.expectedDurationID, u.fullName, s.major, u.location, s.seekerID, u.avatar\n" +
-"FROM [User] u, Seeker s, Proposal p, ExpectedDuration e\n" +
-"WHERE u.userID = s.seekerID and s.seekerID = p.seekerID and e.expectedDurationID = p.expectedDurationID\n" +
-"and p.proposalID = ?";
+
+    private static final String GET_PROPOSAL_BY_ID = "SELECT p.paymentAmount, p.coverLetter, p.attachment, e.durationText, p.proposalID, p.projectID, p.seekerID, p.proposalStatusID, p.createdDate, p.expectedDurationID, u.fullName, s.major, u.location, s.seekerID, u.avatar\n"
+            + "FROM [User] u, Seeker s, Proposal p, ExpectedDuration e\n"
+            + "WHERE u.userID = s.seekerID and s.seekerID = p.seekerID and e.expectedDurationID = p.expectedDurationID\n"
+            + "and p.proposalID = ?";
+
     public ProposalDTO getProposalByID(int proposalID) throws SQLException {
         ProposalDTO proposal = null;
         Connection conn = null;
@@ -702,14 +717,13 @@ public class ProposalDAO {
                     String attachment = rs.getString("attachment");
                     String expectedDurationText = rs.getString("durationText");
                     String avatar = rs.getString("avatar");
-                    
+
                     SeekerDTO seeker = new SeekerDTO();
                     seeker.setMajor(major);
                     seeker.setFullName(fullName);
                     seeker.setLocation(location);
                     seeker.setSeekerID(seekerID);
                     seeker.setAvatar(avatar);
-                    
 
                     proposal = new ProposalDTO(proposalID, seekerID, proposalStatusID, paymentAmount, coverLetter, attachment, expectedDurationText, seeker);
 
@@ -773,8 +787,9 @@ public class ProposalDAO {
         }
         return list;
     }
-    
+
     private static final String DELETE_PROPOSAL_BY_PROJECT_ID = "DELETE FROM PROPOSAL WHERE projectID = ?";
+
     public boolean deleteProposalByProjectID(int projectID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -800,6 +815,111 @@ public class ProposalDAO {
             }
         }
         return check;
+    }
+
+    public List<ProposalDTO> getListDoneProposalOfHirer(int userID) throws SQLException {
+        List<ProposalDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_DONE_PROPOSAL_OF_HIRER);
+                ptm.setInt(1, userID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String projectName = rs.getString("projectName");
+                    String createdDate = rs.getString("createdDate");
+
+                    list.add(new ProposalDTO(projectName, createdDate));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<ProposalDTO> getListWaitingProposalOfHirer(int userID) throws SQLException {
+        List<ProposalDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_WAITING_PROPOSAL_OF_HIRER);
+                ptm.setInt(1, userID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String projectName = rs.getString("projectName");
+                    String createdDate = rs.getString("createdDate");
+
+                    list.add(new ProposalDTO(projectName, createdDate));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<ProposalDTO> getListActiveProposalOfHirer(int userID) throws SQLException {
+List<ProposalDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_JOB_STARTED_PROPOSAL_OF_HIRER);
+                ptm.setInt(1, userID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String projectName = rs.getString("projectName");
+                    String createdDate = rs.getString("createdDate");
+
+                    list.add(new ProposalDTO(projectName, createdDate));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 
 }

@@ -24,6 +24,11 @@
         type="text/javascript">!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);</script>
     <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
+    <style>
+            .w-webflow-badge {
+                display: none !important;
+            }
+        </style>
 </head>
 
 <body class="body-2">
@@ -64,7 +69,7 @@
                             <div class="text-block-22">My Job</div>
                         </div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
-                                class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="#"
+                                class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="MainController?action=ViewContractOfHirer"
                                 class="dropdown-link-nav w-dropdown-link">All contract</a><a href="#"
                                 class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
                     </div>
