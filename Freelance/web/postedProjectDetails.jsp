@@ -322,15 +322,10 @@
                                         for (ProposalDTO proposal : listAppliedProposal) {
 
                             %>
-                            
-                            
-                            
-
-
                             <div class="proposal">
                                 <div class="left-proposal">
                                     <div class="image-container"><img
-                                            src="https://uploads-ssl.webflow.com/62aa7d13e81bc5858eb14b7e/62ad1a2fb91b813d9e9d488e_thinking.png"
+                                            src=<%= proposal.getSeeker().getAvatar() %>
                                             loading="lazy" alt="" class="image-3" /></div>
                                 </div>
                                 <div class="right-proposal">
@@ -348,7 +343,7 @@
                                                         <div class="div-block-13">
                                                             <div class="div-block-14">
                                                                 <div class="div-block-15"><img
-                                                                        src="https://uploads-ssl.webflow.com/62aa7d13e81bc5858eb14b7e/62ad1a2fb91b813d9e9d488e_thinking.png"
+                                                                        src=<%= proposal.getSeeker().getAvatar() %>
                                                                         loading="lazy" alt="" class="image-18" /></div>
                                                                 <div class="div-block-16">
                                                                     <h3 class="heading-6"><%= proposal.getSeeker().getFullName() %></h3>
