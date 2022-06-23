@@ -35,7 +35,7 @@ public class ConfirmContractController extends HttpServlet {
             int proposalID = Integer.parseInt(request.getParameter("proposalID"));
             int projectID = Integer.parseInt(request.getParameter("projectID"));           
             ProposalDAO proposalDao = new ProposalDAO();
-            ProposalDTO proposal = proposalDao.getProposal(proposalID);
+            ProposalDTO proposal = proposalDao.getProposalByID(proposalID);
             ProjectDAO projectDao = new ProjectDAO();
             ProjectDTO project = projectDao.getProjectByID(projectID);
            

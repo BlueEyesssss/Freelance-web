@@ -674,6 +674,63 @@ public class ProposalDAO {
         }
         return list;
     }
+    
+    private static final String GET_PROPOSAL_BY_ID = "SELECT p.paymentAmount, p.coverLetter, p.attachment, e.durationText, p.proposalID, p.projectID, p.seekerID, p.proposalStatusID, p.createdDate, p.expectedDurationID, u.fullName, s.major, u.location, s.seekerID, u.avatar\n" +
+"FROM [User] u, Seeker s, Proposal p, ExpectedDuration e\n" +
+"WHERE u.userID = s.seekerID and s.seekerID = p.seekerID and e.expectedDurationID = p.expectedDurationID\n" +
+"and p.proposalID = ?";
+    public ProposalDTO getProposalByID(int proposalID) throws SQLException {
+        ProposalDTO proposal = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PROPOSAL_BY_ID);
+                ptm.setInt(1, proposalID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    proposalID = rs.getInt("proposalID");
+                    int seekerID = rs.getInt("seekerID");
+                    String fullName = rs.getString("fullName");
+                    String major = rs.getString("major");
+                    String location = rs.getString("location");
+                    int proposalStatusID = rs.getInt("proposalStatusID");
+                    double paymentAmount = rs.getDouble("paymentAmount");
+                    String coverLetter = rs.getString("coverLetter");
+                    String attachment = rs.getString("attachment");
+                    String expectedDurationText = rs.getString("durationText");
+                    String avatar = rs.getString("avatar");
+                    
+                    SeekerDTO seeker = new SeekerDTO();
+                    seeker.setMajor(major);
+                    seeker.setFullName(fullName);
+                    seeker.setLocation(location);
+                    seeker.setSeekerID(seekerID);
+                    seeker.setAvatar(avatar);
+                    
+
+                    proposal = new ProposalDTO(proposalID, seekerID, proposalStatusID, paymentAmount, coverLetter, attachment, expectedDurationText, seeker);
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return proposal;
+    }
 
     public List<SeekerDTO> getApplyList(int projectID) throws SQLException {
         List<SeekerDTO> list = new ArrayList<>();

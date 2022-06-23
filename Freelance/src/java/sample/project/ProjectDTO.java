@@ -65,7 +65,7 @@ public class ProjectDTO {
         this.major = major;
     }
     
-    public ProjectDTO(int projectID_proposal_detail, int hirerID, String projectName, String description, String complexity, String major, double paymentAmount, String deadlineDate, LocalDate createdDate, String location, int hoursPerWeek, String durationText) {
+    public ProjectDTO(int projectID, int hirerID, String projectName, String description, String complexity, String major, double paymentAmount, String deadlineDate, LocalDate createdDate, String location, int hoursPerWeek, String durationText) {
         this.projectID = projectID;
         this.hirerID = hirerID;
         this.projectName = projectName;

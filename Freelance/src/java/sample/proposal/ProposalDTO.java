@@ -43,7 +43,7 @@ public class ProposalDTO {
     }
 
     ProposalDTO(int proposalID, int seekerID, int proposalStatusID, double paymentAmount, String coverLetter, String attachment, String expectedDurationText, SeekerDTO seeker) {
-        this.projectID = proposalID;
+        this.proposalID = proposalID;
         this.seekerID = seekerID;
         this.proposalStatusID = proposalStatusID;
         this.paymentAmount = paymentAmount;
