@@ -97,7 +97,37 @@ public class ProposalDAO {
     private static final String UPDATE_PROPOSAL_STATUS = "UPDATE Proposal\n"
             + "SET proposalStatusID = ?\n"
             + "WHERE projectID = ?";
+    
+    private static final String UPDATE_PROPOSAL_STATUS_FOR_STARTED = "UPDATE Proposal\n" +
+"SET proposalStatusID = 4\n" +
+"WHERE seekerID = ?\n" +
+"AND projectID = ?";
 
+    public boolean updateStatusProposal(int seekerID, int projectId) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS_FOR_STARTED);
+                ptm.setInt(1, seekerID);
+                ptm.setInt(2, projectId);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
     //ham dung de chuyen trang thai cua nhung proposal nao ma thuoc project nao do (statusID 1 : 7)
     public boolean changeStatusProposalOfProject(int projectID, int proposalStatusID) throws SQLException {
         boolean check = false;
@@ -921,5 +951,7 @@ List<ProposalDTO> list = new ArrayList<>();
         }
         return list;
     }
+
+    
 
 }
