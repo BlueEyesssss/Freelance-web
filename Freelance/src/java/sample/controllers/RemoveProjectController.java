@@ -14,8 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.project.ProjectDAO;
-import sample.project.ProjectDTO;
-import sample.proposal.ProposalDTO;
+import sample.proposal.ProposalDAO;
+import sample.skill.SkillDAO;
+
 
 /**
  *
@@ -43,12 +44,18 @@ public class RemoveProjectController extends HttpServlet {
         try {
             int projectID = Integer.parseInt(request.getParameter("projectID"));
             
-            ProjectDAO dao = new ProjectDAO();
-            boolean checkForDeleteFavoriteProject = dao.deleteFavoriteProject(projectID);
-            boolean checkForDeleteProject = dao.deleteProject(projectID);
+            ProjectDAO daoProject = new ProjectDAO();
+            daoProject.deleteFavoriteProject(projectID);
+            
+            ProposalDAO daoProposal = new ProposalDAO();
+            daoProposal.deleteProposalByProjectID(projectID);
+            
+            SkillDAO daoSkill = new SkillDAO();
+            boolean checkForDeleteNeededSkill = daoSkill.deleteNeededSkillOfProject(projectID);
+            boolean checkForDeleteProject = daoProject.deleteProject(projectID);
             
 
-            if (checkForDeleteFavoriteProject == true && checkForDeleteProject == true) {
+            if (checkForDeleteNeededSkill == true && checkForDeleteProject == true) {
                 url = SUCCESS;
             }
 

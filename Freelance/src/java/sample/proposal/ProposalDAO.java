@@ -78,7 +78,37 @@ public class ProposalDAO {
     private static final String GET_LIST_APPLY_SEEKER = "SELECT seekerID,overview,titileBio,moneyPerHour,educationdegree,major,hourPerWeek "
             + " FROM Seeker A,Proposal B "
             + " WHERE B.projectID=? AND B.proposalStatusID =1";
-
+    
+    private static final String UPDATE_PROPOSAL_STATUS = "UPDATE Proposal\n" +
+"SET proposalStatusID = ?\n" +
+"WHERE projectID = ?";
+    //ham dung de chuyen trang thai cua nhung proposal nao ma thuoc project nao do (statusID 1 : 7)
+    public boolean changeStatusProposalOfProject(int projectID, int proposalStatusID) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if(con != null){
+                ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS);
+                ptm.setInt(1, projectID);
+                ptm.setInt(2, proposalStatusID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
+    
     public ProposalDTO getProposal(int proposalIDd) throws SQLException {
         ProposalDTO item = null;
         Connection conn = null;
@@ -685,6 +715,34 @@ public class ProposalDAO {
             }
         }
         return list;
+    }
+    
+    private static final String DELETE_PROPOSAL_BY_PROJECT_ID = "DELETE FROM PROPOSAL WHERE projectID = ?";
+    public boolean deleteProposalByProjectID(int projectID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_PROPOSAL_BY_PROJECT_ID);
+                ptm.setInt(1, projectID);
+                check = ptm.executeUpdate() > 0;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 
 }
