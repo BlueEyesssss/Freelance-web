@@ -137,8 +137,8 @@ public class ProposalDAO {
             con = DBUtil.getConnection();
             if (con != null) {
                 ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS);
-                ptm.setInt(1, projectID);
-                ptm.setInt(2, proposalStatusID);
+                ptm.setInt(1, proposalStatusID);
+                ptm.setInt(2, projectID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
