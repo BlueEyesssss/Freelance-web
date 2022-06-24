@@ -1,4 +1,4 @@
-po<%@page import="sample.skill.SkillDTO"%>
+<%@page import="sample.skill.SkillDTO"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 
@@ -28,7 +28,6 @@ po<%@page import="sample.skill.SkillDTO"%>
 </head>
 
 <body class="user-body">
-    
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation seeker w-nav">
         <div class="navigation-container">
