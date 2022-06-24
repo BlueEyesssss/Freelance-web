@@ -179,7 +179,7 @@
                                 </div>
                             </div>
                             <div class="div-block-32">
-                                <div class="div-block-33"><a href="#" class="link-6">Edit Posting</a><a
+                                <div class="div-block-33"><a href="MainController?action=EditJobPost&projectID=<%= currentProject.getProjectID() %>" class="link-6">Edit Posting</a><a
                                         data-w-id="d246fcf1-5912-f9e7-80d0-1d8cc603abfe" href="#" class="link-6">Delete
                                         Posting</a></div>
                                 <div class="div-block-41">
@@ -450,7 +450,7 @@
                     <div class="text-block-44">Are you sure to delete this project ?</div>
                 </div>
                 <div class="div-block-48">
-                    <div class="div-block-47"><a href="#" class="button-3 w-button">Yes</a></div>
+                    <div class="div-block-47"><a href="MainController?action=RemoveProject&projectID=<%= currentProject.getProjectID() %>" class="button-3 w-button">Yes</a></div>
                     <div class="div-block-49"><a data-w-id="3cd1ff36-3a77-a40f-b032-e2c2ef15d08e" href="#"
                                                  class="button-4 w-button">No</a></div>
                 </div>
