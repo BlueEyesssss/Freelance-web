@@ -40,9 +40,9 @@ public class ProposalDAO {
     private static final String INSERT_PROPOSAL = "INSERT INTO Proposal(projectID,seekerID,paymentAmount,proposalStatusID,coverLetter,attachment,expectedDurationID)"
             + " VALUES(?,?,?,?,?,?,?)";
 
-    private static final String CHECK_IS_PROPOSAL = " SELECT projectID FROM Proposal WHERE projectID =?";
+    private static final String CHECK_IS_ACTIVE_PROPOSAL = " SELECT projectID FROM Proposal WHERE projectID =? AND proposalStatusID IN(4,5,6,7)";
 
-    private static final String CHECK_PROPOSAL_ALREADY_SUBMIT = " SELECT projectID FROM Proposal WHERE projectID =? AND seekerID=?";
+    private static final String CHECK_PROPOSAL_ALREADY_SUBMIT = " SELECT projectID FROM Proposal WHERE projectID =? AND seekerID=? AND proposalStatusID=1";
 
     private static final String VIEW_DONE_PROPOSAL = "SELECT B.projectName, a.createdDate\n"
             + "FROM Proposal A, Project B\n"
@@ -539,10 +539,10 @@ public class ProposalDAO {
         try {
             conn = DBUtil.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(CHECK_IS_PROPOSAL);
+                ptm = conn.prepareStatement(CHECK_IS_ACTIVE_PROPOSAL);
                 ptm.setInt(1, projectID);
                 rs = ptm.executeQuery();
-                if (rs != null) {
+                if (rs.next()) {
                     checkIsActiveProposal = true;
                 }
             }

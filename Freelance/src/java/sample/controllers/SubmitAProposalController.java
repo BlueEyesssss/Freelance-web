@@ -40,7 +40,7 @@ public class SubmitAProposalController extends HttpServlet {
             ProposalDAO dao = new ProposalDAO();
             boolean checkIsActiveProposal = dao.isActiveProposal(projectID);
             boolean checkAlreadySubmitProposal = dao.alreadySubmitProposal(projectID,user.getUserID());
-            if (!checkIsActiveProposal || !checkAlreadySubmitProposal) {
+            if (!checkIsActiveProposal && !checkAlreadySubmitProposal) {
                 boolean checkSubmitProposal = dao.submitProposal(projectID, user.getUserID(), paymentAmount,durationID, coverLetter, attachment);
                 if (checkSubmitProposal) {
                     url = SUCCESS;
