@@ -58,6 +58,12 @@ public class ProposalDTO {
         this.projectName = projectName;
         this.createdDate = createdDate;
     }
+    
+    ProposalDTO( String projectName, String createdDate,int proposalID) {
+        this.proposalID = proposalID;
+        this.projectName = projectName;
+        this.createdDate = createdDate;
+    }
 
     public SeekerDTO getSeeker() {
         return seeker;

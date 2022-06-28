@@ -112,6 +112,8 @@ public class MainController extends HttpServlet {
     private static final String VIEW_CONTRACT_OF_HIRER_CONTROLLER = "ViewContractOfHirerController";
     private static final String VIEW_ACTIVE_PROJECT = "ViewActiveProject";
     private static final String VIEW_ACTIVE_PROJECT_CONTROLLER = "ViewActiveProjectController";
+    private static final String VIEW_DONE_CONTRACT = "ViewDoneContract";
+    private static final String VIEW_DONE_CONTRACT_CONTROLLER = "ViewDoneContractController";
     
     
     
@@ -257,6 +259,9 @@ public class MainController extends HttpServlet {
                 
             } else if (VIEW_CONTRACT_OF_HIRER.equals(action)) {
                 url = VIEW_CONTRACT_OF_HIRER_CONTROLLER;
+                
+            } else if (VIEW_DONE_CONTRACT.equals(action)) {
+                url = VIEW_DONE_CONTRACT_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();

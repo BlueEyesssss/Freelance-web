@@ -76,8 +76,7 @@ public class PostAJobController extends HttpServlet {
                 }
 
             }
-        } catch (Exception e) {
-            System.out.println(e.toString());
+        } catch (Exception e) {           
             log("Error at PostAJobController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);

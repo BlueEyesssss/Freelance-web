@@ -44,7 +44,7 @@ public class ProposalDAO {
 
     private static final String CHECK_PROPOSAL_ALREADY_SUBMIT = " SELECT projectID FROM Proposal WHERE projectID =? AND seekerID=? AND proposalStatusID=1";
 
-    private static final String VIEW_DONE_PROPOSAL = "SELECT B.projectName, a.createdDate\n"
+    private static final String VIEW_DONE_PROPOSAL = "SELECT A.proposalID, B.projectName, a.createdDate\n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND (A.proposalStatusID = 6 OR A.proposalStatusID = 7)\n"
@@ -289,10 +289,11 @@ public class ProposalDAO {
                 ptm.setInt(1, userID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
+                    int proposalID = rs.getInt("proposalID");
                     String projectName = rs.getString("projectName");
                     String createdDate = rs.getString("createdDate");
 
-                    list.add(new ProposalDTO(projectName, createdDate));
+                    list.add(new ProposalDTO(projectName, createdDate,proposalID));
                 }
             }
 
