@@ -54,11 +54,7 @@ public class ProposalDAO {
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID = 5\n"
             + "AND A.seekerID = ?";
-    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT B.projectName, a.createdDate\n"
-            + "FROM Proposal A, Project B\n"
-            + "WHERE A.projectID = B.projectID \n"
-            + "AND A.proposalStatusID = 4\n"
-            + "AND A.seekerID = ?";
+
     private static final String VIEW_DONE_PROPOSAL_OF_HIRER = "SELECT B.projectName, a.createdDate\n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
@@ -97,11 +93,11 @@ public class ProposalDAO {
     private static final String UPDATE_PROPOSAL_STATUS = "UPDATE Proposal\n"
             + "SET proposalStatusID = ?\n"
             + "WHERE projectID = ?";
-    
-    private static final String UPDATE_PROPOSAL_STATUS_FOR_STARTED = "UPDATE Proposal\n" +
-"SET proposalStatusID = 4\n" +
-"WHERE seekerID = ?\n" +
-"AND projectID = ?";
+
+    private static final String UPDATE_PROPOSAL_STATUS_FOR_STARTED = "UPDATE Proposal\n"
+            + "SET proposalStatusID = 4\n"
+            + "WHERE seekerID = ?\n"
+            + "AND projectID = ?";
 
     public boolean updateStatusProposal(int seekerID, int projectId) throws SQLException {
         boolean check = false;
@@ -127,7 +123,7 @@ public class ProposalDAO {
         }
         return check;
     }
-    
+
     //ham dung de chuyen trang thai cua nhung proposal nao ma thuoc project nao do (statusID 1 : 7)
     public boolean changeStatusProposalOfProject(int projectID, int proposalStatusID) throws SQLException {
         boolean check = false;
@@ -204,7 +200,12 @@ public class ProposalDAO {
         }
         return item;
     }
-
+    
+    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT B.projectID, B.projectName, a.createdDate\n"
+            + "FROM Proposal A, Project B\n"
+            + "WHERE A.projectID = B.projectID \n"
+            + "AND A.proposalStatusID = 4\n"
+            + "AND A.seekerID = ?";
     public List<ProposalDTO> getListJobStartedProposal(int userID) throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -217,10 +218,11 @@ public class ProposalDAO {
                 ptm.setInt(1, userID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
+                    int projectID = rs.getInt("projectID");
                     String projectName = rs.getString("projectName");
                     String createdDate = rs.getString("createdDate");
 
-                    list.add(new ProposalDTO(projectName, createdDate));
+                    list.add(new ProposalDTO(projectID, projectName, createdDate));
                 }
             }
 
@@ -918,7 +920,7 @@ public class ProposalDAO {
     }
 
     public List<ProposalDTO> getListActiveProposalOfHirer(int userID) throws SQLException {
-List<ProposalDTO> list = new ArrayList<>();
+        List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -951,7 +953,5 @@ List<ProposalDTO> list = new ArrayList<>();
         }
         return list;
     }
-
-    
 
 }

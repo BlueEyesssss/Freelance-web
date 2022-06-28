@@ -110,6 +110,9 @@ public class MainController extends HttpServlet {
     private static final String CONFIRM_CONTRACT_CONTROLLER = "ConfirmContractController";
     private static final String VIEW_CONTRACT_OF_HIRER = "ViewContractOfHirer";
     private static final String VIEW_CONTRACT_OF_HIRER_CONTROLLER = "ViewContractOfHirerController";
+    private static final String VIEW_ACTIVE_PROJECT = "ViewActiveProject";
+    private static final String VIEW_ACTIVE_PROJECT_CONTROLLER = "ViewActiveProjectController";
+    
     
     
 
@@ -125,7 +128,9 @@ public class MainController extends HttpServlet {
                 url = WITHDRAWN_PROPOSAL_CONTROLLER;
             } else if (REMOVE_PROJECT.equals(action)) {
                 url = REMOVE_PROJECT_CONTROLLER;    
-                
+            } else if (VIEW_ACTIVE_PROJECT.equals(action)) {
+                url = VIEW_ACTIVE_PROJECT_CONTROLLER;    
+                 
 
             } else if (SEARCH_JOB_BY_NAME.equals(action)) {
                 url = SEARCH_JOB_BY_NAME_CONTROLLER;
