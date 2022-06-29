@@ -114,8 +114,10 @@ public class MainController extends HttpServlet {
     private static final String VIEW_ACTIVE_PROJECT_CONTROLLER = "ViewActiveProjectController";
     private static final String VIEW_DONE_CONTRACT = "ViewDoneContract";
     private static final String VIEW_DONE_CONTRACT_CONTROLLER = "ViewDoneContractController";
-    
-    
+    private static final String VIEW_ACTIVE_PROPOSAL_DETAIL_HIRER = "ViewActiveProposalDetail";
+    private static final String VIEW_ACTIVE_PROPOSAL_DETAIL_HIRER_CONTROLLER = "ViewActiveProposalDetailController";
+    private static final String CANCEL_PROJECT_FROM_HIRER = "CancelProJectFromHirer";
+    private static final String CANCEL_PROJECT_FROM_HIRER_CONTROLLER = "CancelProJectFromHirerController";
     
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -262,6 +264,12 @@ public class MainController extends HttpServlet {
                 
             } else if (VIEW_DONE_CONTRACT.equals(action)) {
                 url = VIEW_DONE_CONTRACT_CONTROLLER;
+
+            } else if (VIEW_ACTIVE_PROPOSAL_DETAIL_HIRER.equals(action)) {
+                url = VIEW_ACTIVE_PROPOSAL_DETAIL_HIRER_CONTROLLER;
+
+            } else if (CANCEL_PROJECT_FROM_HIRER.equals(action)) {
+                url = CANCEL_PROJECT_FROM_HIRER_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();

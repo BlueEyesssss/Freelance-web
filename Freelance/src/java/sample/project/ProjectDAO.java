@@ -99,7 +99,39 @@ public class ProjectDAO {
         " SET projectName =?, description = ?,complexity=?,paymentAmount=?,expectedDurationID=?,deadlineDate=?," +
         " location=?,major= ?" +
         " WHERE projectID = ?";               
-                    
+              
+    private static final String GET_PRO_ID_BY_PROPOSAL_ID = "SELECT projectID\n" +
+"FROM Proposal\n" +
+"WHERE proposalID = ?";
+    public String getProjectIDbyProposalID(int parseInt) throws SQLException, ClassNotFoundException {
+        String projectID = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PRO_ID_BY_PROPOSAL_ID);
+                ptm.setInt(1, parseInt);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    projectID = rs.getString("projectID");
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return projectID;
+    }
+    
     public boolean postAJob(ProjectDTO project) throws SQLException, ClassNotFoundException {
         //LocalDate.parse(rs.getString("createdDate"))
         boolean check = false;
@@ -999,4 +1031,6 @@ public class ProjectDAO {
         }
         return check;
     }
+
+    
 }
