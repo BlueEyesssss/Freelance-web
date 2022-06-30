@@ -25,6 +25,11 @@
         type="text/javascript">!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);</script>
     <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
+    <style>
+        .w-webflow-badge {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body class="body">
@@ -173,7 +178,7 @@
                     <div class="text-block-39-copy">The total number of Job Posted</div>
                     <div class="text-block-39">Member since <%= loginUser.getRegistrationDate() %></div>
                 </div>
-                <div class="div-block-59"><a href="#" class="button-5-copy w-button">Pay Money</a><a href="#"
+                <div class="div-block-59"><a href="MainController?action=PayMoney&proposalID=<%= proposalINf.getProposalID() %>" class="button-5-copy w-button">Pay Money</a><a href="#"
                         class="button-6-copy w-button">Report Seeker</a></div>
             </div>
         </div>

@@ -538,6 +538,78 @@ public class UserDAO {
         }
         return user;
     }
+    
+    private static final String ADD_MONEY_BY_USERID = "UPDATE [User] SET balance = ? WHERE userID = ?";
+    public boolean addMoneyToUserByUserID(double paymentAmount, int userID) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(ADD_MONEY_BY_USERID);
+                ptm.setDouble(1, paymentAmount);
+                ptm.setInt(2, userID);
+                
+                check = ptm.executeUpdate() > 0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
+    private static final String GET_USER_BY_ID = "SELECT userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar, language, languagelv FROM [User] WHERE userID = ?";;
+    public UserDTO getUserByID(int userID) throws SQLException {
+        UserDTO user = null;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(GET_USER_BY_ID);
+                ptm.setInt(1, userID);
+                
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    userID = rs.getInt("userID");
+                    String password = rs.getString("password");
+                    String userName = rs.getString("userName");
+                    String fullName = rs.getString("fullName");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String location = rs.getString("location");
+                    String registrationDate = rs.getString("registrationDate");
+                    float balance = rs.getFloat("balance");
+                    String avatar = rs.getString("avatar");
+                    String language = rs.getString("language");
+                    String languagelv = rs.getString("languagelv");
+                    user = new UserDTO(userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar, language, languagelv);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return user;
+    }
 
     
 
