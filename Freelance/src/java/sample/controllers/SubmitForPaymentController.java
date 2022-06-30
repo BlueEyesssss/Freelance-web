@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import sample.proposal.ProposalDAO;
 import sample.util.DBUtil;
 
 
@@ -102,6 +103,8 @@ public class SubmitForPaymentController extends HttpServlet {
                     session.setAttribute("fileName", fileName);
                     String msg = "" + fileName + " File uploaded successfully...";
                     request.setAttribute("msg", msg);
+                    ProposalDAO proposalDAO = new ProposalDAO();
+                    proposalDAO.changeStatusProposal(proposalID, 5);
                     RequestDispatcher rd = request.getRequestDispatcher(SUCCESS);
                     rd.forward(request, response);
                     System.out.println("File uploaded successfully...");

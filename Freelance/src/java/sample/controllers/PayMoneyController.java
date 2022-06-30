@@ -34,7 +34,7 @@ public class PayMoneyController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private static final String SUCCESS = "ViewHirerDashboardController";
-    private static final String ERROR = "ViewHirerDashboardController";
+    private static final String ERROR = "error.html";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -44,7 +44,7 @@ public class PayMoneyController extends HttpServlet {
             int proposalID = Integer.parseInt(request.getParameter("proposalID"));
             
             ProposalDAO proposalDAO = new ProposalDAO();
-            ProposalDTO proposal = proposalDAO.getProposal(proposalID);
+            ProposalDTO proposal = proposalDAO.getProposalByIDReturnSeekerID(proposalID);
             
             
             UserDAO userDAO = new UserDAO();
@@ -53,6 +53,7 @@ public class PayMoneyController extends HttpServlet {
             
             boolean check = userDAO.addMoneyToUserByUserID(currentBalance + proposal.getPaymentAmount(), proposal.getSeekerID());
             if (check) {
+                proposalDAO.changeStatusProposal(proposalID, 7);
                 url = SUCCESS;
             }
                     

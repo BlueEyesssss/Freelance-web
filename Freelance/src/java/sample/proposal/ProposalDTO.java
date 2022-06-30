@@ -36,6 +36,21 @@ public class ProposalDTO {
     private String fileName;
     private String path;
 
+    ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, int proposalStatusID, String proposalStatusName, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName, String durationText) {
+        this.proposalID = proposalID; 
+        this.projectID = projectID;
+        this.seekerID = seekerID;
+        this.paymentAmount = paymentAmount;
+        this.proposalStatusID = proposalStatusID;
+        this.proposalStatusName = proposalStatusName;
+        this.coverLetter = coverLetter;
+        this.attachment = attachment;
+        this.createdDate = createdDate;
+        this.expectedDurationID = expectedDurationID;
+        this.projectName = projectName;
+        this.durationText = durationText;
+    }
+
     public String getLink() {
         return link;
     }
@@ -70,7 +85,7 @@ public class ProposalDTO {
     
 
     ProposalDTO(int proposalID, int seekerID, int proposalStatusID, double paymentAmount, String coverLetter, String attachment, String expectedDurationText) {
-        this.projectID = proposalID;
+        this.proposalID = proposalID;
         this.seekerID = seekerID;
         this.proposalStatusID = proposalStatusID;
         this.paymentAmount = paymentAmount;

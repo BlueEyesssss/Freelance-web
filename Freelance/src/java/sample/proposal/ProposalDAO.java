@@ -71,14 +71,14 @@ public class ProposalDAO {
             + "AND A.proposalStatusID = 4\n"
             + "AND B.hirerID = ?";
 
-    private static final String GET_PROPOSAL = "SELECT p.proposalID, p.projectID,pr.projectName , p.seekerID, p.paymentAmount,p.proposalStatusID, ps.statusName, \n"
-            + "	p.clientGrade, p.clientComment, p.seekerGrade, p.seekerComment, p.coverLetter, p.attachment, p.createdDate\n"
-            + "	, p.expectedDurationID, e.durationText\n"
-            + "FROM Proposal p, ExpectedDuration e,ProposalStatus ps, Project pr\n"
-            + "WHERE p.expectedDurationID = e.expectedDurationID\n"
-            + "AND P.proposalStatusID = ps.proposalStatusID\n"
-            + "AND p.projectID = pr.projectID\n"
-            + "AND p.proposalID = 11";
+    private static final String GET_PROPOSAL = "SELECT p.proposalID, p.projectID,pr.projectName , p.seekerID, p.paymentAmount,p.proposalStatusID, ps.statusName, \n" +
+"p.clientGrade, p.clientComment, p.seekerGrade, p.seekerComment, p.coverLetter, p.attachment, p.createdDate,\n" +
+"p.expectedDurationID, E.durationText\n" +
+"FROM Proposal p, ExpectedDuration e, ProposalStatus ps, Project pr\n" +
+"WHERE p.proposalStatusID = ps.proposalStatusID\n" +
+"And e.expectedDurationID = p.expectedDurationID\n" +
+"AND p.projectID = pr.projectID\n" +
+"AND p.proposalID = ?";
 
     private static final String DELETE_PROPOSAL = "DELETE FROM PROPOSAL WHERE proposalID = ?";
 
@@ -125,6 +125,33 @@ public class ProposalDAO {
         }
         return check;
     }
+    private static final String UPDATE_PROPOSAL_STATUS_BY_ID = "UPDATE Proposal\n"
+            + "SET proposalStatusID = ?\n"
+            + "WHERE proposalID = ?";
+    public boolean changeStatusProposal(int proposalID, int proposalStatusID) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS);
+                ptm.setInt(1, proposalStatusID);
+                ptm.setInt(2, proposalID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
 
     //ham dung de chuyen trang thai cua nhung proposal nao ma thuoc project nao do (statusID 1 : 7)
     public boolean changeStatusProposalOfProject(int projectID, int proposalStatusID) throws SQLException {
@@ -151,8 +178,63 @@ public class ProposalDAO {
         }
         return check;
     }
+    private static final String GET_PROPOSAL_BYID_WHEN_STATUS_JOB_WAITING = "SELECT p.proposalID, p.projectID,pr.projectName , p.seekerID, p.paymentAmount,p.proposalStatusID, ps.statusName, \n" +
+"p.clientGrade, p.clientComment, p.seekerGrade, p.seekerComment, p.coverLetter, p.attachment, p.createdDate,\n" +
+"p.expectedDurationID, E.durationText\n" +
+"FROM Proposal p, ExpectedDuration e, ProposalStatus ps, Project pr\n" +
+"WHERE p.proposalStatusID = ps.proposalStatusID\n" +
+"And e.expectedDurationID = p.expectedDurationID\n" +
+"AND p.projectID = pr.projectID\n" +
+"AND p.proposalID = ?";
+    public ProposalDTO getProposalByIDReturnSeekerID(int proposalID) throws SQLException {
+        ProposalDTO item = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PROPOSAL_BYID_WHEN_STATUS_JOB_WAITING);
+                ptm.setInt(1, proposalID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    proposalID = Integer.parseInt(rs.getString("proposalID"));
+                    int projectID = Integer.parseInt(rs.getString("projectID"));
+                    int seekerID = Integer.parseInt(rs.getString("seekerID"));
+                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
+                    int proposalStatusID = Integer.parseInt(rs.getString("proposalStatusID"));
+                    String proposalStatusName = rs.getString("statusName");
+                    
+                    String coverLetter = rs.getString("coverLetter");
+                    String attachment = rs.getString("attachment");
+                    String createdDate = rs.getString("createdDate");
+                    String expectedDurationID = rs.getString("expectedDurationID");
+                    String projectName = rs.getString("projectName");
+                    String durationText = rs.getString("durationText");
 
-    public ProposalDTO getProposal(int proposalIDd) throws SQLException {
+                    item = new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusID,
+                            proposalStatusName, coverLetter, attachment, createdDate, expectedDurationID, projectName, durationText);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return item;
+    }
+    
+    //ham nay can coi lai
+    public ProposalDTO getProposal(int proposalID) throws SQLException {
         ProposalDTO item = null;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -161,10 +243,10 @@ public class ProposalDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(GET_PROPOSAL);
-                ptm.setInt(1, proposalIDd);
+                ptm.setInt(1, proposalID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
-                    int proposalID = Integer.parseInt(rs.getString("proposalID"));
+                    proposalID = Integer.parseInt(rs.getString("proposalID"));
                     int projectID = Integer.parseInt(rs.getString("projectID"));
                     int seekerID = Integer.parseInt(rs.getString("seekerID"));
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));

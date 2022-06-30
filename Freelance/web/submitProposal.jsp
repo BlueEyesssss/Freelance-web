@@ -1,3 +1,4 @@
+<%@page import="sample.seeker.SeekerDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="sample.project.ProjectDTO"%>
@@ -32,6 +33,9 @@
         </style>
 
     </head>
+    <%
+        SeekerDTO loginUser = (SeekerDTO) session.getAttribute("USER_LOGIN");
+    %>
 
     <body class="user-body">
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
@@ -90,7 +94,7 @@
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                     loading="lazy" width="90"
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 44.458335876464844px, 6vw"
-                                    srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                    srcset=<%= loginUser.getAvatar() %>
                                     alt="" class="avatar-img-nav" /></div>
                             <nav class="dropdown-list w-dropdown-list"><a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
                                     Profile</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
