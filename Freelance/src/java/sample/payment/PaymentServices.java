@@ -98,8 +98,8 @@ public class PaymentServices {
     
     private RedirectUrls getRedirectUrls(){             
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8084/Freelance/cancel.html");  
-        redirectUrls.setReturnUrl("http://localhost:8084/Freelance/ReviewPaymentServlet");   
+        redirectUrls.setCancelUrl("http://localhost:8080/Freelance/cancel.html");  //sửa port 8084 thành port 8080
+        redirectUrls.setReturnUrl("http://localhost:8080/Freelance/ReviewPaymentServlet");   
         
         return redirectUrls;
     }

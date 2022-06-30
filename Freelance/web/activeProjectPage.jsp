@@ -174,11 +174,15 @@
         <div class="div-block-60">
             <h3 class="heading-17">Submit for payment</h3>
             <div class="form-block w-form">
-                <form id="email-form-3" name="email-form-3" data-name="Email Form 3" redirect="#" data-redirect="#"
+                <!-- dang sua code cho nay-->
+                <form action="MainController" method="post" enctype="multipart/form-data" id="email-form-3" name="email-form-3" data-name="Email Form 3" redirect="#" data-redirect="#"
                     method="get"><label for="name-3">Link</label><input type="text" class="w-input" maxlength="256"
-                        name="name-3" data-name="Name 3" placeholder="" id="name-3" /><label
+                        name="name-3" data-name="Name 3" placeholder="" id="name-3" />
+                    <label
                         for="message">Message</label><input type="text" class="w-input" maxlength="256" name="email"
-                        data-name="Email" placeholder="" id="message" /><input type="submit" value="Submit"
+                        data-name="Email" placeholder="" id="message" />
+                        <input type="file" name="file" style="display: block">
+                        <input type="submit" value="SubmitForPayment"
                         data-wait="Please wait..." class="submit-button-4 w-button" /><a
                         data-w-id="dc566ad9-cfde-e623-d49c-404997a643f5" href="#" class="button-7 w-button">Cancel</a>
                 </form>

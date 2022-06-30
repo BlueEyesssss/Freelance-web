@@ -25,16 +25,20 @@ import sample.util.DBUtil;
  */
 public class ProjectDAO {
 
-    private static final String VIEW_ALL_PROJECT = "SELECT projectID, hirerID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, major, createdDate, location, hoursPerWeek\n"
+    private static final String VIEW_ALL_PROJECT = "SELECT P.projectID, hirerID, description, complexity, projectName, P.paymentAmount, durationText, deadlineDate, major, P.createdDate, location, hoursPerWeek\n"
             + "FROM Project P, ExpectedDuration E\n"
-            + "WHERE P.expectedDurationID = E.expectedDurationID";
+            + "WHERE P.expectedDurationID = E.expectedDurationID\n"
+            + "AND P.projectID NOT IN (SELECT projectID FROM Proposal\n"
+            + "WHERE proposalStatusID in (4,5,6,7)) ";
     private static final String CREATE_NEW_FAVORITE_PROJECT = "INSERT INTO FavoriteProject(projectID, seekerID) VALUES(?,?)";
-    private static final String VIEW_FAVORITE_PROJECT = "SELECT FavoriteProject.projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, hirerID, Project.major, createdDate, location, hoursPerWeek \n"
-            + "FROM FavoriteProject, Project, Seeker, ExpectedDuration \n"
-            + "WHERE FavoriteProject.projectID = Project.projectID \n"
-            + "and FavoriteProject.seekerID = Seeker.seekerID \n"
-            + "and ExpectedDuration.expectedDurationID = Project.expectedDurationID \n"
-            + "and FavoriteProject.seekerID = ?";
+    private static final String VIEW_FAVORITE_PROJECT = "SELECT FavoriteProject.projectID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, hirerID, Project.major, createdDate, location, hoursPerWeek\n"
+            + "FROM FavoriteProject, Project, Seeker, ExpectedDuration\n"
+            + "WHERE FavoriteProject.projectID = Project.projectID\n"
+            + "and FavoriteProject.seekerID = Seeker.seekerID\n"
+            + "and ExpectedDuration.expectedDurationID = Project.expectedDurationID\n"
+            + "and FavoriteProject.seekerID = ?\n"
+            + "AND Project.projectID NOT IN (SELECT projectID FROM Proposal\n"
+            + "WHERE proposalStatusID in (4,5,6,7)) ";
     private static final String WIEW_BEST_MATCH_PROJECT = "SELECT P.projectID, P.hirerID, projectName, description, complexity, paymentAmount, E.durationText, deadlineDate, major, createdDate, hoursPerWeek,location"
             + " FROM Project P,Hirer H, ExpectedDuration E,"
             + " (SELECT N.projectID, COUNT(N.skillID)AS matchSkill"
@@ -95,23 +99,23 @@ public class ProjectDAO {
             + ", paymentAmount, expectedDurationID, deadlineDate, location, createdDate, hoursPerWeek, major)\n"
             + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
-    private static final String UPDATE_JOB_POST = "UPDATE Project" +
-        " SET projectName =?, description = ?,complexity=?,paymentAmount=?,expectedDurationID=?,deadlineDate=?," +
-        " location=?,major= ?" +
-        " WHERE projectID = ?";               
-              
-    private static final String GET_PRO_ID_BY_PROPOSAL_ID = "SELECT projectID\n" +
-"FROM Proposal\n" +
-"WHERE proposalID = ?";
-    
-    private static final String GET_ATTACHMENT = "SELECT attachment\n" +
-"FROM Proposal \n" +
-"WHERE proposalID = ?";
-    
-    private static final String GET_SEEKER_ID_BY_PROPOSAL_ID = "SELECT seekerID\n" +
-"FROM Proposal \n" +
-"WHERE proposalID = ?";
-    
+    private static final String UPDATE_JOB_POST = "UPDATE Project"
+            + " SET projectName =?, description = ?,complexity=?,paymentAmount=?,expectedDurationID=?,deadlineDate=?,"
+            + " location=?,major= ?"
+            + " WHERE projectID = ?";
+
+    private static final String GET_PRO_ID_BY_PROPOSAL_ID = "SELECT projectID\n"
+            + "FROM Proposal\n"
+            + "WHERE proposalID = ?";
+
+    private static final String GET_ATTACHMENT = "SELECT attachment\n"
+            + "FROM Proposal \n"
+            + "WHERE proposalID = ?";
+
+    private static final String GET_SEEKER_ID_BY_PROPOSAL_ID = "SELECT seekerID\n"
+            + "FROM Proposal \n"
+            + "WHERE proposalID = ?";
+
     public int getSeekerID(int parseInt) throws SQLException {
         int seekerid = 0;
         Connection conn = null;
@@ -143,7 +147,7 @@ public class ProjectDAO {
         }
         return seekerid;
     }
-    
+
     public String getAttachment(int proposalid) throws SQLException {
         String attachment = null;
         Connection conn = null;
@@ -175,13 +179,13 @@ public class ProjectDAO {
         }
         return attachment;
     }
-    
+
     public String getProjectIDbyProposalID(int parseInt) throws SQLException, ClassNotFoundException {
         String projectID = "";
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        try{
+        try {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(GET_PRO_ID_BY_PROPOSAL_ID);
@@ -204,7 +208,7 @@ public class ProjectDAO {
         }
         return projectID;
     }
-    
+
     public boolean postAJob(ProjectDTO project) throws SQLException, ClassNotFoundException {
         //LocalDate.parse(rs.getString("createdDate"))
         boolean check = false;
@@ -1071,7 +1075,7 @@ public class ProjectDAO {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
-        
+
         try {
             conn = DBUtil.getConnection();
             if (conn != null) {
@@ -1089,7 +1093,7 @@ public class ProjectDAO {
                 check = ptm.executeUpdate() > 0;
                 if (check) {
                     check = true;
-                }              
+                }
             }
 
         } catch (Exception e) {
@@ -1105,7 +1109,4 @@ public class ProjectDAO {
         return check;
     }
 
-    
-
-    
 }
