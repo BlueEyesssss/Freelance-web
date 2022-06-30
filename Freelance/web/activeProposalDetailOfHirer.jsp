@@ -1,4 +1,5 @@
 
+<%@page import="sample.hirer.HirerDTO"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -29,7 +30,7 @@
 </head>
 
 <body class="body-2">
-    <%              
+    <%              HirerDTO loginUser = (HirerDTO) session.getAttribute("USER_LOGIN");
                     ProjectDTO project = (ProjectDTO)request.getAttribute("PROJECT_DETAIL");
                     List<String> listSkill = (List<String>)request.getAttribute("SKILL_PROJECT_NEED");
                     ProposalDTO proposalINf = (ProposalDTO)request.getAttribute("PROPOSAL_PAYMENT_DURATION");
@@ -84,9 +85,9 @@
                         <div class="dropdown-toggle-2 w-dropdown-toggle">
                             <div class="text-block-22">My Job</div>
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">All contract</a><a href="#"
+                        <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
+                                class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="MainController?action=ViewContractOfHirer"
+                                class="dropdown-link-nav w-dropdown-link">All contract</a><a href="MainController?action=ViewContractOfHirer"
                                 class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
                     </div>
                     <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
@@ -103,10 +104,10 @@
                 <div class="navigation-button-wrapper">
                     <div data-hover="false" data-delay="0" class="w-dropdown">
                         <div class="dropdown-toggle w-dropdown-toggle"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                src=<%= loginUser.getAvatar() %>
                                 loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link w-dropdown-link">My Profile</a><a href="#"
+                        <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewHirerProfile"
+                                class="dropdown-link w-dropdown-link">My Profile</a><a href="MainController?action=Logout"
                                 class="dropdown-link w-dropdown-link">Log out</a></nav>
                     </div>
                 </div>
