@@ -59,9 +59,9 @@ public class ProposalDTO {
         this.createdDate = createdDate;
     }
     
-    ProposalDTO( String projectName, String createdDate,int proposalID) {
+    ProposalDTO( String projectName_1, String createdDate,int proposalID) {
         this.proposalID = proposalID;
-        this.projectName = projectName;
+        this.projectName = projectName_1;
         this.createdDate = createdDate;
     }
 
@@ -148,6 +148,7 @@ public class ProposalDTO {
         this.projectName = projectName;
         this.createdDate = createdDate;
     }
+    
 
     public String getSeekerComment() {
         return seekerComment;

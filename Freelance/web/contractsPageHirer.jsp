@@ -147,7 +147,7 @@
                 %>
             <div class="submit-1">
                 <div class="time-submit">Initiated <%= proposal.getCreatedDate() %></div>
-                <div class="project-submit"><a href="MainController?action=ViewPayingContractHirer&proposalID=1" class="job-submit"><%= proposal.getProjectName()  %></a></div>
+                <div class="project-submit"><a href="MainController?action=ViewPayingContractHirer&proposalID=<%= proposal.getProposalID()%>" class="job-submit"><%= proposal.getProjectName()  %></a></div>
                 <div class="general-profile">General Profile</div>
             </div>
             <%
@@ -167,7 +167,7 @@
                 %>
             <div class="submit-1">
                 <div class="time-submit">Initiated <%= proposal.getCreatedDate() %></div>
-                <div class="project-submit"><a href="MainController?action=ViewActiveProposalDetail&proposalID=1" 
+                <div class="project-submit"><a href="MainController?action=ViewActiveProposalDetail&proposalID=<%= proposal.getProposalID()%>" 
                                                class="job-submit"><%= proposal.getProjectName()  %></a></div>
                 <div class="general-profile">General Profile</div>
             </div>

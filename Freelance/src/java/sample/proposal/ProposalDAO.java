@@ -60,12 +60,12 @@ public class ProposalDAO {
             + "WHERE A.projectID = B.projectID \n"
             + "AND (A.proposalStatusID = 6 OR A.proposalStatusID = 7)\n"
             + "AND B.hirerID = ?";
-    private static final String VIEW_WAITING_PROPOSAL_OF_HIRER = "SELECT B.projectName, a.createdDate\n"
+    private static final String VIEW_WAITING_PROPOSAL_OF_HIRER = "SELECT B.projectName, a.createdDate, A.proposalID\n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID = 5\n"
             + "AND B.hirerID = ?";
-    private static final String VIEW_JOB_STARTED_PROPOSAL_OF_HIRER = "SELECT B.projectName, a.createdDate\n"
+    private static final String VIEW_JOB_STARTED_PROPOSAL_OF_HIRER = "SELECT B.projectName, a.createdDate, A.proposalID\n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID = 4\n"
@@ -899,8 +899,9 @@ public class ProposalDAO {
                 while (rs.next()) {
                     String projectName = rs.getString("projectName");
                     String createdDate = rs.getString("createdDate");
+                    int proposalID = rs.getInt("proposalID");
 
-                    list.add(new ProposalDTO(projectName, createdDate));
+                    list.add(new ProposalDTO(projectName, createdDate, proposalID));
                 }
             }
 
@@ -934,8 +935,9 @@ public class ProposalDAO {
                 while (rs.next()) {
                     String projectName = rs.getString("projectName");
                     String createdDate = rs.getString("createdDate");
-
-                    list.add(new ProposalDTO(projectName, createdDate));
+                    int proposalID = rs.getInt("proposalID");
+                    
+                    list.add(new ProposalDTO(projectName, createdDate, proposalID));
                 }
             }
 
