@@ -103,6 +103,79 @@ public class ProjectDAO {
     private static final String GET_PRO_ID_BY_PROPOSAL_ID = "SELECT projectID\n" +
 "FROM Proposal\n" +
 "WHERE proposalID = ?";
+    
+    private static final String GET_ATTACHMENT = "SELECT attachment\n" +
+"FROM Proposal \n" +
+"WHERE proposalID = ?";
+    
+    private static final String GET_SEEKER_ID_BY_PROPOSAL_ID = "SELECT seekerID\n" +
+"FROM Proposal \n" +
+"WHERE proposalID = ?";
+    
+    public int getSeekerID(int parseInt) throws SQLException {
+        int seekerid = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SEEKER_ID_BY_PROPOSAL_ID);
+                ptm.setInt(1, parseInt);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    seekerid = rs.getInt("seekerID");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return seekerid;
+    }
+    
+    public String getAttachment(int proposalid) throws SQLException {
+        String attachment = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ATTACHMENT);
+                ptm.setInt(1, proposalid);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    attachment = rs.getString("attachment");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return attachment;
+    }
+    
     public String getProjectIDbyProposalID(int parseInt) throws SQLException, ClassNotFoundException {
         String projectID = "";
         Connection conn = null;
@@ -1031,6 +1104,8 @@ public class ProjectDAO {
         }
         return check;
     }
+
+    
 
     
 }

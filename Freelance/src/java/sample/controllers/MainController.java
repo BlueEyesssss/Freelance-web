@@ -118,7 +118,8 @@ public class MainController extends HttpServlet {
     private static final String VIEW_ACTIVE_PROPOSAL_DETAIL_HIRER_CONTROLLER = "ViewActiveProposalDetailController";
     private static final String CANCEL_PROJECT_FROM_HIRER = "CancelProJectFromHirer";
     private static final String CANCEL_PROJECT_FROM_HIRER_CONTROLLER = "CancelProJectFromHirerController";
-    
+    private static final String VIEW_PAYING_CONTRACT_DETAIL_HIRER = "ViewPayingContractHirer";
+    private static final String VIEW_PAYING_CONTRACT_DETAIL_HIRER_CONTROLLER = "ViewPayingContractHirerController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -270,6 +271,9 @@ public class MainController extends HttpServlet {
 
             } else if (CANCEL_PROJECT_FROM_HIRER.equals(action)) {
                 url = CANCEL_PROJECT_FROM_HIRER_CONTROLLER;
+
+            } else if (VIEW_PAYING_CONTRACT_DETAIL_HIRER.equals(action)) {
+                url = VIEW_PAYING_CONTRACT_DETAIL_HIRER_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();

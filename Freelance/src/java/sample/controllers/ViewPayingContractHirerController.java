@@ -21,15 +21,15 @@ import sample.proposal.ProposalDTO;
  *
  * @author LENOVO
  */
-@WebServlet(name = "ViewActiveProposalDetailController", urlPatterns = {"/ViewActiveProposalDetailController"})
-public class ViewActiveProposalDetailController extends HttpServlet {
+@WebServlet(name = "ViewPayingContractHirerController", urlPatterns = {"/ViewPayingContractHirerController"})
+public class ViewPayingContractHirerController extends HttpServlet {
     private static final String ERROR = "contractsPageHirer.jsp";
-    private static final String SUCCESS = "activeProposalDetailOfHirer.jsp";
+    private static final String SUCCESS = "payingContractDetailHirer.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+         String url = ERROR;
         try {
             String proposalID = request.getParameter("proposalID");
             
@@ -41,19 +41,23 @@ public class ViewActiveProposalDetailController extends HttpServlet {
             ProjectDTO project = dao.getProjectByID(Integer.parseInt(projectID));
             //lấy skill project need
             List<String> listSkill = dao.getSkillNeedOfProject(Integer.parseInt(projectID));
-            //lấy payment-amout và duration text của proposal
+            //lấy payment-amout và duration text, attachment của proposal
             ProposalDTO proposal = dao.getProposalPaymentAndDuration(Integer.parseInt(proposalID));
-            
+            //lấy attachment
+            String attachment = dao.getAttachment(Integer.parseInt(proposalID));
+            //lấy seekerID
+            int seekerID = dao.getSeekerID(Integer.parseInt(proposalID));
 
             request.setAttribute("PROJECT_DETAIL", project);
             request.setAttribute("SKILL_PROJECT_NEED", listSkill);
             request.setAttribute("PROPOSAL_PAYMENT_DURATION", proposal);
-            
+            request.setAttribute("ATTACHMENT", attachment);
+            request.setAttribute("SEEKERID", seekerID);
 
                 url = SUCCESS;
 
         } catch (Exception e) {
-            log("Error at ViewActiveProposalDetailController: " + e.toString());
+            log("Error at ViewPayingContractHirerController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
