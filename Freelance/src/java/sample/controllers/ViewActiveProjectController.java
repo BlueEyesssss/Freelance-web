@@ -42,12 +42,14 @@ public class ViewActiveProjectController extends HttpServlet {
         try {
             
             int projectID = Integer.parseInt(request.getParameter("projectID"));
+            int proposalID = Integer.parseInt(request.getParameter("proposalID"));
             ProjectDAO dao = new ProjectDAO();
             ProjectDTO project = dao.getProjectByID(projectID);
             if (project != null) {
                 List<String> skillneed = dao.getSkillNeedOfProject(project.getProjectID());
                 project.setSkillneed(skillneed);
                 request.setAttribute("ACTIVE_PROJECT", project);
+                request.setAttribute("PROPOSAL_ID", proposalID);
                 url = SUCCESS;
             }
             

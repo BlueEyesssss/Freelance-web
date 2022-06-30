@@ -98,6 +98,8 @@ public class ProposalDAO {
             + "SET proposalStatusID = 4\n"
             + "WHERE seekerID = ?\n"
             + "AND projectID = ?";
+    
+    
 
     public boolean updateStatusProposal(int seekerID, int projectId) throws SQLException {
         boolean check = false;
@@ -201,7 +203,7 @@ public class ProposalDAO {
         return item;
     }
     
-    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT B.projectID, B.projectName, a.createdDate\n"
+    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT A.proposalID, B.projectID, B.projectName, a.createdDate\n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID = 4\n"
@@ -218,11 +220,12 @@ public class ProposalDAO {
                 ptm.setInt(1, userID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
+                    int proposalID = rs.getInt("proposalID");
                     int projectID = rs.getInt("projectID");
                     String projectName = rs.getString("projectName");
                     String createdDate = rs.getString("createdDate");
 
-                    list.add(new ProposalDTO(projectID, projectName, createdDate));
+                    list.add(new ProposalDTO(proposalID, projectID, projectName, createdDate));
                 }
             }
 

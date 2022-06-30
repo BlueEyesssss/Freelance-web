@@ -120,6 +120,9 @@ public class MainController extends HttpServlet {
     private static final String CANCEL_PROJECT_FROM_HIRER_CONTROLLER = "CancelProJectFromHirerController";
     private static final String VIEW_PAYING_CONTRACT_DETAIL_HIRER = "ViewPayingContractHirer";
     private static final String VIEW_PAYING_CONTRACT_DETAIL_HIRER_CONTROLLER = "ViewPayingContractHirerController";
+    private static final String SUBMIT_FOR_PAYMENT = "SubmitForPayment";
+    private static final String SUBMIT_FOR_PAYMENT_CONTROLLER = "SubmitForPaymentController";
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -135,7 +138,9 @@ public class MainController extends HttpServlet {
                 url = REMOVE_PROJECT_CONTROLLER;    
             } else if (VIEW_ACTIVE_PROJECT.equals(action)) {
                 url = VIEW_ACTIVE_PROJECT_CONTROLLER;    
-                 
+            } else if (SUBMIT_FOR_PAYMENT.equals(action)) {
+                url = SUBMIT_FOR_PAYMENT_CONTROLLER;    
+                   
 
             } else if (SEARCH_JOB_BY_NAME.equals(action)) {
                 url = SEARCH_JOB_BY_NAME_CONTROLLER;
