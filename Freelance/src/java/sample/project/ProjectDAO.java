@@ -74,7 +74,7 @@ public class ProjectDAO {
             + "WHERE p.expectedDurationID = e.expectedDurationID\n"
             + "AND p.projectID = ?";
 
-    private static final String GET_PAYMENT_DURATION_PROPOSAL = "SELECT p.paymentAmount, e.durationText\n"
+    private static final String GET_PAYMENT_DURATION_PROPOSAL = "SELECT p.link, p.message, p.fileName, p.path, p.paymentAmount, e.durationText\n"
             + "FROM Proposal p, ExpectedDuration e\n"
             + "WHERE p.expectedDurationID = e.expectedDurationID\n"
             + "AND p.proposalID = ?";
@@ -315,9 +315,13 @@ public class ProjectDAO {
                 ptm.setInt(1, proposalid);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
+                    String link = rs.getString("link");
+                    String message = rs.getString("message");
+                    String fileName = rs.getString("fileName");
+                    String path = rs.getString("path");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
                     String durationText = rs.getString("durationText");
-                    proposal = new ProposalDTO(proposalid, paymentAmount, durationText);
+                    proposal = new ProposalDTO(link, message, fileName, path, proposalid, paymentAmount, durationText);
                 }
             }
 

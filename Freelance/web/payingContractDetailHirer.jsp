@@ -1,19 +1,21 @@
 
+<%@page import="java.time.LocalDate"%>
 <%@page import="sample.hirer.HirerDTO"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.project.ProjectDTO"%>
-<!DOCTYPE html>
-<html data-wf-domain="paying-contract-detail.webflow.io" data-wf-page="62a9e83fddb1ab64393172c5"
-    data-wf-site="62a9e83fddb1abc7aa3172c4">
+<!DOCTYPE html><!-- This site was created in Webflow. https://www.webflow.com -->
+<!-- Last Published: Thu Jun 30 2022 19:55:16 GMT+0000 (Coordinated Universal Time) -->
+<html data-wf-domain="huynh-tan-phats-continue.webflow.io" data-wf-page="62bdf9a94a3336d92ff4149e"
+    data-wf-site="62bdf9a94a3336c64bf4149d">
 
 <head>
     <meta charset="utf-8" />
-    <title>Paying contract detail</title>
+    <title>Paying Contract</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
     <link
-        href="https://uploads-ssl.webflow.com/62a9e83fddb1abc7aa3172c4/css/paying-contract-detail.webflow.f363e2c09.css"
+        href="https://uploads-ssl.webflow.com/62bdf9a94a3336c64bf4149d/css/huynh-tan-phats-continue.webflow.4f43e6499.css"
         rel="stylesheet" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
     <script
@@ -26,13 +28,15 @@
 </head>
 
 <body class="body">
-    <%              HirerDTO loginUser = (HirerDTO) session.getAttribute("USER_LOGIN");
-                    ProjectDTO project = (ProjectDTO)request.getAttribute("PROJECT_DETAIL");
-                    List<String> listSkill = (List<String>)request.getAttribute("SKILL_PROJECT_NEED");
-                    ProposalDTO proposalINf = (ProposalDTO)request.getAttribute("PROPOSAL_PAYMENT_DURATION");
-                    String attachment = (String) request.getAttribute("ATTACHMENT");
-                    int seekerID = (int)request.getAttribute("SEEKERID");
-                %>
+    <%              
+    HirerDTO loginUser = (HirerDTO) session.getAttribute("USER_LOGIN");
+    ProjectDTO project = (ProjectDTO)request.getAttribute("PROJECT_DETAIL");
+    List<String> listSkill = (List<String>)request.getAttribute("SKILL_PROJECT_NEED");
+    ProposalDTO proposalINf = (ProposalDTO)request.getAttribute("PROPOSAL_PAYMENT_DURATION");
+    String attachment = (String) request.getAttribute("ATTACHMENT");
+    int seekerID = (int)request.getAttribute("SEEKERID");
+    LocalDate localDate = LocalDate.now();
+    %>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation-2 seeker w-nav">
         <div class="navigation-container-2">
@@ -60,7 +64,7 @@
                 </div>
             </div>
             <div class="icon-wrapper">
-                <div>
+                <div class="div-block-3">
                     <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                         <div class="dropdown-toggle-2 w-dropdown-toggle">
                             <div class="text-block-22">My Job</div>
@@ -74,7 +78,8 @@
                         <div class="dropdown-toggle-3 w-dropdown-toggle">
                             <div class="text-block-22">Find Talent</div>
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"></nav>
+                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
+                                class="dropdown-moi-qua-troi-moi w-dropdown-link">Find Talent</a></nav>
                     </div>
                 </div><a href="#" class="link-block w-inline-block"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
@@ -97,184 +102,86 @@
             </div>
         </div>
     </div>
-    <div class="container w-container">
-        <div class="text-block-23">Paying contract detail</div>
-    </div>
-    <div class="proposal-detail-wrapped w-container">
-        <div class="proposal-text">
-            <div class="div-block">
-                <div class="job-details-wrapper-2">
-                    <div class="job-details-text">
-                        <div class="job-details">Job details</div>
+    <div class="div-block-50-copy">
+        <h1 class="heading-13">Paying Contract</h1>
+        <div class="div-block-30-copy">
+            <div class="div-block-31">
+                <h3 class="heading-10"><%= project.getProjectName() %></h3>
+                <div class="text-block-34">Posted <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear()%> days ago</div>
+                <div class="text-block-34"><%= project.getDescription() %></div>
+                <div class="div-block-34">
+                    <div class="div-block-35">
+                        <div class="div-block-39">
+                            <div class="text-block-38"><strong class="bold-text-3"><%= project.getHoursPerWeek() %> Hours per week</strong></div>
+                        </div>
+                        <div class="div-block-39">Hourly</div>
+                    </div>
+                    <div class="div-block-35">
+                        <div class="div-block-39"><strong class="bold-text-3"><%= project.getDurationText() %></strong></div>
+                        <div class="div-block-39">Project Length</div>
+                    </div>
+                    <div class="div-block-37">
+                        <div class="div-block-39"><strong><%= project.getComplexity() %></strong></div>
+                        <div class="div-block-39">Understanding</div>
+                    </div>
+                    <div class="div-block-35">
+                        <div class="div-block-39"><strong class="bold-text-3"><%= project.getPaymentAmount() %>$</strong></div>
+                        <div class="div-block-39">Budget</div>
                     </div>
                 </div>
-                <div class="div-block-2">
-                    <div class="looking-for-details">
-                        <div class="java-backend-wrapper">
-                            <div class="java-backend-2"><%= project.getProjectName() %></div>
-                        </div>
-                        <div class="backend-dev-wrapper">
-                            <div class="backend-dev">
-                                <div class="backend-dev-text"><%= project.getMajor()%></div>
-                            </div>
-                            <div class="posted">
-                                <div class="post-time">Posted <%= project.getCreatedDate()%></div>
-                            </div>
-                        </div>
-                        <div class="description">
-                            <div class="description-text"><%= project.getDescription()%>.</div>
-                        </div>
-                    </div>
-                    <div class="intermediate-2">
-                        <div>
-                            <div class="intermediate-wrapper"><strong class="intermediate-2">About <%= project.getHoursPerWeek()%> hours/week</strong></div>
-                        </div>
-                        <div class="experience-wrapper">
-                            <div class="experience">Hourly</div>
-                        </div>
-                        <div class="_1-to-3-months-wrapper">
-                            <div class="_1-to-3-months"><strong><%= project.getDurationText()%></strong></div>
-                        </div>
-                        <div class="project-length-wrapper">
-                            <div class="project-length">Project Length</div>
-                            <div class="_1-to-3-months"><strong><%= project.getComplexity()%></strong></div>
-                        </div>
-                        <div class="project-length">I am looking for mix of experience<br />and value</div>
-                        <div class="_1-to-3-months"><strong><%= project.getPaymentAmount()%> $</strong></div>
-                        <div class="project-length">Budget</div>
-                    </div>
+                <div class="div-block-42">
+                    <p class="paragraph-2"><%= project.getDescription() %></p>
                 </div>
-                <div class="div-block-3">
-                    <div class="skills-and-expertise-wrapper">
-                        <div class="skills-and-expertise">Skills and expertise</div>
-                    </div>
-                    <div class="java-wrapper">
+                <h4 class="heading-11">Skill and Expertise</h4>
+                <div class="div-block-40">
+                    <div class="list-skill-copy">
+                        
                         <%
                             for (String elem : listSkill) {
                                     %>
-                                    <div class="java"><%= elem %></div>
+                        <div class="skill-wrapper">
+                            <div class="text-block-26"><%= elem %></div>
+                        </div>
+                        <div style="width: 10px"></div>
                         <%
                                 }
                         %>
+                        
                     </div>
                 </div>
-                <div class="job-term-2">
-                    <div class="proposal-term">
-                        <div class="your-proposed-terms-wrapper">
-                            <div class="your-proposed-terms">Your proposed terms<br /></div>
-                        </div>
-                        <div class="total-price-wrapper">
-                            <div class="total-price">Total price of project</div>
-                            <div>
-                                <div class="include">This includes all milestones, and is the amount your client will
-                                    see.</div>
-                            </div>
-                            <div>
-                                <div class="money">$<%= proposalINf.getPaymentAmount() %></div>
-                            </div>
-                            <div class="text-block-53">Expected duration: <%= proposalINf.getDurationText()%></div>
-                        </div>
+                <div class="div-block-60">
+                    <h4 class="heading-14">Your Proposed Term</h4>
+                    <div class="text-block-40">This includes all milestones, and is the amount your client will see.
                     </div>
-                    <div class="budget">
-                        <div class="client-s-budget-wrapper">
-                            <div class="client-s-budget"></div>
-                        </div>
-                    </div>
+                    <div><em class="italic-text">Payment Amount:</em> $<%= proposalINf.getPaymentAmount() %>$</div>
+                    <div class="text-block-43"><em class="italic-text-2">Expected duration:</em> <%= proposalINf.getDurationText()%></div>
                 </div>
-                <div class="link-product-wrapped">
-                    <div>
-                        <div class="text-block-54">Link product: </div>
-                    </div>
-                    <div class="read-only-product-link-wrapped">
-                        <div><%= attachment %></div>
-                    </div>
-                </div>
-                <div class="div-block-19">
-                    <div class="change-term-button-wrapper"><a href="#" class="button-term w-button">Payment</a></div>
-                    <div><a href="#" class="button-5 w-button">Report Seeker</a></div>
-                </div>
-                <div class="change-term">
-                    <div class="milestones-include"></div>
-                    <div class="div-block-4">
-                        <div class="div-wrapper">
-                            <div class="div-block-16"></div>
-                            <div>
-                                <div class="text-block-31"><strong class="bold-text-4">What is the full amount
-                                        you&#x27;d like to bid for this job?</strong></div>
-                            </div>
-                            <div class="div-block-7">
-                                <div class="bid-wrapper">
-                                    <div class="bid">
-                                        <div>
-                                            <div class="text-block-28">Bid</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-block-29">Total amount the client will see on your proposal
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="money-wrapped">
-                                        <div class="w-form">
-                                            <form id="email-form-3" name="email-form-3" data-name="Email Form 3"
-                                                method="get"><input type="text" class="money-inputted w-input"
-                                                    maxlength="256" name="field" data-name="Field" placeholder=""
-                                                    id="field" required="" /></form>
-                                            <div class="w-form-done">
-                                                <div>Thank you! Your submission has been received!</div>
-                                            </div>
-                                            <div class="w-form-fail">
-                                                <div>Oops! Something went wrong while submitting the form.</div>
-                                            </div>
-                                        </div><img
-                                            src="https://uploads-ssl.webflow.com/629c424355a84f5cdfb5f94b/629d5ce3e4ddd9049f96a4a7_800px-Dollar_Sign.svg.png"
-                                            loading="lazy" width="23" alt="" class="image-17" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="div-block-9">
-                                <div>
-                                    <div class="w-form">
-                                        <form id="email-form-5" name="email-form-5" data-name="Email Form 5"
-                                            method="get"><label for="field-3" class="field-label"><strong
-                                                    class="bold-text-6">How long do you think this project will
-                                                    take?</strong></label><select id="field-3" name="field-3"
-                                                data-name="Field 3" class="select-field w-select">
-                                                <option value="">Less than 1 month</option>
-                                                <option value="Third">1 to 3 month</option>
-                                                <option value="Second">3 to 6 month</option>
-                                                <option value="First">More than 6 month</option>
-                                            </select></form>
-                                        <div class="w-form-done">
-                                            <div>Thank you! Your submission has been received!</div>
-                                        </div>
-                                        <div class="w-form-fail">
-                                            <div>Oops! Something went wrong while submitting the form.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="div-block-14"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="div-block-61">
+                    <h4 class="heading-15">The Sumitted Work</h4>
+                    <div class="text-block-42"><em style="margin-left: 0px;" class="italic-text-2">Link Work:</em> <%= proposalINf.getLink() %></div>
+                    <div class="text-block-41"><em style="margin-left: 0px;" class="italic-text-2">Message:</em> <%= proposalINf.getMessage() %></div>
+                    <div class="text-block-41"><em style="margin-left: 0px;" class="italic-text-2">Attached File:</em> <a href="DownloadFileController?fileName=<%= proposalINf.getFileName() %>" style="color: grey;">Download</a></div>
+
                 </div>
             </div>
-            <div class="div-block-17"><a href="#" class="button-4 w-button">Submit</a><a href="#"
-                    class="button-3 w-button">Cancel</a></div>
-        </div>
-    </div>
-    <div class="pop-up-wrapped">
-        <div class="pop-up">
-            <div class="sure-cancel-project">
-                <div>Are you sure want to cancel project ?</div>
+            <div class="div-block-32">
+                <div class="div-block-41">
+                    <h4 class="heading-12">About the Client</h4>
+                    <div class="text-block-39"><strong>Company: <%= loginUser.getCompanyName() %></strong></div>
+                    <div class="text-block-39-copy"><%= loginUser.getLocation() %></div>
+                    <div class="text-block-39"><strong><%= loginUser.getJobPosted() %> Jobs Posted</strong></div>
+                    <div class="text-block-39-copy">The total number of Job Posted</div>
+                    <div class="text-block-39">Member since <%= loginUser.getRegistrationDate() %></div>
+                </div>
+                <div class="div-block-59"><a href="#" class="button-5-copy w-button">Pay Money</a><a href="#"
+                        class="button-6-copy w-button">Report Seeker</a></div>
             </div>
-            <div class="yes-no-button-wrapped"><a href="#" class="button-6 w-button">Yes, cancel project</a><a href="#"
-                    class="button-7 w-button">No, staying on project</a></div>
         </div>
     </div>
-    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=62a9e83fddb1abc7aa3172c4"
+    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=62bdf9a94a3336c64bf4149d"
         type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>
-    <script src="https://uploads-ssl.webflow.com/62a9e83fddb1abc7aa3172c4/js/webflow.33cb91107.js"
+    <script src="https://uploads-ssl.webflow.com/62bdf9a94a3336c64bf4149d/js/webflow.2211b37e9.js"
         type="text/javascript"></script>
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>

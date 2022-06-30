@@ -31,6 +31,43 @@ public class ProposalDTO {
     private String durationText;
     private int hirerID;
     private SeekerDTO seeker;
+    private String link;
+    private String message;
+    private String fileName;
+    private String path;
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+    
 
     ProposalDTO(int proposalID, int seekerID, int proposalStatusID, double paymentAmount, String coverLetter, String attachment, String expectedDurationText) {
         this.projectID = proposalID;
@@ -70,6 +107,16 @@ public class ProposalDTO {
         this.projectID = projectID;
         this.projectName = projectName;
         this.createdDate = createdDate;
+    }
+
+    public ProposalDTO(String link, String message, String fileName, String path, int proposalid, double paymentAmount, String durationText) {
+        this.link = link;
+        this.message = message;
+        this.fileName = fileName;
+        this.path = path;
+        this.proposalID = proposalid;
+        this.paymentAmount = paymentAmount;
+        this.durationText = durationText;
     }
 
     public SeekerDTO getSeeker() {
