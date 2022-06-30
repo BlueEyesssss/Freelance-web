@@ -29,8 +29,8 @@
                     ProjectDTO project = (ProjectDTO)request.getAttribute("PROJECT_DETAIL");
                     List<String> listSkill = (List<String>)request.getAttribute("SKILL_PROJECT_NEED");
                     ProposalDTO proposalINf = (ProposalDTO)request.getAttribute("PROPOSAL_PAYMENT_DURATION");
-                    String attachment = (String) request.getParameter("ATTACHMENT");
-                    String seekerID = request.getParameter("SEEKERID");
+                    String attachment = (String) request.getAttribute("ATTACHMENT");
+                    int seekerID = (int)request.getAttribute("SEEKERID");
                 %>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation-2 seeker w-nav">
