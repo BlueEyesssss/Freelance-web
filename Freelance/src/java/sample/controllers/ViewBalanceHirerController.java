@@ -6,11 +6,16 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import sample.hirer.HirerDTO;
+import sample.transactionhandling.TransactionHandlingDAO;
+import sample.transactionhandling.TransactionHandlingDTO;
 
 /**
  *
@@ -18,20 +23,29 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ViewBalanceHirerController", urlPatterns = {"/ViewBalanceHirerController"})
 public class ViewBalanceHirerController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private final String ERROR = "error.html";
+    private final String SUCCESS = "test-balance-page-hirer.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        String url = ERROR;
+        try {
+            HttpSession session = request.getSession();
+            HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
+            
+            TransactionHandlingDAO dao = new TransactionHandlingDAO();
+            //lấy list history transaction của rút tiền
+            List<TransactionHandlingDTO> listTransactionHistory = dao.getListTranHistory(hirer.getHirerID());
+            
+            request.setAttribute("LIST_TRANSACTION_HITORY", listTransactionHistory);
+            
+            url = SUCCESS;
+        } catch (Exception e) {
+            log("Error at ViewBalanceHirerController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

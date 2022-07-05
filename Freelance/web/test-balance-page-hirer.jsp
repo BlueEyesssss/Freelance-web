@@ -4,6 +4,8 @@
     Author     : LENOVO
 --%>
 
+<%@page import="sample.transactionhandling.TransactionHandlingDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="sample.hirer.HirerDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,11 +17,50 @@
     <body>
         <%
             HirerDTO hirer = (HirerDTO)session.getAttribute("USER_LOGIN");
+            List<TransactionHandlingDTO> listTranHis = (List<TransactionHandlingDTO>)request.getAttribute("LIST_TRANSACTION_HITORY");
         %>
         <h1>Hello <%= hirer.getFullName() %></h1>
         <form action="MainController">
-            your balance: <input type="text" name="balance" value="" />
+            your balance: <input type="text" name="balance" value="<%= hirer.getBalance() %>" readonly=""/>
+            <input type="submit" value="Recharge" name="action" />
+            <input type="submit" value="Cash out" name="action" />
         </form>
-        <p>Your balance: <%=  %></p>
+            <table border="1">
+                    <thead>
+                        <tr>
+                            <th>transaction id</th>
+                            <th>name hirer - money cash out - date create</th>
+                            <th>status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            <%
+                if(listTranHis != null){
+                for (TransactionHandlingDTO elem : listTranHis) {
+                %>
+                        <tr>
+                            <td><%= elem.getTransactionHandlingID() %></td>
+                            <td><%=hirer.getFullName() %> - <%= elem.getAmountMonney()%>$ - <%= elem.getDateCreate()%></td>
+                            <td>
+                                <%
+                                    if(elem.getStatus() == false){
+                                    %>
+                                    Processing...
+                                <%
+                                    }else{
+                                     %>
+                                     Done
+                                    <%
+                                    }
+                                %>
+                            </td>
+                        </tr>
+        <%
+                    }
+                }
+            %>
+                 </tbody>
+            </table>
+
     </body>
 </html>
