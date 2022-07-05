@@ -124,6 +124,8 @@ public class MainController extends HttpServlet {
     private static final String SUBMIT_FOR_PAYMENT_CONTROLLER = "SubmitForPaymentController";
     private static final String PAY_MONEY = "PayMoney";
     private static final String PAY_MONEY_CONTROLLER = "PayMoneyController";
+    private static final String FEEDBACK_OF_SEEKER = "FeedbackOfSeeker";
+    private static final String FEEDBACK_OF_SEEKER_CONTROLLER = "FeedbackOfSeekerController";
     
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -283,6 +285,9 @@ public class MainController extends HttpServlet {
 
             } else if (VIEW_PAYING_CONTRACT_DETAIL_HIRER.equals(action)) {
                 url = VIEW_PAYING_CONTRACT_DETAIL_HIRER_CONTROLLER;
+                
+            } else if (FEEDBACK_OF_SEEKER.equals(action)) {
+                url = FEEDBACK_OF_SEEKER_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();

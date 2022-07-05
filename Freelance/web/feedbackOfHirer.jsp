@@ -1,18 +1,13 @@
-<%@page import="java.time.LocalDate"%>
-<%@page import="sample.proposal.ProposalDTO"%>
 <!DOCTYPE html>
-<html data-wf-domain="proposal-detail-fixed.webflow.io" data-wf-page="62a465457706753f67d0853e"
-    data-wf-site="62a2177bc3e3fe325e19629d">
+<html data-wf-domain="feedback-for-hirer.webflow.io" data-wf-page="62c2ed5bd85e4933a15d234e"
+    data-wf-site="62c2ed5bd85e4981bd5d234d">
 
 <head>
     <meta charset="utf-8" />
-    <title>Feedback for seeker</title>
-    <meta content="Not Found" property="og:title" />
-    <meta content="Not Found" property="twitter:title" />
+    <title>feedback for hirer</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
-    <link
-        href="https://uploads-ssl.webflow.com/62a2177bc3e3fe325e19629d/css/proposal-detail-fixed.webflow.ecb309e21.css"
+    <link href="https://uploads-ssl.webflow.com/62c2ed5bd85e4981bd5d234d/css/feedback-for-hirer.webflow.b88abd168.css"
         rel="stylesheet" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
     <script
@@ -27,8 +22,7 @@
     ProposalDTO proposal = (ProposalDTO)request.getAttribute("PROPOSAL");
     if(proposal!= null){
         %>
-
-<body class="body-2">
+<body>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation-2 seeker w-nav">
         <div class="navigation-container-2">
@@ -42,8 +36,8 @@
                     <div class="nav-search-input-2">
                         <div class="w-form">
                             <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
-                                    type="text" class="search-input-2 w-input" maxlength="256" name="name"
-                                    data-name="Name" placeholder="" id="name" /><input type="submit" value="Submit"
+                                    type="text" class="search-input-2 w-input" maxlength="256" name="name-2"
+                                    data-name="Name 2" placeholder="" id="name-2" /><input type="submit" value="Submit"
                                     data-wait="Please wait..." class="submit-button-2 w-button" /></form>
                             <div class="w-form-done">
                                 <div>Thank you! Your submission has been received!</div>
@@ -59,20 +53,18 @@
                 <div>
                     <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                         <div class="dropdown-toggle-2 w-dropdown-toggle">
-                            <div class="text-block-22">Find Work</div>
-                        </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Save Jobs</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
-                    </div>
-                    <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
-                        <div class="dropdown-toggle-3 w-dropdown-toggle">
                             <div class="text-block-22">My Job</div>
                         </div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">My Job</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">All Constract</a></nav>
+                                class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="#"
+                                class="dropdown-link-nav w-dropdown-link">All contract</a><a href="#"
+                                class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
+                    </div>
+                    <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
+                        <div class="dropdown-toggle-3 w-dropdown-toggle">
+                            <div class="text-block-22">Find Talent</div>
+                        </div>
+                        <nav class="dropdown-list-2 w-dropdown-list"></nav>
                     </div>
                 </div><a href="#" class="link-block w-inline-block"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
@@ -178,19 +170,11 @@
                     </div>
                 </div>
                 <div class="div-block-19">
-                    <div data-w-id="a168628b-3e2a-c4f6-1e92-9a20af08d4b6" class="change-term-button-wrapper">
+                    <div data-w-id="8ad3253d-7034-aa90-51f1-bd824323c70b" class="change-term-button-wrapper">
                         <div data-current="Tab 1" data-easing="ease" data-duration-in="300" data-duration-out="100"
                             class="tabs w-tabs">
-                            <%
-                                String endDate = request.getAttribute("END_DATE");
-                                LocalDate localDate = LocalDate.now();
-                                localDate.minusDays(7);
-                                boolean checkDate = localDate.isBefore(proposal.getEndDate());
-                            if(checkDate){
-                                %>
-                            
                             <div class="tabs-menu w-tab-menu"><a data-w-tab="Tab 1"
-                                    data-w-id="b73016ce-0635-bdd6-b96a-ebf8df224f76"
+                                    data-w-id="8ad3253d-7034-aa90-51f1-bd824323c70e"
                                     class="feedback-button tabs-menu w-inline-block w-tab-link w--current">
                                     <div class="feedback">Feedback</div>
                                 </a></div>
@@ -198,20 +182,21 @@
                                 <div data-w-tab="Tab 1" class="feedback-tab w-tab-pane w--tab-active">
                                     <div class="feedback-wrapper">
                                         <div class="w-form">
-                                            <form action="MainController" id="email-form-6" name="email-form-6" data-name="Email Form 6"
+                                            
+                                            <form id="email-form-6" name="email-form-6" data-name="Email Form 6"
                                                 method="get" class="form"><label for="name"
                                                                              class="field-label-2">Feedback Grade</label><input type="number"
-                                                    class="text-field-3 w-input" maxlength="256" name="seekerGrade"
+                                                    class="text-field-3 w-input" maxlength="256" name="name-2"
                                                     data-name="Name 2" placeholder="" id="name-2" /><label for="field-4"
                                                     class="field-label-3">Comment</label><textarea placeholder=""
-                                                    maxlength="5000" id="field-4" name="seekerComment" data-name="field"
+                                                    maxlength="5000" id="field-4" name="field-4" data-name="field"
                                                     class="textarea-2 w-input"></textarea>
                                                     <input type="hidden" name ="proposalID" value="<%=proposal.getProposalID()%>"/>
-                                                    
-                                                    <button type="submit" name="action" value="FeedbackOfSeeker" class="send-feedback w-button">Send</button>
+                                                    <button type="submit" name="action" value="FeedbackOfHirer" class="send-feedback w-button">Send</button>
                                                     
                                                     <a data-w-id="971ae8b1-0d9e-55af-f002-1a17c568fb54" href="#" class="cancel-feedback w-button">Cancel</a>
                                             </form>
+                                                    
                                             <div class="w-form-done">
                                                 <div>Thank you! Your submission has been received!</div>
                                             </div>
@@ -222,9 +207,6 @@
                                     </div>
                                 </div>
                             </div>
-                                                    <%
-                            }
-                            %>
                         </div>
                     </div>
                 </div>
@@ -276,14 +258,14 @@
             </div>
         </div>
     </div>
-    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=62a2177bc3e3fe325e19629d"
+    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=62c2ed5bd85e4981bd5d234d"
         type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>
-    <script src="https://uploads-ssl.webflow.com/62a2177bc3e3fe325e19629d/js/webflow.62d7f7ea2.js"
+    <script src="https://uploads-ssl.webflow.com/62c2ed5bd85e4981bd5d234d/js/webflow.574a4c0ec.js"
         type="text/javascript"></script>
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
 <%
-    }
+}
 %>
 </html>

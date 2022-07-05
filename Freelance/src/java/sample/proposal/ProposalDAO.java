@@ -99,8 +99,13 @@ public class ProposalDAO {
             + "WHERE seekerID = ?\n"
             + "AND projectID = ?";
     
+    private static final String UPDATE_FEEDBACK_OF_SEEKER = "UPDATE Proposal\n"
+            + "SET seekerGrade = ?, seekerComment=? \n"
+            + "WHERE proposalID = ?";
     
-
+private static final String GET_END_DATE_OF_CONTRACT = ""
+    
+    
     public boolean updateStatusProposal(int seekerID, int projectId) throws SQLException {
         boolean check = false;
         Connection con = null;
@@ -1040,6 +1045,63 @@ public class ProposalDAO {
             }
         }
         return list;
+    }
+
+    public boolean seekerFeedback(int proposalID, int seekerGrade, String seekerComment) throws SQLException {
+        boolean checkFeedback = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_FEEDBACK_OF_SEEKER);
+                ptm.setInt(1,seekerGrade );
+                ptm.setString(2, seekerComment);
+                ptm.setInt(3, proposalID);
+                
+                checkFeedback = ptm.executeUpdate() > 0;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return checkFeedback;
+    }
+
+    public String getEndDateOfContract(int proposalID) throws SQLException {
+        String endDate = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_END_DATE_OF_CONTRACT);
+                ptm.setInt(1, proposalID);
+                rs = ptm.executeQuery();                                                     
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return endDate;
     }
 
 }
