@@ -7,6 +7,7 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,11 +31,13 @@ public class ViewDoneContractController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String proposalID = request.getParameter("proposalID");
+            int proposalID = Integer.parseInt(request.getParameter("proposalID"));
             ProposalDAO dao = new ProposalDAO();
-            ProposalDTO proposal = dao.getProposalByID(Integer.parseInt(proposalID));
+            ProposalDTO proposal = dao.getProposalByID(proposalID);
+            LocalDate endDate = LocalDate.parse(dao.getEndDateOfContract(proposalID));
             if(proposal!= null){
                 request.setAttribute("PROPOSAL", proposal);
+                request.setAttribute("END_DATE", endDate);
                 url = SUCCESS;
             }
         } catch (Exception e) {

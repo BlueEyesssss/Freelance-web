@@ -34,9 +34,9 @@ public class FeedbackOfSeekerController extends HttpServlet {
             String seekerComment = request.getParameter("seekerComment");
             ProposalDAO dao = new ProposalDAO();
             boolean checkFeedback = dao.seekerFeedback(proposalID,seekerGrade,seekerComment);
-            String endDate = dao.getEndDateOfContract(proposalID);
+            
             if(checkFeedback){
-                request.setAttribute("END_DATE", endDate);
+                
                 url = SUCCESS;
             }
         } catch (Exception e) {

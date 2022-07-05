@@ -103,7 +103,7 @@ public class ProposalDAO {
             + "SET seekerGrade = ?, seekerComment=? \n"
             + "WHERE proposalID = ?";
     
-private static final String GET_END_DATE_OF_CONTRACT = ""
+private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Contract WHERE proposalID = ?";
     
     
     public boolean updateStatusProposal(int seekerID, int projectId) throws SQLException {
