@@ -55,7 +55,7 @@ public class ProposalDAO {
             + "AND A.proposalStatusID = 5\n"
             + "AND A.seekerID = ?";
 
-    private static final String VIEW_DONE_PROPOSAL_OF_HIRER = "SELECT B.projectName, a.createdDate\n"
+    private static final String VIEW_DONE_PROPOSAL_OF_HIRER = "SELECT A.proposalID,B.projectName, a.createdDate\n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND (A.proposalStatusID = 6 OR A.proposalStatusID = 7)\n"
@@ -101,6 +101,10 @@ public class ProposalDAO {
     
     private static final String UPDATE_FEEDBACK_OF_SEEKER = "UPDATE Proposal\n"
             + "SET seekerGrade = ?, seekerComment=? \n"
+            + "WHERE proposalID = ?";
+    
+    private static final String UPDATE_FEEDBACK_OF_HIRER = "UPDATE Proposal\n"
+            + "SET clientGrade = ?, clientComment=? \n"
             + "WHERE proposalID = ?";
     
 private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Contract WHERE proposalID = ?";
@@ -952,10 +956,12 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
                 ptm.setInt(1, userID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
+                    
+                    int proposalID = rs.getInt("proposalID");
                     String projectName = rs.getString("projectName");
                     String createdDate = rs.getString("createdDate");
 
-                    list.add(new ProposalDTO(projectName, createdDate));
+                    list.add(new ProposalDTO(projectName, createdDate,proposalID));
                 }
             }
 
@@ -1074,9 +1080,37 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
         }
         return checkFeedback;
     }
+    
+    public boolean hirerFeedback(int proposalID, int clientGrade, String clientComment) throws SQLException {
+        boolean checkFeedback = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_FEEDBACK_OF_HIRER);
+                ptm.setInt(1,clientGrade );
+                ptm.setString(2, clientComment);
+                ptm.setInt(3, proposalID);
+                
+                checkFeedback = ptm.executeUpdate() > 0;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return checkFeedback;
+    }
 
     public String getEndDateOfContract(int proposalID) throws SQLException {
-        String endDate = null;
+        String endDate = "";
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -1085,7 +1119,10 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
             if (conn != null) {
                 ptm = conn.prepareStatement(GET_END_DATE_OF_CONTRACT);
                 ptm.setInt(1, proposalID);
-                rs = ptm.executeQuery();                                                     
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    endDate = rs.getString("endTime");
+                }
             }
 
         } catch (Exception e) {

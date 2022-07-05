@@ -1,3 +1,5 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="sample.proposal.ProposalDTO"%>
 <!DOCTYPE html>
 <html data-wf-domain="feedback-for-hirer.webflow.io" data-wf-page="62c2ed5bd85e4933a15d234e"
     data-wf-site="62c2ed5bd85e4981bd5d234d">
@@ -173,6 +175,11 @@
                     <div data-w-id="8ad3253d-7034-aa90-51f1-bd824323c70b" class="change-term-button-wrapper">
                         <div data-current="Tab 1" data-easing="ease" data-duration-in="300" data-duration-out="100"
                             class="tabs w-tabs">
+                            <%
+                                LocalDate endDate = (LocalDate)request.getAttribute("END_DATE");
+                                LocalDate curent = LocalDate.now();                                
+                            if(curent.isBefore(endDate.plusDays(7)) && curent.isAfter(endDate)){
+                                %>
                             <div class="tabs-menu w-tab-menu"><a data-w-tab="Tab 1"
                                     data-w-id="8ad3253d-7034-aa90-51f1-bd824323c70e"
                                     class="feedback-button tabs-menu w-inline-block w-tab-link w--current">
@@ -183,13 +190,13 @@
                                     <div class="feedback-wrapper">
                                         <div class="w-form">
                                             
-                                            <form id="email-form-6" name="email-form-6" data-name="Email Form 6"
+                                            <form action="MainController" id="email-form-6" name="email-form-6" data-name="Email Form 6"
                                                 method="get" class="form"><label for="name"
                                                                              class="field-label-2">Feedback Grade</label><input type="number"
-                                                    class="text-field-3 w-input" maxlength="256" name="name-2"
+                                                    class="text-field-3 w-input" maxlength="256" name="clientGrade"
                                                     data-name="Name 2" placeholder="" id="name-2" /><label for="field-4"
                                                     class="field-label-3">Comment</label><textarea placeholder=""
-                                                    maxlength="5000" id="field-4" name="field-4" data-name="field"
+                                                    maxlength="5000" id="field-4" name="clientComment" data-name="field"
                                                     class="textarea-2 w-input"></textarea>
                                                     <input type="hidden" name ="proposalID" value="<%=proposal.getProposalID()%>"/>
                                                     <button type="submit" name="action" value="FeedbackOfHirer" class="send-feedback w-button">Send</button>
@@ -207,6 +214,9 @@
                                     </div>
                                 </div>
                             </div>
+                                                                    <%
+                            }
+                            %>
                         </div>
                     </div>
                 </div>

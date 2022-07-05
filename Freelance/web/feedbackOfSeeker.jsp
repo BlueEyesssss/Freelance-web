@@ -1,4 +1,3 @@
-<%@page import="java.time.temporal.TemporalQueries.localDate()"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <!DOCTYPE html>
@@ -183,11 +182,9 @@
                         <div data-current="Tab 1" data-easing="ease" data-duration-in="300" data-duration-out="100"
                             class="tabs w-tabs">
                             <%
-                                localDate endDate = (localDate)request.getAttribute("END_DATE");
-                                LocalDate localDate = LocalDate.now();
-                                localDate.minusDays(7);
-                                boolean checkDate = localDate.isBefore(endDate);
-                            if(checkDate){
+                                LocalDate endDate = (LocalDate)request.getAttribute("END_DATE");
+                                LocalDate curent = LocalDate.now();                                
+                            if(curent.isBefore(endDate.plusDays(7)) && curent.isAfter(endDate)){
                                 %>
                             
                             <div class="tabs-menu w-tab-menu"><a data-w-tab="Tab 1"
