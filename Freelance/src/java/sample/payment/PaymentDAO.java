@@ -17,7 +17,7 @@ import sample.util.DBUtil;
  */
 public class PaymentDAO {
 
-    private static final String GET_CLIENT_ID_SECRET = "SELECT seekerID, CLIENT_ID, CLIENT_SECRET\n"
+    private static final String GET_CLIENT_ID_SECRET = "SELECT userID, CLIENT_ID, CLIENT_SECRET\n"
             + "FROM PaymentFLC\n"
             + "WHERE seekerID = ?";
 

@@ -88,10 +88,16 @@
                     <div data-hover="false" data-delay="0" class="w-dropdown">
                         <div class="dropdown-toggle w-dropdown-toggle"><img
                                 src=<%= loginUser.getAvatar() %>
-                                loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewHirerProfile"
-                                class="dropdown-link w-dropdown-link">My Profile</a><a href="MainController?action=Logout"
-                                class="dropdown-link w-dropdown-link">Log out</a></nav>
+                                loading="lazy" width="90" alt="" class="avatar-img-nav" />
+                        </div>
+                        <nav class="dropdown-list-2 w-dropdown-list">
+                            <a href="MainController?action=ViewHirerProfile"
+                                class="dropdown-link w-dropdown-link">My Profile</a>
+                            <a href="MainController?action=ViewBalanceHirer"
+                                class="dropdown-link w-dropdown-link">Balance</a>
+                            <a href="MainController?action=Logout"
+                                class="dropdown-link w-dropdown-link">Log out</a>
+                        </nav>
                     </div>
                 </div>
             </div>

@@ -10,22 +10,22 @@ package sample.payment;
  * @author LENOVO
  */
 public class PayPayDTO {
-    private int seekerID;
+    private int userID;
     private String client_id;
     private String client_secret;
 
-    public PayPayDTO(int seekerID, String client_id, String client_secret) {
-        this.seekerID = seekerID;
+    public PayPayDTO(int userID, String client_id, String client_secret) {
+        this.userID = userID;
         this.client_id = client_id;
         this.client_secret = client_secret;
     }
 
     public int getSeekerID() {
-        return seekerID;
+        return userID;
     }
 
     public void setSeekerID(int seekerID) {
-        this.seekerID = seekerID;
+        this.userID = seekerID;
     }
 
     public String getClient_id() {
