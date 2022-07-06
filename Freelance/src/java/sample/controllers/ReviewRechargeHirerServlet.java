@@ -7,6 +7,7 @@ package sample.controllers;
 
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.ShippingAddress;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
 import java.io.IOException;
@@ -17,18 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sample.payment.PayPayDTO;
-import sample.payment.PaymentServices;
 
 /**
  *
  * @author LENOVO
  */
-@WebServlet(name = "ExecutePaymentServlet", urlPatterns = {"/ExecutePaymentServlet"})
-public class ExecutePaymentServlet extends HttpServlet {
+@WebServlet(name = "ReviewPaymentServlet", urlPatterns = {"/ReviewPaymentServlet"})
+public class ReviewRechargeHirerServlet extends HttpServlet {
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "UpdateProposalStatusController";//
-    private static final String SUCCESS_RECHARGE_HIRER = "UpdateBalnceAfterRechargeOfHirerController";//
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,13 +43,13 @@ public class ExecutePaymentServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ExecutePaymentServlet</title>");
+            out.println("<title>Servlet ReviewPaymentServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ExecutePaymentServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ReviewPaymentServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-            //Làm ở doPost
+            //làm ở ở doGet
         }
     }
 
@@ -68,7 +65,18 @@ public class ExecutePaymentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String paymentId = request.getParameter("paymentId");
+        String payerId = request.getParameter("PayerID");
+        try {
+            String url = "review.jsp?paymentId=" + paymentId + "&PayerID=" + payerId;  
+            request.getRequestDispatcher(url).forward(request, response);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "couldn't get payment detail");
+            request.getRequestDispatcher(ERROR).forward(request, response);
+        }
     }
 
     /**
@@ -82,30 +90,7 @@ public class ExecutePaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String paymentId = request.getParameter("paymentId");
-        String payerId = request.getParameter("PayerID");
-        String url = ERROR;
-        try {
-            HttpSession session  =request.getSession();
-            PayPayDTO dto = (PayPayDTO) session.getAttribute("PAYPALDTO");
-            String recharge = (String) session.getAttribute("RECHRAGE_HIRER");
-            if(recharge != null){
-                url = SUCCESS_RECHARGE_HIRER;
-            }else{
-                url = SUCCESS;
-            }
-           
-            PaymentServices paymentServices = new PaymentServices();
-            Payment payment = paymentServices.executePayment(paymentId, payerId, dto.getClient_id(), dto.getClient_secret());   
-            
-            request.getRequestDispatcher(url).forward(request, response);
-
-        } catch (PayPalRESTException ex) {
-            request.setAttribute("errorMessage", "could not execure payment");
-            ex.printStackTrace();
-            request.getRequestDispatcher(ERROR).forward(request, response);
-        }
-
+        processRequest(request, response);
     }
 
     /**

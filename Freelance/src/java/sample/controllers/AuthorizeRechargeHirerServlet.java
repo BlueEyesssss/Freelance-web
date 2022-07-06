@@ -1,13 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package sample.controllers;
 
-import com.paypal.api.payments.PayerInfo;
-import com.paypal.api.payments.Payment;
-import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.hirer.HirerDTO;
+import sample.payment.OrderDetail;
 import sample.payment.PayPayDTO;
 import sample.payment.PaymentServices;
 
@@ -24,11 +22,9 @@ import sample.payment.PaymentServices;
  *
  * @author LENOVO
  */
-@WebServlet(name = "ExecutePaymentServlet", urlPatterns = {"/ExecutePaymentServlet"})
-public class ExecutePaymentServlet extends HttpServlet {
+@WebServlet(name = "AuthorizeRechargeHirerServlet", urlPatterns = {"/AuthorizeRechargeHirerServlet"})
+public class AuthorizeRechargeHirerServlet extends HttpServlet {
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "UpdateProposalStatusController";//
-    private static final String SUCCESS_RECHARGE_HIRER = "UpdateBalnceAfterRechargeOfHirerController";//
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,18 +37,17 @@ public class ExecutePaymentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ExecutePaymentServlet</title>");
+            out.println("<title>Servlet AuthorizeRechargeHirerServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ExecutePaymentServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AuthorizeRechargeHirerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-            //Làm ở doPost
         }
     }
 
@@ -82,30 +77,46 @@ public class ExecutePaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String paymentId = request.getParameter("paymentId");
-        String payerId = request.getParameter("PayerID");
-        String url = ERROR;
         try {
-            HttpSession session  =request.getSession();
-            PayPayDTO dto = (PayPayDTO) session.getAttribute("PAYPALDTO");
-            String recharge = (String) session.getAttribute("RECHRAGE_HIRER");
-            if(recharge != null){
-                url = SUCCESS_RECHARGE_HIRER;
-            }else{
-                url = SUCCESS;
-            }
-           
-            PaymentServices paymentServices = new PaymentServices();
-            Payment payment = paymentServices.executePayment(paymentId, payerId, dto.getClient_id(), dto.getClient_secret());   
+            HttpSession session = request.getSession();
+            HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
             
-            request.getRequestDispatcher(url).forward(request, response);
+            
+            String projectName = "recharge money of hirer";
+            String userID = hirer.getUserID() + "";
+            String paymentAmount = request.getAttribute("MONEY_RECHARGE") + "";
 
-        } catch (PayPalRESTException ex) {
-            request.setAttribute("errorMessage", "could not execure payment");
-            ex.printStackTrace();
+            //take client-id, secret of web
+            String client_id = "AdDqI4IZa2Xzq34g2iZrJAywJB4Jtpds25HgT1NkWX29lzlURgxnYso6Qbf7ttt3cnnXedyoZAhzije5";
+            String client_secret = "EDx0nOgexxpwdHmq5j6DbS89r4HYIzjGK3pYxXTP-J9HFX9h3-MN2LCDkR7M-z-FdLO4hX2lsLf743x5";
+
+            //tạo dto và đưa lên session nhằm cho servlet sau
+            PayPayDTO dto = new PayPayDTO(Integer.parseInt(userID), client_id, client_secret);
+            session.setAttribute("PAYPALDTO", dto);
+            session.setAttribute("RECHRAGE_HIRER", "recharge_hirer");
+            session.setAttribute("RECHRAGE_MONEY_HIRER", paymentAmount);
+            
+
+            String product = projectName;
+            String subtotal = paymentAmount;
+            String shipping = "0";
+            String tax = "0";
+            String total = paymentAmount;   //total = subtotal + tax + shipping = paymentAmount
+
+            OrderDetail orderDetail = new OrderDetail(product, subtotal, shipping, tax, total);
+
+            PaymentServices paymentServices = new PaymentServices();
+            String approvalLink = paymentServices.authorizePayment(orderDetail, client_id, client_secret);
+
+            response.sendRedirect(approvalLink);
+
+        } catch (PayPalRESTException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "invalid payment detail");
             request.getRequestDispatcher(ERROR).forward(request, response);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
     }
 
     /**
