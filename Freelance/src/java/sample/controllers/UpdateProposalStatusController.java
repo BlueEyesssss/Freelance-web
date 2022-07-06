@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.hirer.HirerDTO;
 import sample.payment.PayPayDTO;
 import sample.proposal.ProposalDAO;
 
@@ -43,7 +44,8 @@ public class UpdateProposalStatusController extends HttpServlet {
                 //update lại status của seeker đc hire
                 boolean checkUpdateStatusProposal = dao.updateStatusProposal(dto.getSeekerID(), Integer.parseInt(projectID));
                 if (checkUpdateStatusProposal) {
-                    url = SUCCESS;
+                    HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
+                    url = "LoginController?userName=" + hirer.getUserName() + "&password=" + hirer.getPassword();
                 }
             }
 

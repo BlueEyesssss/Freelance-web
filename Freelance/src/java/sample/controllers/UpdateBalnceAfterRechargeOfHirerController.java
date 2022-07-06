@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.hirer.HirerDTO;
 import sample.payment.PayPayDTO;
 import sample.user.UserDAO;
 
@@ -36,7 +37,9 @@ public class UpdateBalnceAfterRechargeOfHirerController extends HttpServlet {
             //cập nhật balance của hirer
             UserDAO dao = new UserDAO();
             if(dao.UpdateBalanceAfterReChargeH(dto.getSeekerID(), RECHRAGE_MONEY_HIRER)){
-                url = SUCCESS;
+                HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
+                url = "LoginController?userName=" + hirer.getUserName() + "&password=" + hirer.getPassword();
+                 
             }
             
         } catch (Exception e) {
