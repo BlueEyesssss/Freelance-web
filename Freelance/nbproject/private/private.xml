@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/laptrinh/Freelance-web/Freelance/web/hirerDashboard.jsp</file>
-            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/project/ProjectDAO.java</file>
-            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/transactionhandling/TransactionHandlingDAO.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/RechargeHirerController.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/MainController.java</file>
             <file>file:/D:/laptrinh/Freelance-web/Freelance/web/test-balance-page-hirer.jsp</file>
-            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/ViewBalanceHirerController.java</file>
-            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/transactionhandling/TransactionHandlingDTO.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/CashOutHirerController.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/UpdateBalnceAfterRechargeOfHirerController.java</file>
         </group>
     </open-files>
 </project-private>

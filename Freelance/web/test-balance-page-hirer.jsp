@@ -31,6 +31,11 @@
             <input type="submit" value="Recharge" name="action" />
         </form>  <br><!-- comment -->
 
+        <p>cash out</p>
+        <form action="MainController" >
+            Money cash out: <input type="number" name="moneyCashout" min="0" required=""/>
+            <input type="submit" value="Cash out" name="action" />
+        </form>  <br><!-- comment -->
         <table border="1">
             <thead>
                 <tr>

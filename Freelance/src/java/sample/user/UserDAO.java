@@ -48,6 +48,35 @@ public class UserDAO {
 "SET balance = balance + ?\n" +
 "WHERE userID = ?";
     
+    private static final String UPDATE_BALANCE_HIRER_AFTER_CASH_OUT = "UPDATE [User]\n" +
+"SET balance = balance - ?\n" +
+"WHERE userID = ?";
+    
+    public boolean UpdateBalanceAfterCashOutH(int seekerID, String RECHRAGE_MONEY_HIRER) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_BALANCE_HIRER_AFTER_CASH_OUT);
+                ptm.setInt(1, Integer.parseInt(RECHRAGE_MONEY_HIRER));
+                ptm.setInt(2, seekerID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
     public boolean UpdateBalanceAfterReChargeH(int seekerID, String RECHRAGE_MONEY_HIRER) throws SQLException {
         boolean check = false;
         Connection con = null;

@@ -23,6 +23,33 @@ public class TransactionHandlingDAO {
 "FROM TransactionHandling\n" +
 "WHERE hirerID = ?";
 
+    private final String CREATE_HIRER_CASH_OUT = "INSERT INTO TransactionHandling(hirerID, amountMonney, status) VALUES (?, ?, 0)";
+    
+    public boolean createHirerCashOut(int userID, int moneyCashout) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if(con != null){
+                ptm = con.prepareStatement(CREATE_HIRER_CASH_OUT);
+                ptm.setInt(1, userID);
+                ptm.setInt(2, moneyCashout);
+                check = ptm.executeUpdate() > 0?true:false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(ptm != null){
+                ptm.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return check;
+    }
+    
     public List<TransactionHandlingDTO> getListTranHistory(int hirerIDd) throws SQLException {
         List<TransactionHandlingDTO> list = new ArrayList<>();
         Connection con = null;
@@ -62,5 +89,7 @@ public class TransactionHandlingDAO {
         }
         return list;
     }
+
+    
     
 }

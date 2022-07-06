@@ -134,6 +134,8 @@ public class MainController extends HttpServlet {
     private static final String VIEW_BALANCE_HIRER_CONTROLLER = "ViewBalanceHirerController";
     private static final String RECHARGE_OF_HIRER = "Recharge";
     private static final String RECHARGE_OF_HIRER_CONTROLLER = "RechargeHirerController";
+    private static final String CASH_OUT_OF_HIRER = "Cash out";
+    private static final String CASH_OUT_OF_HIRER_CONTROLLER = "CashOutHirerController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -307,6 +309,9 @@ public class MainController extends HttpServlet {
 
             } else if (RECHARGE_OF_HIRER.equals(action)) {
                 url = RECHARGE_OF_HIRER_CONTROLLER;
+
+            } else if (CASH_OUT_OF_HIRER.equals(action)) {
+                url = CASH_OUT_OF_HIRER_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();
