@@ -4,6 +4,7 @@
     Author     : Phat
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -32,6 +33,9 @@
  <%
         SeekerDTO loginUser = (SeekerDTO) session.getAttribute("USER_LOGIN");
         List<ProposalDTO> listJobStarted = (List<ProposalDTO>) request.getAttribute("LIST_JOB_STARTED");
+        if (listJobStarted == null) {
+            listJobStarted = new ArrayList<ProposalDTO>();
+        }
         
     %>
 

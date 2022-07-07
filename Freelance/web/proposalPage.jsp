@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="sample.seeker.SeekerDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.proposal.ProposalDTO"%>
@@ -35,6 +36,12 @@
         SeekerDTO loginUser = (SeekerDTO) session.getAttribute("USER_LOGIN");
         List<ProposalDTO> listInvitationProposal = (List<ProposalDTO>) request.getAttribute("LIST_INVITATIONS_PROPOSAL");
         List<ProposalDTO> listSubmittedProposal = (List<ProposalDTO>) request.getAttribute("LIST_SUBMITTED_PROPOSAL");
+        if (listInvitationProposal == null) {
+        listInvitationProposal = new ArrayList<ProposalDTO>();
+        }
+        if (listSubmittedProposal == null) {
+        listSubmittedProposal = new ArrayList<ProposalDTO>();
+        }
     %>
 
     <body class="body">

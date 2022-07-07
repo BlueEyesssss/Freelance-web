@@ -4,6 +4,8 @@
     Author     : Phat
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.seeker.SeekerDTO"%>
@@ -32,6 +34,12 @@
         SeekerDTO loginUser = (SeekerDTO) session.getAttribute("USER_LOGIN");
         List<ProposalDTO> listDoneProposal = (List<ProposalDTO>) request.getAttribute("LIST_DONE_PROPOSAL");
         List<ProposalDTO> listWaitingProposal = (List<ProposalDTO>) request.getAttribute("LIST_WAITING_PROPOSAL");
+        if (listDoneProposal == null) {
+        listDoneProposal = new ArrayList<ProposalDTO>();
+        }
+        if (listWaitingProposal == null) {
+        listWaitingProposal = new ArrayList<ProposalDTO>();
+        }
     %>
 
 <body class="body">
