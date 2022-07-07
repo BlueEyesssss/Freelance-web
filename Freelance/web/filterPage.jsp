@@ -41,7 +41,7 @@
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
              role="banner" class="navigation seeker w-nav">
             <div class="navigation-container">
-                <div class="navigation-menu"><a href="/" class="brand w-nav-brand"><img
+                <div class="navigation-menu"><a href="MainController?action=ViewSeekerDashboard" class="brand w-nav-brand"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                             loading="lazy" alt="" class="logo-image biglogo" /></a>
                     <div class="nav-search-wrapper">
@@ -75,17 +75,17 @@
                             <div class="dropdown-toggle-2 w-dropdown-toggle">
                                 <div class="text-block-22">Find Work</div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">Save Jobs</a><a href="#"
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerDashboard"
+                                                                            class="dropdown-link-nav w-dropdown-link">Find Work</a>
+                                                                            <a href="MainController?action=ViewProposal"
                                                                             class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
                         </div>
                         <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
                             <div class="dropdown-toggle-3 w-dropdown-toggle">
                                 <div class="text-block-22">My Job</div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">My Job</a><a href="#"
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewMyJob"
+                                                                            class="dropdown-link-nav w-dropdown-link">My Job</a><a href="MainController?action=ViewContract"
                                                                             class="dropdown-link-nav w-dropdown-link">All Constract</a></nav>
                         </div>
                     </div><a href="#" class="w-inline-block"><img
@@ -101,8 +101,8 @@
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 43.134765625px, 6vw"
                                     srcset=<%= loginUser.getAvatar() %>
                                     alt="" class="avatar-img-nav" /></div>
-                            <nav class="dropdown-list w-dropdown-list"><a href="#" class="dropdown-link w-dropdown-link">My
-                                    Profile</a><a href="#" class="dropdown-link w-dropdown-link">Log out</a></nav>
+                            <nav class="dropdown-list w-dropdown-list"><a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
+                                    Profile</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
                         </div>
                     </div>
                 </div>
