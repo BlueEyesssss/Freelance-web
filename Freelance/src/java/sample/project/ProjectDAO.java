@@ -46,6 +46,8 @@ public class ProjectDAO {
             + " WHERE H.seekerID = ? AND N.skillID = H.skillID"
             + " GROUP BY N.projectID) Q"
             + " WHERE P.projectID = Q.projectID AND P.hirerID = H.hirerID AND E.expectedDurationID = P.expectedDurationID"
+            + " AND P.projectID NOT IN (SELECT projectID FROM Proposal "
+            + " WHERE proposalStatusID in (4,5,6,7)) "
             + " ORDER BY matchSkill DESC";
     private static final String WIEW_LIST_PROJECT_BASE_ON_NAME = "SELECT projectID, hirerID, description, complexity, projectName, paymentAmount, durationText, deadlineDate, major, createdDate, location, hoursPerWeek"
             + " FROM Project P, ExpectedDuration E"
