@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.hirer.HirerDTO;
+import sample.seeker.SeekerDTO;
 import sample.transactionhandling.TransactionHandlingDAO;
 import sample.user.UserDAO;
 
@@ -24,6 +25,7 @@ import sample.user.UserDAO;
 public class CashOutHirerController extends HttpServlet {
 
     private final String ERROR = "error.html";
+    private final String ERROR_NOT_ENOUGH_MONEY = "ViewBalanceHirerSeekerController";
     private final String SUCCESS = "";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -32,18 +34,49 @@ public class CashOutHirerController extends HttpServlet {
         String url = ERROR;
         try {
             HttpSession session = request.getSession();
-            HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
-            int moneyCashout = Integer.parseInt(request.getParameter("moneyCashout"));
 
-            //tạo 1 record của transaction handling
-            TransactionHandlingDAO dao = new TransactionHandlingDAO();
-            if (dao.createHirerCashOut(hirer.getUserID(), moneyCashout)) {
-                //tru tien trong tai khoang web cua hirer di
+            if (request.getParameter("role") == null) {
+                HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
+                int moneyCashout = Integer.parseInt(request.getParameter("moneyCashout"));
+
+                //check xem money rút có lớn hơn balance hiện có trong web ko
                 UserDAO daoUser = new UserDAO();
-                if (daoUser.UpdateBalanceAfterCashOutH(hirer.getUserID(), moneyCashout+"")) {
-                    url = "LoginController?userName=" + hirer.getUserName() + "&password=" + hirer.getPassword();
+                if (moneyCashout > daoUser.getBalanceUser(hirer.getUserID())) {
+                    request.setAttribute("ERROR_NOT_ENOUGH_MONEY", "Not enough money to withdraw.");
+                    url = ERROR_NOT_ENOUGH_MONEY;
+                } else {
+                    //tạo 1 record của transaction handling
+                    TransactionHandlingDAO dao = new TransactionHandlingDAO();
+                    if (dao.createHirerCashOut(hirer.getUserID(), moneyCashout)) {
+                        //tru tien trong tai khoang web cua hirer di
+                        if (daoUser.UpdateBalanceAfterCashOutH(hirer.getUserID(), moneyCashout + "")) {
+                            url = "LoginController?userName=" + hirer.getUserName() + "&password=" + hirer.getPassword();
+                        }
+                    }
+                }
+
+            } else if (request.getParameter("role").equals("seeker")) {
+                SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
+                int moneyCashout = Integer.parseInt(request.getParameter("moneyCashout"));
+
+                //check xem money rút có lớn hơn balance hiện có trong web ko
+                UserDAO daoUser = new UserDAO();
+                if (moneyCashout > daoUser.getBalanceUser(seeker.getUserID())) {
+                    request.setAttribute("ERROR_NOT_ENOUGH_MONEY", "Not enough money to withdraw.");
+                    url = ERROR_NOT_ENOUGH_MONEY;
+                } else {
+                    //tạo 1 record của transaction handling
+                    TransactionHandlingDAO dao = new TransactionHandlingDAO();
+                    if (dao.createHirerCashOut(seeker.getUserID(), moneyCashout)) { //hàm createHirerCashOut() dùng luôn cho seeker cũng đc
+                        //tru tien trong tai khoang web cua seeker di
+
+                        if (daoUser.UpdateBalanceAfterCashOutH(seeker.getUserID(), moneyCashout + "")) {
+                            url = "LoginController?userName=" + seeker.getUserName() + "&password=" + seeker.getPassword();
+                        }
+                    }
                 }
             }
+
         } catch (Exception e) {
             log("Error at CashOutHirerController: " + e.toString());
         } finally {

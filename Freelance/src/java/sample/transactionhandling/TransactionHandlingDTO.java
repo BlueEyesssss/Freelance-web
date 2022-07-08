@@ -12,15 +12,15 @@ import java.sql.Date;
  */
 public class TransactionHandlingDTO {
     private int transactionHandlingID;
-    private int hirerID;
+    private int userID;
     private double amountMonney;
     private boolean status;
     private Date dateCreate;
     private Date dateDone;
 
-    public TransactionHandlingDTO(int transactionHandlingID, int hirerID, double amountMonney, boolean status, Date dateCreate, Date dateDone) {
+    public TransactionHandlingDTO(int transactionHandlingID, int userID, double amountMonney, boolean status, Date dateCreate, Date dateDone) {
         this.transactionHandlingID = transactionHandlingID;
-        this.hirerID = hirerID;
+        this.userID = userID;
         this.amountMonney = amountMonney;
         this.status = status;
         this.dateCreate = dateCreate;
@@ -30,7 +30,7 @@ public class TransactionHandlingDTO {
     
     
     public TransactionHandlingDTO(int hirerID, double amountMonney, boolean status) {
-        this.hirerID = hirerID;
+        this.userID = hirerID;
         this.amountMonney = amountMonney;
         this.status = status;
     }
@@ -44,11 +44,11 @@ public class TransactionHandlingDTO {
     }
 
     public int getHirerID() {
-        return hirerID;
+        return userID;
     }
 
     public void setHirerID(int hirerID) {
-        this.hirerID = hirerID;
+        this.userID = hirerID;
     }
 
     public double getAmountMonney() {

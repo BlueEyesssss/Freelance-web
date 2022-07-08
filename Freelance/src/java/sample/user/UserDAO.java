@@ -52,6 +52,41 @@ public class UserDAO {
 "SET balance = balance - ?\n" +
 "WHERE userID = ?";
     
+    private static final String GET_BALANCE = "select balance\n" +
+"from [User]\n" +
+"where userID = ?";
+    
+    public int getBalanceUser(int userID) throws SQLException {
+        int money = 0;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(GET_BALANCE);
+                ptm.setInt(1, userID);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    money = rs.getInt("balance");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return money;
+    }
+    
     public boolean UpdateBalanceAfterCashOutH(int seekerID, String RECHRAGE_MONEY_HIRER) throws SQLException {
         boolean check = false;
         Connection con = null;
@@ -59,7 +94,7 @@ public class UserDAO {
         try {
             con = DBUtil.getConnection();
             if (con != null) {
-                ptm = con.prepareStatement(UPDATE_BALANCE_HIRER_AFTER_CASH_OUT);
+                ptm = con.prepareStatement(UPDATE_BALANCE_HIRER_AFTER_CASH_OUT);    //dùng chung cho seeker luôn
                 ptm.setInt(1, Integer.parseInt(RECHRAGE_MONEY_HIRER));
                 ptm.setInt(2, seekerID);
                 check = ptm.executeUpdate() > 0 ? true : false;
@@ -668,5 +703,7 @@ public class UserDAO {
         }
         return user;
     }
+
+    
 
 }

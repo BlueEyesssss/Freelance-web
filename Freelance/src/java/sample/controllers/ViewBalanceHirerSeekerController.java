@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.hirer.HirerDTO;
+import sample.seeker.SeekerDTO;
 import sample.transactionhandling.TransactionHandlingDAO;
 import sample.transactionhandling.TransactionHandlingDTO;
 
@@ -21,26 +22,45 @@ import sample.transactionhandling.TransactionHandlingDTO;
  *
  * @author LENOVO
  */
-@WebServlet(name = "ViewBalanceHirerController", urlPatterns = {"/ViewBalanceHirerController"})
-public class ViewBalanceHirerController extends HttpServlet {
+@WebServlet(name = "ViewBalanceHirerSeekerController", urlPatterns = {"/ViewBalanceHirerSeekerController"})
+public class ViewBalanceHirerSeekerController extends HttpServlet {
+
     private final String ERROR = "error.html";
-    private final String SUCCESS = "balancePageHIrer.jsp";
-    
+    private final String SUCCESS_HIRER = "balancePageHIrer.jsp";
+    private final String SUCCESS_SEEKER = "balancePageSeeker.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             HttpSession session = request.getSession();
-            HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
-            
-            TransactionHandlingDAO dao = new TransactionHandlingDAO();
-            //lấy list history transaction của rút tiền
-            List<TransactionHandlingDTO> listTransactionHistory = dao.getListTranHistory(hirer.getHirerID());
-            
-            request.setAttribute("LIST_TRANSACTION_HITORY", listTransactionHistory);
-            
-            url = SUCCESS;
+
+            //balance cua hirer
+            if (request.getParameter("role") == null) {
+                HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
+
+                TransactionHandlingDAO dao = new TransactionHandlingDAO();
+                //lấy list history transaction của rút tiền
+                List<TransactionHandlingDTO> listTransactionHistory = dao.getListTranHistory(hirer.getHirerID());
+
+                request.setAttribute("LIST_TRANSACTION_HITORY", listTransactionHistory);
+
+                url = SUCCESS_HIRER;
+                
+                //balance cua seeker
+            }else if(request.getParameter("role").equals("seeker")){
+                SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
+                
+                TransactionHandlingDAO dao = new TransactionHandlingDAO();
+                //lấy list history transaction của rút tiền
+                List<TransactionHandlingDTO> listTransactionHistory = dao.getListTranHistory(seeker.getSeekerID());
+
+                request.setAttribute("LIST_TRANSACTION_HITORY", listTransactionHistory);
+
+                url = SUCCESS_SEEKER;
+            }
+
         } catch (Exception e) {
             log("Error at ViewBalanceHirerController: " + e.toString());
         } finally {

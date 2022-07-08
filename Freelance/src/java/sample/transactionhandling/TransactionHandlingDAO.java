@@ -19,11 +19,11 @@ import sample.util.DBUtil;
  */
 public class TransactionHandlingDAO {
 
-    private final String GET_LIST_TRAN_HISTORY = "SELECT transactionHandlingID, hirerID, amountMonney, status, dateCreate, dateDone\n" +
+    private final String GET_LIST_TRAN_HISTORY = "SELECT transactionHandlingID, userID, amountMonney, status, dateCreate, dateDone\n" +
 "FROM TransactionHandling\n" +
-"WHERE hirerID = ?";
+"WHERE userID = ?";
 
-    private final String CREATE_HIRER_CASH_OUT = "INSERT INTO TransactionHandling(hirerID, amountMonney, status) VALUES (?, ?, 0)";
+    private final String CREATE_HIRER_CASH_OUT = "INSERT INTO TransactionHandling(userID, amountMonney, status) VALUES (?, ?, 0)";
     
     public boolean createHirerCashOut(int userID, int moneyCashout) throws SQLException {
         boolean check = false;
@@ -63,7 +63,7 @@ public class TransactionHandlingDAO {
                 rs = ptm.executeQuery();
                 while (rs.next()) {                    
                     int transactionHandlingID = rs.getInt("transactionHandlingID");
-                    int hirerID = rs.getInt("hirerID");
+                    int userID = rs.getInt("userID");
                     double amountMonney = rs.getInt("amountMonney");
                     boolean status = rs.getBoolean("status");
                     Date dateCreate = rs.getDate("dateCreate");
@@ -71,7 +71,7 @@ public class TransactionHandlingDAO {
                     if(status == true){
                         dateDone = rs.getDate("dateDone");
                     }
-                    list.add(new TransactionHandlingDTO(transactionHandlingID, hirerID, amountMonney, status, dateCreate, dateDone));
+                    list.add(new TransactionHandlingDTO(transactionHandlingID, userID, amountMonney, status, dateCreate, dateDone));
                 }
             }
         } catch (Exception e) {

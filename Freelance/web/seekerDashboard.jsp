@@ -103,7 +103,8 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                             <div class="text-block-22">My Job</div>
                         </div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewMyJob"
-                                                                            class="dropdown-link-nav w-dropdown-link">My Job</a><a href="MainController?action=ViewContract"
+                                                                            class="dropdown-link-nav w-dropdown-link">My Job</a>
+                                                                     <a href="MainController?action=ViewContract"
                                                                             class="dropdown-link-nav w-dropdown-link">All Constract</a></nav>
                     </div>
                 </div><a href="#" class="w-inline-block"><img
@@ -119,8 +120,11 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                 sizes="(max-width: 479px) 100vw, (max-width: 767px) 25.4296875px, 6vw"
                                 srcset="<%= loginUser.getAvatar()%> 500w, <%= loginUser.getAvatar()%>  960w"
                                 alt="" class="avatar-img-nav" /></div>
-                        <nav class="dropdown-list w-dropdown-list"><a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
-                                    Profile</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
+                        <nav class="dropdown-list w-dropdown-list">
+                            <a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
+                                    Profile</a>
+                            <a href="MainController?action=ViewBalanceHirerSeeker&role=seeker" class="dropdown-link w-dropdown-link">Balance</a>
+                            <a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
                     </div>
                 </div>
             </div>

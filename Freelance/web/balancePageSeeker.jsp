@@ -1,4 +1,5 @@
 
+<%@page import="sample.seeker.SeekerDTO"%>
 <%@page import="sample.transactionhandling.TransactionHandlingDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.hirer.HirerDTO"%>
@@ -14,6 +15,16 @@
         <meta content="Balance" property="twitter:title" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Webflow" name="generator" />
+        <style type="text/css">
+            .right-top{
+                width: 50%;
+                height: 50px;
+                border-bottom: 0px solid #e0e0e0;
+            }
+            .link-block-2{
+                border: 1px solid #e0e0e0;
+            }
+        </style>
         <link
             href="https://uploads-ssl.webflow.com/62bdf9a94a3336c64bf4149d/css/huynh-tan-phats-continue.webflow.36f0dcc6c.css"
             rel="stylesheet" type="text/css" />
@@ -32,13 +43,13 @@
 
     <body class="body-2">
         <%
-                HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
+                SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
                 List<TransactionHandlingDTO> listTranHis = (List<TransactionHandlingDTO>) request.getAttribute("LIST_TRANSACTION_HITORY");
             %>
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
              role="banner" class="navigation-2 seeker w-nav">
             <div class="navigation-container-2">
-                <div class="navigation-menu-2"><a href="MainController?action=ViewHirerDashboard" class="brand-2 w-nav-brand"><img
+                <div class="navigation-menu-2"><a href="MainController?action=ViewSeekerDashboard" class="brand-2 w-nav-brand"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                             loading="lazy" alt="" class="logo-image biglogo" /></a>
                     <div class="nav-search-wrapper-2">
@@ -65,21 +76,23 @@
                     <div class="div-block-3">
                         <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                             <div class="dropdown-toggle-2 w-dropdown-toggle">
-                                <div class="text-block-22">My Job</div>
+                                <div class="text-block-22">Find Work</div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
-                                                                            class="dropdown-link-nav w-dropdown-link">Post a Job</a>
-                                                                        <a href="MainController?action=ViewContractOfHirer"
-                                                                            class="dropdown-link-nav w-dropdown-link">All contract</a>
-                                                                        <a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerDashboard"
+                                                                            class="dropdown-link-nav w-dropdown-link">Find Work</a>
+                                                                        <a href="MainController?action=ViewProposal"
+                                                                            class="dropdown-link-nav w-dropdown-link">Proposals</a>
+                            </nav>
                         </div>
                         <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                             <div class="dropdown-toggle-3 w-dropdown-toggle">
-                                <div class="text-block-22">Find Talent</div>
+                                <div class="text-block-22">My Job</div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                                                            class="dropdown-moi-qua-troi-moi w-dropdown-link">Find Talent</a></nav>
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewMyJob"
+                                                                            class="dropdown-moi-qua-troi-moi w-dropdown-link">My Job</a>
+                                                                        <a href="MainController?action=ViewContract"
+                                                                            class="dropdown-moi-qua-troi-moi w-dropdown-link">All Constract</a>
+                            </nav>
                         </div>
                     </div><a href="#" class="link-block w-inline-block"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
@@ -89,9 +102,9 @@
                     <div class="navigation-button-wrapper">
                         <div data-hover="false" data-delay="0" class="w-dropdown">
                             <div class="dropdown-toggle w-dropdown-toggle"><img
-                                    src="<%= hirer.getAvatar() %>"
+                                    src="<%= seeker.getAvatar() %>"
                                     loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewHirerProfile"
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerProfile"
                                                                             class="dropdown-link w-dropdown-link">My Profile</a>
                                                                         <a href="MainController?action=ViewBalanceHirerSeeker"
                                                                             class="dropdown-link w-dropdown-link">My Balance</a>
@@ -107,14 +120,14 @@
         </div>
         <div class="container w-container">
             
-            <h1 class="heading-16">Hello <%= hirer.getFullName()%></h1>
+            <h1 class="heading-16">Hello <%= seeker.getFullName()%></h1>
             <div class="wrapper">
                 <div class="balance">
                     <div class="top-balance">
                         <div class="left-top">
                             <h3 class="heading-17">My Balance</h3>
                         </div>
-                        <div class="right-top">
+                        <div class="right-top" id="right-top-form-ne">
                             <div class="withdrawn-money-wrapper"><a data-w-id="bae3e80d-5f78-1075-82a6-9143124bbe44"
                                                                     href="#" class="link-block-2 w-inline-block"><img
                                         src="https://uploads-ssl.webflow.com/62bdf9a94a3336c64bf4149d/62c6718859806d42f52ed2b7_withdraw%20(1).png"
@@ -122,21 +135,14 @@
                                     <div class="div-block-62">
                                         <div class="text-block-44"><strong>Withdrawn</strong></div>
                                     </div>
-                                </a></div>
-                            <div class="add-money-wrapper"><a data-w-id="471e52da-6b9a-90aa-713f-907a7249bbdb" href="#"
-                                                              class="link-block-3 w-inline-block"><img
-                                        src="https://uploads-ssl.webflow.com/62bdf9a94a3336c64bf4149d/62c673367979bbd706d8534f_icons8-add-dollar-64.png"
-                                        loading="lazy" height="50" alt="" />
-                                    <div class="div-block-63">
-                                        <div class="text-block-45"><strong>Add</strong></div>
-                                    </div>
-                                </a></div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="down-balance">
-                        <h1 class="paymentamount">$<%= hirer.getBalance()%> USD</h1>
+                        <h1 class="paymentamount">$<%= seeker.getBalance()%> USD</h1>
                     </div>
-                    <span style="padding-left: 5%;color:red">${ERROR_NOT_ENOUGH_MONEY}</span>
+                        <span style="padding-left: 5%;color:red">${ERROR_NOT_ENOUGH_MONEY}</span>
                 </div>
                 <div class="transactions">
                     <h3 class="heading-18">Transactions</h3>
@@ -193,7 +199,7 @@
                         <input
                             type="number" class="w-input" maxlength="256" data-name="Name 3" placeholder=""
                             id="name-3" name="moneyCashout" min="0" required=""/>
-
+                        <input type="hidden" name="role" value="seeker" />
                         <input type="submit" value="Cash out" name="action" data-wait="Please wait..."
                                class="submit-button-3 w-button" />
 
@@ -204,34 +210,13 @@
                         <div>Thank you! Your submission has been received!</div>
                     </div>
                     <div class="w-form-fail">
-                        <div>Oops! Something went wrong while submitting the form.</div>
+                        <div>wrong</div>
                     </div>
                 </div>
             </div>
         </div>
         <div style="display:none;opacity:0" class="add-popup">
-            <div class="div-block-65">
-                <div class="text-block-48-copy">Enter The Money To Add</div>
-                <div class="w-form">
-                    <form action="MainController" method="POST" id="email-form-3" name="email-form-3" data-name="Email Form 3" class="form">
-                        <input name="moneyRecharge" min="0" required=""
-                               type="number" class="w-input" maxlength="256"  data-name="Name 3" placeholder=""
-                               id="name-3" />
-
-                        <input type="submit" value="Recharge" name="action" data-wait="Please wait..."
-                               class="submit-button-3 w-button" />
-
-                        <a data-w-id="30400f6f-c41c-b94c-ba8e-ef92d22a8a35" href="#"
-                           class="button-7 w-button">Cancel </a>
-                    </form>
-                    <div class="w-form-done">
-                        <div>Thank you! Your submission has been received!</div>
-                    </div>
-                    <div class="w-form-fail">
-                        <div>Oops! Something went wrong while submitting the form.</div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=62bdf9a94a3336c64bf4149d"
                 type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="

@@ -130,8 +130,8 @@ public class MainController extends HttpServlet {
     private static final String VIEW_DONE_CONTRACT_HIRER_CONTROLLER = "ViewDoneContractHirerController";
     private static final String FEEDBACK_OF_HIRER = "FeedbackOfHirer";
     private static final String FEEDBACK_OF_HIRER_CONTROLLER = "FeedbackOfHirerController";
-    private static final String VIEW_BALANCE_HIRER = "ViewBalanceHirer";
-    private static final String VIEW_BALANCE_HIRER_CONTROLLER = "ViewBalanceHirerController";
+    private static final String VIEW_BALANCE_HIRER = "ViewBalanceHirerSeeker";
+    private static final String VIEW_BALANCE_HIRER_CONTROLLER = "ViewBalanceHirerSeekerController";
     private static final String RECHARGE_OF_HIRER = "Recharge";
     private static final String RECHARGE_OF_HIRER_CONTROLLER = "RechargeHirerController";
     private static final String CASH_OUT_OF_HIRER = "Cash out";
