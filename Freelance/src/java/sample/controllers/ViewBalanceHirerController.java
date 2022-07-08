@@ -24,7 +24,7 @@ import sample.transactionhandling.TransactionHandlingDTO;
 @WebServlet(name = "ViewBalanceHirerController", urlPatterns = {"/ViewBalanceHirerController"})
 public class ViewBalanceHirerController extends HttpServlet {
     private final String ERROR = "error.html";
-    private final String SUCCESS = "test-balance-page-hirer.jsp";
+    private final String SUCCESS = "balancePageHIrer.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
