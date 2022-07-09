@@ -1272,4 +1272,73 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
         return check;
     }
 
+    private static final String CHECK_FEEDBACK_OF_SEEKER ="SELECT seekerGrade From Proposal WHERE proposalID = ?";
+    
+    public boolean checkFeedbackOfSeeker(int proposalID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_FEEDBACK_OF_SEEKER);
+                ptm.setInt(1, proposalID);
+                rs = ptm.executeQuery();
+                if(rs!= null){
+                    if(rs.getInt("seekerGrade")>0)
+                    check = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    private static final String CHECK_FEEDBACK_OF_HIRER ="SELECT clientGrade From Proposal WHERE proposalID = ?";
+    public boolean checkFeedbackOfHirer(int proposalID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_FEEDBACK_OF_HIRER);
+                ptm.setInt(1, proposalID);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    if(rs.getInt("clientGrade")>0)
+                    check = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
 }
