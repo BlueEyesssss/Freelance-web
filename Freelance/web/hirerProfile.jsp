@@ -97,7 +97,7 @@
                             <nav class="dropdown-list w-dropdown-list">
                                 <a href="#" class="dropdown-link w-dropdown-link">My
                                     Profile</a>
-                                <a href="MainController?action=ViewBalanceHirer"
+                                <a href="MainController?action=ViewBalanceHirerSeeker"
                                                                             class="dropdown-link w-dropdown-link">My Balance</a>
                                 <a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
                         </div>
