@@ -418,6 +418,17 @@
                                                         data-name="deadline" placeholder="Type date nha" id="deadline"
                                                         required="" />
                                                 </div>
+
+                                                <div class="div-block-135"><label id="hourperweek" for="hourperweek"
+                                                    class="field-label small"><strong>7.
+                                                        Hour per week</strong><br /></label>
+                                                
+                                                <input type="number"
+                                                    class="text-field _w-50 w-input" maxlength="256" name="hourperweek"
+                                                    data-name="deadline" placeholder="Type date nha" id="hourperweek"
+                                                    required="" />
+
+                                            </div>
                                             </div>
                                             <div data-ix="show-content-onslide" class="step-counter">6/7</div>
                                         </div>
@@ -432,7 +443,7 @@
                                                 </div>
                                                 <div data-ix="show-content-onslide" class="step-counter final">6/6</div>
                                                 <div><label for="ticketCode" class="field-label small"><strong
-                                                            class="bold-text-78">10. Location</strong></label>
+                                                            class="bold-text-78">8. Location</strong></label>
                                                             <input
                                                         type="text" class="text-field w-input" maxlength="256"
                                                         name="location" data-name="ticketCode" placeholder=""
