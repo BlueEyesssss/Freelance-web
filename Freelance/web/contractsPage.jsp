@@ -46,7 +46,7 @@
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation-2 seeker w-nav">
         <div class="navigation-container-2">
-            <div class="navigation-menu-2"><a href="#" class="brand-2 w-nav-brand"><img
+            <div class="navigation-menu-2"><a href="MainController?action=ViewSeekerDashboard" class="brand-2 w-nav-brand"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                         loading="lazy" alt="" class="logo-image biglogo" /></a>
                 <div class="nav-search-wrapper-2">
@@ -55,10 +55,10 @@
                             loading="lazy" alt="" /></div>
                     <div class="nav-search-input-2">
                         <div class="w-form">
-                            <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
-                                    type="text" class="search-input-2 w-input" maxlength="256" name="name"
-                                    data-name="Name" placeholder="" id="name" /><input type="submit" value="Submit"
-                                    data-wait="Please wait..." class="submit-button-2 w-button" /></form>
+                            <form action="MainController" id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
+                                    type="text" class="search-input-2 w-input" maxlength="256" name="search"
+                                    data-name="Name" placeholder="Find job here" id="name" /><input  type="submit" name="action" value="Search Job By Name" 
+                                        data-wait="Please wait..." class="submit-button-2 w-button" /></form>
                             <div class="w-form-done">
                                 <div>Thank you! Your submission has been received!</div>
                             </div>
