@@ -21,7 +21,7 @@ import sample.proposal.ProposalDAO;
 @WebServlet(name = "FeedbackOfHirerController", urlPatterns = {"/FeedbackOfHirerController"})
 public class FeedbackOfHirerController extends HttpServlet {
 
-    private final static String ERROR = "error.html";
+    private final static String ERROR = "ViewDoneContractHirerController";
     private final static String SUCCESS = "ViewHirerDashboardController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +31,8 @@ public class FeedbackOfHirerController extends HttpServlet {
         try {
             int proposalID = Integer.parseInt(request.getParameter("proposalID"));
             int clientGrade = Integer.parseInt(request.getParameter("clientGrade"));
-            String clientComment = request.getParameter("clientComment");
+            if (clientGrade >= 1 && clientGrade <= 5) {
+                String clientComment = request.getParameter("clientComment");
             ProposalDAO dao = new ProposalDAO();
             boolean checkFeedback = dao.hirerFeedback(proposalID, clientGrade, clientComment);
             
@@ -39,6 +40,10 @@ public class FeedbackOfHirerController extends HttpServlet {
                 
                 url = SUCCESS;
             }
+            }else{
+                request.setAttribute("ERROR_MESSAGE", "Oppss, Wrong format!!");
+            }
+            
         } catch (Exception e) {
             log("Error at FeedbackOfSeekerController: " + e.toString());
         } finally {

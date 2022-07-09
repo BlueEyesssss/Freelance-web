@@ -177,6 +177,8 @@
                             class="tabs w-tabs">
                             <%
                                 LocalDate endDate = (LocalDate)request.getAttribute("END_DATE");
+                                String error = (String)request.getAttribute("ERROR_MESSAGE");
+                                if(error == null) error ="";
                                 LocalDate curent = LocalDate.now();                                
                             if(curent.isBefore(endDate.plusDays(7)) && curent.isAfter(endDate)){
                                 %>
@@ -185,6 +187,7 @@
                                     class="feedback-button tabs-menu w-inline-block w-tab-link w--current">
                                     <div class="feedback">Feedback</div>
                                 </a></div>
+                            <div style="color: orange"><%= error%></div>
                             <div class="tabs-content w-tab-content">
                                 <div data-w-tab="Tab 1" class="feedback-tab w-tab-pane w--tab-active">
                                     <div class="feedback-wrapper">
@@ -194,7 +197,7 @@
                                                 method="get" class="form"><label for="name"
                                                                              class="field-label-2">Feedback Grade</label><input type="number"
                                                     class="text-field-3 w-input" maxlength="256" name="clientGrade"
-                                                    data-name="Name 2" placeholder="" id="name-2" /><label for="field-4"
+                                                    data-name="Name 2" placeholder="1 to 5" id="name-2" /><label for="field-4"
                                                     class="field-label-3">Comment</label><textarea placeholder=""
                                                     maxlength="5000" id="field-4" name="clientComment" data-name="field"
                                                     class="textarea-2 w-input"></textarea>
