@@ -46,7 +46,7 @@
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
              role="banner" class="navigation seeker w-nav">
             <div class="navigation-container">
-                <div class="navigation-menu"><a href="/" class="brand w-nav-brand"><img
+                <div class="navigation-menu"><a href="MainController?action=ViewHirerDashboard" class="brand w-nav-brand"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                             loading="lazy" alt="" class="logo-image biglogo" /></a>
                     <div class="nav-search-wrapper">
@@ -193,7 +193,8 @@
                                     <label
                                         class="w-checkbox check-box-skill-element">
                                         <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked"></div>
-                                        <input type="checkbox" name="skillID" value="<%= elem.getSkillID()%>" id="Skill" data-name="Skill"
+                                        <input type="checkbox" name="skillID" value="<%= elem.getSkillID()%>" id="skill" data-name="skill"
+                                               checked=""
                                                style="opacity:0;position:absolute;z-index:-1" /><span
                                                class="checkbox-label w-form-label" for="Skill"><%= elem.getSkillName()%></span>
                                     </label>

@@ -24,7 +24,7 @@ public class SkillDAO {
     private final String CREATE_SKILL_NEED_FOR_PROJECT = "INSERT INTO NeededSkills(projectID, skillID) VALUES (?, ?)";
     private final String GET_LIST_SKILL_OF_SEEKER = "SELECT hs.seekerID ,hs.skillID, s.skillName FROM HasSkill hs inner join Skill s on hs.skillID = s.skillID WHERE seekerID = ?";
     private final String CLEAR_SKILL = "DELETE FROM HasSkill WHERE seekerID = ?";
-    private final String CLEAR_SKILL_NEED_OF_PROJECT = "DELETE FROM NeededSkills WHERE neededSkillsID = ?";
+    private final String CLEAR_SKILL_NEED_OF_PROJECT = "DELETE FROM NeededSkills WHERE projectID = ?";
 
     public boolean clearSkillSeeker(int seekerID)  throws SQLException {
         boolean check = false;
@@ -153,7 +153,7 @@ public class SkillDAO {
             if (con != null) {
                 ptm = con.prepareStatement(CLEAR_SKILL_NEED_OF_PROJECT);
                 ptm.setInt(1, projectID);
-                check = ptm.executeUpdate()>0?true:false;
+                check = ptm.executeUpdate()>0;
             }
         } catch (Exception e) {
             e.printStackTrace();
