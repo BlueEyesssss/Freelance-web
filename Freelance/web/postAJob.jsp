@@ -31,7 +31,7 @@
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation seeker w-nav">
         <div class="navigation-container">
-            <div class="navigation-menu"><a href="/" class="brand w-nav-brand"><img
+            <div class="navigation-menu"><a href="MainController?action=ViewHirerDashboard" class="brand w-nav-brand"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                         loading="lazy" alt="" class="logo-image biglogo" /></a>
                 <div class="nav-search-wrapper">
@@ -56,22 +56,26 @@
             </div>
             <div class="icon-wrapper">
                 <div>
-                    <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
+                   <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                         <div class="dropdown-toggle-2 w-dropdown-toggle">
-                            <div class="text-block-22">Find Work</div>
-                        </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Save Jobs</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
-                    </div>
-                    <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
-                        <div class="dropdown-toggle-3 w-dropdown-toggle">
                             <div class="text-block-22">My Job</div>
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">My Job</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">All Constract</a></nav>
+                        <nav class="dropdown-list-2 w-dropdown-list">
+                            <a href="postAJob.jsp"
+                                class="dropdown-link-nav w-dropdown-link">Post a Job</a>
+                                
+                            <a href="MainController?action=ViewContractOfHirer"
+                                class="dropdown-link-nav w-dropdown-link">All contract</a>
+                                
+                            <a href="#"
+                                class="dropdown-link-nav w-dropdown-link">Hire</a>
+                        </nav>
+                    </div>
+                    <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
+                        <div class="dropdown-toggle-3 w-dropdown-toggle">
+                            <div class="text-block-22">Find Talent</div>
+                        </div>
+                        <nav class="dropdown-list-2 w-dropdown-list"></nav>
                     </div>
                 </div><a href="#" class="w-inline-block"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
@@ -86,8 +90,15 @@
                                 sizes="(max-width: 479px) 100vw, (max-width: 767px) 43.134765625px, 6vw"
                                 srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                 alt="" class="avatar-img-nav" /></div>
-                        <nav class="dropdown-list w-dropdown-list"><a href="#" class="dropdown-link w-dropdown-link">My
-                                Profile</a><a href="#" class="dropdown-link w-dropdown-link">Log out</a></nav>
+                                <nav class="dropdown-list w-dropdown-list">
+                                    
+                            <a href="MainController?action=ViewHirerProfile"
+                                class="dropdown-link w-dropdown-link">My Profile</a>
+                            <a href="MainController?action=ViewBalanceHirerSeeker"
+                                class="dropdown-link w-dropdown-link">Balance</a>
+                            <a href="MainController?action=Logout"
+                                class="dropdown-link w-dropdown-link">Log out</a>
+                                </nav>
                     </div>
                 </div>
             </div>
