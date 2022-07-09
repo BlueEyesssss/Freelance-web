@@ -99,6 +99,7 @@ public class SubmitForPaymentController extends HttpServlet {
                 //cho nay dang co loi, vi chua lay duoc proposalID
                 ps.setInt(5, proposalID);
                 int status = ps.executeUpdate();
+                
                 if (status > 0) {
                     session.setAttribute("fileName", fileName);
                     String msg = "" + fileName + " File uploaded successfully...";

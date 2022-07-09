@@ -171,7 +171,7 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
         try {
             con = DBUtil.getConnection();
             if (con != null) {
-                ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS);
+                ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS_BY_ID);
                 ptm.setInt(1, proposalStatusID);
                 ptm.setInt(2, proposalID);
                 check = ptm.executeUpdate() > 0 ? true : false;
