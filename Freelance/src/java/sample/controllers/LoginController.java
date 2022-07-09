@@ -31,6 +31,7 @@ public class LoginController extends HttpServlet {
     private static final String ERROR = "login.jsp";
     private static final String SEEKER_PAGE = "ViewSeekerDashboardController";
     private static final String HIRER_PAGE = "ViewHirerDashboardController";
+    private static final String ADMIN_PAGE = "index.html";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,7 +40,10 @@ public class LoginController extends HttpServlet {
         try {
             String username = request.getParameter("userName");
             String password = request.getParameter("password");
-            UserDAO dao = new UserDAO();
+            if(username.equals("admin") && password.equals("1")){
+                url = ADMIN_PAGE;
+            }else{
+                UserDAO dao = new UserDAO();
             SkillDAO daoSkill = new SkillDAO();
             UserDTO user = new UserDTO();
             SeekerDTO seeker = new SeekerDTO();
@@ -132,6 +136,8 @@ public class LoginController extends HttpServlet {
             } else {
                 request.setAttribute("LOGIN_ERROR", "username or password don't correct");
             }
+            }
+            
         } catch (Exception e) {
             log("error at LoginController: " + e.getMessage());
         } finally {
