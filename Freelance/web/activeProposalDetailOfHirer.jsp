@@ -45,12 +45,14 @@
                 </div>
                 <div class="yes-no-button-wrapped">
                     <form action="MainController">
-
+                        
+                        <input type="hidden" name="projectID" value="<%= project.getProjectID()%>" />
+                        
                         <button type="submit" name="action" value="CancelProJectFromHirer">
                             <a class="button-6 w-button">Yes, cancel project</a>
                         </button>
 
-                        <input type="hidden" name="projectID" value="<%= project.getProjectID()%>" />
+                        
 
                         <a data-w-id="3e5004e2-713e-2d3c-1af6-d14e90a277bf" href="#" class="button-7 w-button">No, staying on
                             project</a>

@@ -31,9 +31,16 @@ public class CancelProJectFromHirerController extends HttpServlet {
             String projectID = request.getParameter("projectID");
             
             ProposalDAO dao = new ProposalDAO();
-            //check xem cancel project đc ko
-            if(dao.cancelProject(projectID)){
-                url = SUCCESS;
+            //chuyển trang thaio1 sang job finish unsucessfully
+            if(dao.cancelProject(projectID, 6)){
+                //lấy seeker id từ proposal
+                int seekerID = dao.getSeekerIDOfCancelProject(projectID);
+                //lấy amountMoney của proposal cancel
+                int amountMoney = dao.getAmountMoneyOfCancelProject(projectID);
+                //chuyển tiền porject đó cho seeker
+                if(dao.transferMoneyCancelProjectToSeeker(seekerID, amountMoney)){
+                    url = SUCCESS;
+                }
             }
             
         } catch (Exception e) {
