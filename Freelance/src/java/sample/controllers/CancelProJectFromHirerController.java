@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.proposal.ProposalDAO;
 
 /**
  *
@@ -19,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CancelProJectFromHirerController", urlPatterns = {"/CancelProJectFromHirerController"})
 public class CancelProJectFromHirerController extends HttpServlet {
-    private static final String ERROR = "activeProposalDetailOfHirer.jsp";
-    private static final String SUCCESS = "hirerDashboard.jsp";
+    private static final String ERROR = "error.html";
+    private static final String SUCCESS = "ViewContractOfHirerController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,7 +29,13 @@ public class CancelProJectFromHirerController extends HttpServlet {
         String url = ERROR;
         try {
             String projectID = request.getParameter("projectID");
-            //khúc nảy chưa hiểu là nó cancel kiểu gì trong project
+            
+            ProposalDAO dao = new ProposalDAO();
+            //check xem cancel project đc ko
+            if(dao.cancelProject(projectID)){
+                url = SUCCESS;
+            }
+            
         } catch (Exception e) {
             log("Error at CancelProJectFromHirerController: " + e.toString());
         } finally {

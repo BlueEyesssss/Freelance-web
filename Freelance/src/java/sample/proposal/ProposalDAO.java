@@ -109,7 +109,34 @@ public class ProposalDAO {
     
 private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Contract WHERE proposalID = ?";
     
+    private static final String CANCEL_PROJECT = "update Proposal\n" +
+"set proposalStatusID = 8\n" +
+"where projectID = ? and proposalStatusID = 4";
     
+    public boolean cancelProject(String projectID) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(CANCEL_PROJECT);
+                ptm.setString(1, projectID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+
     public boolean updateStatusProposal(int seekerID, int projectId) throws SQLException {
         boolean check = false;
         Connection con = null;
