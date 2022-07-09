@@ -199,7 +199,7 @@
     </div>
     <div style="display:none;opacity:0" class="cancel-this-project">
         <div class="div-block-60-copy">
-            <h3 class="heading-17">Are you sure you want to cancel this project?</h3><a href="#"
+            <h3 class="heading-17">Are you sure you want to cancel this project?</h3><a href="MainController?action=CancelProjectOfSeeker&proposalID=<%= proposalID %>"
                 class="button-8 w-button">Yes</a><a data-w-id="1994efc5-3099-bb0c-929a-cb7828f38b84" href="#"
                 class="button-9 w-button">No </a>
         </div>

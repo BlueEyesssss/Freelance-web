@@ -37,7 +37,7 @@ public class ProposalDTO {
     private String path;
 
     ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, int proposalStatusID, String proposalStatusName, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName, String durationText) {
-        this.proposalID = proposalID; 
+        this.proposalID = proposalID;
         this.projectID = projectID;
         this.seekerID = seekerID;
         this.paymentAmount = paymentAmount;
@@ -49,6 +49,18 @@ public class ProposalDTO {
         this.expectedDurationID = expectedDurationID;
         this.projectName = projectName;
         this.durationText = durationText;
+    }
+
+    ProposalDTO(int proposalID, int seekerID, int projectID, int proposalStatusID, double paymentAmount, String coverLetter, String attachment, String expectedDurationText, SeekerDTO seeker) {
+        this.proposalID = proposalID;
+        this.seekerID = seekerID;
+        this.projectID = projectID;
+        this.proposalStatusID = proposalStatusID;
+        this.paymentAmount = paymentAmount;
+        this.coverLetter = coverLetter;
+        this.attachment = attachment;
+        this.durationText = expectedDurationText;
+        this.seeker = seeker;
     }
 
     public String getLink() {
@@ -82,7 +94,6 @@ public class ProposalDTO {
     public void setPath(String path) {
         this.path = path;
     }
-    
 
     ProposalDTO(int proposalID, int seekerID, int proposalStatusID, double paymentAmount, String coverLetter, String attachment, String expectedDurationText) {
         this.proposalID = proposalID;
@@ -110,8 +121,8 @@ public class ProposalDTO {
         this.projectName = projectName;
         this.createdDate = createdDate;
     }
-    
-    ProposalDTO( String projectName_1, String createdDate,int proposalID) {
+
+    ProposalDTO(String projectName_1, String createdDate, int proposalID) {
         this.proposalID = proposalID;
         this.projectName = projectName_1;
         this.createdDate = createdDate;
@@ -217,7 +228,6 @@ public class ProposalDTO {
         this.projectName = projectName;
         this.createdDate = createdDate;
     }
-    
 
     public String getSeekerComment() {
         return seekerComment;

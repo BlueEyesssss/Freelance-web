@@ -136,6 +136,10 @@ public class MainController extends HttpServlet {
     private static final String RECHARGE_OF_HIRER_CONTROLLER = "RechargeHirerController";
     private static final String CASH_OUT_OF_HIRER = "Cash out";
     private static final String CASH_OUT_OF_HIRER_CONTROLLER = "CashOutHirerController";
+    private static final String CANCEL_PROJECT_OF_SEEKER = "CancelProjectOfSeeker";
+    private static final String CANCEL_PROJECT_OF_SEEKER_CONTROLLER = "CancelProjectOfSeekerController";
+    
+            
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -155,6 +159,8 @@ public class MainController extends HttpServlet {
                 url = SUBMIT_FOR_PAYMENT_CONTROLLER;    
             } else if (PAY_MONEY.equals(action)) {
                 url = PAY_MONEY_CONTROLLER;    
+            } else if (CANCEL_PROJECT_OF_SEEKER.equals(action)) {
+                url = CANCEL_PROJECT_OF_SEEKER_CONTROLLER;    
                       
 
             } else if (SEARCH_JOB_BY_NAME.equals(action)) {

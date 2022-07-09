@@ -862,6 +862,7 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
                 if (rs.next()) {
                     proposalID = rs.getInt("proposalID");
                     int seekerID = rs.getInt("seekerID");
+                    int projectID = rs.getInt("projectID");
                     String fullName = rs.getString("fullName");
                     String major = rs.getString("major");
                     String location = rs.getString("location");
@@ -879,7 +880,7 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
                     seeker.setSeekerID(seekerID);
                     seeker.setAvatar(avatar);
 
-                    proposal = new ProposalDTO(proposalID, seekerID, proposalStatusID, paymentAmount, coverLetter, attachment, expectedDurationText, seeker);
+                    proposal = new ProposalDTO(proposalID, seekerID, projectID, proposalStatusID, paymentAmount, coverLetter, attachment, expectedDurationText, seeker);
 
                 }
             }
