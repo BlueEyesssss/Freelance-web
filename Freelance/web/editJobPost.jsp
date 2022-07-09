@@ -1,3 +1,4 @@
+<%@page import="sample.project.ProjectDAO"%>
 <%@page import="sample.skill.SkillDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.project.ProjectDTO"%>
@@ -124,7 +125,7 @@
                             <div class="form-element"><label for="videoSharing" class="field-label small"><strong>2. Edit
                                         the Discription of the job (Not over 5000
                                         words)<strong><br /></strong></strong></label>
-                                <div class="html-embed-20 w-embed"><textarea name="description" id="whyJoin" value="<%= projectCurrent.getDescription()%>"
+                                <div class="html-embed-20 w-embed"><textarea  name="description" id="whyJoin" Value="<%= projectCurrent.getDescription()%>"
                                                                              oninput="countWord()" rows="5"
                                                                              style="width: 100%; padding: 10px; border-color: #caccd1; border-radius: 7px">
                                     </textarea></div>
@@ -186,7 +187,18 @@
                                     <%
                                         List<SkillDTO> listSkillAll = (List<SkillDTO>) session.getAttribute("LIST_SKILL_ALL");
                                         for (SkillDTO elem : listSkillAll) {
+                                            ProjectDAO dao = new ProjectDAO();
+                                            if(dao.checkSkillMatch(elem.getSkillName(), projectCurrent.getListSkill(projectCurrent.getProjectID()))){
                                     %>
+                                    <label
+                                        class="w-checkbox check-box-skill-element">
+                                        <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox w--redirected-checked"></div>
+                                        <input type="checkbox" name="skillID" value="<%= elem.getSkillID()%>" id="Skill" data-name="Skill"
+                                               style="opacity:0;position:absolute;z-index:-1" /><span
+                                               class="checkbox-label w-form-label" for="Skill"><%= elem.getSkillName()%></span>
+                                    </label>
+                                    <%
+                                        }else{%>
                                     <label
                                         class="w-checkbox check-box-skill-element">
                                         <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div>
@@ -194,7 +206,9 @@
                                                style="opacity:0;position:absolute;z-index:-1" /><span
                                                class="checkbox-label w-form-label" for="Skill"><%= elem.getSkillName()%></span>
                                     </label>
+                                    
                                     <%
+                                               }
                                         }
                                     %>
                                 </div>

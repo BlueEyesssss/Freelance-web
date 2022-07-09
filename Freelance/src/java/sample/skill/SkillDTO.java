@@ -28,7 +28,7 @@ public class SkillDTO implements Serializable{
     public int getSkillID() {
         return skillID;
     }
-
+    
     public void setSkillID(int skillID) {
         this.skillID = skillID;
     }

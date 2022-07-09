@@ -22,7 +22,7 @@ import sample.project.ProjectDTO;
 @WebServlet(name = "EditJobPostController", urlPatterns = {"/EditJobPostController"})
 public class EditJobPostController extends HttpServlet {
 
-    private static final String ERROR = "error.html";
+    private static final String ERROR = "editJobPost.jsp";
     private static final String SUCCESS = "editJobPost.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

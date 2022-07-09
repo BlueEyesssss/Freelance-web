@@ -1114,5 +1114,16 @@ public class ProjectDAO {
         }
         return check;
     }
+    
+    public boolean checkSkillMatch(String SkillID, List<String> listSkill) {
+        boolean check = false;
+        
+        for (String ele : listSkill) {
+            if (ele.equalsIgnoreCase(SkillID)) {
+                check = true;
+            }
+        }
+        return check;
+    }
 
 }
