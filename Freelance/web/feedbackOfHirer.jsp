@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="sample.project.ProjectDAO"%>
+<%@page import="sample.project.ProjectDTO"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <!DOCTYPE html>
@@ -22,13 +25,17 @@
 </head>
 <%
     ProposalDTO proposal = (ProposalDTO)request.getAttribute("PROPOSAL");
+    ProjectDAO dao = new ProjectDAO();
+    ProjectDTO project = dao.getProjectByID(proposal.getProjectID());
+    List<String> skillneed = dao.getSkillNeedOfProject(project.getProjectID());
+                    project.setSkillneed(skillneed);
     if(proposal!= null){
         %>
 <body>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation-2 seeker w-nav">
         <div class="navigation-container-2">
-            <div class="navigation-menu-2"><a href="#" class="brand-2 w-nav-brand"><img
+            <div class="navigation-menu-2"><a href="MainController?action=ViewHirerDashboard" class="brand-2 w-nav-brand"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                         loading="lazy" alt="" class="logo-image biglogo" /></a>
                 <div class="nav-search-wrapper-2">
@@ -57,8 +64,8 @@
                         <div class="dropdown-toggle-2 w-dropdown-toggle">
                             <div class="text-block-22">My Job</div>
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="#"
+                        <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
+                                class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="MainController?action=ViewContractOfHirer"
                                 class="dropdown-link-nav w-dropdown-link">All contract</a><a href="#"
                                 class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
                     </div>
@@ -78,9 +85,14 @@
                         <div class="dropdown-toggle w-dropdown-toggle"><img
                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                 loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link w-dropdown-link">My Profile</a><a href="#"
-                                class="dropdown-link w-dropdown-link">Log out</a></nav>
+                        <nav class="dropdown-list-2 w-dropdown-list">
+                        <a href="MainController?action=ViewHirerProfile"
+                                class="dropdown-link w-dropdown-link">My Profile</a>
+                            <a href="MainController?action=ViewBalanceHirerSeeker"
+                                class="dropdown-link w-dropdown-link">Balance</a>
+                            <a href="MainController?action=Logout"
+                                class="dropdown-link w-dropdown-link">Log out</a>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -103,40 +115,36 @@
                 <div class="div-block-2">
                     <div class="looking-for-details">
                         <div class="java-backend-wrapper">
-                            <div class="java-backend-2">NFL WishList Spot</div>
+                            <div class="java-backend-2"><%= project.getProjectName()%></div>
                         </div>
                         <div class="backend-dev-wrapper">
                             <div class="backend-dev">
-                                <div class="backend-dev-text">Back-End Development</div>
+                                <div class="backend-dev-text"><%= project.getMajor()%></div>
                             </div>
                             <div class="posted-2">
-                                <div class="post-time">Posted June 1, 2022</div>
+                                <div class="post-time">Posted <%= project.getCreatedDate()%></div>
                             </div>
                         </div>
                         <div class="description">
-                            <div class="description-text">Initial milestone is understanding existing code base and
-                                performing the full build and test incorporation process (max $20)<br /><br />There will
-                                be 5 subsequent milestones of (max $36 each) for incremental
-                                development.<br /><br />Thus a total of 6 milestones.</div>
+                            <div class="description-text"><%= project.getDescription()%></div>
                         </div>
                     </div>
                     <div class="intermediate-2">
                         <div>
-                            <div class="intermediate-wrapper"><strong class="intermediate-2">Less than 30
-                                    hours/week</strong></div>
+                            <div class="intermediate-wrapper"><strong class="intermediate-2"><%= project.getHoursPerWeek()%> hours/week</strong></div>
                         </div>
                         <div class="experience-wrapper">
                             <div class="experience">Hourly</div>
                         </div>
                         <div class="_1-to-3-months-wrapper">
-                            <div class="_1-to-3-months"><strong>Less than a month</strong></div>
+                            <div class="_1-to-3-months"><strong><%= project.getDurationText()%></strong></div>
                         </div>
                         <div class="project-length-wrapper">
                             <div class="project-length">Project Length</div>
-                            <div class="_1-to-3-months"><strong>Intermediate</strong></div>
+                            <div class="_1-to-3-months"><strong><%= project.getComplexity()%></strong></div>
                         </div>
                         <div class="project-length">I am looking for mix of experience<br />and value</div>
-                        <div class="_1-to-3-months"><strong>100 $</strong></div>
+                        <div class="_1-to-3-months"><strong><%= project.getPaymentAmount()%> $</strong></div>
                         <div class="project-length">Budget</div>
                     </div>
                 </div>
@@ -145,7 +153,13 @@
                         <div class="skills-and-expertise">Skills and expertise</div>
                     </div>
                     <div class="java-wrapper">
-                        <div class="java">Java</div>
+                        <%
+                                                    for (String skill : project.getSkillneed()) {
+                                                %>
+                        <div class="java"><%= skill %></div>
+                        <%
+                                                    }
+                                                %>
                     </div>
                 </div>
                 <div class="job-term-3">
@@ -160,16 +174,12 @@
                                     see.</div>
                             </div>
                             <div>
-                                <div class="money">$298.00</div>
+                                <div class="money">$<%= proposal.getPaymentAmount()%></div>
                             </div>
-                            <div class="text-block-54">Expected duration: 3 months</div>
+                            <div class="text-block-54">Expected duration: $<%= proposal.getDurationText()%></div>
                         </div>
                     </div>
-                    <div class="budget-2">
-                        <div class="client-s-budget-wrapper">
-                            <div class="client-s-budget">Client&#x27;s budget: $200.00 USD</div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="div-block-19">
                     <div data-w-id="8ad3253d-7034-aa90-51f1-bd824323c70b" class="change-term-button-wrapper">
@@ -177,14 +187,18 @@
                             class="tabs w-tabs">
                             <%
                                 LocalDate endDate = (LocalDate)request.getAttribute("END_DATE");
+                                boolean checkAlreadlyFeedback =(boolean) request.getAttribute("CHECK_FEEDBACK_ALREADY");
+                                String error = (String)request.getAttribute("ERROR_MESSAGE");
+                                if(error == null) error ="";
                                 LocalDate curent = LocalDate.now();                                
-                            if(curent.isBefore(endDate.plusDays(7)) && curent.isAfter(endDate)){
+                            if(curent.isBefore(endDate.plusDays(7)) && curent.isAfter(endDate) && !checkAlreadlyFeedback){
                                 %>
                             <div class="tabs-menu w-tab-menu"><a data-w-tab="Tab 1"
                                     data-w-id="8ad3253d-7034-aa90-51f1-bd824323c70e"
                                     class="feedback-button tabs-menu w-inline-block w-tab-link w--current">
                                     <div class="feedback">Feedback</div>
                                 </a></div>
+                            <div style="color: orange"><%= error%></div>
                             <div class="tabs-content w-tab-content">
                                 <div data-w-tab="Tab 1" class="feedback-tab w-tab-pane w--tab-active">
                                     <div class="feedback-wrapper">
@@ -194,7 +208,7 @@
                                                 method="get" class="form"><label for="name"
                                                                              class="field-label-2">Feedback Grade</label><input type="number"
                                                     class="text-field-3 w-input" maxlength="256" name="clientGrade"
-                                                    data-name="Name 2" placeholder="" id="name-2" /><label for="field-4"
+                                                    data-name="Name 2" placeholder="1 to 5" id="name-2" /><label for="field-4"
                                                     class="field-label-3">Comment</label><textarea placeholder=""
                                                     maxlength="5000" id="field-4" name="clientComment" data-name="field"
                                                     class="textarea-2 w-input"></textarea>

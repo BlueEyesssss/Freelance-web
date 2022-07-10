@@ -110,10 +110,10 @@ public class ProposalDAO {
 private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Contract WHERE proposalID = ?";
     
     private static final String CANCEL_PROJECT = "update Proposal\n" +
-"set proposalStatusID = 8\n" +
+"set proposalStatusID = ?\n" +
 "where projectID = ? and proposalStatusID = 4";
     
-    public boolean cancelProject(String projectID) throws SQLException {
+    public boolean cancelProject(String projectID, int status) throws SQLException {
         boolean check = false;
         Connection con = null;
         PreparedStatement ptm = null;
@@ -121,7 +121,8 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
             con = DBUtil.getConnection();
             if (con != null) {
                 ptm = con.prepareStatement(CANCEL_PROJECT);
-                ptm.setString(1, projectID);
+                ptm.setInt(1, status);
+                ptm.setString(2, projectID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -1167,6 +1168,177 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
             }
         }
         return endDate;
+    }
+
+    String GET_SEEKER_ID_OF_CANCEL_PROJECT = "select seekerID\n" +
+"from Proposal\n" +
+"where projectID = ? and proposalStatusID = 6";
+    
+    public int getSeekerIDOfCancelProject(String projectID) throws SQLException {
+        int seekerid = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SEEKER_ID_OF_CANCEL_PROJECT);
+                ptm.setString(1, projectID);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    seekerid = rs.getInt("seekerID");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return seekerid;
+    }
+
+    String GET_AMOUNT_MONNEY_OF_CANCEL_PROJECT = "select paymentAmount\n" +
+"from Proposal\n" +
+"where projectID = ? and proposalStatusID = 6";
+    
+    public int getAmountMoneyOfCancelProject(String projectID) throws SQLException {
+        int money = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_AMOUNT_MONNEY_OF_CANCEL_PROJECT);
+                ptm.setString(1, projectID);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    money = rs.getInt("paymentAmount");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return money;
+    }
+    
+    String TRANSFER_MONEY_CANCEL_PROJECT_TO_SEEKER = "update [User]\n" +
+"set balance = balance + ?\n" +
+"where userID = ?";
+
+    public boolean transferMoneyCancelProjectToSeeker(int seekerID, int amountMoney) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(TRANSFER_MONEY_CANCEL_PROJECT_TO_SEEKER);
+                ptm.setInt(1, amountMoney);
+                ptm.setInt(2, seekerID);
+                check = ptm.executeUpdate() > 0?true:false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    private static final String CHECK_FEEDBACK_OF_SEEKER ="SELECT seekerGrade From Proposal WHERE proposalID = ?";
+    
+    public boolean checkFeedbackOfSeeker(int proposalID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_FEEDBACK_OF_SEEKER);
+                ptm.setInt(1, proposalID);
+                rs = ptm.executeQuery();
+                if(rs!= null){
+                    if(rs.getInt("seekerGrade")>0)
+                    check = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    private static final String CHECK_FEEDBACK_OF_HIRER ="SELECT clientGrade From Proposal WHERE proposalID = ?";
+    public boolean checkFeedbackOfHirer(int proposalID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_FEEDBACK_OF_HIRER);
+                ptm.setInt(1, proposalID);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    if(rs.getInt("clientGrade")>0)
+                    check = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 
 }

@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.proposal.ProposalDAO;
 
 /**
@@ -21,7 +22,7 @@ import sample.proposal.ProposalDAO;
 @WebServlet(name = "FeedbackOfSeekerController", urlPatterns = {"/FeedbackOfSeekerController"})
 public class FeedbackOfSeekerController extends HttpServlet {
 
-    private final static String ERROR = "error.html";
+    private final static String ERROR = "ViewDoneContractController";
     private final static String SUCCESS = "ViewSeekerDashboardController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -31,13 +32,18 @@ public class FeedbackOfSeekerController extends HttpServlet {
         try {
             int proposalID = Integer.parseInt(request.getParameter("proposalID"));
             int seekerGrade = Integer.parseInt(request.getParameter("seekerGrade"));
-            String seekerComment = request.getParameter("seekerComment");
-            ProposalDAO dao = new ProposalDAO();
-            boolean checkFeedback = dao.seekerFeedback(proposalID,seekerGrade,seekerComment);
-            
-            if(checkFeedback){
+            if (seekerGrade >= 1 && seekerGrade <= 5) {
+                String seekerComment = request.getParameter("seekerComment");
+                ProposalDAO dao = new ProposalDAO();
+                boolean checkFeedback = dao.seekerFeedback(proposalID, seekerGrade, seekerComment);
+
+                if (checkFeedback) {
+
+                    url = SUCCESS;
+                }
+            }else{
                 
-                url = SUCCESS;
+                request.setAttribute("ERROR_MESSAGE", "Oppss, Wrong format!!");
             }
         } catch (Exception e) {
             log("Error at FeedbackOfSeekerController: " + e.toString());

@@ -32,12 +32,16 @@ public class ViewDoneContractHirerController extends HttpServlet {
         String url = ERROR;
         try {
             int proposalID = Integer.parseInt(request.getParameter("proposalID"));
+            String error = (String)request.getAttribute("ERROR_MESSAGE");
             ProposalDAO dao = new ProposalDAO();
+            boolean checkAlreadlyFeedback = dao.checkFeedbackOfHirer(proposalID);
             ProposalDTO proposal = dao.getProposalByID(proposalID);
             LocalDate endDate = LocalDate.parse(dao.getEndDateOfContract(proposalID));
             if(proposal!= null){
                 request.setAttribute("PROPOSAL", proposal);
                 request.setAttribute("END_DATE", endDate);
+                request.setAttribute("CHECK_FEEDBACK_ALREADY", checkAlreadlyFeedback);
+                request.setAttribute("ERROR_MESSAGE", error);
                 url = SUCCESS;
             }
         } catch (Exception e) {

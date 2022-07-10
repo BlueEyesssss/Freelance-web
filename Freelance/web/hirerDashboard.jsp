@@ -162,6 +162,9 @@
                         if (list != null) {
                             if (list.size() > 0) {
                                 for (ProjectDTO project : list) {
+                                    if(localDate.toString().compareTo(project.getDeadlineDate())<=0){
+                                        
+                                    
 
                     %>
                     
@@ -178,6 +181,7 @@
                             class="remove-button w-button">Remove</a></div>
                 </div>
                     <%
+                        }
                         }
                     } else {
                     %>

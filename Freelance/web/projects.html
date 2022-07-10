@@ -196,11 +196,35 @@
                           <span class="badge badge-success">Success</span>
                       </td>
                       <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="#">
+                          <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#exampleModalCenter">
                               <i class="fas fa-folder">
                               </i>
                               View
                           </a>
+                          <!-- popup form in here -->
+                          <!-- Modal -->
+
+                          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Project Tittle ne</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body" style = "text-align: left;">
+                                  <p><b>Project Discription:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, doloribus! Repellat placeat, reprehenderit est sequi nisi excepturi repudiandae modi animi tempora quae vitae exercitationem sunt reiciendis voluptates quis dignissimos! Porro?</p>
+                                  <p><b>Link Submission:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, doloribus! Repellat placeat, reprehenderit est sequi nisi excepturi repudiandae modi animi tempora quae vitae exercitationem sunt reiciendis voluptates quis dignissimos! Porro?</p>
+                                  <p>Attachment: <a href = "">Download</a></p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                  <button type="button" class="btn btn-primary">Approve</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           <!-- 
                           <a class="btn btn-info btn-sm" href="#">
                               <i class="fas fa-pencil-alt">
@@ -215,7 +239,7 @@
                           -->
                       </td>
                   </tr>
-
+                  
                   
               </tbody>
           </table>
@@ -232,13 +256,13 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+  <!-- <footer class="main-footer">
     <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.5
     </div>
-  </footer>
+  </footer> -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

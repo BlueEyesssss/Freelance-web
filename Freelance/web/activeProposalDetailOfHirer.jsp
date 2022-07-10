@@ -45,12 +45,14 @@
                 </div>
                 <div class="yes-no-button-wrapped">
                     <form action="MainController">
-
+                        
+                        <input type="hidden" name="projectID" value="<%= project.getProjectID()%>" />
+                        
                         <button type="submit" name="action" value="CancelProJectFromHirer">
                             <a class="button-6 w-button">Yes, cancel project</a>
                         </button>
 
-                        <input type="hidden" name="projectID" value="<%= project.getProjectID()%>" />
+                        
 
                         <a data-w-id="3e5004e2-713e-2d3c-1af6-d14e90a277bf" href="#" class="button-7 w-button">No, staying on
                             project</a>
@@ -61,7 +63,7 @@
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
              role="banner" class="navigation-2 seeker w-nav">
             <div class="navigation-container-2">
-                <div class="navigation-menu-2"><a href="#" class="brand-2 w-nav-brand"><img
+                <div class="navigation-menu-2"><a href="MainController?action=ViewHirerDashboard" class="brand-2 w-nav-brand"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                             loading="lazy" alt="" class="logo-image biglogo" /></a>
                     <div class="nav-search-wrapper-2">
