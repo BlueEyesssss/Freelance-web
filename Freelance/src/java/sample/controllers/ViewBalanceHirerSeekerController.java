@@ -62,7 +62,8 @@ public class ViewBalanceHirerSeekerController extends HttpServlet {
             }
 
         } catch (Exception e) {
-            log("Error at ViewBalanceHirerController: " + e.toString());
+            log("Error at ViewBalanceHirerSeekerController: " + e.toString());
+            e.printStackTrace();
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
