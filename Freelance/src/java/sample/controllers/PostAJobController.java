@@ -45,7 +45,7 @@ public class PostAJobController extends HttpServlet {
             String deadline = request.getParameter("deadline");
             String location = request.getParameter("location");
             String createdDate = java.time.LocalDate.now() + "";
-            int hourPerWeek = 0;
+            int hourPerWeek = Integer.parseInt(request.getParameter("hourperweek"));
             String major = request.getParameter("major");
 
             String[] skillID = request.getParameterValues("skillID");

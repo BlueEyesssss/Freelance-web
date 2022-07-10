@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="sample.skill.SkillDTO"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -185,7 +186,7 @@
                                                             <div
                                                                 class="w-form-formradioinput w-form-formradioinput--inputType-custom radio-button-2 w-radio-input">
                                                             </div>
-                                                            <input type="radio" name="duration"
+                                                            <input type="radio" name="durationID"
                                                                 id="More-than-6-months" value="4"
                                                                 data-name="duration"
                                                                 style="opacity:0;position:absolute;z-index:-1" /><span
@@ -412,8 +413,8 @@
                                                 <div class="div-block-135"><label id="timePerWeek" for="deadline"
                                                         class="field-label small"><strong>6.
                                                             Deadline</strong><br /></label>
-                                                    
-                                                    <input type="date"
+                                                    <%LocalDate localDate = LocalDate.now();%>
+                                                    <input type="date" min="<%= localDate%>"
                                                         class="text-field _w-50 w-input" maxlength="256" name="deadline"
                                                         data-name="deadline" placeholder="Type date nha" id="deadline"
                                                         required="" />
@@ -425,7 +426,7 @@
                                                 
                                                 <input type="number"
                                                     class="text-field _w-50 w-input" maxlength="256" name="hourperweek"
-                                                    data-name="deadline" placeholder="Type date nha" id="hourperweek"
+                                                    data-name="deadline" placeholder="" id="hourperweek"
                                                     required="" />
 
                                             </div>
