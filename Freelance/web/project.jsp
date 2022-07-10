@@ -230,8 +230,8 @@
                                   <p>Attachment: <a href = "">Download</a></p>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                  <button type="button" class="btn btn-primary">Approve</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><a href="MainController?action=AddMoneyToSeeker&proposalID=<%=proposal.getProposalID()%>">Cancel</a></button>
+                                  <button type="button" class="btn btn-primary"><a href="MainController?action=AddMoneyToHirer&proposalID=<%=proposal.getProposalID()%>">Approve</a></button>
                                 </div>
                               </div>
                             </div>

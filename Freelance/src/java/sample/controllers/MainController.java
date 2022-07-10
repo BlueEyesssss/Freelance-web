@@ -142,6 +142,10 @@ public class MainController extends HttpServlet {
     private static final String ACCEPT_SEEKER_PROPOSAL_BY_BALANCE_WEB_CONTROLLER = "AcceptSeekerProposalByBalanceWebController";
     private static final String REPORT_SEEKER = "ReportSeeker";
     private static final String REPORT_SEEKER_CONTROLLER = "ReportSeekerController";
+    private static final String ADD_MONEY_TO_SEEKER = "AddMoneyToSeeker";
+    private static final String ADD_MONEY_TO_SEEKER_CONTROLLER = "AddMoneyToSeekerController";
+    private static final String ADD_MONEY_TO_HIRER = "AddMoneyToHirer";
+    private static final String ADD_MONEY_TO_HIRER_CONTROLLER = "AddMoneyToHirerController";
             
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -326,6 +330,12 @@ public class MainController extends HttpServlet {
 
             } else if (ACCEPT_SEEKER_PROPOSAL_BY_BALANCE_WEB.equals(action)) {
                 url = ACCEPT_SEEKER_PROPOSAL_BY_BALANCE_WEB_CONTROLLER;
+                
+            } else if (ADD_MONEY_TO_SEEKER.equals(action)) {
+                url = ADD_MONEY_TO_SEEKER_CONTROLLER;
+                
+            } else if (ADD_MONEY_TO_HIRER.equals(action)) {
+                url = ADD_MONEY_TO_HIRER_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();
