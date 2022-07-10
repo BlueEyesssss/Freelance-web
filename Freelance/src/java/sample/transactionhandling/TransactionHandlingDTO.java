@@ -4,13 +4,14 @@
  */
 package sample.transactionhandling;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author LENOVO
  */
-public class TransactionHandlingDTO {
+public class TransactionHandlingDTO implements Serializable{
     private int transactionHandlingID;
     private int userID;
     private double amountMonney;
@@ -43,11 +44,11 @@ public class TransactionHandlingDTO {
         this.transactionHandlingID = transactionHandlingID;
     }
 
-    public int getHirerID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setHirerID(int hirerID) {
+    public void setUserID(int hirerID) {
         this.userID = hirerID;
     }
 

@@ -18,6 +18,8 @@ import sample.hirer.HirerDTO;
 import sample.seeker.SeekerDTO;
 import sample.skill.SkillDAO;
 import sample.skill.SkillDTO;
+import sample.transactionhandling.TransactionHandlingDAO;
+import sample.transactionhandling.TransactionHandlingDTO;
 import sample.user.UserDAO;
 import sample.user.UserDTO;
 
@@ -38,9 +40,16 @@ public class LoginController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            HttpSession session = request.getSession();
             String username = request.getParameter("userName");
             String password = request.getParameter("password");
             if(username.equals("admin") && password.equals("1")){
+                
+                //lấy list transaction rút tiền từ web ra paypal
+                TransactionHandlingDAO dao = new TransactionHandlingDAO();
+                List<TransactionHandlingDTO> listTran = dao.getListTranStatus0();
+                session.setAttribute("LIST_TRANS_STATUS_0", listTran);
+                
                 url = ADMIN_PAGE;
             }else{
                 UserDAO dao = new UserDAO();
@@ -52,7 +61,7 @@ public class LoginController extends HttpServlet {
             UserDAO daoUser = new UserDAO();
             user = dao.getUser(username, password);
             if (user != null) {
-                HttpSession session = request.getSession();
+                
                 List<SkillDTO> listSkillAll = daoSkill.getListSkill();
                 session.setAttribute("LIST_SKILL_ALL", listSkillAll);
 

@@ -19,7 +19,7 @@ public class PaymentDAO {
 
     private static final String GET_CLIENT_ID_SECRET = "SELECT userID, CLIENT_ID, CLIENT_SECRET\n"
             + "FROM PaymentFLC\n"
-            + "WHERE seekerID = ?";
+            + "WHERE userID = ?";
 
     public String getClientID(int parseInt) throws SQLException {
         String id = null;

@@ -60,6 +60,41 @@ public class UserDAO {
 "set balance =balance - ?\n" +
 "where userID = ?";
     
+    private static final String GET_NAME_BY_ID = "select fullName\n" +
+"from [User]\n" +
+"where userID = ?";
+    
+    public String getFullNameById(int userid) throws SQLException{
+        String name = "";
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(GET_NAME_BY_ID);
+                ptm.setInt(1, userid);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    name = rs.getString("fullName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return name;
+    }
+    
     public boolean minusBalanceHirer(int userID, float paymentAmount) throws SQLException {
         boolean check = false;
         Connection con = null;

@@ -11,6 +11,7 @@ import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.payment.PayPayDTO;
 import sample.payment.PaymentServices;
+import sample.transactionhandling.TransactionHandlingDAO;
+import sample.transactionhandling.TransactionHandlingDTO;
 
 /**
  *
@@ -29,6 +32,7 @@ public class ExecutePaymentServlet extends HttpServlet {
     private static final String ERROR = "error.jsp";
     private static final String SUCCESS = "UpdateProposalStatusController";//
     private static final String SUCCESS_RECHARGE_HIRER = "UpdateBalnceAfterRechargeOfHirerController";//
+    private static final String SUCCESS_WITHDRAW = "LoginController?userName=admin&password=1";//
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -89,7 +93,15 @@ public class ExecutePaymentServlet extends HttpServlet {
             HttpSession session  =request.getSession();
             PayPayDTO dto = (PayPayDTO) session.getAttribute("PAYPALDTO");
             String recharge = (String) session.getAttribute("RECHRAGE_HIRER");
-            if(recharge != null){
+            String withdraw = (String) session.getAttribute("WITHDRAW");
+            if(withdraw != null){
+                TransactionHandlingDAO dao = new TransactionHandlingDAO();
+                TransactionHandlingDTO tran = (TransactionHandlingDTO) session.getAttribute("TRANS_INF");
+                //set status lại cho trans thành 1
+                if(dao.updateStatusTransTo1(tran)){
+                    url = SUCCESS_WITHDRAW;
+                }
+            }else if(recharge != null){
                 url = SUCCESS_RECHARGE_HIRER;
             }else{
                 url = SUCCESS;
@@ -104,7 +116,11 @@ public class ExecutePaymentServlet extends HttpServlet {
             request.setAttribute("errorMessage", "could not execure payment");
             ex.printStackTrace();
             request.getRequestDispatcher(ERROR).forward(request, response);
-        }
+        } catch (SQLException ex) {
+            request.setAttribute("errorMessage", "could not execure payment - sql exception");
+            ex.printStackTrace();
+            request.getRequestDispatcher(ERROR).forward(request, response);
+        } 
 
     }
 
