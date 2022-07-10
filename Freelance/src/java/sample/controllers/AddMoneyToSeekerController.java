@@ -34,15 +34,16 @@ public class AddMoneyToSeekerController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {           
-            String proposalID = request.getParameter("proposalID");
-            ProposalDAO dao = new ProposalDAO();
-            ProposalDTO proposal = dao.getProposal(Integer.parseInt(proposalID));
+            int proposalID = Integer.parseInt(request.getParameter("proposalID"));
+            ProposalDAO proposalDao = new ProposalDAO();
+            ProposalDTO proposal = proposalDao.getProposal(proposalID);
             int seekerID = proposal.getSeekerID();
             UserDAO userDao = new UserDAO();
             UserDTO seeker = userDao.getUserByID(seekerID);
             
             boolean checkUpdateBalance = userDao.addMoneyToUserByUserID(proposal.getPaymentAmount()+seeker.getBalance(), seeker.getUserID());
             if(checkUpdateBalance){
+                proposalDao.changeStatusProposal(proposalID, 7);
                 url = SUCCESS;
             }
           

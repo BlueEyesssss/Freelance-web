@@ -33,15 +33,16 @@ public class AddMoneyToHirerController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String proposalID = request.getParameter("proposalID");
-            ProposalDAO dao = new ProposalDAO();
-            ProposalDTO proposal = dao.getProposal(Integer.parseInt(proposalID));
+            int proposalID = Integer.parseInt(request.getParameter("proposalID"));
+            ProposalDAO proposalDao = new ProposalDAO();
+            ProposalDTO proposal = proposalDao.getProposal(proposalID);
             int hireID = proposal.getHirerID();
             UserDAO userDao = new UserDAO();
             UserDTO hirer = userDao.getUserByID(hireID);
             
             boolean checkUpdateBalance = userDao.addMoneyToUserByUserID(proposal.getPaymentAmount()+hirer.getBalance(), hirer.getUserID());
             if(checkUpdateBalance){
+                proposalDao.changeStatusProposal(proposalID, 6);
                 url = SUCCESS;
             }
             } catch (Exception e) {
