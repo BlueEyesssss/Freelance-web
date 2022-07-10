@@ -140,7 +140,8 @@ public class MainController extends HttpServlet {
     private static final String CANCEL_PROJECT_OF_SEEKER_CONTROLLER = "CancelProjectOfSeekerController";
     private static final String ACCEPT_SEEKER_PROPOSAL_BY_BALANCE_WEB = "AcceptSeekerProposalByBalanceWeb";
     private static final String ACCEPT_SEEKER_PROPOSAL_BY_BALANCE_WEB_CONTROLLER = "AcceptSeekerProposalByBalanceWebController";
-    
+    private static final String REPORT_SEEKER = "ReportSeeker";
+    private static final String REPORT_SEEKER_CONTROLLER = "ReportSeekerController";
             
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -163,6 +164,8 @@ public class MainController extends HttpServlet {
                 url = PAY_MONEY_CONTROLLER;    
             } else if (CANCEL_PROJECT_OF_SEEKER.equals(action)) {
                 url = CANCEL_PROJECT_OF_SEEKER_CONTROLLER;    
+            } else if (REPORT_SEEKER.equals(action)) {
+                url = REPORT_SEEKER_CONTROLLER;    
                       
 
             } else if (SEARCH_JOB_BY_NAME.equals(action)) {

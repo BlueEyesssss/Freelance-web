@@ -178,7 +178,7 @@
                     <div class="text-block-39-copy">The total number of Job Posted</div>
                     <div class="text-block-39">Member since <%= loginUser.getRegistrationDate() %></div>
                 </div>
-                <div class="div-block-59"><a href="MainController?action=PayMoney&proposalID=<%= proposalINf.getProposalID() %>" class="button-5-copy w-button">Pay Money</a><a href="#"
+                <div class="div-block-59"><a href="MainController?action=PayMoney&proposalID=<%= proposalINf.getProposalID() %>" class="button-5-copy w-button">Pay Money</a><a href="MainController?action=ReportSeeker&proposalID=<%= proposalINf.getProposalID() %>"
                         class="button-6-copy w-button">Report Seeker</a></div>
             </div>
         </div>
