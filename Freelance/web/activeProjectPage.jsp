@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="sample.seeker.SeekerDTO"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="sample.project.ProjectDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -38,6 +39,7 @@
         ProjectDTO project = (ProjectDTO) request.getAttribute("ACTIVE_PROJECT");
         int proposalID = (int) request.getAttribute("PROPOSAL_ID");
         LocalDate localDate = LocalDate.now();
+        SeekerDTO loginUser = (SeekerDTO) session.getAttribute("USER_LOGIN");
         
     %>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
@@ -70,19 +72,22 @@
                 <div class="div-block-3">
                     <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                         <div class="dropdown-toggle-2 w-dropdown-toggle">
-                            <div class="text-block-22">My Job</div>
+                            <div class="text-block-22">Find Work</div>
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">All contract</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
+                        <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=Search Job By Name&search="
+                                class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="MainController?action=ViewProposal"
+                                  class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
                     </div>
                     <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                         <div class="dropdown-toggle-3 w-dropdown-toggle">
-                            <div class="text-block-22">Find Talent</div>
+                            <div class="text-block-22">My Job</div>
+                            
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-moi-qua-troi-moi w-dropdown-link">Find Talent</a></nav>
+                        <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewMyJob"
+                                class="dropdown-moi-qua-troi-moi w-dropdown-link">My Job</a>
+                                <a href="MainController?action=ViewContract"
+                                class="dropdown-moi-qua-troi-moi w-dropdown-link">All Contracts</a>
+                        </nav>
                     </div>
                 </div><a href="#" class="link-block w-inline-block"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
@@ -92,10 +97,12 @@
                 <div class="navigation-button-wrapper">
                     <div data-hover="false" data-delay="0" class="w-dropdown">
                         <div class="dropdown-toggle w-dropdown-toggle"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                src=<%= loginUser.getAvatar() %>
                                 loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-link w-dropdown-link">My Profile</a><a href="#"
+                        <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerProfile"
+                                class="dropdown-link w-dropdown-link">My Profile</a>
+                                <a href="MainController?action=ViewBalanceHirerSeeker&role=seeker"
+                                class="dropdown-link w-dropdown-link">My Balance</a><a href="MainController?action=Logout"
                                 class="dropdown-link w-dropdown-link">Log out</a></nav>
                     </div>
                 </div>

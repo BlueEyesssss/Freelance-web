@@ -74,7 +74,7 @@
                                 <div class="text-block-22">Find Work</div>
                             </div>
                             <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerDashboard"
-                                                                            class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="MainController?action=ViewProposal"
+                                                                            class="dropdown-link-nav w-dropdown-link">Find Work</a><a href="MainController?action=Search Job By Name&search="
                                                                             class="dropdown-link-nav w-dropdown-link">Proposals</a></nav>
                         </div>
                         <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
@@ -83,7 +83,7 @@
                             </div>
                             <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewMyJob"
                                                                             class="dropdown-link-nav w-dropdown-link">My Job</a><a href="MainController?action=ViewContract"
-                                                                            class="dropdown-link-nav w-dropdown-link">All Constract</a></nav>
+                                                                            class="dropdown-link-nav w-dropdown-link">All Contracts</a></nav>
                         </div>
                     </div><a href="#" class="w-inline-block"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
@@ -98,8 +98,8 @@
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 25.4296875px, 6vw"
                                     srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, <%= seeker.getAvatar()%> 960w"
                                     alt="" class="avatar-img-nav" /></div>
-                            <nav class="dropdown-list w-dropdown-list"><a href="#" class="dropdown-link w-dropdown-link">My
-                                    Profile</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
+                            <nav class="dropdown-list w-dropdown-list"><a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
+                                    Profile</a><a href="MainController?action=ViewBalanceHirerSeeker&role=seeker" class="dropdown-link w-dropdown-link">My Balance</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
                         </div>
                     </div>
                 </div>
