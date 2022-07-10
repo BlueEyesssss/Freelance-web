@@ -138,6 +138,8 @@ public class MainController extends HttpServlet {
     private static final String CASH_OUT_OF_HIRER_CONTROLLER = "CashOutHirerController";
     private static final String CANCEL_PROJECT_OF_SEEKER = "CancelProjectOfSeeker";
     private static final String CANCEL_PROJECT_OF_SEEKER_CONTROLLER = "CancelProjectOfSeekerController";
+    private static final String ACCEPT_SEEKER_PROPOSAL_BY_BALANCE_WEB = "AcceptSeekerProposalByBalanceWeb";
+    private static final String ACCEPT_SEEKER_PROPOSAL_BY_BALANCE_WEB_CONTROLLER = "AcceptSeekerProposalByBalanceWebController";
     
             
 
@@ -318,6 +320,9 @@ public class MainController extends HttpServlet {
 
             } else if (CASH_OUT_OF_HIRER.equals(action)) {
                 url = CASH_OUT_OF_HIRER_CONTROLLER;
+
+            } else if (ACCEPT_SEEKER_PROPOSAL_BY_BALANCE_WEB.equals(action)) {
+                url = ACCEPT_SEEKER_PROPOSAL_BY_BALANCE_WEB_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();

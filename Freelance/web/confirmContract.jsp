@@ -178,19 +178,20 @@
                 </div>
             </div>
             <div class="button-wrapped checkbox-field">
+                
                 <a href="#" class="cancel-button w-button">Cancel</a>
-                <form action="#UpdateProposalStatusController" method="POST">
+                
+                <form action="MainController" >
                     <input type="hidden" name="paymentAmount" value="<%= proposal.getPaymentAmount() %>" />
                     <input type="hidden" name="seekerID" value="<%= proposal.getSeeker().getSeekerID()%>" />
-                    <input type="hidden" name="projectName" value="<%= project.getProjectName() %>" />
                     <input type="hidden" name="proposalID" value="<%= proposal.getProposalID()%>" />
                     <input type="hidden" name="projectID" value="<%= project.getProjectID()%>" />
-                    <input type="hidden" name="payBybalance" value="payBybalance" />
                     
-                    <button type="submit" name="action" value="AcceptSeekerProposalByBalanceWeb"class="log-in">
-                        <a class="continue-button w-button">Balance web (ch?a xong)</a>
+                    <button type="submit" name="action" value="AcceptSeekerProposalByBalanceWeb">
+                        <a class="continue-button w-button">Balance web</a>
                     </button>
                 </form>
+                    
                 <form action="AuthorizePaymentServlet" method="POST">
                     <input type="hidden" name="paymentAmount" value="<%= proposal.getPaymentAmount() %>" />
                     <input type="hidden" name="seekerID" value="<%= proposal.getSeeker().getSeekerID()%>" />

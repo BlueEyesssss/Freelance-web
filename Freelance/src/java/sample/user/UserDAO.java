@@ -56,6 +56,35 @@ public class UserDAO {
 "from [User]\n" +
 "where userID = ?";
     
+    private static final String MINUS_BALANCE_HIRER = "update [User]\n" +
+"set balance =balance - ?\n" +
+"where userID = ?";
+    
+    public boolean minusBalanceHirer(int userID, float paymentAmount) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(MINUS_BALANCE_HIRER);    
+                ptm.setFloat(1, paymentAmount);
+                ptm.setInt(2, userID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
     public int getBalanceUser(int userID) throws SQLException {
         int money = 0;
         Connection con = null;
@@ -703,6 +732,8 @@ public class UserDAO {
         }
         return user;
     }
+
+    
 
     
 

@@ -150,6 +150,7 @@
                 <div class="your-posting">
                     <div>
                         <div class="div-block-38">
+                            <span style="color: red; padding-left: 2%;">${NOT_ENOUGH_MONEY_TO_CASH}</span>
                             <div class="div-block-37"><a href="#" class="link-8">Your Posting</a></div>
                         </div>
                         
