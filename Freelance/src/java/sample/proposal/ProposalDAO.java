@@ -1340,5 +1340,43 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
         }
         return check;
     }
+    
+    private static final String VIEW_REPORTED_PROPOSAL = "SELECT B.projectName, a.createdDate\n"
+            + "FROM Proposal A, Project B\n"
+            + "WHERE A.projectID = B.projectID \n"
+            + "AND A.proposalStatusID =8 \n";           
+    public List<ProposalDTO> getListReportedProposal() throws SQLException {
+        List<ProposalDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_REPORTED_PROPOSAL);                
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String projectName = rs.getString("projectName");
+                    String createdDate = rs.getString("createdDate");
+
+                    list.add(new ProposalDTO(projectName, createdDate));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
 
 }
