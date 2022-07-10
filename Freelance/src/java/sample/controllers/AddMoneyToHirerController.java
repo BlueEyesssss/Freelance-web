@@ -35,7 +35,7 @@ public class AddMoneyToHirerController extends HttpServlet {
         try {
             int proposalID = Integer.parseInt(request.getParameter("proposalID"));
             ProposalDAO proposalDao = new ProposalDAO();
-            ProposalDTO proposal = proposalDao.getProposal(proposalID);
+            ProposalDTO proposal = proposalDao.getProposalByIDForAdminPage(proposalID);
             int hireID = proposal.getHirerID();
             UserDAO userDao = new UserDAO();
             UserDTO hirer = userDao.getUserByID(hireID);

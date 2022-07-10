@@ -177,7 +177,7 @@
               </thead>
               <tbody>
                   
-                  <%
+                  <%                      
                       ProposalDAO dao = new ProposalDAO();                     
                   List<ProposalDTO> listReportedProposal = dao.getListReportedProposal();
                   if (listReportedProposal != null) {
@@ -194,7 +194,7 @@
                           </a>
                           <br/>
                           <small>
-                              Created 01.01.2019
+                              <%= proposal.getCreatedDate()%>
                           </small>
                       </td>
                       <td>
@@ -227,10 +227,10 @@
                                 <div class="modal-body" style = "text-align: left;">
                                   <p><b>Project Discription:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, doloribus! Repellat placeat, reprehenderit est sequi nisi excepturi repudiandae modi animi tempora quae vitae exercitationem sunt reiciendis voluptates quis dignissimos! Porro?</p>
                                   <p><b>Link Submission:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, doloribus! Repellat placeat, reprehenderit est sequi nisi excepturi repudiandae modi animi tempora quae vitae exercitationem sunt reiciendis voluptates quis dignissimos! Porro?</p>
-                                  <p>Attachment: <a href = "">Download</a></p>
+                                  <p>Attachment: <a href = "DownloadFileController?fileName=<%= proposal.getFileName() %>">Download</a></p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><a href="MainController?action=AddMoneyToSeeker&proposalID=<%=proposal.getProposalID()%>">Cancel</a></button>
+                                    <button type="button" class="btn btn-danger" ><a href="MainController?action=AddMoneyToSeeker&proposalID=<%=proposal.getProposalID()%>">Cancel</a></button>
                                   <button type="button" class="btn btn-primary"><a href="MainController?action=AddMoneyToHirer&proposalID=<%=proposal.getProposalID()%>">Approve</a></button>
                                 </div>
                               </div>

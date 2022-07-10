@@ -36,7 +36,7 @@ public class AddMoneyToSeekerController extends HttpServlet {
         try {           
             int proposalID = Integer.parseInt(request.getParameter("proposalID"));
             ProposalDAO proposalDao = new ProposalDAO();
-            ProposalDTO proposal = proposalDao.getProposal(proposalID);
+            ProposalDTO proposal = proposalDao.getProposalByIDForAdminPage(proposalID);
             int seekerID = proposal.getSeekerID();
             UserDAO userDao = new UserDAO();
             UserDTO seeker = userDao.getUserByID(seekerID);

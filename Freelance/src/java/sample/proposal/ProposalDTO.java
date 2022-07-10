@@ -63,6 +63,28 @@ public class ProposalDTO {
         this.seeker = seeker;
     }
 
+    ProposalDTO(String projectName, String createdDate, String link, String message, String fileName, String path, int proposalID, double paymentAmount) {
+        this.projectName = projectName;
+        this.createdDate = createdDate;
+        this.link = link;
+        this.message = message;
+        this.fileName = fileName;
+        this.path = path;
+        this.proposalID = proposalID;
+        this.paymentAmount = paymentAmount;
+        
+    }
+
+    ProposalDTO(int hirerID, int proposalID, int projectID, int seekerID, double paymentAmount, int proposalStatusID, String createdDate) {
+        this.proposalID = proposalID;
+        this.projectID = projectID;
+        this.seekerID = seekerID;
+        this.hirerID = hirerID;
+        this.paymentAmount = paymentAmount;
+        this.proposalStatusID = proposalStatusID;
+        this.createdDate = createdDate;
+    }
+
     public String getLink() {
         return link;
     }
@@ -184,10 +206,11 @@ public class ProposalDTO {
     }
 
     //full
-    public ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, int proposalStatusID, String proposalStatusName, double clientGrade, String clientComment, double seekerGrade, String seekerComment, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName, String durationText) {
+    public ProposalDTO(int hirerID, int proposalID, int projectID, int seekerID, double paymentAmount, int proposalStatusID, String proposalStatusName, double clientGrade, String clientComment, double seekerGrade, String seekerComment, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName, String durationText) {
         this.proposalID = proposalID;
         this.projectID = projectID;
         this.seekerID = seekerID;
+        this.hirerID = hirerID;
         this.paymentAmount = paymentAmount;
         this.proposalStatusID = proposalStatusID;
         this.proposalStatusName = proposalStatusName;

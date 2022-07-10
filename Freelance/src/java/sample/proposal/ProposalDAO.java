@@ -71,7 +71,7 @@ public class ProposalDAO {
             + "AND A.proposalStatusID = 4\n"
             + "AND B.hirerID = ?";
 
-    private static final String GET_PROPOSAL = "SELECT p.proposalID, p.projectID,pr.projectName , p.seekerID, p.paymentAmount,p.proposalStatusID, ps.statusName, \n" +
+    private static final String GET_PROPOSAL = "SELECT pr.hirerID, p.proposalID, p.projectID,pr.projectName , p.seekerID, p.paymentAmount,p.proposalStatusID, ps.statusName, \n" +
 "p.clientGrade, p.clientComment, p.seekerGrade, p.seekerComment, p.coverLetter, p.attachment, p.createdDate,\n" +
 "p.expectedDurationID, E.durationText\n" +
 "FROM Proposal p, ExpectedDuration e, ProposalStatus ps, Project pr\n" +
@@ -286,6 +286,7 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
                     proposalID = Integer.parseInt(rs.getString("proposalID"));
                     int projectID = Integer.parseInt(rs.getString("projectID"));
                     int seekerID = Integer.parseInt(rs.getString("seekerID"));
+                    int hirerID = Integer.parseInt(rs.getString("hirerID"));
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
                     int proposalStatusID = Integer.parseInt(rs.getString("proposalStatusID"));
                     String proposalStatusName = rs.getString("statusName");
@@ -300,7 +301,7 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
                     String projectName = rs.getString("projectName");
                     String durationText = rs.getString("durationText");
 
-                    item = new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusID,
+                    item = new ProposalDTO(hirerID,proposalID, projectID, seekerID, paymentAmount, proposalStatusID,
                             proposalStatusName, clientGrade, clientComment, seekerGrade, seekerComment,
                             coverLetter, attachment, createdDate, expectedDurationID, projectName, durationText);
                 }
@@ -1341,10 +1342,11 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
         return check;
     }
     
-    private static final String VIEW_REPORTED_PROPOSAL = "SELECT B.projectName, a.createdDate\n"
+    private static final String VIEW_REPORTED_PROPOSAL = "SELECT B.projectName, A.createdDate,A.proposalID,A.link, A.message, A.fileName, A.path, A.paymentAmount \n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID =8 \n";           
+    
     public List<ProposalDTO> getListReportedProposal() throws SQLException {
         List<ProposalDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -1358,8 +1360,16 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
                 while (rs.next()) {
                     String projectName = rs.getString("projectName");
                     String createdDate = rs.getString("createdDate");
-
-                    list.add(new ProposalDTO(projectName, createdDate));
+                    int proposalID = rs.getInt("proposalID");
+                    String fileName = rs.getString("fileName");
+                    String link = rs.getString("link");
+                    String message = rs.getString("message");                    
+                    String path = rs.getString("path");
+                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
+                    
+                    
+                    
+                    list.add(new ProposalDTO(projectName,createdDate,link, message, fileName, path, proposalID, paymentAmount));
                 }
             }
 
@@ -1377,6 +1387,53 @@ private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Cont
             }
         }
         return list;
+    }
+
+    
+    private static final String GET_PROPOSAL_BY_ID_FOR_ADMIN_PAGE = "SELECT pr.hirerID, p.proposalID, p.projectID , p.seekerID, p.paymentAmount,p.proposalStatusID,p.createdDate \n" +
+"FROM Proposal p, Project pr\n" +
+"WHERE p.projectID = pr.projectID\n" +
+"AND p.proposalID = ?";
+    public ProposalDTO getProposalByIDForAdminPage(int proposalID) throws SQLException {
+        ProposalDTO item = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PROPOSAL_BY_ID_FOR_ADMIN_PAGE);
+                ptm.setInt(1, proposalID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    proposalID = Integer.parseInt(rs.getString("proposalID"));
+                    int projectID = Integer.parseInt(rs.getString("projectID"));
+                    int seekerID = Integer.parseInt(rs.getString("seekerID"));
+                    int hirerID = Integer.parseInt(rs.getString("hirerID"));
+                    double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
+                    int proposalStatusID = Integer.parseInt(rs.getString("proposalStatusID"));
+                    String createdDate = rs.getString("createdDate");
+                    
+
+                    item = new ProposalDTO(hirerID,proposalID, projectID, seekerID, paymentAmount, proposalStatusID,createdDate);
+                            
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return item;
     }
 
 }
