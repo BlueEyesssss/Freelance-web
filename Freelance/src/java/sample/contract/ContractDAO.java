@@ -59,7 +59,7 @@ public class ContractDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_ENDTIME_CONTRACT);
-                ptm.setDate(3, Date.valueOf(endTime));
+                ptm.setDate(1, Date.valueOf(endTime));
                 ptm.setInt(2, proposalID);               
                 
                 check = ptm.executeUpdate() > 0;
