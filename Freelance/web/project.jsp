@@ -207,7 +207,7 @@
                           <span class="badge badge-success">Success</span>
                       </td>
                       <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="'<%= proposal.getProposalID()>'">
+                          <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="<%= proposal.getProposalID()%>">
                               <i class="fas fa-folder">
                               </i>
                               View
@@ -215,7 +215,7 @@
                           <!-- popup form in here -->
                           <!-- Modal -->
 
-                          <div class="modal fade" id="'<%= proposal.getProposalID()>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal fade" id="<%= proposal.getProposalID()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
