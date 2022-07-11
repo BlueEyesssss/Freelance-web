@@ -20,7 +20,71 @@ public class PaymentDAO {
     private static final String GET_CLIENT_ID_SECRET = "SELECT userID, CLIENT_ID, CLIENT_SECRET\n"
             + "FROM PaymentFLC\n"
             + "WHERE userID = ?";
+    
+    private static final String UPDATE_CLIENT_ID_SECRET_OF_SEEKER = "UPDATE PaymentFLC\n" +
+"SET CLIENT_ID = ?, CLIENT_SECRET = ?\n" +
+"WHERE userID = ?";
 
+    private static final String INSERT_NEW_PAYPAL_ACCOUNT_SEEKER = "INSERT INTO PaymentFLC(userID, CLIENT_ID, CLIENT_SECRET)\n" +
+"VALUES\n" +
+"(?, ?, ?)";
+    
+    public boolean createPayPalInf(PayPayDTO payPayDTO) throws SQLException {
+         boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(INSERT_NEW_PAYPAL_ACCOUNT_SEEKER);
+                ptm.setInt(1, payPayDTO.getSeekerID());
+                ptm.setString(2, payPayDTO.getClient_id());
+                ptm.setString(3, payPayDTO.getClient_secret());
+                
+                check = ptm.executeUpdate() > 0?true:false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    
+    public boolean updateClientIdSecretOfSeeker(int userID, String client_id, String client_secret) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_CLIENT_ID_SECRET_OF_SEEKER);
+                ptm.setString(1, client_id);
+                ptm.setString(2, client_secret);
+                ptm.setInt(3, userID);
+                check = ptm.executeUpdate() > 0?true:false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
     public String getClientID(int parseInt) throws SQLException {
         String id = null;
         Connection conn = null;
@@ -84,4 +148,10 @@ public class PaymentDAO {
         }
         return secret;
     }
+
+    
+
+    
+
+    
 }

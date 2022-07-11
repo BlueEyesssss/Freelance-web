@@ -20,6 +20,14 @@ public class PayPayDTO {
         this.client_secret = client_secret;
     }
 
+    public int userID() {
+        return userID;
+    }
+
+    public void userID(int userID) {
+        this.userID = userID;
+    }
+    
     public int getSeekerID() {
         return userID;
     }

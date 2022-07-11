@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.hirer.HirerDAO;
 import sample.hirer.HirerDTO;
+import sample.payment.PayPayDTO;
+import sample.payment.PaymentDAO;
 import sample.seeker.SeekerDTO;
 import sample.skill.SkillDAO;
 import sample.skill.SkillDTO;
@@ -114,7 +116,16 @@ public class LoginController extends HttpServlet {
 //                        element.setJobPosted(daoHirer.getJobPosted(element.getHirerID()));
 //                        
 //                    }
-                    
+                    //lấy client id và secret của seeker nếu có
+                    PaymentDAO daoPayment = new PaymentDAO();
+                    String client_id = daoPayment.getClientID(user.getUserID());
+                    String client_secret = daoPayment.getClientSecret(user.getUserID());
+                    PayPayDTO paypalInf = null;
+                    if(client_id != null && client_secret != null){
+                        paypalInf = new PayPayDTO(user.getUserID(), client_id, client_secret);
+                    }
+
+                    session.setAttribute("PAYPAL_INF", paypalInf);
                     session.setAttribute("LIST_HIRER", listHirer);
                     url = SEEKER_PAGE;
                 } else { //tương tự vs Hirer
