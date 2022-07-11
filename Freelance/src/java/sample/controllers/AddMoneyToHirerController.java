@@ -7,12 +7,14 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.contract.ContractDAO;
 import sample.proposal.ProposalDAO;
 import sample.proposal.ProposalDTO;
 import sample.user.UserDAO;
@@ -27,7 +29,7 @@ public class AddMoneyToHirerController extends HttpServlet {
 
     private final static String ERROR = "error.html";
     private final static String SUCCESS = "index.html";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -39,13 +41,18 @@ public class AddMoneyToHirerController extends HttpServlet {
             int hireID = proposal.getHirerID();
             UserDAO userDao = new UserDAO();
             UserDTO hirer = userDao.getUserByID(hireID);
-            
-            boolean checkUpdateBalance = userDao.addMoneyToUserByUserID(proposal.getPaymentAmount()+hirer.getBalance(), hirer.getUserID());
-            if(checkUpdateBalance){
-                proposalDao.changeStatusProposal(proposalID, 6);
-                url = SUCCESS;
+
+            boolean checkUpdateBalance = userDao.addMoneyToUserByUserID(proposal.getPaymentAmount() + hirer.getBalance(), hirer.getUserID());
+            if (checkUpdateBalance) {
+                boolean checkChangeStatusProposal = proposalDao.changeStatusProposal(proposalID, 6);
+                ContractDAO contractDao = new ContractDAO();
+                LocalDate endTime = LocalDate.now();
+                boolean updateEndTimeContract = contractDao.updateEndTimeContract(proposalID, endTime);
+                if (checkChangeStatusProposal && updateEndTimeContract) {
+                    url = SUCCESS;
+                }
             }
-            } catch (Exception e) {
+        } catch (Exception e) {
             log("Error at AddMoneyToHirerController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);

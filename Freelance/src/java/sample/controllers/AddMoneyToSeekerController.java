@@ -7,12 +7,14 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.contract.ContractDAO;
 import sample.proposal.ProposalDAO;
 import sample.proposal.ProposalDTO;
 import sample.seeker.SeekerDTO;
@@ -43,8 +45,13 @@ public class AddMoneyToSeekerController extends HttpServlet {
             
             boolean checkUpdateBalance = userDao.addMoneyToUserByUserID(proposal.getPaymentAmount()+seeker.getBalance(), seeker.getUserID());
             if(checkUpdateBalance){
-                proposalDao.changeStatusProposal(proposalID, 7);
-                url = SUCCESS;
+                boolean checkChangeStatusProposal = proposalDao.changeStatusProposal(proposalID, 7); 
+                ContractDAO contractDao = new ContractDAO();
+                LocalDate endTime = LocalDate.now();
+                boolean updateEndTimeContract = contractDao.updateEndTimeContract(proposalID,endTime);
+                if(checkChangeStatusProposal&&updateEndTimeContract){
+                    url = SUCCESS;
+                }             
             }
           
         } catch (Exception e) {

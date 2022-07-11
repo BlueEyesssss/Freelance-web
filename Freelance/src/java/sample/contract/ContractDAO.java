@@ -47,5 +47,35 @@ public class ContractDAO {
         }
         return check;
     }
+
+    private static final String UPDATE_ENDTIME_CONTRACT="UPDATE Contract \n" +
+"SET endTime = ? \n" +
+"WHERE proposalID = ?";
+    public boolean updateEndTimeContract(int proposalID, LocalDate endTime) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;       
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_ENDTIME_CONTRACT);
+                ptm.setDate(3, Date.valueOf(endTime));
+                ptm.setInt(2, proposalID);               
+                
+                check = ptm.executeUpdate() > 0;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
    
 }
