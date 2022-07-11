@@ -7,12 +7,14 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.contract.ContractDAO;
 import sample.hirer.HirerDTO;
 import sample.payment.PayPayDTO;
 import sample.proposal.ProposalDAO;
@@ -48,7 +50,14 @@ public class UpdateProposalStatusController extends HttpServlet {
             if (checkRejectProposal) {
                 //update lại status của seeker đc hire
                 boolean checkUpdateStatusProposal = dao.updateStatusProposal(seekerid, Integer.parseInt(projectID));
-                if (checkUpdateStatusProposal) {
+                LocalDate startTime = LocalDate.now();
+                        ContractDAO contractDao = new ContractDAO();
+                        ProposalDAO proposalDAO = new ProposalDAO();
+                        
+                        float paymentAmount = (float) proposalDAO.getProposalByIDForAdminPage(Integer.parseInt(proposalID)).getPaymentAmount();
+                        boolean checkInsertContract = contractDao.insertContract(Integer.parseInt(proposalID), paymentAmount,startTime);
+                        
+                if (checkUpdateStatusProposal&&checkInsertContract) {
                     HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
                     url = "LoginController?userName=" + hirer.getUserName() + "&password=" + hirer.getPassword();
                 }

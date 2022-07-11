@@ -6,12 +6,14 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.contract.ContractDAO;
 import sample.hirer.HirerDTO;
 import sample.proposal.ProposalDAO;
 import sample.user.UserDAO;
@@ -54,7 +56,11 @@ public class AcceptSeekerProposalByBalanceWebController extends HttpServlet {
                     if (checkRejectProposal) {
                         //update lại status của seeker đc hire
                         boolean checkUpdateStatusProposal = dao.updateStatusProposal(seekerid, Integer.parseInt(projectID));
-                        if (checkUpdateStatusProposal) {
+                        LocalDate startTime = LocalDate.now();
+                        ContractDAO contractDao = new ContractDAO();
+                        boolean checkInsertContract = contractDao.insertContract(Integer.parseInt(proposalID), paymentAmount,startTime);
+                        
+                        if (checkUpdateStatusProposal&&checkInsertContract) {
                             url = "LoginController?userName=" + hirer.getUserName() + "&password=" + hirer.getPassword();
                         }
                     }
