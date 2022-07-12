@@ -1,3 +1,4 @@
+<%@page import="sample.payment.PayPayDTO"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="sample.project.ProjectDTO"%>
 <%@page import="sample.user.UserDAO"%>
@@ -401,6 +402,73 @@
                                 </div>
                                 <div><strong><%= seeker.getEducation()%></strong></div>
                                 <div class="text-block-seeker"><%= seeker.getDegree()%>, <%= seeker.getMajor()%><br /></div>
+                            </div>
+                            <div class="seeker-left-inforwrapper">
+                                <div class="div-horizon spacing-between">
+                                    <%
+                                        PayPayDTO paypalInf = (PayPayDTO)session.getAttribute("PAYPAL_INF");
+                                        String client_id = "";
+                                        String client_secret = "";
+                                        if(paypalInf != null){
+                                            client_id = paypalInf.getClient_id();
+                                            client_secret = paypalInf.getClient_secret();
+                                        }
+                                    %>
+                                    <div class="text-block-23">Balance Account key<br /></div><img
+                                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
+                                        loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208ad" alt=""
+                                        class="icon-edit" />
+                                    <div class="seeker-edit-lightbox education">
+                                        <div class="seeker-edit-lb-wrapper education">
+                                            <div class="lb-heading">
+                                                <h2 class="heading-15">Balance Account key</h2><img
+                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629730e1c2204bda6f0f70bf_x.svg"
+                                                    loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208b6" alt=""
+                                                    class="image-14" />
+                                            </div>
+                                            <div class="lb-form-edit-wrapper">
+                                                <div class="w-form">
+                                                    <form id="email-form" name="email-form" data-name="Email Form" action="UpdateClientIDSecretOfSeekerController"
+                                                          method="get" class="edit-lightbox-form">
+                                                        <div class="lb-edit-button-wrapper">
+                                                            <a
+                                                                data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208d3" href="#"
+                                                                class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                            <input name="action"
+                                                                   type="submit" value="Update Key" data-wait="Please wait..."
+                                                                   class="main-button w-button" />
+                                                        </div>
+                                                        <div>
+                                                            <label for="education"><strong>Client ID</strong> <strong style="color: red">*</strong></label>
+                                                            <input
+                                                                type="text" class="text-field-3 w-input" maxlength="400"
+                                                                name="client_id" value="<%= client_id %>" data-name="university"
+                                                                placeholder="unknown" id="university"
+                                                                required="" />
+
+
+                                                            <label for="major"><strong>Client Secret</strong> <strong style="color: red">*</strong></label>
+                                                            <input type="text"
+                                                                   class="w-input" maxlength="500" name="client_secret" value="<%= client_secret %>"
+                                                                   data-name="major" placeholder="unknown" id="major"
+                                                                   required="" />
+                                                        </div>
+                                                        ${requestScope.ERROR_UPDATE_PAYPAL_INF_SEEKER}
+                                                    </form>
+                                                    <div class="w-form-done">
+                                                        <div>Thank you! Your submission has been received!</div>
+                                                    </div>
+                                                    <div class="w-form-fail">
+                                                        <div>Oops! Something went wrong while submitting the form.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-w-id="079b63d9-bb54-5ffb-4adf-c1a259c4de97" class="close-lb-div"></div>
+                                    </div>
+                                </div>
+                                <div><strong>Client Id - Secret</strong></div>
+                                <div class="text-block-seeker"><br /></div>
                             </div>
                         </div>
                         <div class="div-70">

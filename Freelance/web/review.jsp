@@ -32,23 +32,18 @@
     </head>
 
     <body class="user-body">
-
-        <%
-                HirerDTO loginUser = (HirerDTO) session.getAttribute("USER_LOGIN");
-
-    %>
         
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
              role="banner" class="navigation seeker hirer w-nav">
             <div class="navigation-container">
-                <div class="navigation-menu"><a href="MainController?action=ViewHirerDashboard" class="brand w-nav-brand"><img
+                <div class="navigation-menu"><a  class="brand w-nav-brand"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628aeb849e24d09f04fa55e0_logo.png"
                             loading="lazy" alt="" class="logo-image biglogo" /></a>
-                    <div class="nav-search-wrapper">
-                        <div class="nav-icon-search"><img
+                    <div class="nav-search-wrapper" style="display: none">
+                        <div class="nav-icon-search" style="display: none"><img
                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296b474e000b451cf79e812_search-white.svg"
                                 loading="lazy" alt="" /></div>
-                        <div class="nav-search-input">
+                        <div class="nav-search-input" style="display: none">
                             <div class="w-form">
                                 <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
                                         type="text" class="search-input w-input" maxlength="256" name="name"
@@ -68,7 +63,7 @@
                     <div>
                         <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
                             <div class="dropdown-toggle-2 w-dropdown-toggle">
-                                <div class="text-block-22">My Job</div>
+                                <div class="text-block-22"></div>
                             </div>
                             <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
                                                                             class="dropdown-link-nav w-dropdown-link">Post a job</a><a href="MainController?action=ViewContractOfHirer"
@@ -77,21 +72,21 @@
                         </div>
                         <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
                             <div class="dropdown-toggle-3 w-dropdown-toggle">
-                                <div class="text-block-22">Find Talent</div>
+                                <div class="text-block-22"></div>
                             </div>
                             <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
                                                                             class="dropdown-link-nav w-dropdown-link">Find Talent</a></nav>
                         </div>
-                    </div><a href="#" class="w-inline-block"><img
+                    </div><a href="#" class="w-inline-block" style="display: none"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
-                            loading="lazy" alt="" class="image-3" /></a><a href="#" class="w-inline-block"><img
+                            loading="lazy" alt="" class="image-3" /></a><a href="#" class="w-inline-block" style="display: none"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d69352ef8ea1801f37308_bell.png"
                             loading="lazy" alt="" /></a>
                     <div class="navigation-button-wrapper">
                         <div data-hover="false" data-delay="0" class="w-dropdown">
-                            <div class="dropdown-toggle w-dropdown-toggle">
+                            <div class="dropdown-toggle w-dropdown-toggle" style="display: none">
                                 <img
-                                    src="<%= loginUser.getAvatar() %>"
+                                    src=""
                                     loading="lazy" width="90"
                                     srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 42.373046875px, 6vw" alt=""
