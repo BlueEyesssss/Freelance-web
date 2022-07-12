@@ -6,11 +6,13 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.contract.ContractDAO;
 import sample.proposal.ProposalDAO;
 import sample.proposal.ProposalDTO;
 import sample.seeker.SeekerDAO;
@@ -53,8 +55,13 @@ public class PayMoneyController extends HttpServlet {
             
             boolean check = userDAO.addMoneyToUserByUserID(currentBalance + proposal.getPaymentAmount(), proposal.getSeekerID());
             if (check) {
-                proposalDAO.changeStatusProposal(proposalID, 7);
-                url = SUCCESS;
+                boolean checkChangeStatusProposal = proposalDAO.changeStatusProposal(proposalID, 7);
+                ContractDAO contractDao = new ContractDAO();
+                LocalDate endTime = LocalDate.now();
+                boolean updateEndTimeContract = contractDao.updateEndTimeContract(proposalID,endTime);
+                if(checkChangeStatusProposal&&updateEndTimeContract){
+                    url = SUCCESS;
+                }                 
             }
                     
         } catch (Exception e) {
