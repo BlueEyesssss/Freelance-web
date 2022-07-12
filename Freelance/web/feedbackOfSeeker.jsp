@@ -193,7 +193,7 @@
                                 String error = (String)request.getAttribute("ERROR_MESSAGE");
                                 if(error == null) error ="";
                                 LocalDate curent = LocalDate.now();                                
-                            if(curent.isBefore(endDate.plusDays(7)) && curent.isAfter(endDate) && !checkAlreadlyFeedback){
+                            if(curent.isBefore(endDate.plusDays(7)) && curent.isAfter(endDate.minusDays(1)) && !checkAlreadlyFeedback){
                                 %>
                             
                             <div class="tabs-menu w-tab-menu"><a data-w-tab="Tab 1"
