@@ -39,12 +39,14 @@ public class ViewHirerProfileController extends HttpServlet {
             int hirerID = hirerLogin.getHirerID();
             ProposalDAO dao = new ProposalDAO();
             List<ProposalDTO> list = dao.getHistoryProjectOfHirer(hirerID);
+            List<ProposalDTO> listFeedback = dao.getFeedbackOfSeeker(hirerID);
             if(!list.isEmpty()) {
                 request.setAttribute("LIST_HISTORY_PROJECT", list);
+                request.setAttribute("FEED_BACK_OF_SEEKER", listFeedback);
                 url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at ViewHirerProfileController: " + e.toString());
         }finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

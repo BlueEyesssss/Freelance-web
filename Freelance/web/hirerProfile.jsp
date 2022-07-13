@@ -22,9 +22,9 @@
         <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif]-->
         <script
             type="text/javascript">!function (o, c) {
-                var n = c.documentElement, t = " w-mod-";
-                n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
-            }(window, document);</script>
+                    var n = c.documentElement, t = " w-mod-";
+                    n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+                }(window, document);</script>
         <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
         <style>
@@ -98,7 +98,7 @@
                                 <a href="#" class="dropdown-link w-dropdown-link">My
                                     Profile</a>
                                 <a href="MainController?action=ViewBalanceHirerSeeker"
-                                                                            class="dropdown-link w-dropdown-link">My Balance</a>
+                                   class="dropdown-link w-dropdown-link">My Balance</a>
                                 <a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                                                         class="main-button sub-button seeker-lb w-button">Cancel</a><input
                                                         type="submit" value="Save Password" name="action" data-wait="Please wait..."
                                                         class="main-button w-button" /></div>
-                                                        ${requestScope.ERROR_UPDATE_INF_SEEKER}
+                                                    ${requestScope.ERROR_UPDATE_INF_SEEKER}
                                             </form>
                                             <div class="w-form-done">
                                                 <div>Thank you! Your submission has been received!</div>
@@ -395,6 +395,13 @@
                         <h1 class="heading-tittle">Testimonials</h1>
                         <div>Review from past hirer<br /></div>
                     </div>
+
+                    <%            List<ProposalDTO> feedbacks = (List<ProposalDTO>) request.getAttribute("FEED_BACK_OF_SEEKER");
+                        if (feedbacks != null) {
+                            if (feedbacks.size() != 0) {
+                                for (ProposalDTO feedback : feedbacks) {
+                    %>
+
                     <div class="testimonial-wrapper">
                         <div class="testimonial-element">
                             <p class="paragraph-2">&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -416,6 +423,20 @@
                             </div>
                         </div>
                     </div>
+                    <%
+                            }
+                        }
+                    } else {
+                    %>
+                    
+                    <div class="testimonial-element">
+                            <p class="paragraph-2">&quot;Not Feedback yet!!&quot;</p>
+                        </div>
+                    <%
+                        }
+                    %>
+
+
                 </div>
             </div>
         </div>
