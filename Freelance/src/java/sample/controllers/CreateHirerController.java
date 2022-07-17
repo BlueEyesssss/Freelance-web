@@ -65,17 +65,17 @@ public class CreateHirerController extends HttpServlet {
                     }
                 }
             }
-            if(userName.trim().length() < 0 || userName.trim().length() > 32){
+            if(userName.trim().length() < 6 || userName.trim().length() > 20){
                 checkError = true;
-                error.setUserName("must be 0 .. 32 character.");
+                error.setUserName("must be 6 .. 20 character.");
             }
-            if(password.trim().length() < 0 || password.trim().length() > 32){
+            if(password.trim().length() < 6 || password.trim().length() > 20){
                 checkError = true;
-                error.setPassword("must be 0 .. 32 character.");
+                error.setPassword("must be 6 .. 20 character.");
             }
-            if(fullName.trim().length() < 0 || fullName.trim().length() > 32){
+            if(fullName.trim().length() < 6 || fullName.trim().length() > 50){
                 checkError = true;
-                error.setFullName("must be 0 .. 32 character.");
+                error.setFullName("must be 6 .. 50 character.");
             }
             if(email.trim().length() < 10 || email.trim().length() > 128){
                 checkError = true;
@@ -88,21 +88,27 @@ public class CreateHirerController extends HttpServlet {
                 checkError = true;
                 error.setEmailExist("email linked to another account.");
             }
-            if(phone.trim().length() < 0 || phone.trim().length() > 10){
+            if(phone.trim().length() != 10){
                 checkError = true;
-                error.setPhone("must be 0 .. 10 character.");
+                error.setPhone("must be 10 numbers.");
             }
-            if(location.trim().length() < 0 || location.trim().length() > 255){
+            try {
+                Integer.parseInt(phone.trim());
+            } catch (NumberFormatException e) {
                 checkError = true;
-                error.setLocation("must be 0 .. 255 character.");
+                error.setPhone("must be 10 numbers.");
+            }
+            if(location.trim().length() < 6 || location.trim().length() > 50){
+                checkError = true;
+                error.setLocation("must be 6 .. 50 character.");
             }
             if(!conform.equals(password)){
                 checkError = true;
                 error.setConfirm("password and confirm not match.");
             }
-            if(conpanyName.trim().length() < 0 || conpanyName.trim().length() > 255){
+            if(conpanyName.trim().length() < 6 || conpanyName.trim().length() > 50){
                 checkError = true;
-                error.setConpanyName("must be 0 .. 255 character.");
+                error.setConpanyName("must be 6 .. 50 character.");
             }
             if(checkError == false){
                 //tạo user

@@ -125,6 +125,7 @@
                       Name</label>
                       <input type="text" class="text-field-2 w-input" maxlength="256" name="conpanyName"
                       data-name="CompanyName" placeholder="Company Name" id="CompanyName" required="" value="${param.conpanyName}"/>
+                      <font style="color: red">${requestScope.ERROR_CREATE.conpanyName}</font>
                   </div>
                   <div class="text-field-box _2">
                       <label for="CompanyName" class="field-label-2">Upload Avatar (.jpg/.png)</label>
