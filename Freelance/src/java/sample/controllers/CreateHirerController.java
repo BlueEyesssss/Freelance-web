@@ -43,7 +43,7 @@ public class CreateHirerController extends HttpServlet {
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
             String location = request.getParameter("location");
-            float balance = Float.parseFloat(request.getParameter("balance"));
+            float balance = 0;
             String registrationDate = java.time.LocalDate.now() + "";
             String avatar = request.getParameter("avatar");
             
