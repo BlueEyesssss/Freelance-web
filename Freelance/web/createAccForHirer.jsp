@@ -61,7 +61,7 @@
             </div>
             <div class="w-form">
                 
-              <form id="email-form" name="email-form" data-name="Email Form" method="get" action="MainController">
+                <form id="email-form" name="email-form" data-name="Email Form" method="post" action="CreateHirerController" enctype="multipart/form-data">
                 <div class="form-field-wrapper">
                   <div class="text-field-box">
                       <label for="UserName" class="field-label-2">User Name</label>
@@ -129,7 +129,8 @@
                   </div>
                   <div class="text-field-box _2">
                       <label for="CompanyName" class="field-label-2">Upload Avatar (.jpg/.png)</label>
-                      <input type="text" name="avatar" class="text-field-2 w-input"/>
+                      <input type="file" name="avatar" class="text-field-2 w-input"/>
+                      <font style="color: red">${requestScope.ERROR_CREATE.avatar}</font>
                   </div>
                 </div>
                 <label class="w-checkbox checkbox-field">
@@ -152,7 +153,7 @@
               </div>
             </div>
             <div class="div-block-41">
-              <div class="text-block-8">Already have an account? </div><a href="/untitled" class="link-3">Login here</a>
+                <div class="text-block-8">Already have an account? </div><a href="login.jsp" class="link-3">Login here</a>
             </div>
           </div>
         </div>
