@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.hirer.HirerDTO;
 import sample.seeker.SeekerDTO;
 import sample.user.UserDAO;
 import sample.user.UserErrorDTO;
@@ -23,8 +24,8 @@ import sample.user.UserErrorDTO;
  */
 @WebServlet(name = "SavePasswordController", urlPatterns = {"/SavePasswordController"})
 public class SavePasswordController extends HttpServlet {
-    private static final String ERROR = "seekerProfile.jsp";
-    private static final String SUCCESS = "seekerProfile.jsp";
+    private static final String ERROR = "hirerProfile.jsp";
+    private static final String SUCCESS = "hirerProfile.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -35,39 +36,45 @@ public class SavePasswordController extends HttpServlet {
         try {
             HttpSession session = request.getSession(false);
             if(session != null){
-                SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
+                HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
                 String currentPassword = request.getParameter("currentPassword");
                 String newpassword = request.getParameter("newpassword");
                 String confirmpassword = request.getParameter("confirmpassword");
                 UserDAO dao = new UserDAO();
-                if(!currentPassword.equals(seeker.getPassword())){
+                //check pwd current
+                if(!currentPassword.equals(hirer.getPassword())){
                     checkError = true;
                     error.setPasswordNotCorrect("not correct password.");
                 }
-                if (newpassword.trim().length() < 0 || newpassword.trim().length() > 32) {
+                //check format new pwd
+                if (newpassword.trim().length() < 6 || newpassword.trim().length() > 20) {
                     checkError = true;
-                    error.setPassword("must be 0 .. 32 character.");
+                    error.setPassword("must be 6 .. 20 character.");
                 }
+                //check confirm pwd
                 if(!newpassword.equals(confirmpassword)){
                     checkError = true;
                     error.setConfirm("not confirm new password.");
                 }
+                //
                 if (checkError == false) {
-                    if(dao.UpdatePassword(seeker.getSeekerID(), newpassword)){
-                        //cập nhật lại seeker
-                        seeker.setPassword(newpassword);
-                        session.setAttribute("USER_LOGIN", seeker);
+                    if(dao.UpdatePassword(hirer.getHirerID(), newpassword)){
+                        //cập nhật lại hirer
+                        hirer.setPassword(newpassword);
+                        session.setAttribute("USER_LOGIN", hirer);
+                        request.setAttribute("SUCCESS_UPDATE_INF_HIRER", "update password success");
                         url = SUCCESS;
                     }else{
-                        request.setAttribute("ERROR_UPDATE_INF_SEEKER", "update academic level fail.");
+                        request.setAttribute("ERROR_UPDATE_INF_HIRER", "can't update new password");
                     }
                 } else {
                     request.setAttribute("ERROR_CREATE", error);
+                    request.setAttribute("ERROR_UPDATE_INF_HIRER_FORMAT", "error check password");
                 }
             }
             
         } catch (Exception e) {
-            log("Error at SaveAcademicLevelController:" + e.toString());
+            log("Error at SavePasswordController of hirer:" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

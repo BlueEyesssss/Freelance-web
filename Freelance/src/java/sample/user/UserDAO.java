@@ -30,6 +30,7 @@ public class UserDAO {
     private static final String CREATE_HIRER = "INSERT INTO Hirer(hirerID, companyName) VALUES(?, ?)";
     private static final String CREATE_SEEKER = "INSERT INTO Seeker(seekerID, overview, titileBio, moneyPerHour, education, degree, major) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String COUNT_EMAIL = "SELECT COUNT(*) as countEmail FROM [User] WHERE email = ?";
+    private static final String COUNT_PHONE = "SELECT COUNT(*) as countPhone FROM [User] WHERE phone = ?";
     private static final String CHECK_EXIST_EMAIL = "USE FreelanceManagement\n"
             + "SELECT email \n"
             + "FROM [User] \n"
@@ -766,6 +767,37 @@ public class UserDAO {
             }
         }
         return user;
+    }
+
+    public int checkPhone(String phone) throws SQLException {
+        int check = 0;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(COUNT_PHONE);
+                ptm.setString(1, phone);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = Integer.parseInt(rs.getString("countPhone"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
     }
 
     

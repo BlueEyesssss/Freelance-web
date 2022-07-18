@@ -146,6 +146,8 @@ public class MainController extends HttpServlet {
     private static final String ADD_MONEY_TO_SEEKER_CONTROLLER = "AddMoneyToSeekerController";
     private static final String ADD_MONEY_TO_HIRER = "AddMoneyToHirer";
     private static final String ADD_MONEY_TO_HIRER_CONTROLLER = "AddMoneyToHirerController";
+    private static final String UPDATE_INF_HIRER = "Save Hirer Information";
+    private static final String UPDATE_INF_HIRER_CONTROLLER = "SaveHirerInformationController";
             
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -158,7 +160,9 @@ public class MainController extends HttpServlet {
                 url = LOGIN_CONTROLLER;
             } else if (WITHDRAWN_PROPOSAL.equals(action)) {
                 url = WITHDRAWN_PROPOSAL_CONTROLLER;
-            } else if (REMOVE_PROJECT.equals(action)) {
+            } else if (UPDATE_INF_HIRER.equals(action)) {
+                url = UPDATE_INF_HIRER_CONTROLLER;
+            }else if (REMOVE_PROJECT.equals(action)) {
                 url = REMOVE_PROJECT_CONTROLLER;    
             } else if (VIEW_ACTIVE_PROJECT.equals(action)) {
                 url = VIEW_ACTIVE_PROJECT_CONTROLLER;    

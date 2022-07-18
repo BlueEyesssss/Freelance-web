@@ -104,7 +104,7 @@ public class CreateHirerController extends HttpServlet {
                 checkError = true;
                 error.setEmail("format must be ...@gmail.com.");
             }
-            if (dao.checkEmailExist(email) > 3) {
+            if (dao.checkEmailExist(email) > 1) {
                 checkError = true;
                 error.setEmailExist("email linked to another account.");
             }

@@ -119,7 +119,7 @@
                                 srcset="uploads/<%= hirer.getAvatar()%>"
                                 alt="" class="image-12" />
                             <div>
-                                <h1 class="heading-14"><%= hirer.getCompanyName()%></h1>
+                                <h1 class="heading-14"><%= hirer.getFullName()%></h1>
                                 <div class="div-block-28"><img
                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62ad86a39e3a4d61d6e7512e_Account%20balance%20wallet.svg"
                                         loading="lazy" width="21" alt="" class="image-13" />
@@ -144,22 +144,27 @@
                                                   class="edit-lightbox-form" action="MainController">
                                                 <div class="div-vertical">
                                                     <div class="div-vertical _w-80">
-                                                        <div class="text-block-33">Current password</div><input
+                                                        <div class="text-block-33">Current password</div>
+                                                        <input
                                                             type="password" class="text-field-4 password w-input"
                                                             maxlength="256" name="currentPassword"
                                                             data-name="currentPassword" placeholder=""
                                                             id="currentPassword" required="" />
                                                         <font style="color: red">${requestScope.ERROR_CREATE.passwordNotCorrect}</font>
                                                     </div>
+                                                    
                                                     <div class="div-vertical _w-80">
-                                                        <div class="text-block-33">New password</div><input type="password"
-                                                                                                            class="text-field-4 password w-input" maxlength="256"
-                                                                                                            name="newpassword" data-name="newpassword" placeholder=""
-                                                                                                            id="newpassword" required="" />
+                                                        <div class="text-block-33">New password</div>
+                                                        <input type="password"
+                                                            class="text-field-4 password w-input" maxlength="256"
+                                                            name="newpassword" data-name="newpassword" placeholder=""
+                                                            id="newpassword" required="" />
                                                         <font style="color: red">${requestScope.ERROR_CREATE.password}</font>
                                                     </div>
+                                                    
                                                     <div class="div-vertical _w-80">
-                                                        <div class="text-block-33">Confirm password</div><input
+                                                        <div class="text-block-33">Confirm password</div>
+                                                        <input
                                                             type="password" class="text-field-4 password w-input"
                                                             maxlength="256" name="confirmpassword"
                                                             data-name="confirmpassword" placeholder=""
@@ -175,7 +180,7 @@
                                                         type="submit" value="Save Password" name="action" data-wait="Please wait..."
                                                         class="main-button w-button" />
                                                 </div>
-                                                    ${requestScope.ERROR_UPDATE_INF_SEEKER}
+                                                    
                                             </form>
                                             <div class="w-form-done">
                                                 <div>Thank you! Your submission has been received!</div>
@@ -184,9 +189,14 @@
                                                 <div>Oops! Something went wrong while submitting the form.</div>
                                             </div>
                                         </div>
+                                                    
                                     </div>
                                 </div>
+                                    
                             </div>
+                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER}</font>
+                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_FORMAT}</font>
+                            <font style="color: green">${requestScope.SUCCESS_UPDATE_INF_HIRER}</font>
                         </div>
                     </div>
                     <div>
@@ -212,6 +222,8 @@
                                             loading="lazy" alt="" class="image-13" />
                                         <div class="text-block-21"><br /><%= hirer.getPhone()%></div>
                                     </div>
+                                    <font style="color: green">${requestScope.UPDATE_INF_HIRER_1}</font>
+                                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_FORMAT_1}</font>
                                 </div><img
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
                                     loading="lazy" data-w-id="8ae2a92a-3f7b-8a07-bbf2-0fe10e32d4dc" alt=""
@@ -223,37 +235,56 @@
                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629730e1c2204bda6f0f70bf_x.svg"
                                                 loading="lazy" data-w-id="8ae2a92a-3f7b-8a07-bbf2-0fe10e32d4e2" alt=""
                                                 class="image-14" />
+                                            
                                         </div>
                                         <div class="lb-form-edit-wrapper">
                                             <div class="w-form">
                                                 <form id="email-form" name="email-form" data-name="Email Form" method="get"
-                                                      class="edit-lightbox-form">
-                                                    <div class="lb-edit-button-wrapper"><a
+                                                      class="edit-lightbox-form" action="MainController">
+                                                    <div class="lb-edit-button-wrapper">
+                                                        <a
                                                             data-w-id="8ae2a92a-3f7b-8a07-bbf2-0fe10e32d4f6" href="#"
-                                                            class="main-button sub-button seeker-lb w-button">Cancel</a><input
-                                                            type="submit" value="Save" data-wait="Please wait..."
-                                                            class="main-button w-button" /></div>
+                                                            class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                        <input
+                                                            type="submit" value="Save Hirer Information" data-wait="Please wait..."
+                                                            class="main-button w-button" name="action"/>
+                                                    </div>
                                                     <div class="hirer-element-form">
-                                                        <div class="hirer-element-form"><label
-                                                                for="name-2"><strong>Name</strong></label><input type="text"
-                                                                class="text-field w-input" maxlength="256" name="name"
-                                                                data-name="name" placeholder="" id="name-2" required="" />
+                                                        <div class="hirer-element-form">
+                                                            <label
+                                                                for="name-2"><strong>Name</strong></label>
+                                                            <input type="text"
+                                                                class="text-field w-input" maxlength="256" name="fullName"
+                                                                data-name="name" placeholder="" id="name-2" required="" value="<%= hirer.getFullName()%>"/>
+                                                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_1.fullName}</font>
                                                         </div>
-                                                        <div class="hirer-element-form"><label
-                                                                for="email"><strong>Email</strong></label><input
+                                                        <div class="hirer-element-form">
+                                                            <label
+                                                                for="email"><strong>Email</strong></label>
+                                                            <input
                                                                 type="email" class="text-field w-input" maxlength="256"
                                                                 name="email" data-name="email" placeholder="" id="email"
-                                                                required="" /></div>
-                                                        <div class="hirer-element-form"><label
-                                                                for="phone"><strong>Phone</strong></label><input type="tel"
-                                                                class="text-field w-input" maxlength="256" name="phone"
-                                                                data-name="phone" placeholder="" id="phone" required="" />
+                                                                required="" value="<%= hirer.getEmail()%>"/>
+                                                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_1.email}</font>
+                                                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_1.emailExist}</font>
                                                         </div>
-                                                        <div class="hirer-element-form last-child"><label
-                                                                for="location"><strong>Location</strong></label><input
+                                                        <div class="hirer-element-form">
+                                                            <label
+                                                                for="phone"><strong>Phone</strong></label>
+                                                            <input type="tel"
+                                                                class="text-field w-input" maxlength="256" name="phone"
+                                                                data-name="phone" placeholder="" id="phone" required="" value="<%= hirer.getPhone()%>"/>
+                                                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_1.phone}</font>
+                                                        </div>
+                                                        <div class="hirer-element-form last-child">
+                                                            <label
+                                                                for="location"><strong>Location</strong></label>
+                                                            <input
                                                                 type="text" class="text-field w-input" maxlength="256"
                                                                 name="location" data-name="location" placeholder=""
-                                                                id="location" required="" /></div>
+                                                                id="location" required="" value="<%= hirer.getLocation()%>"/>
+                                                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_1.location}</font>
+                                                        </div>
                                                     </div>
                                                 </form>
                                                 <div class="w-form-done">
