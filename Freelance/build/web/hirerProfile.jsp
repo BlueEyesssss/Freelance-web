@@ -223,6 +223,7 @@
                                         <div class="text-block-21"><br /><%= hirer.getPhone()%></div>
                                     </div>
                                     <font style="color: green">${requestScope.UPDATE_INF_HIRER_1}</font>
+                                    <font style="color: red">${requestScope.UPDATE_INF_HIRER_1_FAIL}</font>
                                             <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_FORMAT_1}</font>
                                 </div><img
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"

@@ -58,44 +58,44 @@ public class SaveHirerInformationController extends HttpServlet {
                 //check email
                 if (email.trim().length() < 10 || email.trim().length() > 128) {
                     checkError = true;
-                    error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
+                    error.setEmail("\""+email+"\" must be ...@gmail.com and length must be 10 .. 128 character.");
                 } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
                     checkError = true;
-                    error.setEmail("format must be ...@gmail.com.");
+                    error.setEmail("\""+email+"\" must be ...@gmail.com.");
                 }
                 if (email.equals(hirer.getEmail())) {
 
                 } else {
-                    if (dao.checkEmailExist(email) > 1) {
+                    if (dao.checkEmailExist(email) > 0) {
                         checkError = true;
-                        error.setEmailExist("email linked to another account.");
+                        error.setEmailExist("\""+email+"\" linked to another account.");
                     }
                 }
 
                 //check phone
                 if (phone.trim().length() != 10) {
                     checkError = true;
-                    error.setPhone("must be 10 numbers.");
+                    error.setPhone("\""+phone+"\" must be 10 numbers.");
                 }
                 try {
                     Integer.parseInt(phone.trim());
                 } catch (NumberFormatException e) {
                     checkError = true;
-                    error.setPhone("must be 10 numbers.");
+                    error.setPhone("\""+phone+"\" must be 10 numbers.");
                 }
                 if (phone.equals(hirer.getPhone())) {
 
                 } else {
-                    if (dao.checkPhone(phone) > 1) {
+                    if (dao.checkPhone(phone) > 0) {
                         checkError = true;
-                        error.setPhone("phone linked to another account.");
+                        error.setPhone("\""+phone+"\" linked to another account.");
                     }
                 }
 
                 //check location
                 if (location.trim().length() < 6 || location.trim().length() > 50) {
                     checkError = true;
-                    error.setLocation("must be 6 .. 50 character.");
+                    error.setLocation("\""+location+"\" must be 6 .. 50 character.");
                 }
                 if (checkError == false) {
                     //đúng hết format rồi
@@ -104,13 +104,13 @@ public class SaveHirerInformationController extends HttpServlet {
                     hirer.setEmail(email);
                     hirer.setPhone(phone);
                     hirer.setLocation(location);
-                    if (dao.UpdateUserProfile(hirer)) {
+                    if (dao.UpdateUserProfile1(hirer)) {
                         //cập nhật lại hire rlen6 session
                         session.setAttribute("USER_LOGIN", hirer);
                         request.setAttribute("UPDATE_INF_HIRER_1", "update success");
                         url = SUCCESS;
                     } else {
-                        request.setAttribute("UPDATE_INF_HIRER_1", "update fail");
+                        request.setAttribute("UPDATE_INF_HIRER_1_FAIL", "update fail");
                     }
                 } else {
                     request.setAttribute("ERROR_UPDATE_INF_HIRER_1", error);

@@ -36,6 +36,7 @@ public class UserDAO {
             + "FROM [User] \n"
             + "WHERE email = ?";
     private static final String UPDATE_USER_PROFILE = "UPDATE [User] SET userName = ?, fullName = ?, email = ?, location = ?,password = ? WHERE userID = ?";
+    private static final String UPDATE_USER_PROFILE1 = "UPDATE [User] SET userName = ?, fullName = ?, email = ?, location = ?,password = ?,phone = ? WHERE userID = ?";
     private static final String UPDATE_SEEKER_PROFILE = "UPDATE Seeker SET overview = ?, titileBio = ?, moneyPerHour = ?,education = ?, degree = ?, major = ?  WHERE seekerID = ?";
     private static final String GET_USER_BY_EMAIL = "SELECT  userID, password, userName, fullName, email, phone, location, registrationDate, balance, avatar FROM [User] WHERE email = ?";
     private static final String CHECK_DUPLICATE_USERNAME = "SELECT userName FROM [User] WHERE userName = ?";
@@ -447,6 +448,36 @@ public class UserDAO {
                 ptm.setString(4, user.getLocation());
                 ptm.setString(5, user.getPassword());
                 ptm.setInt(6, user.getUserID());
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean UpdateUserProfile1(UserDTO user) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_USER_PROFILE1);
+                ptm.setString(1, user.getUserName());
+                ptm.setString(2, user.getFullName());
+                ptm.setString(3, user.getEmail());
+                ptm.setString(4, user.getLocation());
+                ptm.setString(5, user.getPassword());
+                ptm.setString(6, user.getPhone());
+                ptm.setInt(7, user.getUserID());
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
