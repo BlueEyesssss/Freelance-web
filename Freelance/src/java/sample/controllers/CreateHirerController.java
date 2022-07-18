@@ -22,6 +22,8 @@ import sample.hirer.HirerDTO;
 import sample.user.UserDAO;
 import sample.user.UserDTO;
 import sample.user.UserErrorDTO;
+import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -32,7 +34,7 @@ import sample.user.UserErrorDTO;
 public class CreateHirerController extends HttpServlet {
 
     private static final String ERROR = "createAccForHirer.jsp";
-    private static final String SUCCESS = "login.jsp";
+    private static final String SUCCESS = "HirerVerifyController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -133,19 +135,22 @@ public class CreateHirerController extends HttpServlet {
             if (checkError == false) {
                 //tạo user
                 UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance, filename);
+                HirerDTO hirer = new HirerDTO( user, conpanyName);
+                request.setAttribute("HIRER", hirer);
+                url = SUCCESS;
 
-                boolean checkCreateAcc = dao.createUser(user);
-                if (checkCreateAcc) {
-                    //tạo hirer
-                    int hirerID = dao.getUser(userName, password).getUserID();
-                    HirerDTO hirer = new HirerDTO(hirerID, conpanyName);
-
-                    boolean checkCreateHirer = dao.createHirer(hirer);
-                    if (checkCreateHirer) {
-                        photoPart.write(Paths.get(uploadPath.toString(), filename).toString());
-                        url = SUCCESS;
-                    }
-                }
+//                boolean checkCreateAcc = dao.createUser(user);
+//                if (checkCreateAcc) {
+//                    //tạo hirer
+//                    int hirerID = dao.getUser(userName, password).getUserID();
+//                    HirerDTO hirer = new HirerDTO(hirerID, conpanyName);
+//
+//                    boolean checkCreateHirer = dao.createHirer(hirer);
+//                    if (checkCreateHirer) {
+//                        photoPart.write(Paths.get(uploadPath.toString(), filename).toString());
+//                        url = SUCCESS;
+//                    }
+//                }
             } else {
                 request.setAttribute("ERROR_CREATE", error);
             }

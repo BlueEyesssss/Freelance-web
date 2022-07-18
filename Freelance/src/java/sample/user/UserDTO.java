@@ -24,6 +24,33 @@ public class UserDTO {
     private String avatar;
     private String language;
     private String languagelv;
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
+
+    public UserDTO(int userID, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar, String language, String languagelv, String code) {
+        this.userID = userID;
+        this.password = password;
+        this.userName = userName;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.location = location;
+        this.registrationDate = registrationDate;
+        this.balance = balance;
+        this.avatar = avatar;
+        this.language = language;
+        this.languagelv = languagelv;
+        this.code = code;
+    }
+    
 
     UserDTO(int userID, String location, String registrationDate) {
         this.userID = userID;

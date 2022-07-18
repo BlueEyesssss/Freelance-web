@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/github/Freelance-web/Freelance/nbproject/build-impl.xml</file>
+            <file>file:/D:/github/Freelance-web/Freelance/web/verify1.jsp</file>
+            <file>file:/D:/github/Freelance-web/Freelance/src/java/sample/controllers/HirerVerifyController.java</file>
+            <file>file:/D:/github/Freelance-web/Freelance/src/java/sample/user/UserDTO.java</file>
+            <file>file:/D:/github/Freelance-web/Freelance/src/java/sample/controllers/FormSentProposalController.java</file>
+            <file>file:/D:/github/Freelance-web/Freelance/src/java/sample/hirer/HirerDTO.java</file>
+            <file>file:/D:/github/Freelance-web/Freelance/src/java/sample/controllers/CreateHirerController.java</file>
+            <file>file:/D:/github/Freelance-web/Freelance/src/java/sample/controllers/LoginController.java</file>
+            <file>file:/D:/github/Freelance-web/Freelance/src/java/sample/sendemail/SendEmailForHirer.java</file>
         </group>
     </open-files>
 </project-private>

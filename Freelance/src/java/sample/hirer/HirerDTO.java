@@ -20,6 +20,21 @@ public class HirerDTO extends UserDTO implements Serializable{
     private int jobPosted;
     private int openJob;
     private int totalSpent;
+    private UserDTO user; // chua chac can coi lai
+
+    public HirerDTO(UserDTO user, String companyName, String code) {
+        this.user = user;
+        this.companyName = companyName;
+        
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
 
     public HirerDTO(int hirerID, String companyName, int reviewGrade, int jobPosted, int openJob, int totalSpent, String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar) {
         super(password, userName, fullName, email, phone, location, registrationDate, balance, avatar);
@@ -58,6 +73,40 @@ public class HirerDTO extends UserDTO implements Serializable{
         this.jobPosted = jobPosted;
         this.openJob = openJob;
         this.totalSpent = totalSpent;
+    }
+
+    public HirerDTO(String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar, String conpanyName) {
+        this.user.setPassword(password);
+        this.user.setUserName(userName);
+        this.user.setFullName(fullName);
+        this.user.setEmail(email);
+        this.user.setPhone(phone);
+        this.user.setLocation(location);
+        this.user.setRegistrationDate(registrationDate);
+        this.user.setBalance(balance);
+        this.user.setAvatar(avatar);
+        this.companyName = conpanyName;
+        
+    }
+    
+    public HirerDTO(String password, String userName, String fullName, String email, String phone, String location, String registrationDate, float balance, String avatar, String conpanyName, String code) {
+        this.user.setPassword(password);
+        this.user.setUserName(userName);
+        this.user.setFullName(fullName);
+        this.user.setEmail(email);
+        this.user.setPhone(phone);
+        this.user.setLocation(location);
+        this.user.setRegistrationDate(registrationDate);
+        this.user.setBalance(balance);
+        this.user.setAvatar(avatar);
+        this.companyName = conpanyName;
+        this.user.setCode(code);
+        
+    }
+
+    public HirerDTO(UserDTO user, String conpanyName) {
+        this.user = user;
+        this.companyName = conpanyName;
     }
 
     
