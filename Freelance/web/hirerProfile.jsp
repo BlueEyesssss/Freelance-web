@@ -89,10 +89,10 @@
                     <div class="navigation-button-wrapper">
                         <div data-hover="false" data-delay="0" class="w-dropdown">
                             <div class="dropdown-toggle w-dropdown-toggle"><img
-                                    src=<%= hirer.getAvatar()%>
+                                    src="uploads/<%= hirer.getAvatar()%>"
                                     loading="lazy" width="90"
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 43.134765625px, 6vw"
-                                    srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                    srcset="uploads/<%= hirer.getAvatar()%>"
                                     alt="" class="avatar-img-nav" /></div>
                             <nav class="dropdown-list w-dropdown-list">
                                 <a href="#" class="dropdown-link w-dropdown-link">My
@@ -114,9 +114,9 @@
                 <div class="main-information-wrapper">
                     <div class="seeker-header-div">
                         <div class="seeker-header-div-left"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                src="https://anhdepfree.com/wp-content/uploads/2019/01/avatar-facebook-mau-den_015640017.jpg"
                                 loading="lazy" sizes="(max-width: 479px) 100vw, 110px"
-                                srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                srcset="uploads/<%= hirer.getAvatar()%>"
                                 alt="" class="image-12" />
                             <div>
                                 <h1 class="heading-14"><%= hirer.getCompanyName()%></h1>
@@ -141,7 +141,7 @@
                                     <div class="lb-form-edit-wrapper">
                                         <div class="w-form">
                                             <form id="email-form" name="email-form" data-name="Email Form" method="get"
-                                                  class="edit-lightbox-form">
+                                                  class="edit-lightbox-form" action="MainController">
                                                 <div class="div-vertical">
                                                     <div class="div-vertical _w-80">
                                                         <div class="text-block-33">Current password</div><input
@@ -167,11 +167,14 @@
                                                         <font style="color: red">${requestScope.ERROR_CREATE.confirm}</font>
                                                     </div>
                                                 </div>
-                                                <div class="lb-edit-button-wrapper"><a
+                                                <div class="lb-edit-button-wrapper">
+                                                    <a
                                                         data-w-id="8ae2a92a-3f7b-8a07-bbf2-0fe10e32d3fc" href="#"
-                                                        class="main-button sub-button seeker-lb w-button">Cancel</a><input
+                                                        class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                    <input
                                                         type="submit" value="Save Password" name="action" data-wait="Please wait..."
-                                                        class="main-button w-button" /></div>
+                                                        class="main-button w-button" />
+                                                </div>
                                                     ${requestScope.ERROR_UPDATE_INF_SEEKER}
                                             </form>
                                             <div class="w-form-done">
