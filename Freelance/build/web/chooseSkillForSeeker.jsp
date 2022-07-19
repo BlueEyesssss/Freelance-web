@@ -44,7 +44,7 @@
             <div class="hello-seeker">Hello Seeker! What skills do you have ?</div>
         </div>
         <div class="div-block">
-            <form action="MainController">
+            <form action="MainController" >
             <div class="w-form">
                 <!--<form id="email-form" name="email-form" data-name="Email Form" method="get">-->
                 <%

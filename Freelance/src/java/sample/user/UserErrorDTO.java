@@ -27,6 +27,15 @@ public class UserErrorDTO {
     private String major;
     private String avatar;
     private String lengthClientIDSecret;
+    private String overview;
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
 
     public String getLengthClientIDSecret() {
         return lengthClientIDSecret;

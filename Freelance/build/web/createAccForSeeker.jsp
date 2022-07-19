@@ -29,7 +29,7 @@
                         loading="lazy" width="62" alt="" class="image" /></a></div>
         </div>
     </div>
-    <form action="MainController">
+    <form method="post" action="NextChooseSkillController" enctype="multipart/form-data">
     
     <div class="container-2 w-container">
         <div class="create-account">
@@ -127,7 +127,7 @@
                     <input placeholder="" maxlength="5000" id="field-12"
                          data-name="field" class="overview-input w-input"
                         type="text" name="overview" value="${param.overview}" required=""></input>
-                        
+                    <font style="color: red">${requestScope.ERROR_CREATE.overview}</font>     
                     <label
                         for="moneyPerHour" class="text">MoneyPerHour</label>
                     <input placeholder="money per hour"
@@ -142,8 +142,7 @@
                     <div>Oops! Something went wrong while submitting the form.</div>
                 </div>
             </div>
-        </div>
-        <div class="w-form">
+            <div class="w-form">
             <!--<form id="email-form-7" name="email-form-7" data-name="Email Form 7" method="get">-->
                 <label for="major"
                     class="text">Major</label>
@@ -160,55 +159,14 @@
             </div>
         </div>
         <div class="w-form">
-            <!--<form id="email-form-8" name="email-form-8" data-name="Email Form 8" method="get">-->
-                <label for="education"
-                    class="text">Education</label>
-                <input placeholder="" maxlength="5000" id="field-14"
-                     data-name="field" class="input-education w-input"
-                    type="text" name="education" value="${param.education}" required=""></input>
-                    <font style="color: red">${requestScope.ERROR_CREATE.education}</font>
-                <label for="titileBio"
-                    class="text">TitleBio</label>
-                <input placeholder="" maxlength="5000" id="field-15" 
-                    data-name="field" class="input-titlebio w-input"
-                    type="text" name="titileBio" value="${param.titileBio}" required=""></input>
-                <font style="color: red">${requestScope.ERROR_CREATE.titileBio}</font>
-            <!--</form>-->
-            <div class="w-form-done">
-                <div>Thank you! Your submission has been received!</div>
-            </div>
-            <div class="w-form-fail">
-                <div>Oops! Something went wrong while submitting the form.</div>
-            </div>
-        </div>
-        <div class="w-form">
-            <!--<form id="email-form-10" name="email-form-10" data-name="Email Form 10" method="get">-->
-                <label for="avatar"
-                    class="text">Avatar</label>
-                <input placeholder="" maxlength="5000" id="field-17" 
-                    data-name="field" class="input-avatar w-input"
-                    type="text" name="avatar" value="${param.avatar}"></input>
-                <font style="color: red">${requestScope.ERROR_CREATE.avatar}</font>
-            <!--</form>-->
-            <div class="w-form-done">
-                <div>Thank you! Your submission has been received!</div>
-            </div>
-            <div class="w-form-fail">
-                <div>Oops! Something went wrong while submitting the form.</div>
-            </div>
-        </div>
-        <div class="degree-wrapped">
-            <div class="w-form">
-                <!--<form id="email-form-9" name="email-form-9" data-name="Email Form 9" method="get" class="form">-->
-                    <label
-                        for="degree" class="text">Degree </label>
-                    <select id="field-16" name="degree"
-                        data-name="Field 16" class="select-field w-select">
-                        <option value="None">None</option>
-                        <option value="College degree">College degree</option>
-                        <option value="University degree">University degree</option>
-                        <option value="Master's degree">Master's degree</option>
-                    </select>
+                <!--<form id="email-form-8" name="email-form-8" data-name="Email Form 8" method="get">-->
+                    <label for="education"
+                        class="text">Education</label>
+                    <input placeholder="" maxlength="5000" id="field-14"
+                         data-name="field" class="input-education w-input"
+                        type="text" name="education" value="${param.education}" required=""></input>
+                        <font style="color: red">${requestScope.ERROR_CREATE.education}</font>
+                    
                 <!--</form>-->
                 <div class="w-form-done">
                     <div>Thank you! Your submission has been received!</div>
@@ -217,8 +175,63 @@
                     <div>Oops! Something went wrong while submitting the form.</div>
                 </div>
             </div>
+                <div class="w-form">
+                <!--<form id="email-form-10" name="email-form-10" data-name="Email Form 10" method="get">-->
+                    <label for="titileBio"
+                        class="text">TitleBio</label>
+                    <input placeholder="" maxlength="5000" id="field-15" 
+                        data-name="field" class="input-titlebio w-input"
+                        type="text" name="titileBio" value="${param.titileBio}" required=""></input>
+                    <font style="color: red">${requestScope.ERROR_CREATE.titileBio}</font>
+                <!--</form>-->
+                <div class="w-form-done">
+                    <div>Thank you! Your submission has been received!</div>
+                </div>
+                <div class="w-form-fail">
+                    <div>Oops! Something went wrong while submitting the form.</div>
+                </div>
+            </div>
+            <div class="w-form">
+                <!--<form id="email-form-10" name="email-form-10" data-name="Email Form 10" method="get">-->
+                    <label for="avatar"
+                        class="text">Upload Avatar (.jpg/.png)</label>
+                    <input placeholder="" maxlength="5000" id="field-17" 
+                        data-name="field" class="input-avatar w-input"
+                        type="file" name="avatar" ></input>
+                    <font style="color: red">${requestScope.ERROR_CREATE.avatar}</font>
+                <!--</form>-->
+                <div class="w-form-done">
+                    <div>Thank you! Your submission has been received!</div>
+                </div>
+                <div class="w-form-fail">
+                    <div>Oops! Something went wrong while submitting the form.</div>
+                </div>
+            </div>
+            <div class="degree-wrapped">
+                <div class="w-form">
+                    <!--<form id="email-form-9" name="email-form-9" data-name="Email Form 9" method="get" class="form">-->
+                        <label
+                            for="degree" class="text">Degree </label>
+                        <select id="field-16" name="degree"
+                            data-name="Field 16" class="select-field w-select">
+                            <option value="None">None</option>
+                            <option value="College degree">College degree</option>
+                            <option value="University degree">University degree</option>
+                            <option value="Master's degree">Master's degree</option>
+                        </select>
+                    <!--</form>-->
+                    <div class="w-form-done">
+                        <div>Thank you! Your submission has been received!</div>
+                    </div>
+                    <div class="w-form-fail">
+                        <div>Oops! Something went wrong while submitting the form.</div>
+                    </div>
+                </div>
+            </div>
+                <div class="next-wrapper"><button type="submit" value="Next" name="action"><a class="next-button w-button">Next</a></button></div>
         </div>
-        <div class="next-wrapper"><button type="submit" value="Next" name="action"><a class="next-button w-button">Next</a></button></div>
+        
+        
     </div>
     </form>
     <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6299706694ea0f3cf2e5325f"

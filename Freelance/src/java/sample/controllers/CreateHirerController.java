@@ -24,7 +24,6 @@ import sample.user.UserDTO;
 import sample.user.UserErrorDTO;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
  * @author LENOVO
@@ -86,11 +85,16 @@ public class CreateHirerController extends HttpServlet {
                     }
                 }
             }
-
+            //check username
             if (userName.trim().length() < 6 || userName.trim().length() > 20) {
                 checkError = true;
                 error.setUserName("must be 6 .. 20 character.");
             }
+            if(dao.checkDuplicateUsername(userName)){
+                checkError = true;
+                error.setUserName("user name already exists");
+            }
+            //
             if (password.trim().length() < 6 || password.trim().length() > 20) {
                 checkError = true;
                 error.setPassword("must be 6 .. 20 character.");
@@ -108,8 +112,9 @@ public class CreateHirerController extends HttpServlet {
             }
             if (dao.checkEmailExist(email) > 1) {
                 checkError = true;
-                error.setEmailExist("email linked to another account.");
+                error.setEmailExist("\"" + email + "\" linked to another account.");
             }
+            //
             if (phone.trim().length() != 10) {
                 checkError = true;
                 error.setPhone("must be 10 numbers.");
@@ -120,6 +125,11 @@ public class CreateHirerController extends HttpServlet {
                 checkError = true;
                 error.setPhone("must be 10 numbers.");
             }
+            if (dao.checkPhone(phone) > 0) {
+                checkError = true;
+                error.setPhone("\"" + phone + "\" linked to another account.");
+            }
+            //
             if (location.trim().length() < 6 || location.trim().length() > 50) {
                 checkError = true;
                 error.setLocation("must be 6 .. 50 character.");
@@ -135,7 +145,7 @@ public class CreateHirerController extends HttpServlet {
             if (checkError == false) {
                 //tạo user
                 UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance, filename);
-                HirerDTO hirer = new HirerDTO( user, conpanyName);
+                HirerDTO hirer = new HirerDTO(user, conpanyName);
                 request.setAttribute("HIRER", hirer);
                 url = SUCCESS;
 

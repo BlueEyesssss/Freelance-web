@@ -7,13 +7,18 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import sample.seeker.SeekerDTO;
 import sample.skill.SkillDAO;
 import sample.skill.SkillDTO;
@@ -25,6 +30,7 @@ import sample.user.UserErrorDTO;
  *
  * @author LENOVO
  */
+@MultipartConfig
 @WebServlet(name = "NextChooseSkillController", urlPatterns = {"/NextChooseSkillController"})
 public class NextChooseSkillController extends HttpServlet {
 
@@ -56,24 +62,27 @@ public class NextChooseSkillController extends HttpServlet {
             String titleBio = request.getParameter("titileBio");
             String major = request.getParameter("major");
             String degree = request.getParameter("degree");
-            String avatar = request.getParameter("avatar");
+            //String avatar = request.getParameter("avatar");
 
-            if (userName.trim().length() < 0 || userName.trim().length() > 32) {
+            //check username
+            if (userName.trim().length() < 6 || userName.trim().length() > 20) {
                 checkError = true;
-                error.setUserName("must be 0 .. 32 character.");
+                error.setUserName("must be 6 .. 20 character.");
             }
             if (dao.checkDuplicateUsername(userName)) {
                 checkError = true;
                 error.setDuplicate("Username already exists");
             }
-            if (password.trim().length() < 0 || password.trim().length() > 32) {
+            //
+            if (password.trim().length() < 6 || password.trim().length() > 20) {
                 checkError = true;
-                error.setPassword("must be 0 .. 32 character.");
+                error.setPassword("must be 6 .. 20 character.");
             }
-            if (fullName.trim().length() < 0 || fullName.trim().length() > 32) {
+            if (fullName.trim().length() < 6 || fullName.trim().length() > 50) {
                 checkError = true;
-                error.setFullName("must be 0 .. 32 character.");
+                error.setFullName("must be 6 .. 50 character.");
             }
+            //check email
             if (email.trim().length() < 10 || email.trim().length() > 128) {
                 checkError = true;
                 error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
@@ -81,53 +90,92 @@ public class NextChooseSkillController extends HttpServlet {
                 checkError = true;
                 error.setEmail("format must be ...@gmail.com.");
             }
-            if (phone.trim().length() < 0 || phone.trim().length() > 10) {
+            if (dao.checkEmailExist(email) > 1) {
                 checkError = true;
-                error.setPhone("must be 0 .. 10 character.");
+                error.setEmailExist("\"" + email + "\" linked to another account.");
             }
-            if (location.trim().length() < 0 || location.trim().length() > 255) {
+            //
+            if (phone.trim().length() != 10) {
                 checkError = true;
-                error.setLocation("must be 0 .. 255 character.");
+                error.setPhone("must be 10 numbers.");
+            }
+            try {
+                Integer.parseInt(phone.trim());
+            } catch (NumberFormatException e) {
+                checkError = true;
+                error.setPhone("must be 10 numbers.");
+            }
+            if (dao.checkPhone(phone) > 0) {
+                checkError = true;
+                error.setPhone("\"" + phone + "\" linked to another account.");
+            }
+            //
+            if (location.trim().length() < 6 || location.trim().length() > 50) {
+                checkError = true;
+                error.setLocation("must be 6 .. 50 character.");
             }
             if (!conform.equals(password)) {
                 checkError = true;
                 error.setConfirm("password and confirm not match.");
             }
-            if (education.trim().length() < 0 || education.trim().length() > 255) {
+            if (education.trim().length() < 6 || education.trim().length() > 50) {
                 checkError = true;
-                error.setLocation("must be 0 .. 255 character.");
+                error.setEducation("must be 6 .. 50 character.");
             }
             if (dao.checkEmailExist(email) > 3) {
                 checkError = true;
                 error.setEmailExist("email linked to another account.");
             }
-            if (major.trim().length() < 0 || major.trim().length() > 50) {
+            if (major.trim().length() < 6 || major.trim().length() > 50) {
                 checkError = true;
-                error.setMajor("major must 0..50 character.");
+                error.setMajor("major must 6..50 character.");
             }
-            if (!avatar.equals("")) {
-                if(avatar.trim().length() < 4){
+            //
+            if (overview.trim().length() < 6 || overview.trim().length() > 5000) {
+                checkError = true;
+                error.setOverview("overview must 6..5000 character.");
+            }
+            //
+            if (titleBio.trim().length() < 6 || titleBio.trim().length() > 50) {
+                checkError = true;
+                error.setTitileBio("titleBio must 6..50 character.");
+            }
+            //
+            String uploadFolder = getServletContext().getRealPath("/uploads");
+            Path uploadPath = Paths.get(uploadFolder);
+            String filename = "";
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            Part photoPart = request.getPart("avatar");
+            if (photoPart != null) {
+                if (photoPart.getSize() > (1024 * 1024 * 8)) {
                     checkError = true;
-                    error.setAvatar("format must start by https://... or must end by .jpg or .png");
-                } else
-                if (!avatar.equals(null)) {
-                    if (avatar.substring(avatar.length() - 4, avatar.length()).equals(".jpg")
-                            || avatar.substring(avatar.length() - 4, avatar.length()).equals(".png")
-                            || avatar.substring(0, 8).equals("https://")) {
-                        
-                    } else{
+                    error.setAvatar("format must must end by .jpg or .png and <8MB");
+                }
+                filename = photoPart.getSubmittedFileName();
+                if (!filename.equals("")) {
+                    if (filename.trim().length() < 4) {
                         checkError = true;
-                        error.setAvatar("format must start by https://... or must end by .jpg or .png");
+                        error.setAvatar("format must must end by .jpg or .png and <8MB");
+                    } else if (!filename.equals(null)) {
+                        if (filename.substring(filename.length() - 4, filename.length()).equals(".jpg")
+                                || filename.substring(filename.length() - 4, filename.length()).equals(".png")) {
+
+                        } else {
+                            checkError = true;
+                            error.setAvatar("format must must end by .jpg or .png and <8MB");
+                        }
                     }
                 }
             }
 
             if (checkError == false) {
-                if (avatar.equals("")) {
-                    avatar = "https://anhdepfree.com/wp-content/uploads/2019/01/avatar-facebook-mau-den_015640017.jpg";
-                }
+//                if (filename.equals("")) {
+//                    filename = "https://anhdepfree.com/wp-content/uploads/2019/01/avatar-facebook-mau-den_015640017.jpg";
+//                }
                 //tạo user
-                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance, avatar);
+                UserDTO user = new UserDTO(password, userName, fullName, email, phone, location, registrationDate, balance, filename);
                 //tạo seeker
                 SeekerDTO seeker = new SeekerDTO(0, overview, titleBio, moneyPerHour, education, degree, major);
 
@@ -138,12 +186,17 @@ public class NextChooseSkillController extends HttpServlet {
                 System.out.println("----------------------\n");
                 //---------------------
 
+                String pathSaveAvatar = Paths.get(uploadPath.toString(), user.getAvatar()).toString();
+                photoPart.write(pathSaveAvatar);
+                
                 List<SkillDTO> listSkill = daoSkill.getListSkill();
                 if (!listSkill.isEmpty()) {
                     HttpSession session = request.getSession();
                     session.setAttribute("LIST_SKILL", listSkill);
                     session.setAttribute("CREATE_USER_SEEKER", user);
                     session.setAttribute("CREATE_USER_SEEKER1", seeker);
+                    //session.setAttribute("AVATAR_SEEKER", photoPart);
+                    //session.setAttribute("PATH_SAVE_AVATAR_SEEKER", pathSaveAvatar);
                     url = SUCCESS;
                 }
             } else {

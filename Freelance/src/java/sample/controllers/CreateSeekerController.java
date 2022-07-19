@@ -7,12 +7,16 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import sample.seeker.SeekerDTO;
 import sample.skill.SkillDAO;
 import sample.user.UserDAO;
@@ -40,10 +44,12 @@ public class CreateSeekerController extends HttpServlet {
 
             UserDTO user = (UserDTO) session.getAttribute("CREATE_USER_SEEKER");
             SeekerDTO seeker = (SeekerDTO) session.getAttribute("CREATE_USER_SEEKER1");
-            
+            //Part avatar = (Part) session.getAttribute("AVATAR_SEEKER");
+            //String pathSaveAvatar = (String) session.getAttribute("PATH_SAVE_AVATAR_SEEKER");
+
             System.out.println(user.toString());
             System.out.println(seeker.toString());
-            
+
             //tạo user
             boolean checkCreateAcc = dao.createUser(user);
             if (checkCreateAcc) {
@@ -51,28 +57,41 @@ public class CreateSeekerController extends HttpServlet {
                 int seekerID = dao.getUser(user.getUserName(), user.getPassword()).getUserID();
                 seeker.setSeekerID(seekerID);
 
-                boolean checkCreateHirer = dao.createSeeker(seeker);
-                if (checkCreateHirer) {
-                    session.invalidate();
-                        
+                boolean checkCreateSeeker = dao.createSeeker(seeker);
+                if (checkCreateSeeker) {
+
                     //lấy skill name
                     String[] listSkillID = request.getParameterValues("skillID");
-                    for (String skill : listSkillID) {
-                        System.out.println(skill);
-                    }
-                    boolean checkWrongCreateSkillSeeker = false;
-                    for (String skillID : listSkillID) {
-                        boolean checkCreateSkillSeeker = daoSkill.createSkillSeekerHas(Integer.parseInt(skillID), seekerID);
-                        if(!checkCreateSkillSeeker){
-                            checkWrongCreateSkillSeeker = true;
-                            break;
+                    if (listSkillID == null) {
+                        //nếu ko chn5 skill nào
+
+                        //avatar.write(pathSaveAvatar);
+                        //xóa session giữ list skill đi
+                        session.invalidate();
+                        url = SUCCESS;
+                    } else {
+                        //nếu có chọn skill
+                        for (String skill : listSkillID) {
+                            System.out.println(skill);
+                        }
+                        boolean checkWrongCreateSkillSeeker = false;
+                        for (String skillID : listSkillID) {
+                            boolean checkCreateSkillSeeker = daoSkill.createSkillSeekerHas(Integer.parseInt(skillID), seekerID);
+                            if (!checkCreateSkillSeeker) {
+                                checkWrongCreateSkillSeeker = true;
+                                break;
+                            }
+                        }
+                        if (checkWrongCreateSkillSeeker) {
+                            request.setAttribute("CREATE_SKILL_SEEKER_HAS", "OOps, something wrong went create skill for seeker.");
+                        } else {
+                            //avatar.write(pathSaveAvatar);
+                            //xóa session giữ list skill đi
+                            session.invalidate();
+                            url = SUCCESS;
                         }
                     }
-                    if(checkWrongCreateSkillSeeker){
-                        request.setAttribute("CREATE_SKILL_SEEKER_HAS", "OOps, something wrong went create skill for seeker.");
-                    }else{
-                        url = SUCCESS;
-                    }
+
                 }
             }
 

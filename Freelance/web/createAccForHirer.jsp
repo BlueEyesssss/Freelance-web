@@ -6,7 +6,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Phát&#x27;s Exceptional Site</title>
+  <title>Create Account Hirer</title>
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <meta content="Webflow" name="generator" />
   <link href="https://uploads-ssl.webflow.com/62d3b9d70e07ab6b86d5ec7c/css/phats-exceptional-site.webflow.8765fbec2.css"
