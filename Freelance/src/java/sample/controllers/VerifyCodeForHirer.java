@@ -6,13 +6,16 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.hirer.HirerDTO;
+import sample.user.UserDAO;
 
 /**
  *
@@ -46,11 +49,25 @@ public class VerifyCodeForHirer extends HttpServlet {
                     +request.getParameter("authcode6");
             
             if(code.equals(hirer.getUser().getCode())){
-                out.println("Verification Done");
+                UserDAO dao = new UserDAO();
+                boolean checkCreateAcc = dao.createUser(hirer.getUser());
+                if (checkCreateAcc) {
+                    //tạo hirer
+                    int hirerID = dao.getUser(hirer.getUser().getUserName(), hirer.getUser().getPassword()).getUserID();
+                    HirerDTO hirer1 = new HirerDTO(hirerID, hirer.getCompanyName());
+
+                    boolean checkCreateHirer = dao.createHirer(hirer1);
+                    if (checkCreateHirer) {
+                        response.sendRedirect("login.jsp");
+                    }
+                }
+                response.sendRedirect("error.html");
             }else{
                 out.println("Incorrect verification code");
             }
             
+        }catch(Exception ex){
+            log("error at VerifyCodeForHirer: " + ex.getMessage());
         }
     }
 

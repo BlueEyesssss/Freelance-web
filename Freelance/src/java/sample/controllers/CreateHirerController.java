@@ -85,6 +85,7 @@ public class CreateHirerController extends HttpServlet {
                     }
                 }
             }
+            photoPart.write(Paths.get(uploadPath.toString(), filename).toString());
             //check username
             if (userName.trim().length() < 6 || userName.trim().length() > 20) {
                 checkError = true;

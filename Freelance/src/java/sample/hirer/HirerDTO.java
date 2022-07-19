@@ -6,6 +6,8 @@
 package sample.hirer;
 
 import java.io.Serializable;
+import java.nio.file.Path;
+import javax.servlet.http.Part;
 
 import sample.user.UserDTO;
 
@@ -21,6 +23,7 @@ public class HirerDTO extends UserDTO implements Serializable{
     private int openJob;
     private int totalSpent;
     private UserDTO user; // chua chac can coi lai
+
 
     public HirerDTO(UserDTO user, String companyName, String code) {
         this.user = user;
