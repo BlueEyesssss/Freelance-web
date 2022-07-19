@@ -340,25 +340,75 @@
                                     <div data-w-id="8ae2a92a-3f7b-8a07-bbf2-0fe10e32d500" class="close-lb-div"></div>
                                 </div>
                             </div>
+                           
                         </div>
                         <div class="hirer-companydetail">
                             <div class="hirer-heading-wrapper">
-                                <h1 class="heading-tittle">Company Detail<br /></h1>
+                                <h1 class="heading-tittle"><%= hirer.getCompanyName()%> Company <br /><font style="color: red; font-size: 15px">${requestScope.ERROR_CREATE_NOTIFY_COMPANY}</font></h1> <br><br><!-- comment -->
+                                
+                                <img
+                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
+                                    loading="lazy" data-w-id="8ae2a92a-3f7b-8a07-bbf2-0fe10e32d538" alt=""
+                                    class="icon-edit" />
+                                <div class="seeker-edit-lightbox company-detail">
+                                    <div class="seeker-edit-lb-wrapper basichirer">
+                                        <div class="lb-heading">
+                                            <h2 class="heading-15">Company</h2><img
+                                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629730e1c2204bda6f0f70bf_x.svg"
+                                                loading="lazy" data-w-id="ad827dd1-8e23-bbaf-19e0-44686df7dc8b" alt=""
+                                                class="image-14" />
+                                        </div>
+                                        <div class="lb-form-edit-wrapper">
+                                            <div class="w-form">
+                                                <form id="email-form" name="email-form" data-name="Email Form" method="get"
+                                                      class="edit-lightbox-form" action="updateCompanyNameHIrerController">
+                                                    <div class="lb-edit-button-wrapper"><a
+                                                            data-w-id="ad827dd1-8e23-bbaf-19e0-44686df7dc90" href="#"
+                                                            class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                            <input
+                                                            type="submit" value="Save" data-wait="Please wait..."
+                                                            class="main-button w-button" />
+                                                    </div>
+                                                    <div class="hirer-element-form">
+                                                        <div class="hirer-element-form">
+                                                            <label
+                                                                for="companyName"><strong>Company
+                                                                    Name</strong></label>
+                                                            <input type="text"
+                                                                class="text-field w-input" maxlength="256"
+                                                                name="companyName" data-name="companyName" placeholder=""
+                                                                id="companyName" required="" />
+                                                            <input type="hidden" name="hirerID" value="<%= hirer.getHirerID()%>" />
+                                                            <font style="color: red">${requestScope.ERROR_CREATE.conpanyName}</font>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <div class="w-form-done">
+                                                    <div>Thank you! Your submission has been received!</div>
+                                                </div>
+                                                <div class="w-form-fail">
+                                                    <div>Oops! Something went wrong while submitting the form.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-w-id="ad827dd1-8e23-bbaf-19e0-44686df7dcae" class="close-lb-div"></div>
+                                    </div>
+                                    <div data-w-id="ad827dd1-8e23-bbaf-19e0-44686df7dcaf" class="close-lb-div"></div>
+                                </div>
                             </div>
                             <div class="div-horizon padding-2side space-between">
                                 <div class="div-vertical">
-                                    <div class="my-bio"><strong><%= hirer.getCompanyName()%></strong></div>
-                                    <div class="text-block-151">KMS Technology has a global footprint with a suite of
-                                        companies targeted to serve clients in their respective regions and industries.
+                                    <div class="my-bio"><strong>Upload Avatar</strong></div>
+                                    <div class="text-block-151"><font style="color: red">${requestScope.ERROR_CREATE_NOTIFY_AVATAR}</font>
                                     </div>
-                                    <div class="div-block-28 padding-top"><img
+                                    <div class="div-block-28 padding-top" style="display: none"><img
                                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296c1f76519c0d7c2b00673_map-pin.svg"
                                             loading="lazy" alt="" class="image-13" />
                                         <div class="text-block-21"><br /><%= hirer.getLocation()%></div>
-                                    </div><a href="#" class="div-block-28 padding-top link w-inline-block"><img
+                                    </div><a style="display: none" href="#" class="div-block-28 padding-top link w-inline-block"><img
                                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62ad8887b7f9517b32a0b7d7_website.svg"
                                             loading="lazy" alt="" class="image-13" />
-                                        <div class="text-block-21"><br />https://kms-technology.com/</div>
+                                        <div class="text-block-21" style="display: none"><br />https://kms-technology.com/</div>
                                     </a>
                                 </div><img
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
@@ -367,42 +417,37 @@
                                 <div class="seeker-edit-lightbox company-detail">
                                     <div class="seeker-edit-lb-wrapper basichirer">
                                         <div class="lb-heading">
-                                            <h2 class="heading-15">Company Information</h2><img
+                                            <h2 class="heading-15">Avatar</h2><img
                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629730e1c2204bda6f0f70bf_x.svg"
                                                 loading="lazy" data-w-id="ad827dd1-8e23-bbaf-19e0-44686df7dc8b" alt=""
                                                 class="image-14" />
                                         </div>
                                         <div class="lb-form-edit-wrapper">
                                             <div class="w-form">
-                                                <form id="email-form" name="email-form" data-name="Email Form" method="get"
+                                                <form id="email-form" name="email-form" data-name="Email Form" 
+                                                      action="UpdateAvatarController" method="post" enctype="multipart/form-data"
                                                       class="edit-lightbox-form">
-                                                    <div class="lb-edit-button-wrapper"><a
+                                                    <div class="lb-edit-button-wrapper">
+                                                        <a
                                                             data-w-id="ad827dd1-8e23-bbaf-19e0-44686df7dc90" href="#"
-                                                            class="main-button sub-button seeker-lb w-button">Cancel</a><input
+                                                            class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                        <input
                                                             type="submit" value="Save" data-wait="Please wait..."
-                                                            class="main-button w-button" /></div>
+                                                            class="main-button w-button" />
+                                                    </div>
                                                     <div class="hirer-element-form">
-                                                        <div class="hirer-element-form"><label
-                                                                for="companyName"><strong>Company
-                                                                    Name</strong></label><input type="text"
-                                                                                        class="text-field w-input" maxlength="256"
-                                                                                        name="companyName" data-name="companyName" placeholder=""
-                                                                                        id="companyName" required="" /></div>
-                                                        <div class="hirer-element-form"><label
-                                                                for="companyDescrip"><strong>Description</strong></label><input
-                                                                type="email" class="text-field w-input" maxlength="256"
-                                                                name="companyDescrip" data-name="companyDescrip"
-                                                                placeholder="" id="companyDescrip" required="" /></div>
-                                                        <div class="hirer-element-form"><label
-                                                                for="companyLocation"><strong>Location</strong></label><input
-                                                                type="tel" class="text-field w-input" maxlength="256"
-                                                                name="companyLocation" data-name="companyLocation"
-                                                                placeholder="" id="companyLocation" required="" /></div>
-                                                        <div class="hirer-element-form last-child"><label
-                                                                for="companyWebsite"><strong>Website</strong></label><input
-                                                                type="text" class="text-field w-input" maxlength="256"
-                                                                name="companyWebsite" data-name="companyWebsite"
-                                                                placeholder="" id="companyWebsite" required="" /></div>
+                                                        <div class="hirer-element-form">
+                                                            <label
+                                                                for="companyName"><strong>Avatar</strong></label>
+                                                            <input type="file"
+                                                                class="text-field w-input" maxlength="256"
+                                                                name="avatar" data-name="companyName" placeholder=""
+                                                                id="companyName" required="" />
+                                                        </div>
+                                                        <font style="color: red">${requestScope.ERROR_CREATE.avatar}</font><br>
+                                                        
+                                                        <input type="hidden" name="hirerID" value="<%= hirer.getHirerID()%>" />
+                                                        <img src="uploads/<%= hirer.getAvatar()%>" style="max-width: 206px; border-radius: 50%;">
                                                     </div>
                                                 </form>
                                                 <div class="w-form-done">

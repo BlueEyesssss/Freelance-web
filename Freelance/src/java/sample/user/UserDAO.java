@@ -65,7 +65,12 @@ public class UserDAO {
     private static final String GET_NAME_BY_ID = "select fullName\n" +
 "from [User]\n" +
 "where userID = ?";
-    
+    private static final String UPDATE_AVATAR_USER = "update [User]\n" +
+"set avatar = ?\n" +
+"where userID = ?";
+    private static final String UPDATE_COMPANY_HIRER = "update Hirer\n" +
+"set companyName = ?\n" +
+"where hirerID = ?";
     public String getFullNameById(int userid) throws SQLException{
         String name = "";
         Connection con = null;
@@ -830,6 +835,57 @@ public class UserDAO {
         }
         return check;
     }
+
+    public boolean updateAvatarUser(String hirerID, String filename) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_AVATAR_USER);
+                ptm.setString(1, filename);
+                ptm.setString(2, hirerID);
+                    check = ptm.executeUpdate()>0?true:false;
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean updateCompanyHirer(String hirerID, String companyName) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_COMPANY_HIRER);
+                ptm.setString(1, companyName);
+                ptm.setString(2, hirerID);
+                    check = ptm.executeUpdate()>0?true:false;
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;}
 
     
 
