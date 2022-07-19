@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import sample.project.ProjectDAO;
 import sample.project.ProjectDTO;
 import sample.proposal.ProposalDAO;
+import sample.seeker.SeekerDTO;
 import sample.user.UserDTO;
 
 /**
@@ -34,18 +35,29 @@ public class FormSentProposalController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            HttpSession session = request.getSession();
+            SeekerDTO seekerLogin = (SeekerDTO) session.getAttribute("USER_LOGIN");
             int projectID = Integer.parseInt(request.getParameter("projectID"));
             ProjectDAO dao = new ProjectDAO();
             ProjectDTO projectCurrent = dao.getProjectCurrent(projectID);
             List<String> skillneed = dao.getSkillNeedOfProject(projectCurrent.getProjectID());
-            
-                     
-            if (projectCurrent != null) {
+            List<String> skillsOfSeeker = seekerLogin.getListSkill();
+            boolean checkMatchSkill = false;//rang buoc seeker phai co it nhat 1 skill trung voi skillNeed cua project
+            for (String skillNeedOfProject : skillneed) {
+                for (String skillOfSeeker : skillsOfSeeker) {
+                    if (skillNeedOfProject.equalsIgnoreCase(skillOfSeeker)) {
+                        checkMatchSkill = true;
+                        break;
+                    }
+                }
+            }
+
+            if (projectCurrent != null && checkMatchSkill) {
                 request.setAttribute("SKILL_PROJECT_NEED", skillneed);
                 request.setAttribute("PROJECT_CURRENT", projectCurrent);
                 url = SUCCESS;
             }
-   
+
         } catch (Exception e) {
             log("Error at FormSentProposalController: " + e.toString());
         } finally {
