@@ -445,7 +445,7 @@
                                                                 name="client_id" value="<%= client_id %>" data-name="university"
                                                                 placeholder="unknown" id="university"
                                                                 required="" />
-
+                                                            
 
                                                             <label for="major"><strong>Client Secret</strong> <strong style="color: red">*</strong></label>
                                                             <input type="text"
@@ -453,7 +453,8 @@
                                                                    data-name="major" placeholder="unknown" id="major"
                                                                    required="" />
                                                         </div>
-                                                        ${requestScope.ERROR_UPDATE_PAYPAL_INF_SEEKER}
+                                                        
+                                                        
                                                     </form>
                                                     <div class="w-form-done">
                                                         <div>Thank you! Your submission has been received!</div>
@@ -467,7 +468,8 @@
                                         <div data-w-id="079b63d9-bb54-5ffb-4adf-c1a259c4de97" class="close-lb-div"></div>
                                     </div>
                                 </div>
-                                <div><strong>Client Id - Secret</strong></div>
+                                <div><strong>Client Id - Secret</strong> ${requestScope.ERROR_UPDATE_PAYPAL_INF_SEEKER}</div>
+                                <font style="color: red">${requestScope.ERROR_UPDATE_INF_BALANCE_KEY_SEEKER.lengthClientIDSecret}</font>
                                 <div class="text-block-seeker"><br /></div>
                             </div>
                         </div>

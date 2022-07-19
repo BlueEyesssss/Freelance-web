@@ -1,3 +1,4 @@
+<%@page import="sample.payment.PayPayDTO"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -222,8 +223,15 @@
                                             loading="lazy" alt="" class="image-13" />
                                         <div class="text-block-21"><br /><%= hirer.getPhone()%></div>
                                     </div>
+                                    <div class="div-block-28 padding-top">
+                                        <img
+                                            src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62ad86a39e3a4d61d6e7512e_Account%20balance%20wallet.svg"
+                                            loading="lazy" alt="" class="image-13" style="max-width: 24px;"/>
+                                        <div class="text-block-21"><br />PayPal key</div>
+                                    </div>
                                     <font style="color: green">${requestScope.UPDATE_INF_HIRER_1}</font>
                                     <font style="color: red">${requestScope.UPDATE_INF_HIRER_1_FAIL}</font>
+                                    <font style="color: red">${requestScope.ERROR_UPDATE_PAYPAL_INF_HIRER}</font>
                                             <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_FORMAT_1}</font>
                                 </div><img
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
@@ -253,7 +261,7 @@
                                                     <div class="hirer-element-form">
                                                         <div class="hirer-element-form">
                                                             <label
-                                                                for="name-2"><strong>Name</strong></label>
+                                                                for="name-2"><strong>Name</strong> </strong> <strong style="color: red">*</strong></label>
                                                             <input type="text"
                                                                 class="text-field w-input" maxlength="256" name="fullName"
                                                                 data-name="name" placeholder="" id="name-2" required="" value="<%= hirer.getFullName()%>"/>
@@ -261,7 +269,7 @@
                                                         </div>
                                                         <div class="hirer-element-form">
                                                             <label
-                                                                for="email"><strong>Email</strong></label>
+                                                                for="email"><strong>Email</strong> </strong> <strong style="color: red">*</strong></label>
                                                             <input
                                                                 type="email" class="text-field w-input" maxlength="256"
                                                                 name="email" data-name="email" placeholder="" id="email"
@@ -271,21 +279,52 @@
                                                         </div>
                                                         <div class="hirer-element-form">
                                                             <label
-                                                                for="phone"><strong>Phone</strong></label>
+                                                                for="phone"><strong>Phone</strong> </strong> <strong style="color: red">*</strong></label>
                                                             <input type="tel"
                                                                 class="text-field w-input" maxlength="256" name="phone"
                                                                 data-name="phone" placeholder="" id="phone" required="" value="<%= hirer.getPhone()%>"/>
                                                             <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_1.phone}</font>
                                                         </div>
-                                                        <div class="hirer-element-form last-child">
+                                                        <div class="hirer-element-form">
                                                             <label
-                                                                for="location"><strong>Location</strong></label>
+                                                                for="location"><strong>Location</strong> </strong> <strong style="color: red">*</strong></label>
                                                             <input
                                                                 type="text" class="text-field w-input" maxlength="256"
                                                                 name="location" data-name="location" placeholder=""
                                                                 id="location" required="" value="<%= hirer.getLocation()%>"/>
                                                             <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_1.location}</font>
                                                         </div>
+                                                        <%
+                                                            PayPayDTO paypalInf = (PayPayDTO)session.getAttribute("PAYPAL_INF");
+                                                            String client_id = "";
+                                                            String client_secret = "";
+                                                            if(paypalInf != null){
+                                                                client_id = paypalInf.getClient_id();
+                                                                client_secret = paypalInf.getClient_secret();
+                                                            }else{
+                                                                client_id = "unknown";
+                                                                client_secret = "unknown";
+                                                            }
+                                                        %>
+                                                        <div class="hirer-element-form">
+                                                            <label
+                                                                for="location"><strong>PayPal Key ID</strong> </strong> <strong style="color: red">*</strong></label>
+                                                            <input
+                                                                type="text" class="text-field w-input" maxlength="256"
+                                                                name="client_id" data-name="location" placeholder=""
+                                                                id="location" required="" value="<%= client_id %>"/>
+                                                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_1.lengthClientIDSecret}</font>
+                                                        </div>
+                                                        <div class="hirer-element-form last-child">
+                                                            <label
+                                                                for="location"><strong>PayPal Key Secret</strong> </strong> <strong style="color: red">*</strong></label>
+                                                            <input
+                                                                type="text" class="text-field w-input" maxlength="256"
+                                                                name="client_secret" data-name="location" placeholder=""
+                                                                id="location" required="" value="<%= client_secret %>"/>
+                                                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_1.lengthClientIDSecret}</font>
+                                                        </div>
+                                                        
                                                     </div>
                                                 </form>
                                                 <div class="w-form-done">

@@ -26,6 +26,15 @@ public class UserErrorDTO {
     private String emailExist;
     private String major;
     private String avatar;
+    private String lengthClientIDSecret;
+
+    public String getLengthClientIDSecret() {
+        return lengthClientIDSecret;
+    }
+
+    public void setLengthClientIDSecret(String lengthClientIDSecret) {
+        this.lengthClientIDSecret = lengthClientIDSecret;
+    }
 
     public String getAvatar() {
         return avatar;

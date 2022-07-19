@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import sample.payment.PayPayDTO;
 import sample.payment.PaymentDAO;
 import sample.seeker.SeekerDTO;
+import sample.user.UserErrorDTO;
 
 /**
  *
@@ -23,41 +24,55 @@ import sample.seeker.SeekerDTO;
 @WebServlet(name = "UpdateClientIDSecretOfSeekerController", urlPatterns = {"/UpdateClientIDSecretOfSeekerController"})
 public class UpdateClientIDSecretOfSeekerController extends HttpServlet {
 
-    private static final String ERROR = "seekerDashboard.jsp";
+    private static final String ERROR = "seekerProfile.jsp";
     private static final String SUCCESS = "ViewSeekerDashboardController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        boolean checkError = false;
+        UserErrorDTO error = new UserErrorDTO();
         try {
             HttpSession session = request.getSession();
             SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
             String client_id = request.getParameter("client_id");
             String client_secret = request.getParameter("client_secret");
 
-            PaymentDAO dao = new PaymentDAO();
-            //check xem đã có client id và key trc đó chưa
-            if (dao.getClientID(seeker.getUserID()) != null && dao.getClientID(seeker.getUserID()) != null) {
-                //co roi thi update lai moi
-                if (dao.updateClientIdSecretOfSeeker(seeker.getUserID(), client_id, client_secret)) {
-                    //cap nhat lai tren session
-                    PayPayDTO paypalInf = new PayPayDTO(seeker.getUserID(), client_id, client_secret);
-                    session.setAttribute("PAYPAL_INF", paypalInf);
-                    url = SUCCESS;
+            //check cilnet id, secret
+            if (client_id.trim().length() == 80 && client_secret.trim().length() == 80) {
+
+            } else {
+                checkError = true;
+                error.setLengthClientIDSecret("check client id and secret again.");
+            }
+
+            if (checkError == false) {
+                PaymentDAO dao = new PaymentDAO();
+                //check xem đã có client id và key trc đó chưa
+                if (dao.getClientID(seeker.getUserID()) != null && dao.getClientID(seeker.getUserID()) != null) {
+                    //co roi thi update lai moi
+                    if (dao.updateClientIdSecretOfSeeker(seeker.getUserID(), client_id, client_secret)) {
+                        //cap nhat lai tren session
+                        PayPayDTO paypalInf = new PayPayDTO(seeker.getUserID(), client_id, client_secret);
+                        session.setAttribute("PAYPAL_INF", paypalInf);
+                        url = SUCCESS;
+                    } else {
+                        request.setAttribute("ERROR_UPDATE_PAYPAL_INF_SEEKER", "can't update balance key");
+                    }
                 } else {
-                    request.setAttribute("ERROR_UPDATE_PAYPAL_INF_SEEKER", "can't update balance key");
+                    //chua co thi insert moi vao
+                    if (dao.createPayPalInf(new PayPayDTO(seeker.getUserID(), client_id, client_secret))) {
+                        //cap nhat lai tren session
+                        PayPayDTO paypalInf = new PayPayDTO(seeker.getUserID(), client_id, client_secret);
+                        session.setAttribute("PAYPAL_INF", paypalInf);
+                        url = SUCCESS;
+                    } else {
+                        request.setAttribute("ERROR_UPDATE_PAYPAL_INF_SEEKER", "can't update balance key");
+                    }
                 }
             }else{
-                //chua co thi insert moi vao
-                if(dao.createPayPalInf(new PayPayDTO(seeker.getUserID(), client_id, client_secret))){
-                    //cap nhat lai tren session
-                    PayPayDTO paypalInf = new PayPayDTO(seeker.getUserID(), client_id, client_secret);
-                    session.setAttribute("PAYPAL_INF", paypalInf);
-                   url = SUCCESS;
-                } else {
-                    request.setAttribute("ERROR_UPDATE_PAYPAL_INF_SEEKER", "can't update balance key");
-                }
+                request.setAttribute("ERROR_UPDATE_INF_BALANCE_KEY_SEEKER", error);
             }
 
         } catch (Exception e) {

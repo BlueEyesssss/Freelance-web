@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.hirer.HirerDTO;
+import sample.payment.PayPayDTO;
+import sample.payment.PaymentDAO;
 import sample.user.UserDAO;
 import sample.user.UserErrorDTO;
 
@@ -50,6 +52,8 @@ public class SaveHirerInformationController extends HttpServlet {
                 String email = request.getParameter("email");
                 String phone = request.getParameter("phone");
                 String location = request.getParameter("location");
+                String client_id = request.getParameter("client_id");
+                String client_secret = request.getParameter("client_secret");
                 //check fullname
                 if (fullName.trim().length() < 6 || fullName.trim().length() > 50) {
                     checkError = true;
@@ -58,45 +62,53 @@ public class SaveHirerInformationController extends HttpServlet {
                 //check email
                 if (email.trim().length() < 10 || email.trim().length() > 128) {
                     checkError = true;
-                    error.setEmail("\""+email+"\" must be ...@gmail.com and length must be 10 .. 128 character.");
+                    error.setEmail("\"" + email + "\" must be ...@gmail.com and length must be 10 .. 128 character.");
                 } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
                     checkError = true;
-                    error.setEmail("\""+email+"\" must be ...@gmail.com.");
+                    error.setEmail("\"" + email + "\" must be ...@gmail.com.");
                 }
                 if (email.equals(hirer.getEmail())) {
 
                 } else {
                     if (dao.checkEmailExist(email) > 0) {
                         checkError = true;
-                        error.setEmailExist("\""+email+"\" linked to another account.");
+                        error.setEmailExist("\"" + email + "\" linked to another account.");
                     }
                 }
 
                 //check phone
                 if (phone.trim().length() != 10) {
                     checkError = true;
-                    error.setPhone("\""+phone+"\" must be 10 numbers.");
+                    error.setPhone("\"" + phone + "\" must be 10 numbers.");
                 }
                 try {
                     Integer.parseInt(phone.trim());
                 } catch (NumberFormatException e) {
                     checkError = true;
-                    error.setPhone("\""+phone+"\" must be 10 numbers.");
+                    error.setPhone("\"" + phone + "\" must be 10 numbers.");
                 }
                 if (phone.equals(hirer.getPhone())) {
 
                 } else {
                     if (dao.checkPhone(phone) > 0) {
                         checkError = true;
-                        error.setPhone("\""+phone+"\" linked to another account.");
+                        error.setPhone("\"" + phone + "\" linked to another account.");
                     }
                 }
 
                 //check location
                 if (location.trim().length() < 6 || location.trim().length() > 50) {
                     checkError = true;
-                    error.setLocation("\""+location+"\" must be 6 .. 50 character.");
+                    error.setLocation("\"" + location + "\" must be 6 .. 50 character.");
                 }
+                //check cilnet id, secret
+                if (client_id.trim().length() == 80 && client_secret.trim().length() == 80) {
+
+                } else {
+                    checkError = true;
+                    error.setLengthClientIDSecret("check client id and secret again.");
+                }
+
                 if (checkError == false) {
                     //đúng hết format rồi
                     //cập nhật lại hirer
@@ -107,8 +119,36 @@ public class SaveHirerInformationController extends HttpServlet {
                     if (dao.UpdateUserProfile1(hirer)) {
                         //cập nhật lại hire rlen6 session
                         session.setAttribute("USER_LOGIN", hirer);
-                        request.setAttribute("UPDATE_INF_HIRER_1", "update success");
-                        url = SUCCESS;
+
+                        //cập nhật client id+secret
+                        PaymentDAO daoPay = new PaymentDAO();
+                        //check xem đã có client id và key trc đó chưa
+                        if (daoPay.getClientID(hirer.getUserID()) != null && daoPay.getClientID(hirer.getUserID()) != null) {
+                            //co roi thi update lai moi, dùng hàm seeke r cho hirer luôn vì giống nhau
+                            if (daoPay.updateClientIdSecretOfSeeker(hirer.getUserID(), client_id, client_secret)) {
+                                //cap nhat lai tren session
+                                PayPayDTO paypalInf = new PayPayDTO(hirer.getUserID(), client_id, client_secret);
+                                session.setAttribute("PAYPAL_INF", paypalInf);
+                                
+                                request.setAttribute("UPDATE_INF_HIRER_1", "update success");
+                                url = SUCCESS;
+                            } else {
+                                request.setAttribute("ERROR_UPDATE_PAYPAL_INF_HIRER", "can't update balance key");
+                            }
+                        } else {
+                            //chua co thi insert moi vao
+                            if (daoPay.createPayPalInf(new PayPayDTO(hirer.getUserID(), client_id, client_secret))) {
+                                //cap nhat lai tren session
+                                PayPayDTO paypalInf = new PayPayDTO(hirer.getUserID(), client_id, client_secret);
+                                session.setAttribute("PAYPAL_INF", paypalInf);
+                                
+                                request.setAttribute("UPDATE_INF_HIRER_1", "update success");
+                                url = SUCCESS;
+                            } else {
+                                request.setAttribute("ERROR_UPDATE_PAYPAL_INF_HIRER", "can't update balance key");
+                            }
+                        }
+
                     } else {
                         request.setAttribute("UPDATE_INF_HIRER_1_FAIL", "update fail");
                     }

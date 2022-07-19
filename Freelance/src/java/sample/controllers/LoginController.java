@@ -36,7 +36,7 @@ public class LoginController extends HttpServlet {
     private static final String SEEKER_PAGE = "ViewSeekerDashboardController";
     private static final String HIRER_PAGE = "ViewHirerDashboardController";
     private static final String ADMIN_PAGE = "index.html";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,119 +45,124 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             String username = request.getParameter("userName");
             String password = request.getParameter("password");
-            if(username.equals("admin") && password.equals("1")){
-                
+            if (username.equals("admin") && password.equals("1")) {
+
                 //lấy list transaction rút tiền từ web ra paypal
                 TransactionHandlingDAO dao = new TransactionHandlingDAO();
                 List<TransactionHandlingDTO> listTran = dao.getListTranStatus0();
                 session.setAttribute("LIST_TRANS_STATUS_0", listTran);
-                
+
                 url = ADMIN_PAGE;
-            }else{
+            } else {
                 UserDAO dao = new UserDAO();
-            SkillDAO daoSkill = new SkillDAO();
-            UserDTO user = new UserDTO();
-            SeekerDTO seeker = new SeekerDTO();
-            HirerDTO hirer = new HirerDTO();
-            HirerDAO daoHirer = new HirerDAO();
-            UserDAO daoUser = new UserDAO();
-            user = dao.getUser(username, password);
-            if (user != null) {
-                
-                List<SkillDTO> listSkillAll = daoSkill.getListSkill();
-                session.setAttribute("LIST_SKILL_ALL", listSkillAll);
+                SkillDAO daoSkill = new SkillDAO();
+                UserDTO user = new UserDTO();
+                SeekerDTO seeker = new SeekerDTO();
+                HirerDTO hirer = new HirerDTO();
+                HirerDAO daoHirer = new HirerDAO();
+                UserDAO daoUser = new UserDAO();
+                user = dao.getUser(username, password);
+                if (user != null) {
 
-                //check xem nó có phải seeker hay ko
-                //1.lấy seeker ra
-                seeker = dao.checkAccSeeker(user.getUserID());
-                //2.check null
-                if (seeker != null) {
-                    seeker.setUserID(user.getUserID());
-                    seeker.setPassword(user.getPassword());
-                    seeker.setUserName(user.getUserName());
-                    seeker.setFullName(user.getFullName());
-                    seeker.setEmail(user.getEmail());
-                    seeker.setPhone(user.getPhone());
-                    seeker.setLocation(user.getLocation());
-                    seeker.setRegistrationDate(user.getRegistrationDate());
-                    seeker.setBalance(user.getBalance());
-                    seeker.setAvatar(user.getAvatar());
-                    seeker.setLanguage(user.getLanguage());
-                    seeker.setLanguagelv(user.getLanguagelv());
-                    
-                    session.setAttribute("USER_LOGIN", seeker);
+                    List<SkillDTO> listSkillAll = daoSkill.getListSkill();
+                    session.setAttribute("LIST_SKILL_ALL", listSkillAll);
 
-                    //lấy listID các skill của seeker
-                    List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
-                    session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
+                    //check xem nó có phải seeker hay ko
+                    //1.lấy seeker ra
+                    seeker = dao.checkAccSeeker(user.getUserID());
+                    //2.check null
+                    if (seeker != null) {
+                        seeker.setUserID(user.getUserID());
+                        seeker.setPassword(user.getPassword());
+                        seeker.setUserName(user.getUserName());
+                        seeker.setFullName(user.getFullName());
+                        seeker.setEmail(user.getEmail());
+                        seeker.setPhone(user.getPhone());
+                        seeker.setLocation(user.getLocation());
+                        seeker.setRegistrationDate(user.getRegistrationDate());
+                        seeker.setBalance(user.getBalance());
+                        seeker.setAvatar(user.getAvatar());
+                        seeker.setLanguage(user.getLanguage());
+                        seeker.setLanguagelv(user.getLanguagelv());
 
-                    //lấy list skill trong Skill
-                   
-                    
-                    
-                    
-                    List<HirerDTO> listHirer = daoHirer.getListHirer();
-                    List<UserDTO> listUser = daoUser.getListUser();
-                    
-                    for (UserDTO userDTO : listUser) {
-                        for (HirerDTO hirerDTO : listHirer) {
-                            if (userDTO.getUserID() == hirerDTO.getHirerID()) {
-                                hirerDTO.setLocation(userDTO.getLocation());
-                                hirerDTO.setRegistrationDate(userDTO.getRegistrationDate());
+                        session.setAttribute("USER_LOGIN", seeker);
+
+                        //lấy listID các skill của seeker
+                        List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
+                        session.setAttribute("LIST_SKILL_OF_SEEKER", listSkillSeeker);
+
+                        //lấy list skill trong Skill
+                        List<HirerDTO> listHirer = daoHirer.getListHirer();
+                        List<UserDTO> listUser = daoUser.getListUser();
+
+                        for (UserDTO userDTO : listUser) {
+                            for (HirerDTO hirerDTO : listHirer) {
+                                if (userDTO.getUserID() == hirerDTO.getHirerID()) {
+                                    hirerDTO.setLocation(userDTO.getLocation());
+                                    hirerDTO.setRegistrationDate(userDTO.getRegistrationDate());
+                                }
+                                hirerDTO.setReviewGrade(daoHirer.getReviewGrade(hirerDTO.getHirerID()));
+                                hirerDTO.setJobPosted(daoHirer.getJobPosted(hirerDTO.getHirerID()));
                             }
-                            hirerDTO.setReviewGrade(daoHirer.getReviewGrade(hirerDTO.getHirerID()));
-                            hirerDTO.setJobPosted(daoHirer.getJobPosted(hirerDTO.getHirerID()));
                         }
-                    }
-                    
-                    
+
 //                    for (HirerDTO element : listHirer) {
 //                        element.setReviewGrade(daoHirer.getReviewGrade(element.getHirerID()));
 //                        element.setJobPosted(daoHirer.getJobPosted(element.getHirerID()));
 //                        
 //                    }
-                    //lấy client id và secret của seeker nếu có
-                    PaymentDAO daoPayment = new PaymentDAO();
-                    String client_id = daoPayment.getClientID(user.getUserID());
-                    String client_secret = daoPayment.getClientSecret(user.getUserID());
-                    PayPayDTO paypalInf = null;
-                    if(client_id != null && client_secret != null){
-                        paypalInf = new PayPayDTO(user.getUserID(), client_id, client_secret);
-                    }
+                        //lấy client id và secret của seeker nếu có
+                        PaymentDAO daoPayment = new PaymentDAO();
+                        String client_id = daoPayment.getClientID(user.getUserID());
+                        String client_secret = daoPayment.getClientSecret(user.getUserID());
+                        PayPayDTO paypalInf = null;
+                        if (client_id != null && client_secret != null) {
+                            paypalInf = new PayPayDTO(user.getUserID(), client_id, client_secret);
+                        }
 
-                    session.setAttribute("PAYPAL_INF", paypalInf);
-                    session.setAttribute("LIST_HIRER", listHirer);
-                    url = SEEKER_PAGE;
-                } else { //tương tự vs Hirer
-                    //1.lấy hirer
-                    hirer = dao.checkAccHirer(user.getUserID());
-                    //2.check hirer
-                    if (hirer != null) {                        
-                        hirer.setUserID(user.getUserID());
-                        hirer.setHirerID(user.getUserID());
-                        hirer.setPassword(user.getPassword());
-                        hirer.setUserName(user.getUserName());
-                        hirer.setFullName(user.getFullName());
-                        hirer.setEmail(user.getEmail());
-                        hirer.setPhone(user.getPhone());
-                        hirer.setLocation(user.getLocation());
-                        hirer.setRegistrationDate(user.getRegistrationDate());
-                        hirer.setBalance(user.getBalance());
-                        hirer.setAvatar(user.getAvatar());
-                        hirer.setLanguage(user.getLanguage());
-                        hirer.setLanguagelv(user.getLanguagelv());
-                        hirer.setJobPosted(daoHirer.getJobPosted(user.getUserID()));
-                        
-                        session.setAttribute("USER_LOGIN", hirer);
-                        
-                        url = HIRER_PAGE;
+                        session.setAttribute("PAYPAL_INF", paypalInf);
+                        session.setAttribute("LIST_HIRER", listHirer);
+                        url = SEEKER_PAGE;
+                    } else { //tương tự vs Hirer
+                        //1.lấy hirer
+                        hirer = dao.checkAccHirer(user.getUserID());
+                        //2.check hirer
+                        if (hirer != null) {
+                            hirer.setUserID(user.getUserID());
+                            hirer.setHirerID(user.getUserID());
+                            hirer.setPassword(user.getPassword());
+                            hirer.setUserName(user.getUserName());
+                            hirer.setFullName(user.getFullName());
+                            hirer.setEmail(user.getEmail());
+                            hirer.setPhone(user.getPhone());
+                            hirer.setLocation(user.getLocation());
+                            hirer.setRegistrationDate(user.getRegistrationDate());
+                            hirer.setBalance(user.getBalance());
+                            hirer.setAvatar(user.getAvatar());
+                            hirer.setLanguage(user.getLanguage());
+                            hirer.setLanguagelv(user.getLanguagelv());
+                            hirer.setJobPosted(daoHirer.getJobPosted(user.getUserID()));
+
+                            //lấy client id và secret của hirer nếu có
+                            PaymentDAO daoPayment = new PaymentDAO();
+                            String client_id = daoPayment.getClientID(user.getUserID());
+                            String client_secret = daoPayment.getClientSecret(user.getUserID());
+                            PayPayDTO paypalInf = null;
+                            if (client_id != null && client_secret != null) {
+                                paypalInf = new PayPayDTO(user.getUserID(), client_id, client_secret);
+                            }
+
+                            session.setAttribute("PAYPAL_INF", paypalInf);
+                            session.setAttribute("USER_LOGIN", hirer);
+
+                            url = HIRER_PAGE;
+                        }
                     }
+                } else {
+                    request.setAttribute("LOGIN_ERROR", "username or password don't correct");
                 }
-            } else {
-                request.setAttribute("LOGIN_ERROR", "username or password don't correct");
             }
-            }
-            
+
         } catch (Exception e) {
             log("error at LoginController: " + e.getMessage());
         } finally {
