@@ -728,7 +728,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                         <div class="heading-right-container"><img
                                 src="<%= loginUser.getAvatar()%> "
                                 loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 767px) 14vw, 100px"
-                                srcset="<%= loginUser.getAvatar()%> 500w, <%= loginUser.getAvatar()%>  960w"
+                                srcset="uploads/<%= loginUser.getAvatar() %> 500w, <%= loginUser.getAvatar()%>  960w"
                                 alt="" class="image-5" />
                             <h2 class="heading-3"><%= loginUser.getFullName()%></h2>
                             <div class="text-block-4"><strong><%= loginUser.getMajor()%></strong> |<br /> <%= loginUser.getOverview()%> </div>

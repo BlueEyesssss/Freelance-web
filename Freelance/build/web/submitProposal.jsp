@@ -245,11 +245,11 @@
                                 <h1 class="heading-23"><br /></h1>
                             </div>
                             <div class="upwork-element-content-wrapper">
-                                <div class="lb-heading-text">Cover Letter</div><textarea placeholder="" maxlength="5000"
+                                <div class="lb-heading-text">Cover Letter</div><textarea placeholder="" maxlength="500"
                                                                                          id="coverLetter" name="coverLetter" data-name="field" required=""
                                                                                          class="textarea-2 w-input"></textarea>
                                 <div class="lb-heading-text">Attachments Links</div><input type="text"
-                                                                                           class="text-field-6 w-input" maxlength="256" name="attachment" data-name="attachment"
+                                                                                           class="text-field-6 w-input" maxlength="100" name="attachment" data-name="attachment"
                                                                                            placeholder="" id="attachment" />
                                 <div class="text-block-36">Include work samples or other documents to support your
                                     application. Do not attach your résumé ? your profile is automatically forwarded to the

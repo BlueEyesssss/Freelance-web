@@ -1,3 +1,5 @@
+<%@page import="sample.user.UserDTO"%>
+<%@page import="sample.seeker.SeekerDTO"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="sample.skill.SkillDTO"%>
 <%@page import="java.util.List"%>
@@ -29,6 +31,9 @@
 </head>
 
 <body class="user-body">
+    <%
+        UserDTO loginUser = (UserDTO) session.getAttribute("USER_LOGIN");
+    %>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navigation seeker w-nav">
         <div class="navigation-container">
@@ -89,7 +94,7 @@
                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                 loading="lazy" width="90"
                                 sizes="(max-width: 479px) 100vw, (max-width: 767px) 43.134765625px, 6vw"
-                                srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                srcset="uploads/<%= loginUser.getAvatar() %>" 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                 alt="" class="avatar-img-nav" /></div>
                                 <nav class="dropdown-list w-dropdown-list">
                                     
@@ -209,8 +214,8 @@
                                                             the name of your job
                                                             jost<strong></strong></strong><br /></label>
                                                     <input
-                                                        type="text" class="text-field w-input" maxlength="256"
-                                                        name="projectName" data-name="fullName" placeholder=""
+                                                        type="text" class="text-field w-input" maxlength="50"
+                                                        name="projectName" data-name="fullName" placeholder="description"
                                                         id="fullName" />
                                                 </div>
                                                 <div class="div-block-133">
@@ -239,10 +244,10 @@
                                             <div class="form-content-2">
                                                 <h1 class="heading-126">Basic project<br /></h1>
                                                 <div><label for="videoSharing" class="field-label small"><strong>2.
-                                                            Enter the discription of the job (Not over 5000
+                                                            Enter the description of the job (Not over 500
                                                             words)<strong><br /></strong></strong></label>
                                                     <div class="html-embed-20 w-embed">
-                                                        <textarea name="description"
+                                                        <textarea name="description" maxlength="500"
                                                             id="whyJoin" oninput="countWord()" rows="5"
                                                             style="width: 100%; padding: 10px; border-color: #caccd1; border-radius: 7px">
                                                         </textarea>
@@ -270,8 +275,8 @@
                                                                         count += 1;
                                                                     }
                                                                 }
-                                                                if (count > 5000) {
-                                                                    alert('No more than 5000 words, please!');
+                                                                if (count > 1000) {
+                                                                    alert('No more than 500 words, please!');
                                                                 }
 
                                                                 // Display it as output
@@ -352,7 +357,7 @@
                                                         class="field-label small"><strong>4.
                                                             Major</strong><br /></label>
                                                     <input type="text" value="" 
-                                                        class="text-field w-input" maxlength="256" name="major"
+                                                        class="text-field w-input" maxlength="50" name="major"
                                                         data-name="Field" placeholder="Example Text" id="field"
                                                         required="" />
                                                 </div>
@@ -446,7 +451,7 @@
                                                 <div><label for="ticketCode" class="field-label small"><strong
                                                             class="bold-text-78">8. Location</strong></label>
                                                             <input
-                                                        type="text" class="text-field w-input" maxlength="256"
+                                                        type="text" class="text-field w-input" maxlength="50"
                                                         name="location" data-name="ticketCode" placeholder=""
                                                         id="ticketCode" />
                                                 </div>

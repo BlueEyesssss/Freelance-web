@@ -113,7 +113,7 @@
             <div class="div-block-31">
                 <h3 class="heading-10"><%= project.getProjectName() %></h3>
                 <div class="text-block-34">Posted <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear()%> days ago</div>
-                <div class="text-block-34"><%= project.getDescription() %></div>
+                <div class="text-block-34"><%= project.getLocation() %></div>
                 <div class="div-block-34">
                     <div class="div-block-35">
                         <div class="div-block-39">

@@ -101,7 +101,7 @@
                     <div class="navigation-button-wrapper">
                         <div data-hover="false" data-delay="0" class="w-dropdown">
                             <div class="dropdown-toggle w-dropdown-toggle"><img
-                                    src=<%= loginUser.getAvatar()%>
+                                    src="uploads/<%= loginUser.getAvatar()%>"
                                     loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
                             <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewHirerProfile"
                                                                             class="dropdown-link w-dropdown-link">My Profile</a>
@@ -294,7 +294,7 @@
                                     </div>
                                     <div class="down">
                                         <div class="cover-letter-wrapper">
-                                            <p class="cover-letter">Over Viewr: Lorem ipsum dolor sit amet, consectetur
+                                            <p class="cover-letter">Over View: Lorem ipsum dolor sit amet, consectetur
                                                 adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis
                                                 cursus, mi quis viverra ornare, eros dolor gag a a ... (overview - chỗ này
                                                 giới hạn kí tự hiển thị)</p>
@@ -328,7 +328,7 @@
                             <div class="proposal">
                                 <div class="left-proposal">
                                     <div class="image-container"><img
-                                            src=<%= proposal.getSeeker().getAvatar() %>
+                                            src="uploads/<%= proposal.getSeeker().getAvatar() %>"
                                             loading="lazy" alt="" class="image-3" /></div>
                                 </div>
                                 <div class="right-proposal">
@@ -346,7 +346,7 @@
                                                         <div class="div-block-13">
                                                             <div class="div-block-14">
                                                                 <div class="div-block-15"><img
-                                                                        src=<%= proposal.getSeeker().getAvatar() %>
+                                                                        src="uploads\<%= proposal.getSeeker().getAvatar() %>"
                                                                         loading="lazy" alt="" class="image-18" /></div>
                                                                 <div class="div-block-16">
                                                                     <h3 class="heading-6"><%= proposal.getSeeker().getFullName() %></h3>

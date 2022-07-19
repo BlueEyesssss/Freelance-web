@@ -89,7 +89,7 @@
                     <div class="navigation-button-wrapper">
                         <div data-hover="false" data-delay="0" class="w-dropdown">
                             <div class="dropdown-toggle w-dropdown-toggle"><img
-                                    src="<%= hirer.getAvatar() %>"
+                                    src="uploads/<%= hirer.getAvatar() %>"
                                     loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
                             <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewHirerProfile"
                                                                             class="dropdown-link w-dropdown-link">My Profile</a>

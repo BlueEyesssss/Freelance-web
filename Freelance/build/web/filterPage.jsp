@@ -100,7 +100,7 @@
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                     loading="lazy" width="90"
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 43.134765625px, 6vw"
-                                    srcset=<%= loginUser.getAvatar() %>
+                                    srcset="uploads/<%= loginUser.getAvatar() %>"
                                     alt="" class="avatar-img-nav" /></div>
                             <nav class="dropdown-list w-dropdown-list"><a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
                                     Profile</a><a href="MainController?action=ViewBalanceHirerSeeker&role=seeker" class="dropdown-link w-dropdown-link">My Balance</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
