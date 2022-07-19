@@ -94,11 +94,11 @@
                     <div class="navigation-button-wrapper">
                         <div data-hover="false" data-delay="0" class="w-dropdown">
                             <div class="dropdown-toggle w-dropdown-toggle"><img
-                                    src="<%= seeker.getAvatar()%>"
+                                    src="uploads/<%= seeker.getAvatar()%>"
                                     loading="lazy" width="90"
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 25.4296875px, 6vw"
-                                    srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, <%= seeker.getAvatar()%> 960w"
-                                    alt="" class="avatar-img-nav" /></div>
+                                    srcset="uploads/<%= seeker.getAvatar()%>"
+                                    alt="" class="avatar-img-nav" style="width: 60px; height: 60px"/></div>
                             <nav class="dropdown-list w-dropdown-list"><a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
                                     Profile</a><a href="MainController?action=ViewBalanceHirerSeeker&role=seeker" class="dropdown-link w-dropdown-link">My Balance</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
                         </div>
@@ -116,8 +116,8 @@
                         <div class="seeker-header-div-left"><img
                                 src="<%= seeker.getAvatar()%>"
                                 loading="lazy" sizes="(max-width: 479px) 100vw, 110px"
-                                srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, <%= seeker.getAvatar()%> 960w"
-                                alt="" class="image-12" />
+                                srcset="uploads/<%= seeker.getAvatar()%>"
+                                alt="" class="image-12" style="width: 110px; height: 110px"/>
                             <div>
                                 <h1 class="heading-14"><%= seeker.getFullName()%></h1>
                                 <div class="div-block-28"><img

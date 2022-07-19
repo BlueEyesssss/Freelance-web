@@ -115,11 +115,10 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                 <div class="navigation-button-wrapper">
                     <div data-hover="false" data-delay="0" class="w-dropdown">
                         <div class="dropdown-toggle w-dropdown-toggle"><img
-                                src="<%= loginUser.getAvatar()%> "
                                 loading="lazy" width="90"
                                 sizes="(max-width: 479px) 100vw, (max-width: 767px) 25.4296875px, 6vw"
-                                srcset="<%= loginUser.getAvatar()%> 500w, <%= loginUser.getAvatar()%>  960w"
-                                alt="" class="avatar-img-nav" /></div>
+                                srcset="uploads/<%= loginUser.getAvatar() %>"
+                                alt="" class="avatar-img-nav" style="width: 60px; height: 60px"/></div>
                         <nav class="dropdown-list w-dropdown-list">
                             <a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
                                     Profile</a>
