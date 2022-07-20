@@ -40,6 +40,22 @@ public class UpdateFullNameController extends HttpServlet {
                 checkError = true;
                 error.setFullName("must be 6 .. 50 character.");
             }
+            for (int i = 0; i < fullName.length(); i++) {
+                if ((int) fullName.charAt(i) >= 65 && (int) fullName.charAt(i) <= 90) {
+                    //
+                } else {
+                    if ((int) fullName.charAt(i) >= 97 && (int) fullName.charAt(i) <= 122) {
+                        //
+                    } else {
+                        if((int) fullName.charAt(i) == 32){
+                            //
+                        }else{
+                            checkError = true;
+                            error.setFullName("must be alphabet.");
+                        }
+                    }
+                }
+            }
             if (checkError == false) {
                 if (dao.updateFullUser(seekerID, fullName)) {
                     //cập nhật lại session
@@ -50,7 +66,7 @@ public class UpdateFullNameController extends HttpServlet {
                 } else {
                     request.setAttribute("ERROR_UPDATE_FULLNAME", "some error, can't update.");
                 }
-            }else{
+            } else {
                 request.setAttribute("ERROR_CREATE", error);
                 request.setAttribute("ERROR_CREATE_NOTIFY_FULLNAME", "check again.");
             }

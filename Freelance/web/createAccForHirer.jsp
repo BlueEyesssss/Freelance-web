@@ -134,7 +134,7 @@
                   </div>
                   <div class="text-field-box _2">
                       <label for="CompanyName" class="field-label-2">Upload Avatar (.jpg/.png)</label>
-                      <input type="file" name="avatar" class="text-field-2 w-input"/>
+                      <input type="file" name="avatar" class="text-field-2 w-input" required=""/>
                       <font style="color: red">${requestScope.ERROR_CREATE.avatar}</font>
                   </div>
                 </div>

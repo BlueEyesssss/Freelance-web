@@ -100,10 +100,28 @@ public class CreateHirerController extends HttpServlet {
                 checkError = true;
                 error.setPassword("must be 6 .. 20 character.");
             }
+            //
             if (fullName.trim().length() < 6 || fullName.trim().length() > 50) {
                 checkError = true;
                 error.setFullName("must be 6 .. 50 character.");
             }
+            for (int i = 0; i < fullName.length(); i++) {
+                if ((int) fullName.charAt(i) >= 65 && (int) fullName.charAt(i) <= 90) {
+                    //
+                } else {
+                    if ((int) fullName.charAt(i) >= 97 && (int) fullName.charAt(i) <= 122) {
+                        //
+                    } else {
+                        if((int) fullName.charAt(i) == 32){
+                            //
+                        }else{
+                            checkError = true;
+                            error.setFullName("must be alphabet.");
+                        }
+                    }
+                }
+            }
+            //
             if (email.trim().length() < 10 || email.trim().length() > 128) {
                 checkError = true;
                 error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");

@@ -59,6 +59,22 @@ public class SaveHirerInformationController extends HttpServlet {
                     checkError = true;
                     error.setFullName("must be 6 .. 50 character.");
                 }
+                for (int i = 0; i < fullName.length(); i++) {
+                    if ((int) fullName.charAt(i) >= 65 && (int) fullName.charAt(i) <= 90) {
+                        //
+                    } else {
+                        if ((int) fullName.charAt(i) >= 97 && (int) fullName.charAt(i) <= 122) {
+                            //
+                        } else {
+                            if ((int) fullName.charAt(i) == 32) {
+                                //
+                            } else {
+                                checkError = true;
+                                error.setFullName("must be alphabet.");
+                            }
+                        }
+                    }
+                }
                 //check email
                 if (email.trim().length() < 10 || email.trim().length() > 128) {
                     checkError = true;
@@ -129,7 +145,7 @@ public class SaveHirerInformationController extends HttpServlet {
                                 //cap nhat lai tren session
                                 PayPayDTO paypalInf = new PayPayDTO(hirer.getUserID(), client_id, client_secret);
                                 session.setAttribute("PAYPAL_INF", paypalInf);
-                                
+
                                 request.setAttribute("UPDATE_INF_HIRER_1", "update success");
                                 url = SUCCESS;
                             } else {
@@ -141,7 +157,7 @@ public class SaveHirerInformationController extends HttpServlet {
                                 //cap nhat lai tren session
                                 PayPayDTO paypalInf = new PayPayDTO(hirer.getUserID(), client_id, client_secret);
                                 session.setAttribute("PAYPAL_INF", paypalInf);
-                                
+
                                 request.setAttribute("UPDATE_INF_HIRER_1", "update success");
                                 url = SUCCESS;
                             } else {

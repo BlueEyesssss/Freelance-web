@@ -82,6 +82,22 @@ public class NextChooseSkillController extends HttpServlet {
                 checkError = true;
                 error.setFullName("must be 6 .. 50 character.");
             }
+            for (int i = 0; i < fullName.length(); i++) {
+                if ((int) fullName.charAt(i) >= 65 && (int) fullName.charAt(i) <= 90) {
+                    //
+                } else {
+                    if ((int) fullName.charAt(i) >= 97 && (int) fullName.charAt(i) <= 122) {
+                        //
+                    } else {
+                        if((int) fullName.charAt(i) == 32){
+                            //
+                        }else{
+                            checkError = true;
+                            error.setFullName("must be alphabet.");
+                        }
+                    }
+                }
+            }
             //check email
             if (email.trim().length() < 10 || email.trim().length() > 128) {
                 checkError = true;

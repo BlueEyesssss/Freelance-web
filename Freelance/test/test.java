@@ -37,18 +37,7 @@ public class test {
     }
     
     public static void main(String[] args) throws ParseException {
-//        test pp = new test();
-//        System.out.println(pp);
-//        pp = new test("kha");
-//        System.out.println(pp);
-        String date1 = java.time.LocalDate.now() + "a";
-        Date date = new SimpleDateFormat("dd-MM-yyyy").parse(java.time.LocalDate.now() + "");
-        //String date = dayformat.format(java.time.LocalDate.now() + "");
-        System.out.println("date: " + date);
-        System.out.println(java.time.LocalDate.now());
-        
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dateFormat = formatter.format(date);
-        System.out.println("date after : " + dateFormat);
+        String name = "kha";
+        System.out.println("ascii code K: " + (int)'k');
     }
 }
