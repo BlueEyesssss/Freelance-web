@@ -472,6 +472,63 @@
                                 <font style="color: red">${requestScope.ERROR_UPDATE_INF_BALANCE_KEY_SEEKER.lengthClientIDSecret}</font>
                                 <div class="text-block-seeker"><br /></div>
                             </div>
+                                
+                                <div class="seeker-left-inforwrapper">
+                                <div class="div-horizon spacing-between">
+                                    <div class="text-block-23">Avatar<br /></div><img
+                                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
+                                        loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208ad" alt=""
+                                        class="icon-edit" />
+                                    <div class="seeker-edit-lightbox education">
+                                        <div class="seeker-edit-lb-wrapper education">
+                                            <div class="lb-heading">
+                                                <h2 class="heading-15">Update Avatar</h2><img
+                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629730e1c2204bda6f0f70bf_x.svg"
+                                                    loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208b6" alt=""
+                                                    class="image-14" />
+                                            </div>
+                                            <div class="lb-form-edit-wrapper">
+                                                <div class="w-form">
+                                                    
+                                                    <form id="email-form" name="email-form" data-name="Email Form" class="edit-lightbox-form"
+                                                          action="UpdateAvatarController" method="post" enctype="multipart/form-data">
+                                                        <div class="lb-edit-button-wrapper">
+                                                            <a
+                                                                data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208d3" href="#"
+                                                                class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                            <input name="action"
+                                                                   type="submit" value="Update" data-wait="Please wait..."
+                                                                   class="main-button w-button" />
+                                                        </div>
+                                                        <div>
+                                                            <label for="avatar"><strong>Avatar</strong> </label>
+                                                            <input
+                                                                type="file" class="text-field-3 w-input" 
+                                                                name="avatar"  data-name="university" id="university"
+                                                                required="" />
+                                                            <font style="color: red">${requestScope.ERROR_CREATE.avatar}</font><br>
+                                                        
+                                                        <input type="hidden" name="seekerChange" value="action" />
+                                                        <input type="hidden" name="hirerID" value="<%= seeker.getSeekerID()%>" />
+                                                        <img src="uploads/<%= seeker.getAvatar()%>" style="max-width: 206px; border-radius: 50%;">
+                                                        </div>
+                                                    </form>
+                                                    <div class="w-form-done">
+                                                        <div>Thank you! Your submission has been received!</div>
+                                                    </div>
+                                                    <div class="w-form-fail">
+                                                        <div>Oops! Something went wrong while submitting the form.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-w-id="079b63d9-bb54-5ffb-4adf-c1a259c4de97" class="close-lb-div"></div>
+                                    </div>
+                                </div>
+                                <div><font style="color: red">${requestScope.ERROR_CREATE_NOTIFY_AVATAR}</font></div>
+                                <div class="text-block-seeker"><br /></div>
+                            </div>
+                                
                         </div>
                         <div class="div-70">
                             <div class="seeker-right-information-wrapper">

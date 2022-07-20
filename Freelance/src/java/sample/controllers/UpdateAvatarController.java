@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import sample.hirer.HirerDTO;
+import sample.seeker.SeekerDTO;
 import sample.user.UserDAO;
 import sample.user.UserErrorDTO;
 
@@ -28,7 +29,10 @@ import sample.user.UserErrorDTO;
 @MultipartConfig
 @WebServlet(name = "UpdateAvatarController", urlPatterns = {"/UpdateAvatarController"})
 public class UpdateAvatarController extends HttpServlet {
-    private static final  String ERROR = "hirerProfile.jsp";
+
+    private static final String ERROR = "hirerProfile.jsp";
+    private static final String ERROR_SEEKER = "seekerProfile.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -36,7 +40,12 @@ public class UpdateAvatarController extends HttpServlet {
         boolean checkError = false;
         UserErrorDTO error = new UserErrorDTO();
         try {
-            String hirerID = request.getParameter("hirerID");
+            //chỗ này dùng chung cho seeker và hirer
+            String userid = request.getParameter("hirerID");
+            String seekerChange = request.getParameter("seekerChange");
+            if (seekerChange != null) {
+                url = ERROR_SEEKER;
+            }
             String uploadFolder = getServletContext().getRealPath("/uploads");
             Path uploadPath = Paths.get(uploadFolder);
             String filename = "";
@@ -67,25 +76,34 @@ public class UpdateAvatarController extends HttpServlet {
             }
             if (checkError == false) {
                 UserDAO dao = new UserDAO();
-                
-                if(dao.updateAvatarUser(hirerID, filename)){
+
+                if (dao.updateAvatarUser(userid, filename)) {
                     photoPart.write(Paths.get(uploadPath.toString(), filename).toString());
                     //cập nhật lại session
-                    HttpSession session  =request.getSession();
-                    HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
-                    hirer.setAvatar(filename);
-                    session.setAttribute("USER_LOGIN", hirer);
+                    if (seekerChange != null) {
+                        //đang update của seeker
+                        HttpSession session = request.getSession();
+                        SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
+                        seeker.setAvatar(filename);
+                        session.setAttribute("USER_LOGIN", seeker);
+                    } else {
+                        //update của hirer
+                        HttpSession session = request.getSession();
+                        HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
+                        hirer.setAvatar(filename);
+                        session.setAttribute("USER_LOGIN", hirer);
+                    }
+
                 }
             } else {
                 request.setAttribute("ERROR_CREATE", error);
                 request.setAttribute("ERROR_CREATE_NOTIFY_AVATAR", "can't update, check again.");
             }
-            
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            request.getRequestDispatcher(ERROR).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

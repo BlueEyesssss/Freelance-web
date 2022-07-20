@@ -446,6 +446,7 @@
                                                         </div>
                                                         <font style="color: red">${requestScope.ERROR_CREATE.avatar}</font><br>
                                                         
+                                                        <!--//ch? này dùng luôn bên hirerID luôn-->
                                                         <input type="hidden" name="hirerID" value="<%= hirer.getHirerID()%>" />
                                                         <img src="uploads/<%= hirer.getAvatar()%>" style="max-width: 206px; border-radius: 50%;">
                                                     </div>
