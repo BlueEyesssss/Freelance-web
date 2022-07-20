@@ -49,12 +49,12 @@ public class NextChooseSkillController extends HttpServlet {
 
             String userName = request.getParameter("userName");
             String password = request.getParameter("password");
-            String conform = request.getParameter("conform");
+            String conform = password;//request.getParameter("conform");
             String fullName = request.getParameter("fullName");
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
             String location = request.getParameter("location");
-            float balance = Float.parseFloat(request.getParameter("balance"));
+            float balance = 0;
             String registrationDate = java.time.LocalDate.now() + "";
             String overview = request.getParameter("overview");
             int moneyPerHour = Integer.parseInt(request.getParameter("moneyPerHour"));
