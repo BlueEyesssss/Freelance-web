@@ -39,7 +39,7 @@ public class ProposalDTO {
     private String dateSeekerDone;
 
     public ProposalDTO(int proposalID_hasDateSeekerDone, int projectID, int seekerID, double paymentAmount, String dateSeekerDone) {
-        this.proposalID = proposalID;
+        this.proposalID = proposalID_hasDateSeekerDone;
         this.projectID = projectID;
         this.seekerID = seekerID;
         this.paymentAmount = paymentAmount;

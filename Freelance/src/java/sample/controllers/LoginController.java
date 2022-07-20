@@ -66,7 +66,7 @@ public class LoginController extends HttpServlet {
                 differenceDays = difference / (24 * 60 * 60 * 1000);
                 if(differenceDays > 7){
                     //set lại status 7 (job finished successfully) cho proposal này
-                    proposalDao.changeStatusProposal(item.getProposalID(), 7, item.getSeekerID());
+                    proposalDao.changeStatusProposalSeekerDoneButHIrerNotCheck(item.getProposalID(), 7, item.getSeekerID());
                     //chuyển tiền vào balance web cho seeker
                     PaymentDAO paymentDAO = new PaymentDAO();
                     paymentDAO.addMoneyForSeeker(item.getSeekerID(), item.getPaymentAmount());

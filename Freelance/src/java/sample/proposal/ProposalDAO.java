@@ -192,12 +192,12 @@ public class ProposalDAO {
         return check;
     }
     
-    private static final String UPDATE_PROPOSAL_STATUS_BY_ID_SEEKERDONE = "UPDATE Proposal\n"
-            + "SET proposalStatusID = ?\n"
-            + "WHERE proposalID = ?"
-            + "AND seekerID = ?";
+    private static final String UPDATE_PROPOSAL_STATUS_BY_ID_SEEKERDONE = "update Proposal\n" +
+"set proposalStatusID = ?\n" +
+"where proposalID = ?\n" +
+"and seekerID = ?";
 
-    public boolean changeStatusProposal(int proposalID, int proposalStatusID, int seekerid) throws SQLException {
+    public boolean changeStatusProposalSeekerDoneButHIrerNotCheck(int proposalID, int proposalStatusID, int seekerid) throws SQLException {
         boolean check = false;
         Connection con = null;
         PreparedStatement ptm = null;
@@ -1564,7 +1564,7 @@ public class ProposalDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 
-                String sqlQuery = "select proposalID, dateSeekerDone, paymentAmount, seekerID\n" +
+                String sqlQuery = "select proposalID, projectID, dateSeekerDone, paymentAmount, seekerID\n" +
 "from Proposal\n" +
 "where dateSeekerDone is not null\n" +
 "and proposalStatusID = 5";
@@ -1574,11 +1574,12 @@ public class ProposalDAO {
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     int proposalID = rs.getInt("proposalID");
+                    int projectID = rs.getInt("projectID");
                     double paymentAmount = rs.getDouble("paymentAmount");
                     int seekerID = rs.getInt("seekerID");
                     String dateSeekerDone = rs.getString("dateSeekerDone");
 
-                    list.add(new ProposalDTO(proposalID, 0, seekerID, paymentAmount, dateSeekerDone));
+                    list.add(new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, dateSeekerDone));
                 }
             }
 
