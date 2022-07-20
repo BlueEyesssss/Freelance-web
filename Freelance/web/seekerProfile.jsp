@@ -119,11 +119,122 @@
                                 srcset="uploads/<%= seeker.getAvatar()%>"
                                 alt="" class="image-12" style="width: 110px; height: 110px"/>
                             <div>
-                                <h1 class="heading-14"><%= seeker.getFullName()%></h1>
+                                <h1 class="heading-14"><%= seeker.getFullName()%> 
+                                 <img
+                                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
+                                        loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208ad" alt=""
+                                        class="icon-edit" />
+                                        
+                                    <font style="color: red; font-size:  18px">${requestScope.ERROR_UPDATE_FULLNAME}</font>
+                                     <font style="color: red; font-size:  18px">${requestScope.ERROR_CREATE_NOTIFY_FULLNAME}</font>
+                                    <div class="seeker-edit-lightbox education">
+                                        <div class="seeker-edit-lb-wrapper education">
+                                            <div class="lb-heading">
+                                                <h2 class="heading-15">Update Name</h2>
+                                                <img
+                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629730e1c2204bda6f0f70bf_x.svg"
+                                                    loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208b6" alt=""
+                                                    class="image-14" />
+                                                
+                                                
+                                            </div>
+                                            <div class="lb-form-edit-wrapper">
+                                                <div class="w-form">
+                                                    
+                                                    <form id="email-form" name="email-form" data-name="Email Form" class="edit-lightbox-form"
+                                                          action="UpdateFullNameController" method="get">
+                                                        <div class="lb-edit-button-wrapper">
+                                                            <a
+                                                                data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208d3" href="#"
+                                                                class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                            <input name="action"
+                                                                   type="submit" value="Update" data-wait="Please wait..."
+                                                                   class="main-button w-button" />
+                                                        </div>
+                                                        <div>
+                                                            <label for="avatar"><strong>Your Name</strong> </label>
+                                                            <input
+                                                                type="text" class="w-input" maxlength="400"
+                                                                name="fullName"  data-name="university" id="university"
+                                                                required="" value="<%= seeker.getFullName() %>"/>
+                                                            <input type="hidden" name="seekerID" value="<%= seeker.getSeekerID()%>" />
+                                                            
+                                                            <font style="color: red">${requestScope.ERROR_CREATE.fullName}</font><br>
+                                                        </div>
+                                                    </form>
+                                                    <div class="w-form-done">
+                                                        <div>Thank you! Your submission has been received!</div>
+                                                    </div>
+                                                    <div class="w-form-fail">
+                                                        <div>Oops! Something went wrong while submitting the form.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-w-id="079b63d9-bb54-5ffb-4adf-c1a259c4de97" class="close-lb-div"></div>
+                                    </div>
+                                </h1>
+                                
                                 <div class="div-block-28"><img
                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296c1f76519c0d7c2b00673_map-pin.svg"
                                         loading="lazy" alt="" class="image-13" />
-                                    <div class="text-block-21"><br /><%= seeker.getLocation()%></div>
+                                    <div class="text-block-21"><br /><%= seeker.getLocation()%>
+                                    
+                                        <img
+                                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
+                                        loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208ad" alt=""
+                                        class="icon-edit" />
+                                        
+                                    <font style="color: red">${requestScope.ERROR_UPDATE_LOCATION}</font>
+                                     <font style="color: red">${requestScope.ERROR_CREATE_NOTIFY_LOCATION}</font>
+                                    <div class="seeker-edit-lightbox education">
+                                        <div class="seeker-edit-lb-wrapper education">
+                                            <div class="lb-heading">
+                                                <h2 class="heading-15">Update Location</h2>
+                                                <img
+                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629730e1c2204bda6f0f70bf_x.svg"
+                                                    loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208b6" alt=""
+                                                    class="image-14" />
+                                                
+                                                
+                                            </div>
+                                            <div class="lb-form-edit-wrapper">
+                                                <div class="w-form">
+                                                    
+                                                    <form id="email-form" name="email-form" data-name="Email Form" class="edit-lightbox-form"
+                                                          action="UpdateLocationController" method="get">
+                                                        <div class="lb-edit-button-wrapper">
+                                                            <a
+                                                                data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208d3" href="#"
+                                                                class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                            <input name="action"
+                                                                   type="submit" value="Update" data-wait="Please wait..."
+                                                                   class="main-button w-button" />
+                                                        </div>
+                                                        <div>
+                                                            <label for="avatar"><strong>Your Location</strong> </label>
+                                                            <input
+                                                                type="text" class="w-input" maxlength="400"
+                                                                name="location"  data-name="university" id="university"
+                                                                required="" value="<%= seeker.getLocation()%>"/>
+                                                            <input type="hidden" name="seekerID" value="<%= seeker.getSeekerID()%>" />
+                                                            
+                                                            <font style="color: red">${requestScope.ERROR_CREATE.location}</font><br>
+                                                        </div>
+                                                    </form>
+                                                    <div class="w-form-done">
+                                                        <div>Thank you! Your submission has been received!</div>
+                                                    </div>
+                                                    <div class="w-form-fail">
+                                                        <div>Oops! Something went wrong while submitting the form.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-w-id="079b63d9-bb54-5ffb-4adf-c1a259c4de97" class="close-lb-div"></div>
+                                    </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -196,14 +307,16 @@
                         <div class="div-30 border-right padding-top-bottom">
                             <div class="seeker-left-inforwrapper">
                                 <div class="div-horizon spacing-between">
-                                    <div class="text-block-23">Hours per week </div><img
+                                    <div class="text-block-23">Hours per week </div>
+                                    <img
                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
                                         loading="lazy" data-w-id="938ebf8c-f85e-1e97-cb3c-3f2f9e195b0b" alt=""
                                         class="icon-edit" />
                                     <div class="seeker-edit-lightbox hourperweek">
                                         <div class="seeker-edit-lb-wrapper">
                                             <div class="lb-heading">
-                                                <h2 class="heading-15">Hours per week</h2><img
+                                                <h2 class="heading-15">Hours per week</h2>
+                                                <img
                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629730e1c2204bda6f0f70bf_x.svg"
                                                     loading="lazy" data-w-id="21993528-1bc8-45e1-52a2-0772430dfca1" alt=""
                                                     class="image-14" />

@@ -885,7 +885,70 @@ public class UserDAO {
                 con.close();
             }
         }
-        return check;}
+        return check;
+    }
+
+    public boolean updateFullUser(String seekerID, String fullName) throws SQLException {
+         boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                
+                String sqlQuery = "update [User]\n" +
+"set fullName = ?\n" +
+"where userID = ?";
+                
+                ptm = con.prepareStatement(sqlQuery);
+                ptm.setString(1, fullName);
+                ptm.setString(2, seekerID);
+                    check = ptm.executeUpdate()>0?true:false;
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean updateLocationUser(String seekerID, String location) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                
+                String sqlQuery = "update [User]\n" +
+"set location = ?\n" +
+"where userID = ?";
+                
+                ptm = con.prepareStatement(sqlQuery);
+                ptm.setString(1, location);
+                ptm.setString(2, seekerID);
+                    check = ptm.executeUpdate()>0?true:false;
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
 
     
 
