@@ -28,6 +28,11 @@
                 }(window, document);</script>
         <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
+        <style>
+            .w-webflow-badge {
+                display: none !important;
+            }
+        </style>
     </head>
 
     <body class="body-2">

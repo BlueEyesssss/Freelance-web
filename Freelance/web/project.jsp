@@ -225,8 +225,8 @@
                                   </button>
                                 </div>
                                 <div class="modal-body" style = "text-align: left;">
-                                  <p><b>Project Discription:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, doloribus! Repellat placeat, reprehenderit est sequi nisi excepturi repudiandae modi animi tempora quae vitae exercitationem sunt reiciendis voluptates quis dignissimos! Porro?</p>
-                                  <p><b>Link Submission:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, doloribus! Repellat placeat, reprehenderit est sequi nisi excepturi repudiandae modi animi tempora quae vitae exercitationem sunt reiciendis voluptates quis dignissimos! Porro?</p>
+                                  <p><b>Project Discription:</b> <%= proposal.getProjectDescription()%></p>
+                                  <p><b>Link Submission:</b> <%= proposal.getLink()%></p>
                                   <p>Attachment: <a href = "DownloadFileController?fileName=<%= proposal.getFileName() %>">Download</a></p>
                                 </div>
                                 <div class="modal-footer">

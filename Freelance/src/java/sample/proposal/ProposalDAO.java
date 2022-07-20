@@ -1348,7 +1348,7 @@ public class ProposalDAO {
         return check;
     }
 
-    private static final String VIEW_REPORTED_PROPOSAL = "SELECT B.projectName, A.createdDate,A.proposalID,A.link, A.message, A.fileName, A.path, A.paymentAmount \n"
+    private static final String VIEW_REPORTED_PROPOSAL = "SELECT B.projectName,B.description, A.createdDate,A.proposalID,A.link, A.message, A.fileName, A.path, A.paymentAmount \n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID =8 \n";
@@ -1365,6 +1365,7 @@ public class ProposalDAO {
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String projectName = rs.getString("projectName");
+                    String projectDescription = rs.getString("description");
                     String createdDate = rs.getString("createdDate");
                     int proposalID = rs.getInt("proposalID");
                     String fileName = rs.getString("fileName");
@@ -1373,7 +1374,7 @@ public class ProposalDAO {
                     String path = rs.getString("path");
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
 
-                    list.add(new ProposalDTO(projectName, createdDate, link, message, fileName, path, proposalID, paymentAmount));
+                    list.add(new ProposalDTO(projectName,projectDescription, createdDate, link, message, fileName, path, proposalID, paymentAmount));
                 }
             }
 

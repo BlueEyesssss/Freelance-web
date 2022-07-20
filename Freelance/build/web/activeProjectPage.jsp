@@ -15,7 +15,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>haha</title>
+    <title>Project Page</title>
     <meta content="haha" property="og:title" />
     <meta content="haha" property="twitter:title" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -32,6 +32,11 @@
     <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="https://uploads-ssl.webflow.com/62aa7d13e81bc5858eb14b7e/62b0483852fa1b7b5fdeaf3a_internet.png"
         rel="apple-touch-icon" />
+        <style>
+            .w-webflow-badge {
+                display: none !important;
+            }
+        </style>
 </head>
 
 <body class="body-2">
@@ -185,10 +190,10 @@
                 <!-- dang sua code cho nay-->
                 <form action="SubmitForPaymentController" method="post" enctype="multipart/form-data" id="email-form-3" name="email-form-3" data-name="Email Form 3" redirect="#" data-redirect="#"
                     method="get"><label for="name-3">Link</label><input name="link" type="text" class="w-input" maxlength="256"
-                        name="name-3" data-name="Name 3" placeholder="" id="name-3" />
+                                                                    name="name-3" data-name="Name 3" placeholder="" id="name-3" required=""/>
                     <label
                         for="message">Message</label><input name="message" type="text" class="w-input" maxlength="256" name="email"
-                        data-name="Email" placeholder="" id="message" />
+                              data-name="Email" placeholder="" id="message" required=""/>
                         <input type="file" name="file" style="display: block">
                         <input type="hidden" name="proposalID" value=<%= proposalID %>>
                         <input type="submit" value="Submit" 

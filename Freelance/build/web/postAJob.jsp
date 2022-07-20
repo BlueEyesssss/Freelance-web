@@ -455,10 +455,12 @@
                                                         name="location" data-name="ticketCode" placeholder=""
                                                         id="ticketCode" />
                                                 </div>
-                                            </div><input type="submit" name="action" value="PostAJob"
+                                            </div>
+        
+                                                <button type ="submit" name="action" value="PostAJob"
                                                 data-wait="Calculating Nash Equilibrium..."
                                                 wait="Calculating Nash Equilibrium..." data-ix="show-content-onslide"
-                                                id="form-submit" class="submit-button-5 ysf w-button" />
+                                                id="form-submit" class="submit-button-5 ysf w-button">Post the project</button>
                                         </div>
                                     </div>
                                 </div>

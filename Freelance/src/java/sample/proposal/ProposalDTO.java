@@ -28,6 +28,7 @@ public class ProposalDTO {
     private String createdDate;
     private String expectedDurationID;
     private String projectName;
+    private String projectDescription;
     private String durationText;
     private int hirerID;
     private SeekerDTO seeker;
@@ -63,8 +64,9 @@ public class ProposalDTO {
         this.seeker = seeker;
     }
 
-    ProposalDTO(String projectName, String createdDate, String link, String message, String fileName, String path, int proposalID, double paymentAmount) {
+    ProposalDTO(String projectName,String projectDescription, String createdDate, String link, String message, String fileName, String path, int proposalID, double paymentAmount) {
         this.projectName = projectName;
+        this.projectDescription = projectDescription;
         this.createdDate = createdDate;
         this.link = link;
         this.message = message;
@@ -363,5 +365,14 @@ public class ProposalDTO {
     public void setSeekerGrade(double seekerGrade) {
         this.seekerGrade = seekerGrade;
     }
+    
+        public String getProjectDescription() {
+        return projectDescription;
+    }
+
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
+    }
+
 
 }
