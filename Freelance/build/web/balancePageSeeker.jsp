@@ -163,7 +163,7 @@
                                     <div class="text-block-46"><%= elem.getAmountMonney()%>$ --- <%= elem.getDateCreate()%></div>
                                 </div>
                                 <div class="status">
-                                    <div class="text-block-47">
+                                    <div class="text-block-47" style="width: 150px;">
                                         <%
                                             if (elem.getStatus() == false) {
                                         %>
@@ -171,7 +171,7 @@
                                         <%
                                         } else {
                                         %>
-                                        Done
+                                        Done - <%= elem.getDateDone()%>
                                         <%
                                             }
                                         %>

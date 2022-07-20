@@ -119,9 +119,9 @@
                                 loading="lazy" sizes="(max-width: 479px) 100vw, 110px"
                                 srcset="uploads/<%= hirer.getAvatar()%>"
                                 alt="" class="image-12" />
-                            <div>
+                            <div >
                                 <h1 class="heading-14"><%= hirer.getFullName()%></h1>
-                                <div class="div-block-28"><img
+                                <div class="div-block-28" ><img
                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62ad86a39e3a4d61d6e7512e_Account%20balance%20wallet.svg"
                                         loading="lazy" width="21" alt="" class="image-13" />
                                     <div class="text-block-21"><br /><%= hirer.getTotalSpent()%>$</div>

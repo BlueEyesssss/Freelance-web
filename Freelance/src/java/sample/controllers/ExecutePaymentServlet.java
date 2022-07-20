@@ -92,13 +92,15 @@ public class ExecutePaymentServlet extends HttpServlet {
         try {
             HttpSession session  =request.getSession();
             PayPayDTO dto = (PayPayDTO) session.getAttribute("PAYPALDTO");
-            String recharge = (String) session.getAttribute("RECHRAGE_HIRER");
-            String withdraw = (String) session.getAttribute("WITHDRAW");
+            String recharge = (String) session.getAttribute("RECHRAGE_HIRER");  //nạp tiền vào balance web
+            String withdraw = (String) session.getAttribute("WITHDRAW");    //rút từ balance web ra paypal
             if(withdraw != null){
                 TransactionHandlingDAO dao = new TransactionHandlingDAO();
                 TransactionHandlingDTO tran = (TransactionHandlingDTO) session.getAttribute("TRANS_INF");
                 //set status lại cho trans thành 1
                 if(dao.updateStatusTransTo1(tran)){
+                    //cập nhật date resolve cái transaction ấy
+                    dao.updateDateDone(tran.getTransactionHandlingID());
                     url = SUCCESS_WITHDRAW;
                 }
             }else if(recharge != null){

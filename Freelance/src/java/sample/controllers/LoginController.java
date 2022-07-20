@@ -39,7 +39,7 @@ public class LoginController extends HttpServlet {
     private static final String ERROR = "login.jsp";
     private static final String SEEKER_PAGE = "ViewSeekerDashboardController";
     private static final String HIRER_PAGE = "ViewHirerDashboardController";
-    private static final String ADMIN_PAGE = "index.html";
+    private static final String ADMIN_PAGE = "index.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -75,8 +75,8 @@ public class LoginController extends HttpServlet {
             }
             
             
-            if (username.equals("admin") && password.equals("1")) {
-
+            if (username.equals("admin") && password.equals("11")) {
+                //HttpSession sessionAdmin = request.getSession();
                 //lấy list transaction rút tiền từ web ra paypal
                 TransactionHandlingDAO dao = new TransactionHandlingDAO();
                 List<TransactionHandlingDTO> listTran = dao.getListTranStatus0();

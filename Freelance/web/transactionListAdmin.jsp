@@ -105,18 +105,29 @@
                with font-awesome or any other icon font library -->
 
           <li class="nav-item">
-              <a href="./index.html" class="nav-link">
+              <a href="index.jsp" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>Dashboard</p>
               </a>
             </li> 
           <li class="nav-item">
-            <a href="./projects.html" class="nav-link">
+            <a href="project.jsp" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>Manage reported work</p>
             </a>
           </li>
-          
+          <li class="nav-item">
+              <a href="transactionListAdmin.jsp" class="nav-link">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Transaction</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="MainController?action=Logout" class="nav-link">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Logout</p>
+              </a>
+            </li>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

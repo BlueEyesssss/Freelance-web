@@ -12,7 +12,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Untitled</title>
+  <title>Login Page</title>
   <meta content="Untitled" property="og:title" />
   <meta content="Untitled" property="twitter:title" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />

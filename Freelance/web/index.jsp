@@ -1,3 +1,5 @@
+<%@page import="sample.transactionhandling.TransactionHandlingDTO"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 
@@ -101,14 +103,14 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="./index.html" class="nav-link">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>Dashboard</p>
               </a>
             </li>
 
             <li class="nav-item">
-              <a href="./project.jsp" class="nav-link">
+              <a href="project.jsp" class="nav-link">
                 <i class="nav-icon fas fa-table"></i>
                 <p>Manage reported work</p>
               </a>
@@ -118,6 +120,13 @@
               <a href="transactionListAdmin.jsp" class="nav-link">
                 <i class="nav-icon fas fa-table"></i>
                 <p>Transaction</p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a href="MainController?action=Logout" class="nav-link">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Logout</p>
               </a>
             </li>
             <!-- /.sidebar-menu -->
@@ -199,14 +208,17 @@
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3>65</h3>
+                    <%
+                        List<TransactionHandlingDTO>  listtransaction = ( List<TransactionHandlingDTO> )session.getAttribute("LIST_TRANS_STATUS_0");
+                    %>
+                  <h3><%= listtransaction.size() %></h3>
 
-                  <p>Unique Visitors</p>
+                  <p>Transaction need Resolve</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="transactionListAdmin.jsp" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
