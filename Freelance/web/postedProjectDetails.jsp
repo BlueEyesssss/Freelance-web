@@ -39,6 +39,11 @@
         <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link href="https://uploads-ssl.webflow.com/62aa7d13e81bc5858eb14b7e/62b0483852fa1b7b5fdeaf3a_internet.png"
               rel="apple-touch-icon" />
+              <style>
+                .w-webflow-badge {
+                    display: none !important;
+                }
+            </style>
     </head>
 
     <body class="body">
