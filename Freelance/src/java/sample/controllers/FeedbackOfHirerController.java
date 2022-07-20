@@ -30,11 +30,11 @@ public class FeedbackOfHirerController extends HttpServlet {
         String url = ERROR;
         try {
             int proposalID = Integer.parseInt(request.getParameter("proposalID"));
-            int clientGrade = Integer.parseInt(request.getParameter("clientGrade"));
-            if (clientGrade >= 1 && clientGrade <= 5) {
+            int seekerGrade = Integer.parseInt(request.getParameter("seekerGrade"));
+            if (seekerGrade >= 1 && seekerGrade <= 5) {
                 String clientComment = request.getParameter("clientComment");
             ProposalDAO dao = new ProposalDAO();
-            boolean checkFeedback = dao.hirerFeedback(proposalID, clientGrade, clientComment);
+            boolean checkFeedback = dao.hirerFeedback(proposalID, seekerGrade, clientComment);
             
             if(checkFeedback){
                 

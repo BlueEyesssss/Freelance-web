@@ -100,11 +100,11 @@ public class ProposalDAO {
             + "AND projectID = ?";
 
     private static final String UPDATE_FEEDBACK_OF_SEEKER = "UPDATE Proposal\n"
-            + "SET seekerGrade = ?, seekerComment=? \n"
+            + "SET clientGrade = ?, seekerComment=? \n"
             + "WHERE proposalID = ?";
 
     private static final String UPDATE_FEEDBACK_OF_HIRER = "UPDATE Proposal\n"
-            + "SET clientGrade = ?, clientComment=? \n"
+            + "SET seekerGrade = ?, clientComment=? \n"
             + "WHERE proposalID = ?";
 
     private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Contract WHERE proposalID = ?";
@@ -1086,7 +1086,7 @@ public class ProposalDAO {
         return list;
     }
 
-    public boolean seekerFeedback(int proposalID, int seekerGrade, String seekerComment) throws SQLException {
+    public boolean seekerFeedback(int proposalID, int clientGrade, String seekerComment) throws SQLException {
         boolean checkFeedback = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -1094,7 +1094,7 @@ public class ProposalDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_FEEDBACK_OF_SEEKER);
-                ptm.setInt(1, seekerGrade);
+                ptm.setInt(1, clientGrade);
                 ptm.setString(2, seekerComment);
                 ptm.setInt(3, proposalID);
 
@@ -1114,7 +1114,7 @@ public class ProposalDAO {
         return checkFeedback;
     }
 
-    public boolean hirerFeedback(int proposalID, int clientGrade, String clientComment) throws SQLException {
+    public boolean hirerFeedback(int proposalID, int seekerGrade, String clientComment) throws SQLException {
         boolean checkFeedback = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -1122,7 +1122,7 @@ public class ProposalDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_FEEDBACK_OF_HIRER);
-                ptm.setInt(1, clientGrade);
+                ptm.setInt(1, seekerGrade);
                 ptm.setString(2, clientComment);
                 ptm.setInt(3, proposalID);
 
@@ -1276,7 +1276,7 @@ public class ProposalDAO {
         return check;
     }
 
-    private static final String CHECK_FEEDBACK_OF_SEEKER = "SELECT seekerGrade From Proposal WHERE proposalID = ?";
+    private static final String CHECK_FEEDBACK_OF_SEEKER = "SELECT clientGrade From Proposal WHERE proposalID = ?";
 
     public boolean checkFeedbackOfSeeker(int proposalID) throws SQLException {
         boolean check = false;
@@ -1289,8 +1289,8 @@ public class ProposalDAO {
                 ptm = conn.prepareStatement(CHECK_FEEDBACK_OF_SEEKER);
                 ptm.setInt(1, proposalID);
                 rs = ptm.executeQuery();
-                if (rs != null) {
-                    if (rs.getInt("seekerGrade") > 0) {
+                if (rs.next()) {
+                    if (rs.getInt("clientGrade") > 0) {
                         check = true;
                     }
                 }
@@ -1312,7 +1312,7 @@ public class ProposalDAO {
         return check;
     }
 
-    private static final String CHECK_FEEDBACK_OF_HIRER = "SELECT clientGrade From Proposal WHERE proposalID = ?";
+    private static final String CHECK_FEEDBACK_OF_HIRER = "SELECT seekerGrade From Proposal WHERE proposalID = ?";
 
     public boolean checkFeedbackOfHirer(int proposalID) throws SQLException {
         boolean check = false;
@@ -1326,7 +1326,7 @@ public class ProposalDAO {
                 ptm.setInt(1, proposalID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    if (rs.getInt("clientGrade") > 0) {
+                    if (rs.getInt("seekerGrade") > 0) {
                         check = true;
                     }
                 }

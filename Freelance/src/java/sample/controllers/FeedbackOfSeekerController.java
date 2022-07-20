@@ -31,11 +31,11 @@ public class FeedbackOfSeekerController extends HttpServlet {
         String url = ERROR;
         try {
             int proposalID = Integer.parseInt(request.getParameter("proposalID"));
-            int seekerGrade = Integer.parseInt(request.getParameter("seekerGrade"));
-            if (seekerGrade >= 1 && seekerGrade <= 5) {
+            int clientGrade = Integer.parseInt(request.getParameter("clientGrade"));
+            if (clientGrade >= 1 && clientGrade <= 5) {
                 String seekerComment = request.getParameter("seekerComment");
                 ProposalDAO dao = new ProposalDAO();
-                boolean checkFeedback = dao.seekerFeedback(proposalID, seekerGrade, seekerComment);
+                boolean checkFeedback = dao.seekerFeedback(proposalID, clientGrade, seekerComment);
 
                 if (checkFeedback) {
 

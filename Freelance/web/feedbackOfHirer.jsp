@@ -207,7 +207,7 @@
                                             <form action="MainController" id="email-form-6" name="email-form-6" data-name="Email Form 6"
                                                 method="get" class="form"><label for="name"
                                                                              class="field-label-2">Feedback Grade</label><input type="number"
-                                                    class="text-field-3 w-input" maxlength="256" name="clientGrade"
+                                                    class="text-field-3 w-input" maxlength="256" name="seekerGrade"
                                                     data-name="Name 2" placeholder="1 to 5" id="name-2" /><label for="field-4"
                                                     class="field-label-3">Comment</label><textarea placeholder=""
                                                     maxlength="5000" id="field-4" name="clientComment" data-name="field"
