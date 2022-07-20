@@ -6,6 +6,8 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +19,8 @@ import sample.hirer.HirerDAO;
 import sample.hirer.HirerDTO;
 import sample.payment.PayPayDTO;
 import sample.payment.PaymentDAO;
+import sample.proposal.ProposalDAO;
+import sample.proposal.ProposalDTO;
 import sample.seeker.SeekerDTO;
 import sample.skill.SkillDAO;
 import sample.skill.SkillDTO;
@@ -45,6 +49,32 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             String username = request.getParameter("userName");
             String password = request.getParameter("password");
+            
+            //check list các proposal seeker đã submit để check xem hirer đã duyệt chưa
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            ProposalDAO proposalDao = new ProposalDAO();
+            Date dateSeekerDone = null;
+            Date dateNow = dateFormat.parse(java.time.LocalDate.now().toString());
+            long difference = 0;
+            long differenceDays = 0;
+            List<ProposalDTO> listProposalSeekerDone = proposalDao.getListProposalSeekerDone();
+            if(listProposalSeekerDone != null){
+                for (ProposalDTO item : listProposalSeekerDone) {
+                dateSeekerDone = dateFormat.parse(item.getDateSeekerDone());
+                //tính ngày 
+                difference = dateNow.getTime() - dateSeekerDone.getTime();
+                differenceDays = difference / (24 * 60 * 60 * 1000);
+                if(differenceDays > 7){
+                    //set lại status 7 (job finished successfully) cho proposal này
+                    proposalDao.changeStatusProposal(item.getProposalID(), 7, item.getSeekerID());
+                    //chuyển tiền vào balance web cho seeker
+                    PaymentDAO paymentDAO = new PaymentDAO();
+                    paymentDAO.addMoneyForSeeker(item.getSeekerID(), item.getPaymentAmount());
+                }
+            }
+            }
+            
+            
             if (username.equals("admin") && password.equals("1")) {
 
                 //lấy list transaction rút tiền từ web ra paypal

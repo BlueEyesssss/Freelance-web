@@ -189,10 +189,13 @@
             <div class="form-block w-form">
                 <!-- dang sua code cho nay-->
                 <form action="SubmitForPaymentController" method="post" enctype="multipart/form-data" id="email-form-3" name="email-form-3" data-name="Email Form 3" redirect="#" data-redirect="#"
-                    method="get"><label for="name-3">Link</label><input name="link" type="text" class="w-input" maxlength="256"
+                    method="get">
+                    <label for="name-3">Link</label>
+                    <input name="link" type="text" class="w-input" maxlength="256"
                                                                     name="name-3" data-name="Name 3" placeholder="" id="name-3" required=""/>
                     <label
-                        for="message">Message</label><input name="message" type="text" class="w-input" maxlength="256" name="email"
+                        for="message">Message</label>
+                    <input name="message" type="text" class="w-input" maxlength="256" name="email"
                               data-name="Email" placeholder="" id="message" required=""/>
                         <input type="file" name="file" style="display: block">
                         <input type="hidden" name="proposalID" value=<%= proposalID %>>

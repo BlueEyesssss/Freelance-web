@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import sample.seeker.SeekerDTO;
 import sample.util.DBUtil;
@@ -176,6 +177,37 @@ public class ProposalDAO {
                 ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS_BY_ID);
                 ptm.setInt(1, proposalStatusID);
                 ptm.setInt(2, proposalID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+    
+    private static final String UPDATE_PROPOSAL_STATUS_BY_ID_SEEKERDONE = "UPDATE Proposal\n"
+            + "SET proposalStatusID = ?\n"
+            + "WHERE proposalID = ?"
+            + "AND seekerID = ?";
+
+    public boolean changeStatusProposal(int proposalID, int proposalStatusID, int seekerid) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS_BY_ID_SEEKERDONE);
+                ptm.setInt(1, proposalStatusID);
+                ptm.setInt(2, proposalID);
+                ptm.setInt(3, seekerid);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -1471,6 +1503,82 @@ public class ProposalDAO {
                     String projectName = rs.getString("projectName");
 
                     list.add(new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusName, clientGrade, clientComment, seekerGrade, seekerComment, coverLetter, attachment, createdDate, expectedDurationID, projectName));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public boolean updateDateSeekerDone(int proposalID, LocalDate date) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                String sqlQuery = "update Proposal\n" +
+"set dateSeekerDone = ?\n" +
+"where proposalID = ?";
+                ptm = conn.prepareStatement(sqlQuery);
+                ptm.setString(1, date.toString());
+                ptm.setInt(2, proposalID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public List<ProposalDTO> getListProposalSeekerDone() throws SQLException {
+        List<ProposalDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                
+                String sqlQuery = "select proposalID, dateSeekerDone, paymentAmount, seekerID\n" +
+"from Proposal\n" +
+"where dateSeekerDone is not null\n" +
+"and proposalStatusID = 5";
+                
+                
+                ptm = conn.prepareStatement(sqlQuery);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int proposalID = rs.getInt("proposalID");
+                    double paymentAmount = rs.getDouble("paymentAmount");
+                    int seekerID = rs.getInt("seekerID");
+                    String dateSeekerDone = rs.getString("dateSeekerDone");
+
+                    list.add(new ProposalDTO(proposalID, 0, seekerID, paymentAmount, dateSeekerDone));
                 }
             }
 

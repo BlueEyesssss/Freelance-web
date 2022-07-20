@@ -36,6 +36,24 @@ public class ProposalDTO {
     private String message;
     private String fileName;
     private String path;
+    private String dateSeekerDone;
+
+    public ProposalDTO(int proposalID_hasDateSeekerDone, int projectID, int seekerID, double paymentAmount, String dateSeekerDone) {
+        this.proposalID = proposalID;
+        this.projectID = projectID;
+        this.seekerID = seekerID;
+        this.paymentAmount = paymentAmount;
+        this.dateSeekerDone = dateSeekerDone;
+    }
+    
+    public String getDateSeekerDone() {
+        return dateSeekerDone;
+    }
+
+    public void setDateSeekerDone(String dateSeekerDone) {
+        this.dateSeekerDone = dateSeekerDone;
+    }
+    
 
     ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, int proposalStatusID, String proposalStatusName, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName, String durationText) {
         this.proposalID = proposalID;

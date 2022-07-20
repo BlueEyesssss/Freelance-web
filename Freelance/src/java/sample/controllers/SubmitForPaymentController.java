@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -106,6 +107,10 @@ public class SubmitForPaymentController extends HttpServlet {
                     request.setAttribute("msg", msg);
                     ProposalDAO proposalDAO = new ProposalDAO();
                     proposalDAO.changeStatusProposal(proposalID, 5);
+                    //update date seeker done
+                    if(proposalDAO.updateDateSeekerDone(proposalID, java.time.LocalDate.now())){
+                        //do something
+                    } 
                     RequestDispatcher rd = request.getRequestDispatcher(SUCCESS);
                     rd.forward(request, response);
                     System.out.println("File uploaded successfully...");
@@ -113,7 +118,7 @@ public class SubmitForPaymentController extends HttpServlet {
                 }
             } catch (SQLException e) {
                 out.println("Exception: " + e);
-                System.out.println("Exception1: " + e);
+                System.out.println("error at SubmitForPaymentController: " + e);
                 //phan no tu them vao
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(SubmitForPaymentController.class.getName()).log(Level.SEVERE, null, ex);

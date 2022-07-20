@@ -149,6 +149,35 @@ public class PaymentDAO {
         return secret;
     }
 
+    public void addMoneyForSeeker(int seekerID, double paymentAmount) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                
+                String sqlQuery = "update [User]\n" +
+"set balance = balance + ?\n" +
+"where userID = ?";
+                
+                ptm = conn.prepareStatement(sqlQuery);
+                ptm.setDouble(1, paymentAmount);
+                ptm.setInt(2, seekerID);
+                ptm.executeUpdate();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
     
 
     
