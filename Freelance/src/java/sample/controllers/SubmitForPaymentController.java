@@ -26,9 +26,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import sample.payment.PaymentDAO;
 import sample.proposal.ProposalDAO;
+import sample.seeker.SeekerDTO;
+import sample.user.UserDAO;
 import sample.util.DBUtil;
-
 
 /**
  *
@@ -64,7 +66,7 @@ public class SubmitForPaymentController extends HttpServlet {
      */
     private static final String ERROR = "error.html";
     private static final String SUCCESS = "ViewSeekerDashboardController";
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -72,13 +74,14 @@ public class SubmitForPaymentController extends HttpServlet {
         try {
             out = response.getWriter();
             session = request.getSession(false);
+
             String folderName = "resources";
             String uploadPath = request.getServletContext().getRealPath("") + File.separator + folderName;
             File dir = new File(uploadPath);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-            int proposalID = Integer.parseInt(request.getParameter("proposalID")); 
+            int proposalID = Integer.parseInt(request.getParameter("proposalID"));
             Part filePart = request.getPart("file");
             String link = request.getParameter("link");
             String message = request.getParameter("message");
@@ -100,7 +103,7 @@ public class SubmitForPaymentController extends HttpServlet {
                 //cho nay dang co loi, vi chua lay duoc proposalID
                 ps.setInt(5, proposalID);
                 int status = ps.executeUpdate();
-                
+
                 if (status > 0) {
                     session.setAttribute("fileName", fileName);
                     String msg = "" + fileName + " File uploaded successfully...";
@@ -108,9 +111,9 @@ public class SubmitForPaymentController extends HttpServlet {
                     ProposalDAO proposalDAO = new ProposalDAO();
                     proposalDAO.changeStatusProposal(proposalID, 5);
                     //update date seeker done
-                    if(proposalDAO.updateDateSeekerDone(proposalID, java.time.LocalDate.now())){
+                    if (proposalDAO.updateDateSeekerDone(proposalID, java.time.LocalDate.now())) {
                         //do something
-                    } 
+                    }
                     RequestDispatcher rd = request.getRequestDispatcher(SUCCESS);
                     rd.forward(request, response);
                     System.out.println("File uploaded successfully...");
@@ -134,6 +137,7 @@ public class SubmitForPaymentController extends HttpServlet {
                     out.println(e);
                 }
             }
+
         } catch (IOException | ServletException e) {
             out.println("Exception: " + e);
             System.out.println("Exception2: " + e);

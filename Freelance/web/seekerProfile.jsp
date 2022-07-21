@@ -127,6 +127,7 @@
                                         
                                     <font style="color: red; font-size:  18px">${requestScope.ERROR_UPDATE_FULLNAME}</font>
                                      <font style="color: red; font-size:  18px">${requestScope.ERROR_CREATE_NOTIFY_FULLNAME}</font>
+                                     
                                     <div class="seeker-edit-lightbox education">
                                         <div class="seeker-edit-lb-wrapper education">
                                             <div class="lb-heading">
@@ -583,6 +584,7 @@
                                 </div>
                                 <div><strong>Client Id - Secret</strong> ${requestScope.ERROR_UPDATE_PAYPAL_INF_SEEKER}</div>
                                 <font style="color: red">${requestScope.ERROR_UPDATE_INF_BALANCE_KEY_SEEKER.lengthClientIDSecret}</font>
+                                <font style="color: red; font-size:  18px">${requestScope.UNKNOWN_BALANCE_KEY}</font>
                                 <div class="text-block-seeker"><br /></div>
                             </div>
                                 

@@ -232,7 +232,8 @@
                                     <font style="color: green">${requestScope.UPDATE_INF_HIRER_1}</font>
                                     <font style="color: red">${requestScope.UPDATE_INF_HIRER_1_FAIL}</font>
                                     <font style="color: red">${requestScope.ERROR_UPDATE_PAYPAL_INF_HIRER}</font>
-                                            <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_FORMAT_1}</font>
+                                    <font style="color: red">${requestScope.ERROR_UPDATE_INF_HIRER_FORMAT_1}</font>
+                                    <font style="color: red; font-size: 18px">${requestScope.UNKNOWN_BALANCE_KEY}</font>
                                 </div><img
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
                                     loading="lazy" data-w-id="8ae2a92a-3f7b-8a07-bbf2-0fe10e32d4dc" alt=""

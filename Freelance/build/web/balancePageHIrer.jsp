@@ -197,7 +197,7 @@
                     <form action="MainController" id="email-form-3" name="email-form-3" data-name="Email Form 3" method="get" class="form">
                         <input
                             type="number" class="w-input" maxlength="256" data-name="Name 3" placeholder=""
-                            id="name-3" name="moneyCashout" min="0" required=""/>
+                            id="name-3" name="moneyCashout" min="1" required=""/>
 
                         <input type="submit" value="Cash out" name="action" data-wait="Please wait..."
                                class="submit-button-3 w-button" />
