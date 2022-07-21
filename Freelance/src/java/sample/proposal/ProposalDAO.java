@@ -114,6 +114,42 @@ public class ProposalDAO {
             + "set proposalStatusID = ?\n"
             + "where projectID = ? and proposalStatusID = 4";
 
+    private static final String GET_LIST_PROJECT_NEW = "select projectID\n" +
+"from Proposal\n" +
+"where proposalStatusID NOT IN (4, 5, 6, 7, 8)\n" +
+"group by projectID";
+    //getListProjectNew
+    public List<Integer> getListProjectNew() throws SQLException{
+        List<Integer> listProjectNew = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(GET_LIST_PROJECT_NEW);
+                rs = ptm.executeQuery();
+                while (rs.next()) {                    
+                    int projectID = rs.getInt("projectID");
+                    listProjectNew.add(projectID);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listProjectNew;
+    }
+    
     public boolean cancelProject(String projectID, int status) throws SQLException {
         boolean check = false;
         Connection con = null;

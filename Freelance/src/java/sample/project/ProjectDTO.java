@@ -5,6 +5,7 @@
  */
 package sample.project;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class ProjectDTO {
+public class ProjectDTO implements Serializable{
     
     private int projectID;
     private int hirerID;

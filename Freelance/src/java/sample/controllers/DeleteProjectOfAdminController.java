@@ -6,11 +6,17 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
+import sample.proposal.ProposalDAO;
+import sample.skill.SkillDAO;
 
 /**
  *
@@ -18,7 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DeleteProjectOfAdminController", urlPatterns = {"/DeleteProjectOfAdminController"})
 public class DeleteProjectOfAdminController extends HttpServlet {
-
+    private static final String ERROR = "projectPostedAdminPage.jsp";
+    private static final String SUCCESS = "projectPostedAdminPage.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,17 +38,35 @@ public class DeleteProjectOfAdminController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteProjectOfAdminController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteProjectOfAdminController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = ERROR;
+        try {
+            int projectID = Integer.parseInt(request.getParameter("projectID"));
+            HttpSession session = request.getSession(false);
+            
+            ProjectDAO daoProject = new ProjectDAO();
+            daoProject.deleteFavoriteProject(projectID);
+            
+            ProposalDAO daoProposal = new ProposalDAO();
+            daoProposal.deleteProposalByProjectID(projectID);
+            
+            SkillDAO daoSkill = new SkillDAO();
+            boolean checkForDeleteNeededSkill = daoSkill.deleteNeededSkillOfProject(projectID);
+            boolean checkForDeleteProject = daoProject.deleteProject(projectID);
+            
+
+            if (checkForDeleteNeededSkill == true && checkForDeleteProject == true) {
+                //lấy list các project đã post lên
+                ProjectDAO projectDAO = new ProjectDAO();
+                List<ProjectDTO> listProject = projectDAO.getListProjectByName(" ");
+                session.setAttribute("LIST_PROJECT_POSTED", listProject);
+                
+                url = SUCCESS;
+            }
+
+        } catch (Exception e) {
+            log("Error at ProposalDetailController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

@@ -200,72 +200,26 @@
                   <%                   
                       UserDAO dao = new UserDAO();
                       String nameUser;
+                      ProposalDAO proposalDao = new ProposalDAO();
+                      List<Integer> listPrrojectNew = proposalDao.getListProjectNew();
                    List<ProjectDTO> listProject = ( List<ProjectDTO> )session.getAttribute("LIST_PROJECT_POSTED");
                   if (listProject != null) {
                         if (listProject.size() > 0) {
                             for (ProjectDTO project : listProject) {
                             nameUser = dao.getFullNameById(project.getHirerID());
+                            //check xem nó là project ch?a có ng làm
+                            for (Integer elem : listPrrojectNew) {
+                                      if(elem == project.getProjectID()){
+                                      //n?u ch?a có ai
+                                      %>
+                                      
+                  <%
+                                      break;
+                                      }
+                            }
+                            
                   %>
-                  <tr>
-                      <td>
-                          <%= project.getProjectID() %>
-                      </td>
-                      <td>
-                          <a>
-                              <%= project.getProjectName()%>
-                          </a>
-                          <br/>
-                          <small>
-                              Created <%= project.getCreatedDate()%>
-                          </small>
-                      </td>
-                      <td>
-                          <%= nameUser %>
-                      </td>
-                      <td class="project_progress">
-                          
-                      </td>
-                      <td class="project-state">
-                          <!--//nh? b?t n?u project có status 7 r?i thì ?? Done, ko thì ?? processsing-->
-                          <span class="badge badge-success" style="background-color: red">processing</span>
-                      </td>
-                      <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#exampleModalCenter">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
-                          <!-- popup form in here -->
-                          <!-- Modal -->
-
-                          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLongTitle"><%= project.getProjectName()%></h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body" style = "text-align: left;">
-                                  <p><b>Project Description:</b> <%= project.getDescription()%></p>
-                                  <p><b>Complexity: </b> <%= project.getComplexity()%></p>
-                                  <p><b>Date create:</b> <%= project.getCreatedDate()%></p>
-                                  <p><b>Deadline date: </b> <%= project.getDeadlineDate()%></p>
-                                  <p><b>Location: </b> <%= project.getLocation()%></p>
-                                  
-                                </div>
-                                <div class="modal-footer">
-                                    <form action="DeleteProjectOfAdminController">
-                                        <input type="hidden" name="projectID" value="<%= project.getProjectID()%>" />
-                                        <button type="submit" class="btn btn-primary" >Delete</button>
-                                    </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                      </td>
-                  </tr>
+                  
                   
                   <%        }
                         }
