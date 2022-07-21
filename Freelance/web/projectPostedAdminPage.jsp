@@ -200,24 +200,82 @@
                   <%                   
                       UserDAO dao = new UserDAO();
                       String nameUser;
-                      ProposalDAO proposalDao = new ProposalDAO();
-                      List<Integer> listPrrojectNew = proposalDao.getListProjectNew();
                    List<ProjectDTO> listProject = ( List<ProjectDTO> )session.getAttribute("LIST_PROJECT_POSTED");
                   if (listProject != null) {
                         if (listProject.size() > 0) {
                             for (ProjectDTO project : listProject) {
                             nameUser = dao.getFullNameById(project.getHirerID());
-                            //check xem nó là project ch?a có ng làm
-                            for (Integer elem : listPrrojectNew) {
-                                      if(elem == project.getProjectID()){
-                                      //n?u ch?a có ai
                                       %>
-                                      
+                                      <tr>
+                      <td>
+                          <%= project.getProjectID() %>
+                      </td>
+                      <td>
+                          <a>
+                              <%= project.getProjectName()%>
+                          </a>
+                          <br/>
+                          <small>
+                              Created <%= project.getCreatedDate()%>
+                          </small>
+                      </td>
+                      <td>
+                          <%= nameUser %>
+                      </td>
+                      <td class="project_progress">
+                          
+                      </td>
+                      <td class="project-state">
+                          <span class="badge badge-success" style="background-color: red">processing</span>
+                      </td>
+                      <td class="project-actions text-right">
+                          <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#p<%= project.getProjectID() %>">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                          </a>
+                          <!-- popup form in here -->
+                          <!-- Modal -->
+
+                          <div class="modal fade" id="p<%= project.getProjectID() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle"><%= project.getProjectName()%></h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body" style = "text-align: left;">
+                                  <p><b>Description:</b> <%= project.getDescription() %></p>
+                                  <p><b>Date create:</b> <%= project.getCreatedDate() %></p>
+                                  <p><b>Deadline create:</b> <%= project.getDeadlineDate()%></p>
+                                  <p><b>Complexity:</b> <%= project.getComplexity()%></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="DeleteProjectOfAdminController">
+                                        <input type="hidden" name="projectID" value="<%= project.getProjectID()%>" />
+                                        <button type="submit" class="btn btn-primary"><a>Delete</a></button>
+                                    </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- 
+                          <a class="btn btn-info btn-sm" href="#">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
+                          -->
+                      </td>
+                  </tr>
                   <%
-                                      break;
-                                      }
-                            }
-                            
                   %>
                   
                   

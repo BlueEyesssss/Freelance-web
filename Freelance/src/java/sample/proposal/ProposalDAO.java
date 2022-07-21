@@ -1635,4 +1635,39 @@ public class ProposalDAO {
         return list;
     }
 
+    public boolean checkProjectNoProposal(int projectID) throws SQLException {
+        boolean check = true;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                String sqlQuery = "select *\n" +
+"from Proposal\n" +
+"where projectID = ?";
+                ptm = conn.prepareStatement(sqlQuery);
+                ptm.setInt(1, projectID);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    check = false;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
 }

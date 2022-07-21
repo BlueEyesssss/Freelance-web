@@ -6,6 +6,7 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,10 +56,32 @@ public class DeleteProjectOfAdminController extends HttpServlet {
             
 
             if (checkForDeleteNeededSkill == true && checkForDeleteProject == true) {
+                ProposalDAO proposalDao = new ProposalDAO();
                 //lấy list các project đã post lên
                 ProjectDAO projectDAO = new ProjectDAO();
                 List<ProjectDTO> listProject = projectDAO.getListProjectByName(" ");
-                session.setAttribute("LIST_PROJECT_POSTED", listProject);
+                
+                //list project new
+                List<ProjectDTO> listProjectNewNotHasSeeekr = new ArrayList<>();
+                
+                //take list projectID của project have proposal but not have any seeker
+                List<Integer> listPrrojectIDNew = proposalDao.getListProjectNew();
+                for (ProjectDTO projectDTO : listProject) {
+                    for (Integer integer : listPrrojectIDNew) {
+                        if(integer == projectDTO.getProjectID()){
+                            listProjectNewNotHasSeeekr.add(projectDTO);
+                            break;
+                        }
+                    }
+                }
+                //take list project haven't any proposal
+                for (ProjectDTO projectDTO : listProject) {
+                    if(proposalDao.checkProjectNoProposal(projectDTO.getProjectID())){
+                        //đúng là project này chưa có proposal nào
+                        listProjectNewNotHasSeeekr.add(projectDTO);
+                    }
+                }
+                session.setAttribute("LIST_PROJECT_POSTED", listProjectNewNotHasSeeekr);
                 
                 url = SUCCESS;
             }

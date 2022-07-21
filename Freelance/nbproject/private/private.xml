@@ -5,11 +5,15 @@
         <group>
             <file>file:/D:/laptrinh/Freelance-web/Freelance/web/projectPostedAdminPage.jsp</file>
             <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/project/ProjectDAO.java</file>
-            <file>file:/D:/laptrinh/Freelance-web/Freelance/web/project.jsp</file>
             <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/user/UserDAO.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/PostAJobController.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/RemoveProjectController.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/skill/SkillDAO.java</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/project/ProjectDTO.java</file>
             <file>file:/D:/laptrinh/Freelance-web/Freelance/web/index.jsp</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/proposal/ProposalDAO.java</file>
             <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/DeleteProjectOfAdminController.java</file>
-            <file>file:/D:/laptrinh/Freelance-web/Freelance/web/transactionListAdmin.jsp</file>
+            <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/CancelProJectFromHirerController.java</file>
             <file>file:/D:/laptrinh/Freelance-web/Freelance/src/java/sample/controllers/LoginController.java</file>
         </group>
     </open-files>
