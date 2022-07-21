@@ -88,6 +88,7 @@ public class CreateSeekerController extends HttpServlet {
                             //avatar.write(pathSaveAvatar);
                             //xóa session giữ list skill đi
                             session.invalidate();
+                            request.setAttribute("NOTIFY_CREATE_ACC", "Create success.");
                             url = SUCCESS;
                         }
                     }

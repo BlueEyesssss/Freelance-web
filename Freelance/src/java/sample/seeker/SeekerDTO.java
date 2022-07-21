@@ -23,7 +23,18 @@ public class SeekerDTO extends UserDTO{
     private String major;
     private String hourPerWeek;
     private int reviewGrade;
+    private UserDTO user;
 
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    
+    
     public int getReviewGrade() {
         return reviewGrade;
     }

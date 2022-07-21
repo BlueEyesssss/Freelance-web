@@ -102,6 +102,7 @@
               </div>
             </div>
             <h3 style="color: red; text-align: center">${requestScope.LOGIN_ERROR}</h2>
+            <h3 style="color: green; text-align: center">${requestScope.NOTIFY_CREATE_ACC}</h2>
             <div class="div-block-41">
               <div class="text-block-8">Don&#x27;t have an account yet? </div><a href="createAcc.jsp" class="link-3">Sign up now</a>
             </div>

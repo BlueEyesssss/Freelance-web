@@ -35,7 +35,8 @@ import sample.user.UserErrorDTO;
 public class NextChooseSkillController extends HttpServlet {
 
     private static final String ERROR = "createAccForSeeker.jsp";
-    private static final String SUCCESS = "chooseSkillForSeeker.jsp";
+    //private static final String SUCCESS = "chooseSkillForSeeker.jsp";
+    private static final String SUCCESS = "HirerVerifyController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -99,14 +100,14 @@ public class NextChooseSkillController extends HttpServlet {
                 }
             }
             //check email
-            if (email.trim().length() < 10 || email.trim().length() > 128) {
-                checkError = true;
-                error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
-            } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
-                checkError = true;
-                error.setEmail("format must be ...@gmail.com.");
-            }
-            if (dao.checkEmailExist(email) > 1) {
+//            if (email.trim().length() < 10 || email.trim().length() > 128) {
+//                checkError = true;
+//                error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
+//            } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
+//                checkError = true;
+//                error.setEmail("format must be ...@gmail.com.");
+//            }
+            if (dao.checkEmailExist(email) > 0) {
                 checkError = true;
                 error.setEmailExist("\"" + email + "\" linked to another account.");
             }
@@ -130,6 +131,27 @@ public class NextChooseSkillController extends HttpServlet {
                 checkError = true;
                 error.setLocation("must be 6 .. 50 character.");
             }
+            int checkNum = 0;
+            for (int i = 0; i < location.length(); i++) {
+                if ((int) location.charAt(i) >= 65 && (int) location.charAt(i) <= 90) {
+                    //
+                } else {
+                    if ((int) location.charAt(i) >= 97 && (int) location.charAt(i) <= 122) {
+                        //
+                    } else {
+                        if ((int) location.charAt(i) == 32) {
+                            //
+                        } else {
+                            checkNum++;
+                        }
+                    }
+                }
+            }
+            if (checkNum > 3) {
+                checkError = true;
+                error.setLocation("at most 3 numeric characters");
+            }
+            //
             if (!conform.equals(password)) {
                 checkError = true;
                 error.setConfirm("password and confirm not match.");
@@ -138,23 +160,101 @@ public class NextChooseSkillController extends HttpServlet {
                 checkError = true;
                 error.setEducation("must be 6 .. 50 character.");
             }
+            int checkNumEducation = 0;
+            for (int i = 0; i < education.length(); i++) {
+                if ((int) education.charAt(i) >= 65 && (int) education.charAt(i) <= 90) {
+                    //
+                } else {
+                    if ((int) education.charAt(i) >= 97 && (int) education.charAt(i) <= 122) {
+                        //
+                    } else {
+                        if ((int) education.charAt(i) == 32) {
+                            //
+                        } else {
+                            checkNumEducation++;
+                        }
+                    }
+                }
+            }
+            if (checkNumEducation > 3) {
+                checkError = true;
+                error.setEducation("at most 3 numeric characters");
+            }
+            //
             if (dao.checkEmailExist(email) > 3) {
                 checkError = true;
                 error.setEmailExist("email linked to another account.");
             }
+            //
             if (major.trim().length() < 6 || major.trim().length() > 50) {
                 checkError = true;
                 error.setMajor("major must 6..50 character.");
+            }
+            for (int i = 0; i < major.length(); i++) {
+                if ((int) major.charAt(i) >= 65 && (int) major.charAt(i) <= 90) {
+                    //
+                } else {
+                    if ((int) major.charAt(i) >= 97 && (int) major.charAt(i) <= 122) {
+                        //
+                    } else {
+                        if((int) major.charAt(i) == 32){
+                            //
+                        }else{
+                            checkError = true;
+                            error.setMajor("must be alphabet.");
+                        }
+                    }
+                }
             }
             //
             if (overview.trim().length() < 6 || overview.trim().length() > 5000) {
                 checkError = true;
                 error.setOverview("overview must 6..5000 character.");
             }
+            int checkNumOverView = 0;
+            for (int i = 0; i < overview.length(); i++) {
+                if ((int) overview.charAt(i) >= 65 && (int) overview.charAt(i) <= 90) {
+                    //
+                } else {
+                    if ((int) overview.charAt(i) >= 97 && (int) overview.charAt(i) <= 122) {
+                        //
+                    } else {
+                        if ((int) overview.charAt(i) == 32) {
+                            //
+                        } else {
+                            checkNumOverView++;
+                        }
+                    }
+                }
+            }
+            if (checkNumOverView > 3) {
+                checkError = true;
+                error.setOverview("at most 20 numeric characters");
+            }
             //
             if (titleBio.trim().length() < 6 || titleBio.trim().length() > 50) {
                 checkError = true;
                 error.setTitileBio("titleBio must 6..50 character.");
+            }
+            int checkNumTitle = 0;
+            for (int i = 0; i < titleBio.length(); i++) {
+                if ((int) titleBio.charAt(i) >= 65 && (int) titleBio.charAt(i) <= 90) {
+                    //
+                } else {
+                    if ((int) titleBio.charAt(i) >= 97 && (int) titleBio.charAt(i) <= 122) {
+                        //
+                    } else {
+                        if ((int) titleBio.charAt(i) == 32) {
+                            //
+                        } else {
+                            checkNumTitle++;
+                        }
+                    }
+                }
+            }
+            if (checkNumTitle > 3) {
+                checkError = true;
+                error.setTitileBio("at most 3 numeric characters");
             }
             //
             String uploadFolder = getServletContext().getRealPath("/uploads");

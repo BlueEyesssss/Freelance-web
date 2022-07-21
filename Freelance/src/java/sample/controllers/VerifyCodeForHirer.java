@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.hirer.HirerDTO;
+import sample.seeker.SeekerDTO;
 import sample.user.UserDAO;
 
 /**
@@ -36,37 +37,49 @@ public class VerifyCodeForHirer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            
-            HttpSession session = request.getSession();
-            HirerDTO hirer= (HirerDTO) session.getAttribute("authcode");
-            
-            String code = request.getParameter("authcode1") 
-                    +request.getParameter("authcode2")
-                    +request.getParameter("authcode3")
-                    +request.getParameter("authcode4")
-                    +request.getParameter("authcode5")
-                    +request.getParameter("authcode6");
-            
-            if(code.equals(hirer.getUser().getCode())){
-                UserDAO dao = new UserDAO();
-                boolean checkCreateAcc = dao.createUser(hirer.getUser());
-                if (checkCreateAcc) {
-                    //tạo hirer
-                    int hirerID = dao.getUser(hirer.getUser().getUserName(), hirer.getUser().getPassword()).getUserID();
-                    HirerDTO hirer1 = new HirerDTO(hirerID, hirer.getCompanyName());
+        try ( PrintWriter out = response.getWriter()) {
 
-                    boolean checkCreateHirer = dao.createHirer(hirer1);
-                    if (checkCreateHirer) {
-                        response.sendRedirect("login.jsp");
-                    }
+            HttpSession session = request.getSession();
+            HirerDTO hirer = (HirerDTO) session.getAttribute("authcode");
+            SeekerDTO seeker = (SeekerDTO) session.getAttribute("authcodeSeeker");
+
+            String code = request.getParameter("authcode1")
+                    + request.getParameter("authcode2")
+                    + request.getParameter("authcode3")
+                    + request.getParameter("authcode4")
+                    + request.getParameter("authcode5")
+                    + request.getParameter("authcode6");
+
+            if (seeker != null) {
+                //seeker veryfy email
+                if (code.equals(seeker.getUser().getCode())) {
+                    request.getRequestDispatcher("chooseSkillForSeeker.jsp").forward(request, response);
+                } else {
+                    out.println("Incorrect verification code");
                 }
-                response.sendRedirect("error.html");
-            }else{
-                out.println("Incorrect verification code");
+            } else {
+                //hirer verify email
+                if (code.equals(hirer.getUser().getCode())) {
+                    UserDAO dao = new UserDAO();
+                    boolean checkCreateAcc = dao.createUser(hirer.getUser());
+                    if (checkCreateAcc) {
+                        //tạo hirer
+                        int hirerID = dao.getUser(hirer.getUser().getUserName(), hirer.getUser().getPassword()).getUserID();
+                        HirerDTO hirer1 = new HirerDTO(hirerID, hirer.getCompanyName());
+
+                        boolean checkCreateHirer = dao.createHirer(hirer1);
+                        if (checkCreateHirer) {
+                            request.setAttribute("NOTIFY_CREATE_ACC", "Create success.");
+                            request.getRequestDispatcher("login.jsp").forward(request, response);
+                        }
+                    }
+                    response.sendRedirect("error.html");
+                } else {
+                    out.println("Incorrect verification code");
+                }
             }
-            
-        }catch(Exception ex){
+
+        } catch (Exception ex) {
             log("error at VerifyCodeForHirer: " + ex.getMessage());
         }
     }

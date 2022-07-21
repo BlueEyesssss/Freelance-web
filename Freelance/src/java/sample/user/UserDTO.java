@@ -5,13 +5,14 @@
  */
 package sample.user;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author LENOVO
  */
-public class UserDTO {
+public class UserDTO implements Serializable{
     private int userID;
     private String password;
     private String userName;

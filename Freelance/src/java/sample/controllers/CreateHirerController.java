@@ -91,7 +91,7 @@ public class CreateHirerController extends HttpServlet {
                 checkError = true;
                 error.setUserName("must be 6 .. 20 character.");
             }
-            if(dao.checkDuplicateUsername(userName)){
+            if (dao.checkDuplicateUsername(userName)) {
                 checkError = true;
                 error.setUserName("user name already exists");
             }
@@ -112,9 +112,9 @@ public class CreateHirerController extends HttpServlet {
                     if ((int) fullName.charAt(i) >= 97 && (int) fullName.charAt(i) <= 122) {
                         //
                     } else {
-                        if((int) fullName.charAt(i) == 32){
+                        if ((int) fullName.charAt(i) == 32) {
                             //
-                        }else{
+                        } else {
                             checkError = true;
                             error.setFullName("must be alphabet.");
                         }
@@ -122,14 +122,14 @@ public class CreateHirerController extends HttpServlet {
                 }
             }
             //
-            if (email.trim().length() < 10 || email.trim().length() > 128) {
-                checkError = true;
-                error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
-            } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
-                checkError = true;
-                error.setEmail("format must be ...@gmail.com.");
-            }
-            if (dao.checkEmailExist(email) > 1) {
+//            if (email.trim().length() < 10 || email.trim().length() > 128) {
+//                checkError = true;
+//                error.setEmail("format must be ...@gmail.com and length must be 10 .. 128 character.");
+//            } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
+//                checkError = true;
+//                error.setEmail("format must be ...@gmail.com.");
+//            }
+            if (dao.checkEmailExist(email) > 0) {
                 checkError = true;
                 error.setEmailExist("\"" + email + "\" linked to another account.");
             }
@@ -153,6 +153,27 @@ public class CreateHirerController extends HttpServlet {
                 checkError = true;
                 error.setLocation("must be 6 .. 50 character.");
             }
+            int checkNum = 0;
+            for (int i = 0; i < location.length(); i++) {
+                if ((int) location.charAt(i) >= 65 && (int) location.charAt(i) <= 90) {
+                    //
+                } else {
+                    if ((int) location.charAt(i) >= 97 && (int) location.charAt(i) <= 122) {
+                        //
+                    } else {
+                        if ((int) location.charAt(i) == 32) {
+                            //
+                        } else {
+                            checkNum++;
+                        }
+                    }
+                }
+            }
+            if (checkNum > 3) {
+                checkError = true;
+                error.setLocation("at most 3 numeric characters");
+            }
+            //
             if (!conform.equals(password)) {
                 checkError = true;
                 error.setConfirm("password and confirm not match.");
