@@ -1,3 +1,6 @@
+<%@page import="sample.project.ProjectDTO"%>
+<%@page import="sample.user.UserDAO"%>
+<%@page import="sample.transactionhandling.TransactionHandlingDTO"%>
 <%@page import="sample.proposal.ProposalDAO"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="java.util.List"%>
@@ -120,14 +123,12 @@
                 <p>Transaction</p>
               </a>
             </li>
-            
             <li class="nav-item">
               <a href="projectPostedAdminPage.jsp" class="nav-link">
                 <i class="nav-icon fas fa-table"></i>
                 <p>Project posted</p>
               </a>
             </li>
-            
             <li class="nav-item">
               <a href="MainController?action=Logout" class="nav-link">
                 <i class="nav-icon fas fa-table"></i>
@@ -162,7 +163,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Projects</h3>
+          <h3 class="card-title">Poject posted</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -179,10 +180,10 @@
                           #
                       </th>
                       <th style="width: 20%">
-                          Project Name
+                          Poject Name
                       </th>
                       <th style="width: 30%">
-                         
+                         Owner
                       </th>
                       <th>
                           
@@ -196,37 +197,40 @@
               </thead>
               <tbody>
                   
-                  <%                      
-                      ProposalDAO dao = new ProposalDAO();                     
-                  List<ProposalDTO> listReportedProposal = dao.getListReportedProposal();
-                  if (listReportedProposal != null) {
-                        if (listReportedProposal.size() > 0) {
-                            for (ProposalDTO proposal : listReportedProposal) {
+                  <%                   
+                      UserDAO dao = new UserDAO();
+                      String nameUser;
+                   List<ProjectDTO> listProject = ( List<ProjectDTO> )session.getAttribute("LIST_PROJECT_POSTED");
+                  if (listProject != null) {
+                        if (listProject.size() > 0) {
+                            for (ProjectDTO project : listProject) {
+                            nameUser = dao.getFullNameById(project.getHirerID());
                   %>
                   <tr>
                       <td>
-                          #
+                          <%= project.getProjectID() %>
                       </td>
                       <td>
                           <a>
-                              <%= proposal.getProjectName()%>
+                              <%= project.getProjectName()%>
                           </a>
                           <br/>
                           <small>
-                              <%= proposal.getCreatedDate()%>
+                              Created <%= project.getCreatedDate()%>
                           </small>
                       </td>
                       <td>
-                          
+                          <%= nameUser %>
                       </td>
                       <td class="project_progress">
                           
                       </td>
                       <td class="project-state">
-                          <span class="badge badge-success">Success</span>
+                          <!--//nh? b?t n?u project có status 7 r?i thì ?? Done, ko thì ?? processsing-->
+                          <span class="badge badge-success" style="background-color: red">processing</span>
                       </td>
                       <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#p<%= proposal.getProposalID()%>">
+                          <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#exampleModalCenter">
                               <i class="fas fa-folder">
                               </i>
                               View
@@ -234,39 +238,32 @@
                           <!-- popup form in here -->
                           <!-- Modal -->
 
-                          <div class="modal fade" id="p<%= proposal.getProposalID()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLongTitle">Project Tittle ne</h5>
+                                  <h5 class="modal-title" id="exampleModalLongTitle"><%= project.getProjectName()%></h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="modal-body" style = "text-align: left;">
-                                  <p><b>Project Discription:</b> <%= proposal.getProjectDescription()%></p>
-                                  <p><b>Link Submission:</b> <%= proposal.getLink()%></p>
-                                  <p>Attachment: <a href = "DownloadFileController?fileName=<%= proposal.getFileName() %>">Download</a></p>
+                                  <p><b>Project Description:</b> <%= project.getDescription()%></p>
+                                  <p><b>Complexity: </b> <%= project.getComplexity()%></p>
+                                  <p><b>Date create:</b> <%= project.getCreatedDate()%></p>
+                                  <p><b>Deadline date: </b> <%= project.getDeadlineDate()%></p>
+                                  <p><b>Location: </b> <%= project.getLocation()%></p>
+                                  
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" ><a href="MainController?action=AddMoneyToSeeker&proposalID=<%=proposal.getProposalID()%>">Cancel</a></button>
-                                  <button type="button" class="btn btn-primary"><a href="MainController?action=AddMoneyToHirer&proposalID=<%=proposal.getProposalID()%>">Approve</a></button>
+                                    <form action="DeleteProjectOfAdminController">
+                                        <input type="hidden" name="projectID" value="<%= project.getProjectID()%>" />
+                                        <button type="submit" class="btn btn-primary" >Delete</button>
+                                    </form>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <!-- 
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                          -->
                       </td>
                   </tr>
                   

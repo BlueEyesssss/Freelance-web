@@ -19,6 +19,8 @@ import sample.hirer.HirerDAO;
 import sample.hirer.HirerDTO;
 import sample.payment.PayPayDTO;
 import sample.payment.PaymentDAO;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
 import sample.proposal.ProposalDAO;
 import sample.proposal.ProposalDTO;
 import sample.seeker.SeekerDTO;
@@ -81,6 +83,11 @@ public class LoginController extends HttpServlet {
                 TransactionHandlingDAO dao = new TransactionHandlingDAO();
                 List<TransactionHandlingDTO> listTran = dao.getListTranStatus0();
                 session.setAttribute("LIST_TRANS_STATUS_0", listTran);
+                
+                //lấy list các project đã post lên
+                ProjectDAO projectDAO = new ProjectDAO();
+                List<ProjectDTO> listProject = projectDAO.getListProjectByName(" ");
+                session.setAttribute("LIST_PROJECT_POSTED", listProject);
 
                 url = ADMIN_PAGE;
             } else {
