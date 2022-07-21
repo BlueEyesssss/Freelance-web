@@ -26,7 +26,8 @@ import sample.skill.SkillDAO;
 @WebServlet(name = "DeleteProjectOfAdminController", urlPatterns = {"/DeleteProjectOfAdminController"})
 public class DeleteProjectOfAdminController extends HttpServlet {
     private static final String ERROR = "projectPostedAdminPage.jsp";
-    private static final String SUCCESS = "projectPostedAdminPage.jsp";
+//    private static final String SUCCESS = "projectPostedAdminPage.jsp";
+    private static final String SUCCESS = "SendEmailNotifyDeleteForHIrerController1";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,9 +43,16 @@ public class DeleteProjectOfAdminController extends HttpServlet {
         String url = ERROR;
         try {
             int projectID = Integer.parseInt(request.getParameter("projectID"));
+            String msgDelete = request.getParameter("msgDelete");
             HttpSession session = request.getSession(false);
             
             ProjectDAO daoProject = new ProjectDAO();
+            //lấy project object để lưu lại đén kh gửi mail
+            ProjectDTO projectDeleted = daoProject.getProjectByID(projectID);
+            projectDeleted.setMsgDelete(msgDelete);
+            session.setAttribute("PROJECT_DELETED", projectDeleted);
+            
+            //xóa 
             daoProject.deleteFavoriteProject(projectID);
             
             ProposalDAO daoProposal = new ProposalDAO();

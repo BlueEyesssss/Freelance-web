@@ -5,6 +5,7 @@
  */
 package sample.project;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ import sample.util.DBUtil;
  *
  * @author LENOVO
  */
-public class ProjectDAO {
+public class ProjectDAO implements Serializable{
 
     private static final String VIEW_ALL_PROJECT = "SELECT P.projectID, hirerID, description, complexity, projectName, P.paymentAmount, durationText, deadlineDate, major, P.createdDate, location, hoursPerWeek\n"
             + "FROM Project P, ExpectedDuration E\n"

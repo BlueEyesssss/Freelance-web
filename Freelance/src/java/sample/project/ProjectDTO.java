@@ -32,6 +32,16 @@ public class ProjectDTO implements Serializable{
     private String durationText;
     String createdDate1;
     private List<String> skillneed;
+    private String msgDelete;
+
+    public String getMsgDelete() {
+        return msgDelete;
+    }
+
+    public void setMsgDelete(String msgDelete) {
+        this.msgDelete = msgDelete;
+    }
+    
 
     public String getCreatedDate1() {
         return createdDate1;

@@ -226,7 +226,7 @@
                           
                       </td>
                       <td class="project-state">
-                          <span class="badge badge-success" style="background-color: red">processing</span>
+                          <span class="badge badge-success" style="background-color: orange">processing</span>
                       </td>
                       <td class="project-actions text-right">
                           <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#p<%= project.getProjectID() %>">
@@ -246,18 +246,26 @@
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
+                                  <form action="DeleteProjectOfAdminController" method="post">
                                 <div class="modal-body" style = "text-align: left;">
                                   <p><b>Description:</b> <%= project.getDescription() %></p>
                                   <p><b>Date create:</b> <%= project.getCreatedDate() %></p>
                                   <p><b>Deadline create:</b> <%= project.getDeadlineDate()%></p>
                                   <p><b>Complexity:</b> <%= project.getComplexity()%></p>
+                                  <p>Your message reason:</p>
+                                  <input type="text" name="msgDelete" value="" required="" placeholder="reason you delete it" 
+                                         style="width: 100%; border-radius: 8px; height: 30px"/>
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="DeleteProjectOfAdminController">
+                                    
                                         <input type="hidden" name="projectID" value="<%= project.getProjectID()%>" />
+                                        <%
+                                            session.setAttribute("PROJECT_DELETED_INF", project);
+                                        %>
                                         <button type="submit" class="btn btn-primary"><a>Delete</a></button>
-                                    </form>
+                                    
                                 </div>
+                            </form>
                               </div>
                             </div>
                           </div>

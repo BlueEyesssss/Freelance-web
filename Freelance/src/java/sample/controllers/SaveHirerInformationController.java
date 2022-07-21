@@ -76,13 +76,13 @@ public class SaveHirerInformationController extends HttpServlet {
                     }
                 }
                 //check email
-                if (email.trim().length() < 10 || email.trim().length() > 128) {
-                    checkError = true;
-                    error.setEmail("\"" + email + "\" must be ...@gmail.com and length must be 10 .. 128 character.");
-                } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
-                    checkError = true;
-                    error.setEmail("\"" + email + "\" must be ...@gmail.com.");
-                }
+//                if (email.trim().length() < 10 || email.trim().length() > 128) {
+//                    checkError = true;
+//                    error.setEmail("\"" + email + "\" must be ...@gmail.com and length must be 10 .. 128 character.");
+//                } else if (!email.substring(email.length() - 10, email.length()).equals("@gmail.com")) {
+//                    checkError = true;
+//                    error.setEmail("\"" + email + "\" must be ...@gmail.com.");
+//                }
                 if (email.equals(hirer.getEmail())) {
 
                 } else {

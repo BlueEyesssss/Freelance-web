@@ -1,3 +1,4 @@
+<%@page import="sample.project.ProjectDTO"%>
 <%@page import="sample.transactionhandling.TransactionHandlingDTO"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -170,14 +171,17 @@
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>150</h3>
+                    <%
+                        List<ProjectDTO> listProject = ( List<ProjectDTO> )session.getAttribute("LIST_PROJECT_POSTED");
+                    %>
+                  <h3><%= listProject.size() %></h3>
 
-                  <p>New Orders</p>
+                  <p>New Project (project need seeker)</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="projectPostedAdminPage.jsp" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
