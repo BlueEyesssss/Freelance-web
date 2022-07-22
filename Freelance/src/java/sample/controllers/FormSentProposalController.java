@@ -29,7 +29,7 @@ import sample.user.UserDTO;
 public class FormSentProposalController extends HttpServlet {
 
     private static final String ERROR = "ViewSeekerDashboardController";
-    private static final String ERROR_NOT_HAVE_BALANCE_KEY = "ViewSeekerProfileController";
+    
     private static final String SUCCESS = "submitProposal.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -40,44 +40,31 @@ public class FormSentProposalController extends HttpServlet {
             HttpSession session = request.getSession();
             SeekerDTO seekerLogin = (SeekerDTO) session.getAttribute("USER_LOGIN");
 
-            //check xem balance key của seeker có chưa
-            //  1.lấy seeker
-            SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
-            //  2.check balance key
-            PaymentDAO paymentDAO = new PaymentDAO();
-            String client_id = paymentDAO.getClientID(seeker.getUserID());
-            String client_secret = paymentDAO.getClientSecret(seeker.getUserID());
-            if (client_id == null || client_secret == null) {
-                request.setAttribute("UNKNOWN_BALANCE_KEY", "please update your PayPal key (id, secret) and then you can do this previous action");
-                //request.getRequestDispatcher("ViewSeekerProfileController").forward(request, response);
-                url = ERROR_NOT_HAVE_BALANCE_KEY;
-            } else {
-                int projectID = Integer.parseInt(request.getParameter("projectID"));
-                ProjectDAO dao = new ProjectDAO();
-                ProjectDTO projectCurrent = dao.getProjectCurrent(projectID);
-                List<String> skillneed = dao.getSkillNeedOfProject(projectCurrent.getProjectID());
-                List<String> skillsOfSeeker = seekerLogin.getListSkill();
-                boolean checkMatchSkill = false;//rang buoc seeker phai co it nhat 1 skill trung voi skillNeed cua project
-                for (String skillNeedOfProject : skillneed) {
-                    for (String skillOfSeeker : skillsOfSeeker) {
-                        if (skillNeedOfProject.equalsIgnoreCase(skillOfSeeker)) {
-                            checkMatchSkill = true;
-                            break;
-                        }
+            int projectID = Integer.parseInt(request.getParameter("projectID"));
+            ProjectDAO dao = new ProjectDAO();
+            ProjectDTO projectCurrent = dao.getProjectCurrent(projectID);
+            List<String> skillneed = dao.getSkillNeedOfProject(projectCurrent.getProjectID());
+            List<String> skillsOfSeeker = seekerLogin.getListSkill();
+            boolean checkMatchSkill = false;//rang buoc seeker phai co it nhat 1 skill trung voi skillNeed cua project
+            for (String skillNeedOfProject : skillneed) {
+                for (String skillOfSeeker : skillsOfSeeker) {
+                    if (skillNeedOfProject.equalsIgnoreCase(skillOfSeeker)) {
+                        checkMatchSkill = true;
+                        break;
                     }
                 }
+            }
 
-                if (projectCurrent != null) {
-                    request.setAttribute("SKILL_PROJECT_NEED", skillneed);
-                    request.setAttribute("PROJECT_CURRENT", projectCurrent);
-                    if (checkMatchSkill) {
-                        url = SUCCESS;
-                    }else {
-                        request.setAttribute("ERROR_MESSAGE_1", "Please choose the suitable job for you!");
-                    }
-                }else{
-                        request.setAttribute("ERROR_MESSAGE_2", "Job isn't exist anymore!");
+            if (projectCurrent != null) {
+                request.setAttribute("SKILL_PROJECT_NEED", skillneed);
+                request.setAttribute("PROJECT_CURRENT", projectCurrent);
+                if (checkMatchSkill) {
+                    url = SUCCESS;
+                } else {
+                    request.setAttribute("ERROR_MESSAGE_1", "Please choose the suitable job for you!");
                 }
+            } else {
+                request.setAttribute("ERROR_MESSAGE_2", "Job isn't exist anymore!");
             }
 
         } catch (Exception e) {

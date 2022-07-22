@@ -28,6 +28,7 @@ public class CashOutHirerController extends HttpServlet {
     private final String ERROR = "error.html";
     private final String ERROR_NOT_ENOUGH_MONEY = "ViewBalanceHirerSeekerController";
     private static final String ERROR_NOT_HAVE_BALANCE_KEY = "ViewHirerProfileController";
+    private static final String ERROR_NOT_HAVE_BALANCE_KEY_SEEKER = "ViewSeekerProfileController";
     private final String SUCCESS = "";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +40,7 @@ public class CashOutHirerController extends HttpServlet {
             if (request.getParameter("role") == null) {
 
                 //check xem balance key của seeker có chưa
-                //  1.lấy seeker
+                //  1.lấy hirer
                 HirerDTO hirer1 = (HirerDTO) session.getAttribute("USER_LOGIN");
                 //  2.check balance key
                 PaymentDAO paymentDAO = new PaymentDAO();
@@ -71,22 +72,35 @@ public class CashOutHirerController extends HttpServlet {
                 }
             } else if (request.getParameter("role").equals("seeker")) {
 
-                SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
-                int moneyCashout = Integer.parseInt(request.getParameter("moneyCashout"));
-
-                //check xem money rút có lớn hơn balance hiện có trong web ko
-                UserDAO daoUser = new UserDAO();
-                if (moneyCashout > daoUser.getBalanceUser(seeker.getUserID())) {
-                    request.setAttribute("ERROR_NOT_ENOUGH_MONEY", "Not enough money to withdraw.");
-                    url = ERROR_NOT_ENOUGH_MONEY;
+                //check xem balance key của seeker có chưa
+                //  1.lấy seeker
+                SeekerDTO seeker1 = (SeekerDTO) session.getAttribute("USER_LOGIN");
+                //  2.check balance key
+                PaymentDAO paymentDAO = new PaymentDAO();
+                String client_id = paymentDAO.getClientID(seeker1.getUserID());
+                String client_secret = paymentDAO.getClientSecret(seeker1.getUserID());
+                if (client_id == null || client_secret == null) {
+                    request.setAttribute("UNKNOWN_BALANCE_KEY", "please update your PayPal key (id, secret) and then you can do this previous action");
+                    //request.getRequestDispatcher("ViewSeekerProfileController").forward(request, response);
+                    url = ERROR_NOT_HAVE_BALANCE_KEY_SEEKER;
                 } else {
-                    //tạo 1 record của transaction handling
-                    TransactionHandlingDAO dao = new TransactionHandlingDAO();
-                    if (dao.createHirerCashOut(seeker.getUserID(), moneyCashout)) { //hàm createHirerCashOut() dùng luôn cho seeker cũng đc
-                        //tru tien trong tai khoang web cua seeker di
+                    SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
+                    int moneyCashout = Integer.parseInt(request.getParameter("moneyCashout"));
 
-                        if (daoUser.UpdateBalanceAfterCashOutH(seeker.getUserID(), moneyCashout + "")) {
-                            url = "LoginController?userName=" + seeker.getUserName() + "&password=" + seeker.getPassword();
+                    //check xem money rút có lớn hơn balance hiện có trong web ko
+                    UserDAO daoUser = new UserDAO();
+                    if (moneyCashout > daoUser.getBalanceUser(seeker.getUserID())) {
+                        request.setAttribute("ERROR_NOT_ENOUGH_MONEY", "Not enough money to withdraw.");
+                        url = ERROR_NOT_ENOUGH_MONEY;
+                    } else {
+                        //tạo 1 record của transaction handling
+                        TransactionHandlingDAO dao = new TransactionHandlingDAO();
+                        if (dao.createHirerCashOut(seeker.getUserID(), moneyCashout)) { //hàm createHirerCashOut() dùng luôn cho seeker cũng đc
+                            //tru tien trong tai khoang web cua seeker di
+
+                            if (daoUser.UpdateBalanceAfterCashOutH(seeker.getUserID(), moneyCashout + "")) {
+                                url = "LoginController?userName=" + seeker.getUserName() + "&password=" + seeker.getPassword();
+                            }
                         }
                     }
                 }
