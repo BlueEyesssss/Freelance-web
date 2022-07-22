@@ -147,6 +147,8 @@
                                 <div class="skill-wrapper">
                                 <div class="text-block-26" style="display: inline-block"><%= skill%></div>
                                 </div>
+                                <div style="width: 10px">
+                                        </div>
                                 <%
                                     }
                                 %>
