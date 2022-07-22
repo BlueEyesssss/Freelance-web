@@ -86,7 +86,6 @@
                             <div class="dropdown-toggle w-dropdown-toggle"><img
                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                     loading="lazy" width="90"
-                                    srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 43.6875px, 6vw" alt=""
                                     class="avatar-img-nav" /></div>
                             <nav class="dropdown-list w-dropdown-list"><a href="MainController?action=ViewHirerProfile" class="dropdown-link w-dropdown-link">My

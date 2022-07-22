@@ -1,3 +1,4 @@
+<%@page import="sample.seeker.SeekerDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.project.ProjectDTO"%>
 <%@page import="sample.project.ProjectDAO"%>
@@ -32,6 +33,7 @@
     </style>
 </head>
 <%
+    SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
     ProposalDTO proposal = (ProposalDTO)request.getAttribute("PROPOSAL");
     ProjectDAO dao = new ProjectDAO();
     ProjectDTO project = dao.getProjectByID(proposal.getProjectID());
@@ -93,7 +95,7 @@
                 <div class="navigation-button-wrapper">
                     <div data-hover="false" data-delay="0" class="w-dropdown">
                         <div class="dropdown-toggle w-dropdown-toggle"><img
-                                src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                src="uploads/<%= seeker.getAvatar() %>"
                                 loading="lazy" width="90" alt="" class="avatar-img-nav" /></div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="MainController?action=ViewSeekerProfile"
                                 class="dropdown-link w-dropdown-link">My Profile</a><a href="MainController?action=Logout"
