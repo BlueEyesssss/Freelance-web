@@ -140,17 +140,17 @@
         <h4 class="heading-11">Skill and Expertise</h4>
         <div class="div-block-40">
           <div class="list-skill-copy">
-            <div class="skill-wrapper">
+            
               <%
                                     for (String skill : project.getSkillneed()) {
                                 %>
-                                
+                                <div class="skill-wrapper">
                                 <div class="text-block-26" style="display: inline-block"><%= skill%></div>
-                                
+                                </div>
                                 <%
                                     }
                                 %>
-            </div>
+            
           </div>
         </div>
       </div>
