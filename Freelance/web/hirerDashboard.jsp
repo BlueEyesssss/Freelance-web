@@ -83,7 +83,10 @@
                         <div class="dropdown-toggle-3 w-dropdown-toggle">
                             <div class="text-block-22">Find Talent</div>
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"></nav>
+                        <nav class="dropdown-list-2 w-dropdown-list">
+                            <a href="findTalent.jsp"
+                                class="dropdown-link-nav w-dropdown-link">Find Talent</a>
+                        </nav>
                     </div>
                 </div><a href="#" class="link-block w-inline-block"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
