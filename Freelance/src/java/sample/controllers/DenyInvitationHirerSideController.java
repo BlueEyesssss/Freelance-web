@@ -7,37 +7,33 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.contract.ContractDAO;
 import sample.proposal.ProposalDAO;
-import sample.seeker.SeekerDTO;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "DenyInvitationOfHirerController", urlPatterns = {"/DenyInvitationOfHirerController"})
-public class DenyInvitationOfHirerController extends HttpServlet {
-    private static final String ERROR = "error.html";
-    private static final String SUCCESS = "ViewProposalController";
+@WebServlet(name = "DenyInvitationHirerSideController", urlPatterns = {"/DenyInvitationHirerSideController"})
+public class DenyInvitationHirerSideController extends HttpServlet {
 
+    private static final String ERROR = "error.html";
+    private static final String SUCCESS = "ViewHirerDashboardController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-
         try {       
-            int proposalID = Integer.parseInt(request.getParameter("proposalID"));            
-
+            int projectID = Integer.parseInt(request.getParameter("projectID"));            
+            int seekerID = Integer.parseInt(request.getParameter("seekerID"));            
+            
             ProposalDAO dao = new ProposalDAO();
             
-                boolean checkUpdateStatusProposal = dao.changeStatusProposal(proposalID, 3);
+                boolean checkUpdateStatusProposal = dao.changeStatusProposalOnlyOne(projectID, 3,seekerID);
                 
                 if (checkUpdateStatusProposal) {
                     url = SUCCESS;

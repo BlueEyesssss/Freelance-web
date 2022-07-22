@@ -173,13 +173,14 @@
                                         <%
                                             UserDAO userDao = new UserDAO();
                                             UserDTO userIsSeeker = null;
+                                            int star = -1;
                                             SeekerDAO seekerDao = new SeekerDAO();
                                             List<SeekerDTO> listSeeker = seekerDao.getListSeeker();
                                             if (listSeeker != null) {
                                                 if (!listSeeker.isEmpty()) {
                                                     for (SeekerDTO seeker : listSeeker) {
                                                         userIsSeeker = userDao.getUserByID(seeker.getSeekerID());
-
+                                                        star = seekerDao.getReviewGrade(seeker.getSeekerID());
 
                                         %>
                                         <div class="talent-wrappper"><a data-w-id="21656960-52d5-5f8e-04ae-05ab3a417bbe"
@@ -330,7 +331,7 @@
                                                                 <div class="lb-review-wrapper"><img loading="lazy"
                                                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                                                     alt="" class="image-10" />
-                                                                    <div class="lb-review-text">4.5/5 Reviews<br />of 999
+                                                                    <div class="lb-review-text"><%=star%>/5 Reviews<br />of 999
                                                                         reviews</div>
                                                                 </div>
                                                                 <div class="lb-left-element-wrapper">

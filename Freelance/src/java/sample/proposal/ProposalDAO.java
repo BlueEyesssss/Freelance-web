@@ -227,6 +227,35 @@ public class ProposalDAO {
         }
         return check;
     }
+    private static final String UPDATE_PROPOSAL_STATUS_ONLY_ONE_PROPOSAL = "UPDATE Proposal\n"
+            + "SET proposalStatusID = ?\n"
+            + "WHERE projectID = ? AND seekerID = ?";
+
+    public boolean changeStatusProposalOnlyOne(int projectID, int proposalStatusID, int seekerID) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE_PROPOSAL_STATUS_ONLY_ONE_PROPOSAL);
+                ptm.setInt(1, proposalStatusID);
+                ptm.setInt(2, projectID);
+                ptm.setInt(3, seekerID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
     
     private static final String UPDATE_PROPOSAL_STATUS_BY_ID_SEEKERDONE = "update Proposal\n" +
 "set proposalStatusID = ?\n" +

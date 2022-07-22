@@ -322,5 +322,84 @@ public class SeekerDAO {
         }
         return list;
     } 
-
+    
+            private static final String GET_LIST_INVITED_SEEKRER = "SELECT A.* \n" +
+"FROM Seeker A, Proposal B WHERE B.proposalStatusID=2 AND A.seekerID = B.seekerID";
+    
+    public List<SeekerDTO> getListInvitedSeeker() throws SQLException {
+        List<SeekerDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+               
+                stm = conn.prepareStatement(GET_LIST_INVITED_SEEKRER);
+            
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int seekerID = rs.getInt("seekerID");
+                    String overview = rs.getString("overview");
+                    String titileBio = rs.getString("titileBio");
+                    int moneyPerHour = rs.getInt("moneyPerHour");
+                    String education = rs.getString("education");
+                    String degree = rs.getString("degree");
+                    String major = rs.getString("major");
+                    String hourPerWeek = rs.getString("hourPerWeek");   
+                    list.add(new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    } 
+    
+    private static final String COUNT_TOTAL_CONTRACT_OF_HIRER= " SELECT COUNT(proposalID) as total\n" +
+" FROM  Proposal B\n" +
+" WHERE B.seekerID=? AND B.proposalStatusID = 7 OR B.proposalStatusID=6";
+    
+    public int countTotalContract(int seekerID) throws SQLException {
+        int count = -1;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+               
+                stm = conn.prepareStatement(COUNT_TOTAL_CONTRACT_OF_HIRER);
+                stm.setInt(1, seekerID);
+                rs = stm.executeQuery();
+                while(rs.next()){
+                    count = rs.getInt("total");
+                }
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }return count;
+    } 
+    
 }

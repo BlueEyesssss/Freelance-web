@@ -4,6 +4,10 @@
     Author     : Phat
 --%>
 
+<%@page import="sample.skill.SkillDTO"%>
+<%@page import="sample.skill.SkillDAO"%>
+<%@page import="sample.seeker.SeekerDAO"%>
+<%@page import="sample.user.UserDAO"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.LocalDate"%>
@@ -210,11 +214,24 @@
                                 <p class="intro">This is the list of invited freelancer, please waiting for their
                                     responding!</p>
                             </div>
-                            <div class="div-block-43">
-                                <div class="text-block-40">There is no proposal applied to this project. Do you want to
-                                    invite some freelancer? </div><a href="#" class="button-2 w-button">Invite
-                                    Freelancer</a>
-                            </div>
+                            
+                            
+                            
+                            <%
+                                            UserDAO userDao = new UserDAO();
+                                            UserDTO userIsSeeker = null;
+                                            int totalJob = -1;
+                                            int star = -1;
+                                            SeekerDAO seekerDao = new SeekerDAO();
+                                            List<SeekerDTO> listSeeker = seekerDao.getListInvitedSeeker();
+                                            if (listSeeker != null) {
+                                                if (!listSeeker.isEmpty()) {
+                                                    for (SeekerDTO seeker : listSeeker) {
+                                                        userIsSeeker = userDao.getUserByID(seeker.getSeekerID());
+                                                        totalJob = seekerDao.countTotalContract(seeker.getSeekerID());
+                                                        star = seekerDao.getReviewGrade(seeker.getSeekerID());
+                                        %>
+                                        
                             <div class="proposal">
                                 <div class="left-proposal">
                                     <div class="image-container"><img
@@ -238,10 +255,10 @@
                                                                         src="https://uploads-ssl.webflow.com/62aa7d13e81bc5858eb14b7e/62ad1a2fb91b813d9e9d488e_thinking.png"
                                                                         loading="lazy" alt="" class="image-18" /></div>
                                                                 <div class="div-block-16">
-                                                                    <h3 class="heading-6">Phat H.</h3>
-                                                                    <div>Singapore</div>
+                                                                    <h3 class="heading-6"><%=userIsSeeker.getFullName()%></h3>
+                                                                    <div><%=userIsSeeker.getLocation()%></div>
                                                                 </div>
-                                                                <div class="div-block-17"><a href="#"
+                                                                <div class="div-block-17"><a href="DenyInvitationHirerSideController?projectID=<%=currentProject.getProjectID()%>&seekerID=<%=seeker.getSeekerID()%>"
                                                                                              class="button w-button">Uninvite</a></div>
                                                             </div>
                                                             <div class="div-block-18">
@@ -249,31 +266,27 @@
                                                                     <p class="paragraph"><strong>Invited
                                                                             List:<br /></strong>List Seeker that you invited
                                                                         to your Project</p>
-                                                                    <p class="paragraph"><strong>Grades:<br /></strong>5/5
+                                                                    <p class="paragraph"><strong>Grades:<br /></strong><%=star%>/5
                                                                         stars rating</p>
                                                                     <p class="paragraph"><strong>Total
-                                                                            Jobs:<br /></strong>123 jobs</p>
+                                                                            Jobs:<br /></strong><%= totalJob%> jobs</p>
                                                                     <p class="paragraph">
-                                                                        <strong>Language:<br />‍</strong>English: Basic</p>
+                                                                        <strong>Language:<br />‍</strong><%=userIsSeeker.getLanguage()%>: <%=userIsSeeker.getLanguagelv()%></p>
                                                                     <p class="paragraph">
-                                                                        <strong>Education:<br />‍</strong>FPT
-                                                                        University<br />University, Software Engineering</p>
+                                                                        <strong>Education:<br />‍</strong><%=seeker.getEducation()%></p>
                                                                 </div>
                                                                 <div class="div-block-20">
                                                                     <div class="div-block-21">
                                                                         <div class="div-block-22">
-                                                                            <h4 class="heading-7">Full Stack Developer</h4>
+                                                                            <h4 class="heading-7"><%= seeker.getMajor()%></h4>
                                                                         </div>
                                                                         <div class="div-block-23">
-                                                                            <div class="text-block-31">1000$/hr</div>
+                                                                            <div class="text-block-31"><%=seeker.getMoneyPerHour()%>$/hr</div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="div-block-24">
                                                                         <h5 class="heading-8">Overview:</h5>
-                                                                        <div class="text-block-32">chung toi chinh lajlga
-                                                                            gnag ag jalgjla ga ga galg ag ag ag algdjf dlfg
-                                                                            fg al gal ga g fadf aldjg lagj ajg la gadg ladlg
-                                                                            aga ;jdgl algj aleg lagj alsdgjl</div>
+                                                                        <div class="text-block-32"><%= seeker.getOverview()%></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -282,36 +295,60 @@
                                                 </div>
                                             </div>
                                             <h4 data-w-id="b1f33dcd-75a7-140e-4edf-099a7e03cf9f" class="name"><a href="#"
-                                                                                                                 class="link-5"><span class="text-span-4-copy">Phat H.</span></a></h4>
-                                            <div class="major">Full Stack Development | Front-end Dev (major)</div>
-                                            <div class="location"><span class="text-span-3">Singapore (location)</span>
+                                                                                                                 class="link-5"><span class="text-span-4-copy"><%=userIsSeeker.getFullName()%></span></a></h4>
+                                            <div class="major"><%= seeker.getMajor()%></div>
+                                            <div class="location"><span class="text-span-3"><%=userIsSeeker.getLocation()%></span>
                                             </div>
                                             <div class="payment-amount-and-rating">
                                                 <div class="payment-and-rating">
-                                                    <div>100$/hours (money/hours)</div>
+                                                    <div><%=seeker.getMoneyPerHour()%>$/hours (money/hours)</div>
                                                 </div>
                                                 <div class="payment-and-rating">
                                                     <div>4/5 <strong>☆</strong></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="right"><a href="#" class="hire-button w-button">Uninvite</a></div>
+                                                
+                                        <div class="right"><a href="DenyInvitationHirerSideController?projectID=<%=currentProject.getProjectID()%>&seekerID=<%=seeker.getSeekerID()%>" class="hire-button w-button">Uninvite</a></div>
+                                    
                                     </div>
                                     <div class="down">
                                         <div class="cover-letter-wrapper">
-                                            <p class="cover-letter">Over View: Lorem ipsum dolor sit amet, consectetur
-                                                adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis
-                                                cursus, mi quis viverra ornare, eros dolor gag a a ... (overview - chỗ này
-                                                giới hạn kí tự hiển thị)</p>
+                                            <p  class="cover-letter">Over View: <%= seeker.getOverview()%></p>
                                         </div>
+                                        <%
+                                                SkillDAO skillDao = new SkillDAO();
+                                                List<SkillDTO> listSkillOfSeeker = skillDao.getListSkillIDOfSeeker(seeker.getSeekerID());
+                                            %>
                                         <div class="list-skill">
+                                            
                                             <div class="skill-wrapper">
-                                                <div class="text-block-26">HTML</div>
+                                                 <%for (SkillDTO skill : listSkillOfSeeker) {
+                                                %>
+                                                <div class="text-block-26"><%= skill.getSkillName()%></div>
+                                                <%
+                                                    }
+                                                %>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                                        
+                                        <%       }
+                                                }
+                                            }else{
+%>
+                             <div class="div-block-43">
+                                <div class="text-block-40">There is no proposal applied to this project. Do you want to
+                                    invite some freelancer? </div><a href="findTalent.jsp" class="button-2 w-button">Invite
+                                    Freelancer</a>
+                            </div>           
+                            <%
+}
+                                        %>
+                            
                         </div>
                     </div>
                     <div data-w-tab="Tab 3" class="tab-pane-tab-3 w-tab-pane">
