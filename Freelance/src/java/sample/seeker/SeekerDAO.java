@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import sample.util.DBUtil;
@@ -278,5 +279,48 @@ public class SeekerDAO {
         }
         return reviewGrade;
     }
+    
+    private static final String GET_LIST_ALL_SEEKRER = "SELECT * \n" +
+" FROM Seeker";
+    
+    public List<SeekerDTO> getListSeeker() throws SQLException {
+        List<SeekerDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+               
+                stm = conn.prepareStatement(GET_LIST_ALL_SEEKRER);
+            
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int seekerID = rs.getInt("seekerID");
+                    String overview = rs.getString("overview");
+                    String titileBio = rs.getString("titileBio");
+                    int moneyPerHour = rs.getInt("moneyPerHour");
+                    String education = rs.getString("education");
+                    String degree = rs.getString("degree");
+                    String major = rs.getString("major");
+                    String hourPerWeek = rs.getString("hourPerWeek");   
+                    list.add(new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    } 
 
 }

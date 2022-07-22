@@ -1,3 +1,12 @@
+<%@page import="sample.proposal.ProposalDTO"%>
+<%@page import="sample.proposal.ProposalDAO"%>
+<%@page import="sample.skill.SkillDAO"%>
+<%@page import="sample.skill.SkillDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="sample.seeker.SeekerDTO"%>
+<%@page import="sample.seeker.SeekerDAO"%>
+<%@page import="sample.user.UserDTO"%>
+<%@page import="sample.user.UserDAO"%>
 <!DOCTYPE html><!-- This site was created in Webflow. https://www.webflow.com -->
 <!-- Last Published: Sat Jul 09 2022 16:48:10 GMT+0000 (Coordinated Universal Time) -->
 <html data-wf-domain="upwork-7e964a.webflow.io" data-wf-page="6296b682f8b462fb53aec689"
@@ -17,10 +26,10 @@
         type="text/javascript">WebFont.load({google: {families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"]}});</script>
         <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif]-->
         <script
-        type="text/javascript">!function (o, c) {
-                var n = c.documentElement, t = " w-mod-";
-                n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
-            }(window, document);</script>
+            type="text/javascript">!function (o, c) {
+                    var n = c.documentElement, t = " w-mod-";
+                    n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+                }(window, document);</script>
         <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
         <style>
@@ -118,14 +127,25 @@
                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62943201437de47785dfbc00_chevron-left.png"
                                                 loading="lazy" alt="" class="image-18" />
                                         </div>
+                                        
+                                        <%
+                                        List<SkillDTO> listSkillAll = (List<SkillDTO>) session.getAttribute("LIST_SKILL_ALL");
+                                        for (SkillDTO elem : listSkillAll) {
+
+                                    %>
+                                    
                                         <div class="filter-accordion-content"><label class="w-checkbox text-block-5">
                                                 <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                                 </div><input type="checkbox" name="skillName-2" id="skillName-2"
                                                              data-name="Skill Name 2"
                                                              style="opacity:0;position:absolute;z-index:-1" /><span
-                                                             class="checkbox-label-2 w-form-label" for="skillName-2">Query from data
-                                                    base - $ <span class="filter-small-label">(23803)</span></span>
+                                                             class="checkbox-label-2 w-form-label" for="skillName-2"><%=elem.getSkillName()%></span>
                                             </label></div>
+                                    
+                                    <%                                        }
+
+                                        %>
+                                        
                                     </div>
                                 </div>
                             </form>
@@ -150,18 +170,29 @@
                                         <div class="text-block-5">Browse jobs that match your experience to a client&#x27;s
                                             hiring preferences.<br />Ordered by most relevant.</div>
                                         <div class="seeker-dividen"></div>
+                                        <%
+                                            UserDAO userDao = new UserDAO();
+                                            UserDTO userIsSeeker = null;
+                                            SeekerDAO seekerDao = new SeekerDAO();
+                                            List<SeekerDTO> listSeeker = seekerDao.getListSeeker();
+                                            if (listSeeker != null) {
+                                                if (!listSeeker.isEmpty()) {
+                                                    for (SeekerDTO seeker : listSeeker) {
+                                                        userIsSeeker = userDao.getUserByID(seeker.getSeekerID());
+
+
+                                        %>
                                         <div class="talent-wrappper"><a data-w-id="21656960-52d5-5f8e-04ae-05ab3a417bbe"
                                                                         href="#" class="click-link-talent w-inline-block"><img
-                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                                    src=<%= userIsSeeker.getAvatar()%>
                                                     loading="lazy"
-                                                    srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                                    srcset=<%= userIsSeeker.getAvatar()%>
                                                     sizes="(max-width: 479px) 100vw, 99.99609375px" alt=""
                                                     class="image-23" />
                                                 <div class="div-block-142">
-                                                    <h3 class="heading-talent">Thien Pham</h3>
-                                                    <div class="text-block-153"><strong class="bold-text-81">Webflow
-                                                            developer</strong></div>
-                                                    <div class="text-block-152">Saigon</div>
+                                                    <h3 class="heading-talent"><%=userIsSeeker.getFullName()%></h3>
+                                                    <div class="text-block-153"><strong class="bold-text-81"><%= seeker.getMajor()%></strong></div>
+                                                    <div class="text-block-152"><%=userIsSeeker.getLocation()%></div>
                                                 </div>
                                             </a>
                                             <!-- <div class="heart-wrapper talent-heart"><img
@@ -172,24 +203,32 @@
                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62962a3896c88f623a54351f_heart-fill.svg"
                                                     loading="lazy" alt="" class="icon-heart-fill" /></div> -->
                                             <div class="div-horizon _3-column margin-20">
-                                                <div class="text-block-154"><strong>$20.00</strong>/hr</div>
+                                                <div class="text-block-154"><strong>$<%=seeker.getMoneyPerHour()%></strong>/hr</div>
                                                 <!-- <div class="text-block-155"><strong>$10k+ </strong>earned</div>
                                                 <div class="text-block-156"><strong>96% </strong>Job Success</div> -->
                                             </div>
-                                            <p class="paragraph-3">Hello everyone. I am website developer on webflow know
-                                                how to work with different kinds of website layout I can:<br />- Development
-                                                of websites on Webflow from prepared designs (zeplin, figma, xd,
-                                                invision);<br />- Development of specific animations on Webflow;</p>
+                                            <p class="paragraph-3"><%= seeker.getOverview()%></p>
                                             <div class="review-stars-wrapper"><img loading="lazy"
                                                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                                    alt="" />
                                                 <div> 4,5/5 points</div>
                                             </div>
+                                            <%
+                                                SkillDAO skillDao = new SkillDAO();
+                                                List<SkillDTO> listSkillOfSeeker = skillDao.getListSkillIDOfSeeker(seeker.getSeekerID());
+                                            %>
+
                                             <div class="seeker-skill-wrapper">
-                                                <div class="seeker-skill">Front-end Developer</div>
-                                                <div class="seeker-skill">Front-end Developer</div>
-                                                <div class="seeker-skill">Front-end Developer</div>
+                                                <%for (SkillDTO skill : listSkillOfSeeker) {
+                                                %>
+                                                <div class="seeker-skill"><%= skill.getSkillName()%></div>
+                                                <%
+                                                    }
+                                                %>
+
+
                                             </div>
+
                                             <div class="seeker-dividen"></div><a href="#"
                                                                                  class="main-button invite-button w-button">Invite to Job</a>
                                             <div style="opacity:0" class="lightbox-project-detail">
@@ -309,19 +348,23 @@
                                                                 <div>Member since May 30, 2022</div>
                                                             </div>
                                                         </div>
+
+
+
+
                                                         <div class="main-information-wrapper">
                                                             <div class="seeker-header-div">
                                                                 <div class="seeker-header-div-left"><img
                                                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                                                         loading="lazy"
-                                                                        srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
+                                                                        srcset=<%= userIsSeeker.getAvatar()%>
                                                                         sizes="100vw" alt="" class="image-12" />
                                                                     <div>
-                                                                        <h1 class="heading-14">Thien Pham</h1>
+                                                                        <h1 class="heading-14"><%=userIsSeeker.getFullName()%></h1>
                                                                         <div class="div-block-28"><img
                                                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296c1f76519c0d7c2b00673_map-pin.svg"
                                                                                 loading="lazy" alt="" class="image-13" />
-                                                                            <div class="text-block-21"><br />Saigon, Vietnam
+                                                                            <div class="text-block-21"><br /><%= userIsSeeker.getLocation()%>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -366,23 +409,19 @@
                                                                     <div class="seeker-right-information-wrapper">
                                                                         <div class="div-horizon space-between">
                                                                             <div class="div-horizon _60">
-                                                                                <h1 class="heading-tittle">Web Design and
-                                                                                    Developer | Figma, Webflow, HTML/CSS
+                                                                                <h1 class="heading-tittle"><%=seeker.getTitileBio()%>
                                                                                     <br /></h1>
                                                                             </div>
                                                                             <div>
                                                                                 <div class="div-horizon _20">
                                                                                     <h3><strong
-                                                                                            class="bold-text-2">$12.00/hr</strong>
+                                                                                            class="bold-text-2">$<%=seeker.getMoneyPerHour()%>/hr</strong>
                                                                                     </h3>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="div-horizon">
-                                                                            <div class="my-bio">? My name is Thien Pham, I
-                                                                                am passionate in creating friendly digital
-                                                                                product that can help people save their time
-                                                                                and enhance their productivity</div>
+                                                                            <div class="my-bio"><%= seeker.getMajor()%></div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="seeker-right-information-wrapper">
@@ -456,32 +495,48 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="div-horizon">
-                                                                            <div class="seeker-skill">Front-end Developer
-                                                                            </div>
-                                                                            <div class="seeker-skill">Front-end Developer
-                                                                            </div>
-                                                                            <div class="seeker-skill">Front-end Developer
-                                                                            </div>
-                                                                            <div class="seeker-skill">Front-end Developer
-                                                                            </div>
+                                                                            <%for (SkillDTO skill : listSkillOfSeeker) {
+                                                                            %>
+                                                                            <div class="seeker-skill"><%= skill.getSkillName()%></div>
+                                                                            <%
+                                                                                }
+                                                                            %>
+
+
                                                                         </div>
                                                                     </div>
                                                                     <div class="seeker-right-information-wrapper no-border">
                                                                         <h1 class="heading-tittle">Work History<br /></h1>
                                                                         <div class="div-vertical">
+                                                                            <%
+                                                                                ProposalDAO proposalDao = new ProposalDAO();
+                                                                                List<ProposalDTO> listProposal = proposalDao.getHistoryProject(seeker.getSeekerID());
+                                                                                if (listProposal.isEmpty()) {
+                                                                            %>
+
                                                                             <div class="text-block-seeker">No work yet. Once
                                                                                 you start getting hired on Upwork, your work
                                                                                 with clients will show up here.</div>
+
+                                                                            <%
+                                                                            } else {
+                                                                            
+                                                                                for (ProposalDTO proposal : listProposal) {  
+                                                                                String comment = proposal.getClientComment();
+                                                                                 if(comment==null)
+                                                                                             comment ="";
+                                                                                                
+                                                                            %>
+                                                                            
                                                                             <div class="job-history-wrapper">
                                                                                 <div class="job-history-element">
                                                                                     <div class="history-left">
-                                                                                        <h4 class="heading-18">Front-end
-                                                                                            e-comerce website</h4>
-                                                                                        <div>June 2021 - July 2021</div>
-                                                                                        <div class="no-feedback">If no
-                                                                                            feedback: No feedback</div>
-                                                                                        <div class="review-feedback">If has
-                                                                                            feedback: Excellent!</div>
+                                                                                        <h4 class="heading-18"><%=proposal.getProjectName()%></h4>
+                                                                                        <div><%=proposal.getStartTime()%> - <%=proposal.getEndTime()%></div>
+<!--                                                                                        <div class="no-feedback">If no
+                                                                                            feedback: No feedback</div>-->
+                                                                                            
+                                                                                        <div class="review-feedback"><%=comment%></div>
                                                                                         <div class="review-stars-wrapper">
                                                                                             <img loading="lazy"
                                                                                                  src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
@@ -490,40 +545,18 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="history-right">
-                                                                                        <h4 class="heading-17">20 hours</h4>
-                                                                                        <div class="text-block-30">$10$ / h
+                                                                                        <h4 class="heading-17"><%=proposal.getDurationText()%></h4>
+                                                                                        <div class="text-block-30">$<%=seeker.getMoneyPerHour()%> / h
                                                                                         </div>
-                                                                                        <div class="text-block-30">$200
+                                                                                        <div class="text-block-30">$<%= proposal.getPaymentAmount()%>
                                                                                             earned</div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="job-history-element">
-                                                                                    <div class="history-left">
-                                                                                        <h4 class="heading-18">Data
-                                                                                            Scientist for predicting the
-                                                                                            stock price</h4>
-                                                                                        <div class="text-block-seeker">June
-                                                                                            2021 - July 2021</div>
-                                                                                        <div class="no-feedback">No feedback
-                                                                                        </div>
-                                                                                        <div class="review-feedback">
-                                                                                            Excellent!</div>
-                                                                                        <div class="review-stars-wrapper">
-                                                                                            <img loading="lazy"
-                                                                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
-                                                                                                 alt="" />
-                                                                                            <div> 4,5/5 points</div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="history-right">
-                                                                                        <h4 class="heading-17">20 hours</h4>
-                                                                                        <div class="text-block-30">$10$ / h
-                                                                                        </div>
-                                                                                        <div class="text-block-30">$200
-                                                                                            earned</div>
-                                                                                    </div>
-                                                                                </div>
+                                                                                
                                                                             </div>
+                                                                            <%
+    }}
+                                                                            %>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -565,6 +598,12 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <%       }
+                                                }
+                                            }
+                                        %>
+
+
                                     </div>
 
                                 </div>

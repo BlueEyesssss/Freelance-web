@@ -37,7 +37,26 @@ public class ProposalDTO {
     private String fileName;
     private String path;
     private String dateSeekerDone;
+    private String startTime;
+    private String endTime;
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    
     public ProposalDTO(int proposalID_hasDateSeekerDone, int projectID, int seekerID, double paymentAmount, String dateSeekerDone) {
         this.proposalID = proposalID_hasDateSeekerDone;
         this.projectID = projectID;
@@ -246,7 +265,27 @@ public class ProposalDTO {
         this.durationText = durationText;
     }
 
-    //thiếu durationText đầu vào
+    
+    public ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, String proposalStatusName, double clientGrade, String clientComment, double seekerGrade, String seekerComment, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName, String startTime, String endTime, String durationText) {
+        this.proposalID = proposalID;
+        this.projectID = projectID;
+        this.seekerID = seekerID;
+        this.paymentAmount = paymentAmount;
+        this.proposalStatusName = proposalStatusName;
+        this.clientGrade = clientGrade;
+        this.clientComment = clientComment;
+        this.seekerGrade = seekerGrade;
+        this.seekerComment = seekerComment;
+        this.coverLetter = coverLetter;
+        this.attachment = attachment;
+        this.createdDate = createdDate;
+        this.expectedDurationID = expectedDurationID;
+        this.projectName = projectName;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.durationText = durationText;
+    }
+    
     public ProposalDTO(int proposalID, int projectID, int seekerID, double paymentAmount, String proposalStatusName, double clientGrade, String clientComment, double seekerGrade, String seekerComment, String coverLetter, String attachment, String createdDate, String expectedDurationID, String projectName) {
         this.proposalID = proposalID;
         this.projectID = projectID;
@@ -262,6 +301,7 @@ public class ProposalDTO {
         this.createdDate = createdDate;
         this.expectedDurationID = expectedDurationID;
         this.projectName = projectName;
+        
     }
 
     public ProposalDTO() {

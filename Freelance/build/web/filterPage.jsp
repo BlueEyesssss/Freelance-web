@@ -159,8 +159,7 @@
                                             </div><a href="MainController?action=FilterLevel&level=Entry"><input type="checkbox" name="entryLevel" id="entryLevel"
                                                                                                                  data-name="entryLevel"
                                                                                                                  style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                 class="checkbox-label-2 w-form-label" for="entryLevel">Entry Level - $
-                                                    <span class="filter-small-label">(23803)</span></span></a>
+                                                                                                                 class="checkbox-label-2 w-form-label" for="entryLevel">Entry Level </span></a>
                                         </label>
 
                                         <label class="w-checkbox text-block-5">
@@ -169,15 +168,14 @@
                                                                                                                         data-name="intermediate"
                                                                                                                         style="opacity:0;position:absolute;z-index:-1" /><span
                                                                                                                         class="checkbox-label-2 w-form-label" for="intermediate">Intermediate -
-                                                    $$ <span class="filter-small-label">(93474)</span></span></a>
+                                                    $$ </span></a>
                                         </label>
 
                                         <label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterLevel&level=Expert"><input type="checkbox" name="expert" id="expert" data-name="expert"
                                                                                                                   style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                  class="checkbox-label-2 w-form-label" for="expert">Expert - $$$ <span
-                                                        class="filter-small-label">(55651)</span></span></a>
+                                                                                                                  class="checkbox-label-2 w-form-label" for="expert">Expert - $$$ </span></a>
                                         </label></div>
                                 </div>
                                 <div class="filter-accordion-wrapper">
@@ -192,32 +190,28 @@
                                                                                                                        data-name="lessThan100"
                                                                                                                        style="opacity:0;position:absolute;z-index:-1" /><span
                                                                                                                        class="checkbox-label-2 w-form-label" for="lessThan100">Less than $100
-                                                    <span class="filter-small-label">(23803)</span></span></a>
+                                                    </span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterPrice&price=100To500"><input type="checkbox" name="100To500" id="100To500"
                                                                                                                     data-name="100To500"
                                                                                                                     style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                    class="checkbox-label-2 w-form-label" for="100To500">$100 - $500 <span
-                                                        class="filter-small-label">(93474)</span></span></a>
+                                                                                                                    class="checkbox-label-2 w-form-label" for="100To500">$100 - $500 </span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterPrice&price=500To1k"><input type="checkbox" name="500To1k" id="500To1k" data-name="500To1k"
                                                                                                                    style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                   class="checkbox-label-2 w-form-label" for="500To1k">$500 - $1k <span
-                                                        class="filter-small-label">(55651)</span></span></a>
+                                                                                                                   class="checkbox-label-2 w-form-label" for="500To1k">$500 - $1k </span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterPrice&price=1kTo5k"><input type="checkbox" name="1kTo5k" id="1kTo5k" data-name="1kTo5k"
                                                                                                                   style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                  class="checkbox-label-2 w-form-label" for="1kTo5k">$1k - $5k <span
-                                                        class="filter-small-label">(55651)</span></span></a>
+                                                                                                                  class="checkbox-label-2 w-form-label" for="1kTo5k">$1k - $5k </span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterPrice&price=largerThan5k"><input type="checkbox" name="largerThan5k" id="5k" data-name="5k"
                                                                                                                         style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                        class="checkbox-label-2 w-form-label" for="5k">$5k+ <span
-                                                        class="filter-small-label">(55651)</span></span></a>
+                                                                                                                        class="checkbox-label-2 w-form-label" for="5k">$5k+ </span></a>
                                         </label></div>
                                 </div>
                                 <div class="filter-accordion-wrapper">
@@ -232,28 +226,28 @@
                                                                                                                                    data-name="lessThan1Month"
                                                                                                                                    style="opacity:0;position:absolute;z-index:-1" /><span
                                                                                                                                    class="checkbox-label-2 w-form-label" for="lessThan1Month">Less than 1
-                                                    month <span class="filter-small-label">(23803)</span></span></a>
+                                                    month </span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterDuration&duration=1-3 months"><input type="checkbox" name="1To3Months" id="1To3Months"
                                                                                                                             data-name="1To3Months"
                                                                                                                             style="opacity:0;position:absolute;z-index:-1" /><span
                                                                                                                             class="checkbox-label-2 w-form-label" for="1To3Months">1 to 3 months
-                                                    <span class="filter-small-label">(93474)</span></span></a>
+                                                    </span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterDuration&duration=3-6 months"><input type="checkbox" name="3To6Months" id="3To6Months"
                                                                                                                             data-name="3To6Months"
                                                                                                                             style="opacity:0;position:absolute;z-index:-1" /><span
                                                                                                                             class="checkbox-label-2 w-form-label" for="3To6Months">3 to 6 months
-                                                    <span class="filter-small-label">(55651)</span></span></a>
+                                                    </span></a>
                                         </label><label class="w-checkbox text-block-5">
                                             <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                             </div><a href="MainController?action=FilterDuration&duration=6 or more months"><input type="checkbox" name="MoreThan6Months" id="MoreThan6Months"
                                                                                                                                   data-name="MoreThan6Months"
                                                                                                                                   style="opacity:0;position:absolute;z-index:-1" /><span
                                                                                                                                   class="checkbox-label-2 w-form-label" for="MoreThan6Months">More than 6
-                                                    months <span class="filter-small-label">(55651)</span></span></a>
+                                                    months </span></a>
                                         </label></div>
                                 </div>
                                 <div class="filter-accordion-wrapper">
@@ -272,7 +266,7 @@
                                             </div><a href="MainController?action=FilterSkill&skill=<%= elem.getSkillName()%>"><input type="checkbox" name="skillName" id="skillName"
                                                                                                                                      data-name="skillName"
                                                                                                                                      style="opacity:0;position:absolute;z-index:-1" /><span
-                                                                                                                                     class="checkbox-label-2 w-form-label" for="skillName"><%=elem.getSkillName()%>- $ <span class="filter-small-label">(23803)</span></span></a>
+                                                                                                                                     class="checkbox-label-2 w-form-label" for="skillName"><%=elem.getSkillName()%></span></a>
                                         </label></div>
                                         <%                                        }
 

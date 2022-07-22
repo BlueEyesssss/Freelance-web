@@ -30,9 +30,9 @@ public class ProposalDAO {
             + " FROM Proposal A, ProposalStatus B, Project C"
             + " WHERE A.seekerID = ? AND B.statusName LIKE 'proposal sent' AND A.proposalStatusID = B.proposalStatusID AND A.projectID = C.projectID ";
 
-    private static final String VIEW_HISTORY_PROPOSAL = " SELECT proposalID, A.projectID, seekerID, A.paymentAmount, B.statusName, clientGrade, clientComment, seekerGrade,seekerComment,coverLetter,attachment,A.createdDate,A.expectedDurationID,C.projectName"
-            + " FROM Proposal A, ProposalStatus B, Project C"
-            + " WHERE A.seekerID = ? AND B.statusName LIKE 'job finished successfully' AND A.proposalStatusID = B.proposalStatusID AND A.projectID = C.projectID ";
+    private static final String VIEW_HISTORY_PROPOSAL = " SELECT A.proposalID, A.projectID, seekerID, A.paymentAmount, B.statusName, clientGrade, clientComment, seekerGrade,seekerComment,coverLetter,attachment,A.createdDate,A.expectedDurationID,C.projectName, D.startTime, D.endTime, E.durationText "
+            + " FROM Proposal A, ProposalStatus B, Project C, Contract D, ExpectedDuration E"
+            + " WHERE A.seekerID = ? AND B.statusName LIKE 'job finished successfully' AND A.proposalStatusID = B.proposalStatusID AND A.projectID = C.projectID AND A.proposalID=D.proposalID AND A.expectedDurationID = E.expectedDurationID ";
 
     private static final String VIEW_HISTORY_PROPOSAL_OF_HIRER = " SELECT proposalID, A.projectID, seekerID, A.paymentAmount, B.statusName, clientGrade, clientComment, seekerGrade,seekerComment,coverLetter,attachment,A.createdDate,A.expectedDurationID,C.projectName"
             + " FROM Proposal A, ProposalStatus B, Project C, Hirer D"
@@ -627,8 +627,11 @@ public class ProposalDAO {
                     String createdDate = rs.getString("createdDate");
                     String expectedDurationID = rs.getString("expectedDurationID");
                     String projectName = rs.getString("projectName");
+                    String startTime = rs.getString("startTime");
+                    String endTime = rs.getString("endTime");
+                    String durationText = rs.getString("durationText");
 
-                    list.add(new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusName, clientGrade, clientComment, seekerGrade, seekerComment, coverLetter, attachment, createdDate, expectedDurationID, projectName));
+                    list.add(new ProposalDTO(proposalID, projectID, seekerID, paymentAmount, proposalStatusName, clientGrade, clientComment, seekerGrade, seekerComment, coverLetter, attachment, createdDate, expectedDurationID, projectName,startTime,endTime,durationText));
                 }
             }
 

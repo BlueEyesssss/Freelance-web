@@ -24,7 +24,16 @@ public class SeekerDTO extends UserDTO{
     private String hourPerWeek;
     private int reviewGrade;
     private UserDTO user;
+    private List<String> hasSkill;
 
+    public List<String> getHasSkill() {
+        return hasSkill;
+    }
+
+    public void setHasSkill(List<String> hasSkill) {
+        this.hasSkill = hasSkill;
+    }
+    
     public UserDTO getUser() {
         return user;
     }
