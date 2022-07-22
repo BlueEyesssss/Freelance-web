@@ -7,68 +7,48 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sample.project.ProjectDAO;
-import sample.project.ProjectDTO;
+import sample.contract.ContractDAO;
 import sample.proposal.ProposalDAO;
-import sample.proposal.ProposalDTO;
+import sample.seeker.SeekerDTO;
 
 /**
  *
- * @author LENOVO
+ * @author Admin
  */
-@WebServlet(name = "ProposalDetailController", urlPatterns = {"/ProposalDetailController"})
-public class ProposalDetailController extends HttpServlet {
+@WebServlet(name = "DenyInvitationOfHirerController", urlPatterns = {"/DenyInvitationOfHirerController"})
+public class DenyInvitationOfHirerController extends HttpServlet {
 
-    private static final String ERROR = "proposalDetail.jsp";
-    private static final String SUCCESS = "proposalDetail.jsp";
-//    private static final String SUCCESS1 = "proposalDetailInterview.jsp";
-    private static final String SUCCESS1 = "invitedProjectDetail.jsp";
+    private static final String ERROR = "error.html";
+    private static final String SUCCESS = "ViewProposalController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+
         try {
             HttpSession session = request.getSession();
-            String proposalID = request.getParameter("proposalID");
-            String projectID = request.getParameter("projectID");
-            String ac = request.getParameter("ac");
-            ProjectDAO dao = new ProjectDAO();
-            //lấy project
-            ProjectDTO project = dao.getProjectByID(Integer.parseInt(projectID));
-            //lấy skill project need
-            List<String> listSkill = dao.getSkillNeedOfProject(Integer.parseInt(projectID));
-            //lấy payment-amout và duration text của proposal
-            ProposalDTO proposal = dao.getProposalPaymentAndDuration(Integer.parseInt(proposalID));
+            SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
+            int projectID = Integer.parseInt(request.getParameter("projectID"));
+            int proposalID = Integer.parseInt(request.getParameter("proposalID"));            
 
-            session.setAttribute("PROJECT_DETAIL", project);
-            session.setAttribute("SKILL_PROJECT_NEED", listSkill);
-            session.setAttribute("PROPOSAL_PAYMENT_DURATION", proposal);
-
-            //lehuu them moi 
-            int proposalID1 = Integer.parseInt(request.getParameter("proposalID"));
-            ProposalDAO proposalDao = new ProposalDAO();
-            ProposalDTO proposal1 = proposalDao.getProposalByID(proposalID1);
-            if (proposal != null) {
-                request.setAttribute("PROPOSAL", proposal1);
-            }
+            ProposalDAO dao = new ProposalDAO();
             
-            
-            if (ac.equals("interview")) {
-                url = SUCCESS1;
-            } else {
-                url = SUCCESS;
+                boolean checkUpdateStatusProposal = dao.changeStatusProposal(proposalID, 3);
+                
+                if (checkUpdateStatusProposal) {
+                    url = SUCCESS;
+                
             }
-
         } catch (Exception e) {
-            log("Error at ProposalDetailController: " + e.toString());
+            log("error at DenyInvitationOfHirerController: " + e.getMessage());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

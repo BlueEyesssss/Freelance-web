@@ -1,25 +1,25 @@
-<%@page import="sample.seeker.SeekerDTO"%>
-<%@page import="java.time.LocalDate"%>
-<%@page import="sample.user.UserDTO"%>
-<%@page import="sample.user.UserDAO"%>
-<%@page import="com.sun.org.apache.bcel.internal.generic.AALOAD"%>
-<%@page import="sample.hirer.HirerDTO"%>
-<%@page import="sample.hirer.HirerDAO"%>
+
 <%@page import="sample.project.ProjectDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="sample.project.ProjectDAO"%>
 <%@page import="sample.proposal.ProposalDTO"%>
+<%@page import="sample.seeker.SeekerDTO"%>
+<%@page import="sample.user.UserDTO"%>
+<%@page import="sample.user.UserDAO"%>
+<%@page import="sample.hirer.HirerDAO"%>
 <!DOCTYPE html><!-- This site was created in Webflow. https://www.webflow.com -->
-<!-- Last Published: Thu Jul 21 2022 07:38:06 GMT+0000 (Coordinated Universal Time) -->
-<html data-wf-domain="phats-sublime-site.webflow.io" data-wf-page="62d7f76293a2ee414cd1e5b1"
+<!-- Last Published: Fri Jul 22 2022 09:36:03 GMT+0000 (Coordinated Universal Time) -->
+<html data-wf-domain="phats-sublime-site.webflow.io" data-wf-page="62da6d6d754c76954eb0f92a"
   data-wf-site="62d7f76293a2ee4589d1e5b0">
 
 <head>
   <meta charset="utf-8" />
-  <title>Phát&#x27;s Sublime Site</title>
+  <title>invitedDetailPage</title>
+  <meta content="invitedDetailPage" property="og:title" />
+  <meta content="invitedDetailPage" property="twitter:title" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <meta content="Webflow" name="generator" />
-  <link href="https://uploads-ssl.webflow.com/62d7f76293a2ee4589d1e5b0/css/phats-sublime-site.webflow.bdb63e7ba.css"
+  <link href="https://uploads-ssl.webflow.com/62d7f76293a2ee4589d1e5b0/css/phats-sublime-site.webflow.06a362de5.css"
     rel="stylesheet" type="text/css" />
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script
@@ -29,12 +29,13 @@
     type="text/javascript">!function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document);</script>
   <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
   <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
-  <style>
+<style>
         .w-webflow-badge {
             display: none !important;
         }
     </style>
 </head>
+
 <%
     SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
     ProposalDTO proposal = (ProposalDTO)request.getAttribute("PROPOSAL");
@@ -175,48 +176,16 @@
           <div class="text-block-39">Member since <%= hirer.getRegistrationDate()%></div>
         </div>
         
-        <div class="div-block-33"><a data-w-id="539400ac-4bbd-5666-ff38-70ea48d7c087" href="#"
-            class="button w-button">Feedback</a></div>
+        <div class="div-block-33"><a href="MainController?action=AcceptInvitationOfHirer&proposalID=<%=proposal.getProposalID()%>&projectID=<%=proposal.getProjectID()%>&paymentAmount=<%=proposal.getPaymentAmount()%>" class="button-copy w-button">Accept</a>
+            <a href="DenyInvitationOfHirerController?proposalID=<%=proposal.getProposalID()%>&projectID=<%=proposal.getProjectID()%>"
+            class="button-copy w-button">Deny</a></div>
       </div>
     </div>
   </div>
-        <%
-                                LocalDate endDate = (LocalDate)request.getAttribute("END_DATE");
-                                boolean checkAlreadlyFeedback =(boolean) request.getAttribute("CHECK_FEEDBACK_ALREADY");
-                                String error = (String)request.getAttribute("ERROR_MESSAGE");
-                                if(error == null) error ="";
-                                LocalDate curent = LocalDate.now();                                
-                            if(curent.isBefore(endDate.plusDays(7)) && curent.isAfter(endDate.minusDays(1)) && !checkAlreadlyFeedback){
-                                %>
-  <div style="display:none;opacity:0" class="div-block-44">
-    <div class="div-block-45">
-      <div class="form-block w-form">
-        <h3>Feedback</h3>
-        <form action="MainController" id="email-form-3" name="email-form-3" data-name="Email Form 3" method="get"><label
-            for="name-3">Grade</label><input type="number" class="text-field-2 w-input" maxlength="256" name="clientGrade"
-            data-name="Name 3" placeholder="1 to 5" id="name-3" required="" /><label for="field">Comment</label><input
-            type="text" class="text-field-3 w-input" maxlength="256" name="seekerComment" data-name="Field"
-            placeholder="Example Text" id="field" required="" />
-            <input type="hidden" name ="proposalID" value="<%=proposal.getProposalID()%>"/>
-            <input type="submit" name="action" value="FeedbackOfSeeker"
-            data-wait="Please wait..." class="submit-button-3 w-button" /><a
-            data-w-id="bc2479e9-b03c-215c-b509-b1e0cb9882a2" href="#" class="button-5 w-button">Cancel</a></form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-           <%
-                            }
-                            %>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=62d7f76293a2ee4589d1e5b0"
     type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
     crossorigin="anonymous"></script>
-  <script src="https://uploads-ssl.webflow.com/62d7f76293a2ee4589d1e5b0/js/webflow.a6a2b17a0.js"
+  <script src="https://uploads-ssl.webflow.com/62d7f76293a2ee4589d1e5b0/js/webflow.fd7592c7c.js"
     type="text/javascript"></script>
   <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
