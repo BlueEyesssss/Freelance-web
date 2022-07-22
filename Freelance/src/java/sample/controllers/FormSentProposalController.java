@@ -67,10 +67,16 @@ public class FormSentProposalController extends HttpServlet {
                     }
                 }
 
-                if (projectCurrent != null && checkMatchSkill) {
+                if (projectCurrent != null) {
                     request.setAttribute("SKILL_PROJECT_NEED", skillneed);
                     request.setAttribute("PROJECT_CURRENT", projectCurrent);
-                    url = SUCCESS;
+                    if (checkMatchSkill) {
+                        url = SUCCESS;
+                    }else {
+                        request.setAttribute("ERROR_MESSAGE_1", "Please choose the suitable job for you!");
+                    }
+                }else{
+                        request.setAttribute("ERROR_MESSAGE_2", "Job isn't exist anymore!");
                 }
             }
 

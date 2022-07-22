@@ -57,7 +57,10 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
         } else {
             hello = "Good Evening";
         };
-
+        String messageError1 = (String)request.getAttribute("ERROR_MESSAGE_1");
+        if(messageError1==null)messageError1="";
+        String messageError2 = (String)request.getAttribute("ERROR_MESSAGE_2");
+        if(messageError2==null)messageError2="";
 
     %>
 
@@ -165,6 +168,8 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296b474e000b451cf79e812_search-white.svg"
                                 loading="lazy" alt="" /></div>
                     </div>
+                            <i style="color: orange"><b><%= messageError1 %></b></i>
+                                <i style="color: orange"><b><%= messageError2 %></b></i>
                     <div class="seeker-main">
                         <h2 class="heading-4">Job you may like</h2>
                         <div data-current="Tab 1" data-easing="ease" data-duration-in="300" data-duration-out="100"

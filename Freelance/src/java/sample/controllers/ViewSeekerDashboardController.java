@@ -41,7 +41,9 @@ public class ViewSeekerDashboardController extends HttpServlet {
         String url = ERROR;
         HttpSession session = request.getSession();
         try {
-            //favorite
+            //favorite  
+            String err1=(String)request.getAttribute("ERROR_MESSAGE_1");
+            String err2=(String)request.getAttribute("ERROR_MESSAGE_2");
             ProjectDAO dao = new ProjectDAO();
             UserDTO user = (UserDTO) session.getAttribute("USER_LOGIN");
             int seekerID = user.getUserID();
@@ -74,6 +76,8 @@ public class ViewSeekerDashboardController extends HttpServlet {
                     projectDTO.setSkillneed(skillneed);
                 }
                 request.setAttribute("LIST_BEST_MATCH_PROJECT", list);
+                request.setAttribute("ERROR_MESSAGE_1",err1 );
+                request.setAttribute("ERROR_MESSAGE_2", err2);
                 url = SUCCESS;
             }
         } catch (Exception e) {
