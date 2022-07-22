@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import sample.hirer.HirerDTO;
 import sample.proposal.ProposalDTO;
 import sample.seeker.SeekerDTO;
 
@@ -69,7 +70,7 @@ public class ProjectDAO implements Serializable{
     private static final String GET_HIRERID_BY_PROJECTID = "select hirerID\n"
             + "from Project\n"
             + "where projectID = ?";
-
+    
     private static final String GET_PROJECT_BY_ID = "SELECT p.projectID, p.projectName, p.description, p.complexity, p.hirerID\n"
             + "	, p.paymentAmount, p.deadlineDate, p.location, p.createdDate, p.hoursPerWeek\n"
             + "	, p.major, e.durationText\n"
@@ -421,7 +422,7 @@ public class ProjectDAO implements Serializable{
         }
         return hirerid;
     }
-
+    
     public List<String> getSkillNeedOfProject(int projectID) throws SQLException {
         List<String> skillNeed = new ArrayList<>();
         Connection conn = null;

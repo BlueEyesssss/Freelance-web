@@ -24,7 +24,7 @@ import sample.proposal.ProposalDTO;
 public class ViewDoneContractController extends HttpServlet {
 
     private static final String ERROR = "error.html";
-    private static final String SUCCESS = "feedbackOfSeeker.jsp";
+    private static final String SUCCESS = "feedbackOfSeekerBeauti.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

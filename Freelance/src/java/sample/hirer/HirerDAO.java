@@ -139,5 +139,5 @@ public class HirerDAO {
             }
         }
         return list;
-    }
+    } 
 }
