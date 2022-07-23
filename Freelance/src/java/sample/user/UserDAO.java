@@ -950,6 +950,38 @@ public class UserDAO {
         return check;
     }
 
+    public boolean updateEmail(String email, String userID) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                
+                String sqlQuery = "update [User]\n" +
+"set email = ?\n" +
+"where userID = ?";
+                
+                ptm = con.prepareStatement(sqlQuery);
+                ptm.setString(1, email);
+                ptm.setString(2, userID);
+                    check = ptm.executeUpdate()>0?true:false;
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+
+
     
 
     

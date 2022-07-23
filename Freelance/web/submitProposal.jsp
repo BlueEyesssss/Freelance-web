@@ -96,8 +96,12 @@
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 44.458335876464844px, 6vw"
                                     srcset="uploads/<%= loginUser.getAvatar() %>"
                                     alt="" class="avatar-img-nav" /></div>
-                            <nav class="dropdown-list w-dropdown-list"><a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
-                                    Profile</a><a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a></nav>
+                            <nav class="dropdown-list w-dropdown-list">
+                                <a href="MainController?action=ViewSeekerProfile" class="dropdown-link w-dropdown-link">My
+                                    Profile</a>
+                                <a href="MainController?action=ViewBalanceHirerSeeker&role=seeker" class="dropdown-link w-dropdown-link">My Balance</a>
+                                <a href="MainController?action=Logout" class="dropdown-link w-dropdown-link">Log out</a>
+                            </nav>
                         </div>
                     </div>
                 </div>

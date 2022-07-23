@@ -17,7 +17,10 @@ import javax.servlet.http.HttpSession;
 import sample.contract.ContractDAO;
 import sample.hirer.HirerDTO;
 import sample.payment.PayPayDTO;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
 import sample.proposal.ProposalDAO;
+import sample.sendemail.SendEmailForHirer;
 import sample.user.UserDAO;
 import sample.user.UserDTO;
 
@@ -60,6 +63,20 @@ public class UpdateProposalStatusController extends HttpServlet {
                 if (checkUpdateStatusProposal&&checkInsertContract) {
                     HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
                     url = "LoginController?userName=" + hirer.getUserName() + "&password=" + hirer.getPassword();
+                    
+                    //send email
+                    //send mail notify cho seeker
+                            //tạo obj dùng liên quan đến send email
+                            SendEmailForHirer email = new SendEmailForHirer();
+                            //take seeker apply job success
+                            UserDAO daoUser = new UserDAO();
+                            UserDTO seeker = daoUser.getUserByID(seekerid);
+                            //take project đc apply 
+                            ProjectDAO projectDAO = new ProjectDAO();
+                            ProjectDTO projectApply = projectDAO.getProjectByID(Integer.parseInt(projectID));
+                            //boolean send
+                            boolean checkSend = email.sendEmailNotifyApplyJobSuccess(seeker.getEmail(), projectApply.getProjectName());
+                
                 }
             }
 

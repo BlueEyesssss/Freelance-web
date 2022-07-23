@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.contract.ContractDAO;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
 import sample.proposal.ProposalDAO;
 import sample.proposal.ProposalDTO;
 import sample.seeker.SeekerDAO;
+import sample.sendemail.SendEmailForHirer;
 import sample.user.UserDAO;
 import sample.user.UserDTO;
 
@@ -61,6 +64,19 @@ public class PayMoneyController extends HttpServlet {
                 boolean updateEndTimeContract = contractDao.updateEndTimeContract(proposalID,endTime);
                 if(checkChangeStatusProposal&&updateEndTimeContract){
                     url = SUCCESS;
+                    
+                    SendEmailForHirer email = new SendEmailForHirer();
+                    //email seeker (exist above)
+                    //name project
+                    ProjectDAO projectDAO = new ProjectDAO();
+                    ProjectDTO project = projectDAO.getProjectByID(proposal.getProjectID());
+                    //name hirer
+                    //HttpSession session = request.getSession();
+                    //HirerDTO hirer = (HirerDTO) session.getAttribute("USER_LOGIN");
+                    UserDTO hirer = userDAO.getUserByID(project.getHirerID());
+                    
+                    boolean checkSend = email.sendEmailNotifyAcceptPayMoneyForPRojectOfHirer(user.getEmail(), hirer.getFullName(), project.getProjectName());
+                
                 }                 
             }
                     

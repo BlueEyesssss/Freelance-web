@@ -12,21 +12,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sample.project.ProjectDAO;
-import sample.project.ProjectDTO;
-import sample.proposal.ProposalDAO;
-import sample.proposal.ProposalDTO;
 import sample.seeker.SeekerDTO;
-import sample.sendemail.SendEmailForHirer;
 import sample.user.UserDAO;
-import sample.user.UserDTO;
+import sample.user.UserErrorDTO;
 
 /**
  *
- * @author Phat
+ * @author LENOVO
  */
-@WebServlet(name = "CancelProjectOfSeekerController", urlPatterns = {"/CancelProjectOfSeekerController"})
-public class CancelProjectOfSeekerController extends HttpServlet {
+@WebServlet(name = "UpdateEmailController", urlPatterns = {"/UpdateEmailController"})
+public class UpdateEmailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,48 +32,50 @@ public class CancelProjectOfSeekerController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "error.html";
-    private static final String SUCCESS = "ViewMyJobController";
-    
+    private static final String ERROR_SEEKER = "seekerProfile.jsp";
+    private static final String SUCCESS_SEEKER = "seekerProfile.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = ERROR_SEEKER;
+        boolean checkError = false;
+        UserErrorDTO error = new UserErrorDTO();
         try {
-           
-            int proposalID = Integer.parseInt(request.getParameter("proposalID"));
-            ProposalDAO proposalDAO = new ProposalDAO();
-            ProjectDAO projectDAO = new ProjectDAO();
-            UserDAO userDAO = new UserDAO();
-            
-            //doi trang thai proposal sang finished unsuccessfully
-            proposalDAO.changeStatusProposal(proposalID, 7);
-            //lay proposalID (muc tieu de lay hirerID)
-            ProposalDTO proposal = proposalDAO.getProposalByID(proposalID);
-            //lay hirerID
-            int hirerID = projectDAO.getHirerIdFromProjectId(proposal.getProjectID());
-            //chuyen tien
-            boolean check = userDAO.addMoneyToUserByUserID(proposal.getPaymentAmount(), hirerID);
-            if (check) {
-                url = SUCCESS;
-                //send email
-                //email hirer
-                UserDTO hirer = userDAO.getUserByID(hirerID);
-                //name seeker
-                HttpSession session = request.getSession();
-                SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
-                //project name
-                ProjectDTO project = projectDAO.getProjectByID(proposal.getProjectID());
-                
-                SendEmailForHirer email = new SendEmailForHirer();
-                boolean checkSend = email.sendEmailNotiFySeekerCancelActiveProjectForHirer(hirer.getEmail(), seeker.getFullName(), project.getProjectName());
-            
+            String email = request.getParameter("email");
+            String Whodo = request.getParameter("Whodo");
+            String userID = request.getParameter("userID");
+            UserDAO dao = new UserDAO();
+            HttpSession session = request.getSession();
+            SeekerDTO seeker = (SeekerDTO) session.getAttribute("USER_LOGIN");
+
+            if (!email.equals(seeker.getEmail())) {
+                if (dao.checkEmailExist(email) > 0) {
+                    checkError = true;
+                    error.setEmailExist("\"" + email + "\" linked to another account.");
+                }
             }
-            
-            
-            
+
+            if (checkError == false) {
+                //format correct
+                boolean checkUpdate = dao.updateEmail(email, userID);
+                if (checkUpdate) {
+                    if (Whodo.equals("seeker")) {
+                        url = SUCCESS_SEEKER;
+                        request.setAttribute("UPDATE_STATUS", "update email success");
+                        //cap nhat lai seeker len session
+                        seeker.setEmail(email);
+                        session.setAttribute("USER_LOGIN", seeker);
+                    }
+                } else {
+                    request.setAttribute("ERROR_UPDATE_EMAIL_SEEKER", "something wrong, check again.");
+                }
+            } else {
+                request.setAttribute("ERROR_CREATE", error);
+            }
+
         } catch (Exception e) {
-            log("Error at CancelProJectFromSeekerController: " + e.toString());
+            log("error at UpdateEmailController: " + e.getMessage());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

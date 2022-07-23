@@ -12,7 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
 import sample.proposal.ProposalDAO;
+import sample.sendemail.SendEmailForHirer;
+import sample.user.UserDAO;
+import sample.user.UserDTO;
 
 /**
  *
@@ -40,6 +45,21 @@ public class CancelProJectFromHirerController extends HttpServlet {
                 //chuyển tiền porject đó cho seeker
                 if(dao.transferMoneyCancelProjectToSeeker(seekerID, amountMoney)){
                     url = SUCCESS;
+                    
+                    //send email
+                    //tên project
+                    ProjectDAO projectDAO = new ProjectDAO();
+                    ProjectDTO project = projectDAO.getProjectByID(Integer.parseInt(projectID));
+                    //tên hirer
+                    UserDAO userDAO = new UserDAO();
+                    UserDTO hirer = userDAO.getUserByID(project.getHirerID());
+                    //email seeker
+                    UserDAO userDAo = new UserDAO();
+                    UserDTO seeker  = userDAo.getUserByID(seekerID);
+                    
+                    SendEmailForHirer email = new SendEmailForHirer();
+                    boolean checkSend = email.sendEmailNotifyHirerCancelProject(seeker.getEmail(), hirer.getFullName(), project.getProjectName());
+                
                 }
             }
             

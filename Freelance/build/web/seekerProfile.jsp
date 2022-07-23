@@ -643,6 +643,64 @@
                                 <div><font style="color: red">${requestScope.ERROR_CREATE_NOTIFY_AVATAR}</font></div>
                                 <div class="text-block-seeker"><br /></div>
                             </div>
+                              
+                                <!--update email-->
+                                <div class="seeker-left-inforwrapper">
+                                <div class="div-horizon spacing-between">
+                                    <div class="text-block-23">Email<br /></div><img
+                                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
+                                        loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208ad" alt=""
+                                        class="icon-edit" />
+                                    <div class="seeker-edit-lightbox education">
+                                        <div class="seeker-edit-lb-wrapper education">
+                                            <div class="lb-heading">
+                                                <h2 class="heading-15">Update Email</h2><img
+                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629730e1c2204bda6f0f70bf_x.svg"
+                                                    loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208b6" alt=""
+                                                    class="image-14" />
+                                            </div>
+                                            <div class="lb-form-edit-wrapper">
+                                                <div class="w-form">
+                                                    
+                                                    <form id="email-form" name="email-form" data-name="Email Form" class="edit-lightbox-form"
+                                                          action="UpdateEmailController" >
+                                                        <div class="lb-edit-button-wrapper">
+                                                            <a
+                                                                data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208d3" href="#"
+                                                                class="main-button sub-button seeker-lb w-button">Cancel</a>
+                                                            <input name="action"
+                                                                   type="submit" value="Update" data-wait="Please wait..."
+                                                                   class="main-button w-button" />
+                                                        </div>
+                                                        <div>
+                                                            <label for="avatar"><strong>Email</strong> </label>
+                                                            <input
+                                                                type="email" class="text-field-3 w-input" 
+                                                                name="email"  data-name="university" id="university"
+                                                                required="" value="<%= seeker.getEmail() %>"/>
+                                                            <font style="color: red">${requestScope.ERROR_CREATE.emailExist}</font><br>
+                                                        
+                                                        <input type="hidden" name="Whodo" value="seeker" />
+                                                        <input type="hidden" name="userID" value="<%= seeker.getSeekerID()%>" />
+                                                        </div>
+                                                    </form>
+                                                    <div class="w-form-done">
+                                                        <div>Thank you! Your submission has been received!</div>
+                                                    </div>
+                                                    <div class="w-form-fail">
+                                                        <div>Oops! Something went wrong while submitting the form.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-w-id="079b63d9-bb54-5ffb-4adf-c1a259c4de97" class="close-lb-div"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <font style="color: green">${requestScope.UPDATE_STATUS}</font>
+                                    <font style="color: red">${requestScope.ERROR_UPDATE_EMAIL_SEEKER}</font></div>
+                                <div class="text-block-seeker"><br /></div>
+                            </div>
                                 
                         </div>
                         <div class="div-70">

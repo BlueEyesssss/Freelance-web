@@ -393,4 +393,219 @@ public class SendEmailForHirer {
 
         return test;
     }
+
+    public boolean sendEmailNotifyApplyJobSuccess(String email, String projectName) {
+        boolean test = false;
+
+        String toEmail = email;
+        final String fromEmail = "phathtse151391@fpt.edu.vn";
+        final String password = "ngocanh1302";
+
+        try {
+
+            // your host email smtp server details
+            Properties pr = new Properties();
+            pr.setProperty("mail.smtp.host", "smtp.gmail.com");
+            pr.setProperty("mail.smtp.port", "465");
+            pr.setProperty("mail.smtp.auth", "true");
+            pr.setProperty("mail.smtp.starttls.enable", "true");
+            pr.put("mail.smtp.socketfactory.port", "465");
+            pr.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+            //get session to authenticate the host email address and password
+            Session session = Session.getInstance(pr, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(fromEmail, password);
+                }
+            });
+
+            //set email message details
+            Message mess = new MimeMessage(session);
+
+            //set from email address
+            mess.setFrom(new InternetAddress(fromEmail));
+            //set to email address or destination email address
+            mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+
+            //set email subject
+            mess.setSubject("Proposal has been approved.");
+
+            //set message text
+            mess.setText("Congratulations, your Proposal \""+projectName+"\" has been accepted.\n"
+                    + "Good luck with your job");
+
+            //send the message
+            Transport.send(mess);
+
+            test = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return test;
+    }
+
+    public boolean sendEmailNotifyAcceptPayMoneyForPRojectOfHirer(String email, String fullName, String projectName) {
+         boolean test = false;
+
+        String toEmail = email;
+        final String fromEmail = "phathtse151391@fpt.edu.vn";
+        final String password = "ngocanh1302";
+
+        try {
+
+            // your host email smtp server details
+            Properties pr = new Properties();
+            pr.setProperty("mail.smtp.host", "smtp.gmail.com");
+            pr.setProperty("mail.smtp.port", "465");
+            pr.setProperty("mail.smtp.auth", "true");
+            pr.setProperty("mail.smtp.starttls.enable", "true");
+            pr.put("mail.smtp.socketfactory.port", "465");
+            pr.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+            //get session to authenticate the host email address and password
+            Session session = Session.getInstance(pr, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(fromEmail, password);
+                }
+            });
+
+            //set email message details
+            Message mess = new MimeMessage(session);
+
+            //set from email address
+            mess.setFrom(new InternetAddress(fromEmail));
+            //set to email address or destination email address
+            mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+
+            //set email subject
+            mess.setSubject("Accept payment.");
+
+            //set message text
+            mess.setText("Congratulations, hirer \""+fullName+"\" has been accepted pay money for your project \""+projectName+"\" .\n"
+                    + "Wish you go further.");
+
+            //send the message
+            Transport.send(mess);
+
+            test = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return test;
+    }
+
+    public boolean sendEmailNotifyHirerCancelProject(String email, String fullName, String projectName) {
+        boolean test = false;
+
+        String toEmail = email;
+        final String fromEmail = "phathtse151391@fpt.edu.vn";
+        final String password = "ngocanh1302";
+
+        try {
+
+            // your host email smtp server details
+            Properties pr = new Properties();
+            pr.setProperty("mail.smtp.host", "smtp.gmail.com");
+            pr.setProperty("mail.smtp.port", "465");
+            pr.setProperty("mail.smtp.auth", "true");
+            pr.setProperty("mail.smtp.starttls.enable", "true");
+            pr.put("mail.smtp.socketfactory.port", "465");
+            pr.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+            //get session to authenticate the host email address and password
+            Session session = Session.getInstance(pr, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(fromEmail, password);
+                }
+            });
+
+            //set email message details
+            Message mess = new MimeMessage(session);
+
+            //set from email address
+            mess.setFrom(new InternetAddress(fromEmail));
+            //set to email address or destination email address
+            mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+
+            //set email subject
+            mess.setSubject("Cancel Project.");
+
+            //set message text
+            mess.setText("Hirer \""+fullName+"\" canceled the project \""+projectName+"\".\n"
+                    + "The entire amount money of the project will be transferred to your web account");
+
+            //send the message
+            Transport.send(mess);
+
+            test = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return test;
+    }
+
+    public boolean sendEmailNotiFySeekerCancelActiveProjectForHirer(String email, String fullName, String projectName) {
+        boolean test = false;
+
+        String toEmail = email;
+        final String fromEmail = "phathtse151391@fpt.edu.vn";
+        final String password = "ngocanh1302";
+
+        try {
+
+            // your host email smtp server details
+            Properties pr = new Properties();
+            pr.setProperty("mail.smtp.host", "smtp.gmail.com");
+            pr.setProperty("mail.smtp.port", "465");
+            pr.setProperty("mail.smtp.auth", "true");
+            pr.setProperty("mail.smtp.starttls.enable", "true");
+            pr.put("mail.smtp.socketfactory.port", "465");
+            pr.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+            //get session to authenticate the host email address and password
+            Session session = Session.getInstance(pr, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(fromEmail, password);
+                }
+            });
+
+            //set email message details
+            Message mess = new MimeMessage(session);
+
+            //set from email address
+            mess.setFrom(new InternetAddress(fromEmail));
+            //set to email address or destination email address
+            mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+
+            //set email subject
+            mess.setSubject("Cancel Project.");
+
+            //set message text
+            mess.setText("Seeker \""+fullName+"\" canceled the project \""+projectName+"\".\n"
+                    + "The entire amount money of the project will be transferred to your web account");
+
+            //send the message
+            Transport.send(mess);
+
+            test = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return test;
+    }
+
+
+
 }
