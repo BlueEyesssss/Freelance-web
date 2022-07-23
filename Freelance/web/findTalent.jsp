@@ -32,10 +32,17 @@
                 }(window, document);</script>
         <link href="https://uploads-ssl.webflow.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <style>
             .w-webflow-badge {
                 display: none !important;
             }
+            a:hover{
+            text-decoration: inherit;
+            color: inherit;
+
+        }
         </style>
     </head>
 
@@ -136,7 +143,7 @@
                                     
                                         <div class="filter-accordion-content"><label class="w-checkbox text-block-5">
                                                 <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
-                                                </div><input type="checkbox" name="skillName-2" id="skillName-2"
+                                                </div><input type="radio" name="skillName-2" id="skillName-2"
                                                              data-name="Skill Name 2"
                                                              style="opacity:0;position:absolute;z-index:-1" /><span
                                                              class="checkbox-label-2 w-form-label" for="skillName-2"><%=elem.getSkillName()%></span>
@@ -370,13 +377,27 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="div-block-157"><a
-                                                                        data-w-id="21656960-52d5-5f8e-04ae-05ab3a417c63"
-                                                                        href="#"
-                                                                        class="main-button sub-button invite w-button">Invite</a><a
-                                                                        data-w-id="21656960-52d5-5f8e-04ae-05ab3a417c65"
-                                                                        href="#"
-                                                                        class="main-button invite w-button">Hire</a>
+                                                                <div class="div-block-157"><form>
+                                                                    <select class="ui selection dropdown" style="margin-right: 20px;" required>
+                                                                        <option selected class="default text">Choose the project ...</option>
+                                                                        <option value="1">One</option>
+                                                                        <option value="2">Two</option>
+                                                                        <option value="3">Three</option>
+                                                                      </select>
+
+                                                                    
+
+    
+                                                                    <input data-w-id="21656960-52d5-5f8e-04ae-05ab3a417c65"
+                                                                        href="#" 
+                                                                        class="main-button invite w-button"
+                                                                        type = "submit"
+                                                                        onclick = "return confirm('Do you confirm to invite?');"
+                                                                        value = "Invite">
+                                                                    
+                                                                    
+
+                                                                </form>
 
                                                                 </div>
                                                             </div>
