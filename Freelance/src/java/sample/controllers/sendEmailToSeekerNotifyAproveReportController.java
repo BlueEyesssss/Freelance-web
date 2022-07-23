@@ -7,57 +7,40 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.contract.ContractDAO;
-import sample.proposal.ProposalDAO;
-import sample.proposal.ProposalDTO;
-import sample.user.UserDAO;
+import sample.sendemail.SendEmailForHirer;
 import sample.user.UserDTO;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "AddMoneyToHirerController", urlPatterns = {"/AddMoneyToHirerController"})
-public class AddMoneyToHirerController extends HttpServlet {
+@WebServlet(name = "sendEmailToSeekerNotifyAproveReportController", urlPatterns = {"/sendEmailToSeekerNotifyAproveReportController"})
+public class sendEmailToSeekerNotifyAproveReportController extends HttpServlet {
 
-    private final static String ERROR = "error.html";
-    private final static String SUCCESS = "sendEmailToHirerNotifyAproveReport";
-
+   private static final String SUCCESS = "index.html";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
         try {
-            int proposalID = Integer.parseInt(request.getParameter("proposalID"));
-            ProposalDAO proposalDao = new ProposalDAO();
-            ProposalDTO proposal = proposalDao.getProposalByIDForAdminPage(proposalID);
-            int hireID = proposal.getHirerID();
-            UserDAO userDao = new UserDAO();
-            UserDTO hirer = userDao.getUserByID(hireID);
+            UserDTO seeker = (UserDTO) request.getAttribute("SEEKER");
+            String projectName = (String) request.getAttribute("PROJECT_NAME");
+            SendEmailForHirer sm = new SendEmailForHirer();
+            boolean test = sm.sendEmailToSeekerNotifyAproveReport(seeker, projectName);
 
-            boolean checkUpdateBalance = userDao.addMoneyToUserByUserID(proposal.getPaymentAmount() + hirer.getBalance(), hirer.getUserID());
-            if (checkUpdateBalance) {
-                boolean checkChangeStatusProposal = proposalDao.changeStatusProposal(proposalID, 6);
-                ContractDAO contractDao = new ContractDAO();
-                LocalDate endTime = LocalDate.now();
-                boolean updateEndTimeContract = contractDao.updateEndTimeContract(proposalID, endTime);
-                if (checkChangeStatusProposal && updateEndTimeContract) {
-                    request.setAttribute("HIRER", hirer);
-                    request.setAttribute("PROJECT_NAME", proposal.getProjectName());
-                    url = SUCCESS;
-                }
+            //check if the email send successfully
+            if (test) {
+                request.getRequestDispatcher(SUCCESS).forward(request, response);
+            } else {
+                request.getRequestDispatcher(SUCCESS).forward(request, response);
             }
         } catch (Exception e) {
-            log("Error at AddMoneyToHirerController: " + e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+                        log("error at sendEmailToSeekerNotifyAproveReportController: " + e.getMessage());
+
         }
     }
 

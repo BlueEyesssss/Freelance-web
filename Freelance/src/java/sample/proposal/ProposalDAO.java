@@ -1494,7 +1494,7 @@ public class ProposalDAO {
         return list;
     }
 
-    private static final String GET_PROPOSAL_BY_ID_FOR_ADMIN_PAGE = "SELECT pr.hirerID, p.proposalID, p.projectID , p.seekerID, p.paymentAmount,p.proposalStatusID,p.createdDate \n"
+    private static final String GET_PROPOSAL_BY_ID_FOR_ADMIN_PAGE = "SELECT pr.hirerID, p.proposalID, p.projectID , p.seekerID, p.paymentAmount,p.proposalStatusID,p.createdDate, pr.projectName \n"
             + "FROM Proposal p, Project pr\n"
             + "WHERE p.projectID = pr.projectID\n"
             + "AND p.proposalID = ?";
@@ -1518,8 +1518,9 @@ public class ProposalDAO {
                     double paymentAmount = Double.parseDouble(rs.getString("paymentAmount"));
                     int proposalStatusID = Integer.parseInt(rs.getString("proposalStatusID"));
                     String createdDate = rs.getString("createdDate");
+                    String projectName = rs.getString("projectName");
 
-                    item = new ProposalDTO(hirerID, proposalID, projectID, seekerID, paymentAmount, proposalStatusID, createdDate);
+                    item = new ProposalDTO(hirerID, proposalID, projectID, seekerID, paymentAmount, proposalStatusID, createdDate,projectName);
 
                 }
             }

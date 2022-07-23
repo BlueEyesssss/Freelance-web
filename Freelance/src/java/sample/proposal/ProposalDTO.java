@@ -114,7 +114,7 @@ public class ProposalDTO {
         
     }
 
-    ProposalDTO(int hirerID, int proposalID, int projectID, int seekerID, double paymentAmount, int proposalStatusID, String createdDate) {
+    ProposalDTO(int hirerID, int proposalID, int projectID, int seekerID, double paymentAmount, int proposalStatusID, String createdDate, String projectName) {
         this.proposalID = proposalID;
         this.projectID = projectID;
         this.seekerID = seekerID;
@@ -122,6 +122,7 @@ public class ProposalDTO {
         this.paymentAmount = paymentAmount;
         this.proposalStatusID = proposalStatusID;
         this.createdDate = createdDate;
+        this.projectName = projectName;
     }
 
     public String getLink() {
