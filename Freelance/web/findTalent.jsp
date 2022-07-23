@@ -1,3 +1,6 @@
+<%@page import="sample.hirer.HirerDTO"%>
+<%@page import="sample.project.ProjectDTO"%>
+<%@page import="sample.project.ProjectDAO"%>
 <%@page import="sample.proposal.ProposalDTO"%>
 <%@page import="sample.proposal.ProposalDAO"%>
 <%@page import="sample.skill.SkillDAO"%>
@@ -39,10 +42,10 @@
                 display: none !important;
             }
             a:hover{
-            text-decoration: inherit;
-            color: inherit;
+                text-decoration: inherit;
+                color: inherit;
 
-        }
+            }
         </style>
     </head>
 
@@ -134,13 +137,13 @@
                                                 src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62943201437de47785dfbc00_chevron-left.png"
                                                 loading="lazy" alt="" class="image-18" />
                                         </div>
-                                        
-                                        <%
-                                        List<SkillDTO> listSkillAll = (List<SkillDTO>) session.getAttribute("LIST_SKILL_ALL");
-                                        for (SkillDTO elem : listSkillAll) {
 
-                                    %>
-                                    
+                                        <%
+                                            List<SkillDTO> listSkillAll = (List<SkillDTO>) session.getAttribute("LIST_SKILL_ALL");
+                                            for (SkillDTO elem : listSkillAll) {
+
+                                        %>
+
                                         <div class="filter-accordion-content"><label class="w-checkbox text-block-5">
                                                 <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
                                                 </div><input type="radio" name="skillName-2" id="skillName-2"
@@ -148,11 +151,11 @@
                                                              style="opacity:0;position:absolute;z-index:-1" /><span
                                                              class="checkbox-label-2 w-form-label" for="skillName-2"><%=elem.getSkillName()%></span>
                                             </label></div>
-                                    
-                                    <%                                        }
+
+                                        <%                                        }
 
                                         %>
-                                        
+
                                     </div>
                                 </div>
                             </form>
@@ -177,8 +180,7 @@
                                         <div class="text-block-5">Browse jobs that match your experience to a client&#x27;s
                                             hiring preferences.<br />Ordered by most relevant.</div>
                                         <div class="seeker-dividen"></div>
-                                        <%
-                                            UserDAO userDao = new UserDAO();
+                                        <%                                            UserDAO userDao = new UserDAO();
                                             UserDTO userIsSeeker = null;
                                             int star = -1;
                                             SeekerDAO seekerDao = new SeekerDAO();
@@ -238,7 +240,7 @@
                                             </div>
 
                                             <div class="seeker-dividen"></div>
-//                                            
+                                            //                                            
                                             <div style="opacity:0" class="lightbox-project-detail">
                                                 <div data-w-id="21656960-52d5-5f8e-04ae-05ab3a417bed" class="close-div">
                                                 </div>
@@ -377,27 +379,41 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="div-block-157"><form>
-                                                                    <select class="ui selection dropdown" style="margin-right: 20px;" required>
-                                                                        <option selected class="default text">Choose the project ...</option>
-                                                                        <option value="1">One</option>
-                                                                        <option value="2">Two</option>
-                                                                        <option value="3">Three</option>
-                                                                      </select>
+                                                                <div class="div-block-157">
 
-                                                                    
+                                                                    <%
+                                                                        HirerDTO loginUser = (HirerDTO) session.getAttribute("USER_LOGIN");
+                                                                        ProjectDAO projectDao = new ProjectDAO();
+                                                                        List<ProjectDTO> listProjectUnactive = projectDao.getListProjectUnactive(loginUser.getHirerID());
 
-    
-                                                                    <input data-w-id="21656960-52d5-5f8e-04ae-05ab3a417c65"
-                                                                        href="#" 
-                                                                        class="main-button invite w-button"
-                                                                        type = "submit"
-                                                                        onclick = "return confirm('Do you confirm to invite?');"
-                                                                        value = "Invite">
-                                                                    
-                                                                    
+                                                                    %>
+                                                                    <form action="MainController" method="get">
+                                                                        <select class="ui selection dropdown" style="margin-right: 20px;" name="projectID" required>
+                                                                            <option selected class="default text">Choose the project ...</option>
+                                                                            <%if (listProjectUnactive != null) {
+                                                                                    if (!listProjectUnactive.isEmpty()) {
+                                                                                        for (ProjectDTO elem : listProjectUnactive) {
 
-                                                                </form>
+                                                                            %>
+                                                                            <option value=<%=elem.getProjectID()%>><%=elem.getProjectName()%></option>
+                                                                            <%}
+                                                                                    }
+                                                                                }%>
+                                                                        </select>
+
+
+
+                                                                        <input type="hidden" name="seekerID" value="<%=seeker.getSeekerID()%>"/>
+                                                                        <input data-w-id="21656960-52d5-5f8e-04ae-05ab3a417c65"
+                                                                                
+                                                                               class="main-button invite w-button"
+                                                                               type = "submit" name ="action"
+                                                                               onclick = "return confirm('Do you confirm to invite?');"
+                                                                               value = "InviteSeeker">
+
+
+
+                                                                    </form>
 
                                                                 </div>
                                                             </div>
@@ -542,22 +558,23 @@
 
                                                                             <%
                                                                             } else {
-                                                                            
-                                                                                for (ProposalDTO proposal : listProposal) {  
-                                                                                String comment = proposal.getClientComment();
-                                                                                 if(comment==null)
-                                                                                             comment ="";
-                                                                                                
+
+                                                                                for (ProposalDTO proposal : listProposal) {
+                                                                                    String comment = proposal.getClientComment();
+                                                                                    if (comment == null) {
+                                                                                        comment = "";
+                                                                                    }
+
                                                                             %>
-                                                                            
+
                                                                             <div class="job-history-wrapper">
                                                                                 <div class="job-history-element">
                                                                                     <div class="history-left">
                                                                                         <h4 class="heading-18"><%=proposal.getProjectName()%></h4>
                                                                                         <div><%=proposal.getStartTime()%> - <%=proposal.getEndTime()%></div>
-<!--                                                                                        <div class="no-feedback">If no
-                                                                                            feedback: No feedback</div>-->
-                                                                                            
+                                                                                        <!--                                                                                        <div class="no-feedback">If no
+                                                                                                                                                                                    feedback: No feedback</div>-->
+
                                                                                         <div class="review-feedback"><%=comment%></div>
                                                                                         <div class="review-stars-wrapper">
                                                                                             <img loading="lazy"
@@ -574,10 +591,11 @@
                                                                                             earned</div>
                                                                                     </div>
                                                                                 </div>
-                                                                                
+
                                                                             </div>
                                                                             <%
-    }}
+                                                                                    }
+                                                                                }
                                                                             %>
                                                                         </div>
                                                                     </div>

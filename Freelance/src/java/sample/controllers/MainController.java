@@ -150,6 +150,8 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_INF_HIRER_CONTROLLER = "SaveHirerInformationController";
     private static final String ACCEPT_INVITATION_OF_HIRER = "AcceptInvitationOfHirer";
     private static final String ACCEPT_INVITATION_OF_HIRER_CONTROLLER = "AcceptInvitationOfHirerController";
+    private static final String INVITE_SEEKER = "InviteSeeker";
+    private static final String INVITE_SEEKER_CONTROLLER = "InviteSeekerController";
             
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -345,6 +347,9 @@ public class MainController extends HttpServlet {
                 
             } else if (ACCEPT_INVITATION_OF_HIRER.equals(action)) {
                 url = ACCEPT_INVITATION_OF_HIRER_CONTROLLER;
+                
+            } else if (INVITE_SEEKER.equals(action)) {
+                url = INVITE_SEEKER_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();

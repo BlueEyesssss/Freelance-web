@@ -732,7 +732,7 @@ public class ProposalDAO {
         return list;
     }
 
-    public boolean submitProposal(int projectID, int userID, double paymentAmount, int durationID, String coverLetter, String attachment) throws SQLException {
+    public boolean submitProposal(int projectID, int userID, double paymentAmount, int durationID, String coverLetter, String attachment, int proposalStatus) throws SQLException {
         boolean checkSubmitProposal = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -743,7 +743,7 @@ public class ProposalDAO {
                 ptm.setInt(1, projectID);
                 ptm.setInt(2, userID);
                 ptm.setDouble(3, paymentAmount);
-                ptm.setInt(4, 1);
+                ptm.setInt(4, proposalStatus);
                 ptm.setString(5, coverLetter);
                 ptm.setString(6, attachment);
                 ptm.setInt(7, durationID);

@@ -6,6 +6,7 @@
 package sample.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +20,12 @@ import sample.user.UserDTO;
  *
  * @author Admin
  */
-@WebServlet(name = "SubmitAProposalController", urlPatterns = {"/SubmitAProposalController"})
-public class SubmitAProposalController extends HttpServlet {
+@WebServlet(name = "InviteSeekerController", urlPatterns = {"/InviteSeekerController"})
+public class InviteSeekerController extends HttpServlet {
 
-    private static final String ERROR = "ViewSeekerDashboardController";
-    private static final String SUCCESS = "ViewSeekerDashboardController";
-
+    private static final String ERROR = "ViewHirerDashboardController";
+    private static final String SUCCESS = "ViewHirerDashboardController";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,25 +34,23 @@ public class SubmitAProposalController extends HttpServlet {
             HttpSession session = request.getSession();
             UserDTO user = (UserDTO) session.getAttribute("USER_LOGIN");
             int projectID = Integer.parseInt(request.getParameter("projectID"));
-            double paymentAmount = Double.parseDouble(request.getParameter("paymentAmount"));
-            int durationID = Integer.parseInt(request.getParameter("durationID"));
-            String coverLetter = request.getParameter("coverLetter");
-            String attachment = request.getParameter("attachment");
-            int proposalStatus = 1;
+            int seekerID = Integer.parseInt(request.getParameter("seekerID"));
+            double paymentAmount = 0;
+            int durationID = 1;
+            String coverLetter = " ";
+            String attachment = " ";
+            int proposalStatus = 2;
             ProposalDAO dao = new ProposalDAO();
-            boolean checkIsActiveProposal = dao.isActiveProposal(projectID);
-            boolean checkAlreadySubmitProposal = dao.alreadySubmitProposal(projectID,user.getUserID());
-            if (!checkIsActiveProposal && !checkAlreadySubmitProposal) {
-                boolean checkSubmitProposal = dao.submitProposal(projectID, user.getUserID(), paymentAmount,durationID, coverLetter, attachment,proposalStatus);
+            
+            
+                boolean checkSubmitProposal = dao.submitProposal(projectID,seekerID, paymentAmount,durationID, coverLetter, attachment,proposalStatus);
                 if (checkSubmitProposal) {
                     url = SUCCESS;
                 }
-            }else{
-                request.setAttribute("ERROR_MESSAGE", "Job invalid");//hien o dau?
-            }
+            
 
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at InviteSeekerController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
