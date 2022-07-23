@@ -11,7 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
 import sample.proposal.ProposalDAO;
+import sample.proposal.ProposalDTO;
+import sample.sendemail.SendEmailForHirer;
+import sample.user.UserDAO;
+import sample.user.UserDTO;
 
 /**
  *
@@ -42,6 +48,31 @@ public class ReportSeekerController extends HttpServlet {
             boolean check = proposalDAO.changeStatusProposal(proposalID, 8);
             if (check) {
                 url = SUCCESS;
+                
+                //send email
+                SendEmailForHirer email = new SendEmailForHirer();
+                
+                //send cho admin
+                ProposalDTO proposal = proposalDAO.getProposalByID(proposalID);
+                //email admin
+                //project name
+                ProjectDAO projectdao = new ProjectDAO();
+                ProjectDTO project = projectdao.getProjectByID(proposal.getProjectID());
+                //hirer name
+                UserDAO userdao = new UserDAO();
+                UserDTO hirer = userdao.getUserByID(project.getHirerID());
+                //value text
+                String text = "Hirer \""+hirer.getFullName()+"\" reported the results of project \""+project.getProjectName()+"\".\n"
+                        + "Please check to see who is right and who is wrong.";
+                boolean checkSend = email.sendEmailAction(email.emailOfAdmin(), "Reported", text);
+                
+                //send cho seeker
+                //email seeker
+                UserDTO seeker = userdao.getUserByID(proposal.getSeekerID());
+                //value text
+                String textSeeker = "Hirer \""+hirer.getFullName()+"\" reported your submited of project \""+project.getProjectName()+"\".\n"
+                        + "Wait for the admin to make a decision.";
+                boolean checkSendSeeker = email.sendEmailAction(seeker.getEmail(), "Hirer reported", textSeeker);
             }
 
             

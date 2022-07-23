@@ -27,9 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import sample.payment.PaymentDAO;
+import sample.project.ProjectDAO;
+import sample.project.ProjectDTO;
 import sample.proposal.ProposalDAO;
+import sample.proposal.ProposalDTO;
 import sample.seeker.SeekerDTO;
+import sample.sendemail.SendEmailForHirer;
 import sample.user.UserDAO;
+import sample.user.UserDTO;
 import sample.util.DBUtil;
 
 /**
@@ -114,6 +119,25 @@ public class SubmitForPaymentController extends HttpServlet {
                     if (proposalDAO.updateDateSeekerDone(proposalID, java.time.LocalDate.now())) {
                         //do something
                     }
+                    
+                    //send email
+                    SendEmailForHirer email = new SendEmailForHirer();
+                    ProposalDTO proposal = proposalDAO.getProposalByID(proposalID);
+                    
+                    //tên seeker
+                    UserDAO userdao = new UserDAO();
+                    UserDTO seeker = userdao.getUserByID(proposal.getSeekerID());
+                    //tên project
+                    ProjectDAO projectdao = new ProjectDAO();
+                    ProjectDTO project = projectdao.getProjectByID(proposal.getProjectID());
+                    //email hirer
+                    UserDTO hirer = userdao.getUserByID(project.getHirerID());
+                    //tạo value letter
+                    String text = "Seeker \""+seeker.getFullName()+"\" has submitted work for project \""+project.getProjectName()+"\".\n"
+                            + "Please review the work results.\n\n"
+                            + "Note: If you do not do something within 7 days, the result of this project will be considered as completed.";
+                    boolean checkSend = email.sendEmailAction(hirer.getEmail(), "The project has results", text);
+                    
                     RequestDispatcher rd = request.getRequestDispatcher(SUCCESS);
                     rd.forward(request, response);
                     System.out.println("File uploaded successfully...");
