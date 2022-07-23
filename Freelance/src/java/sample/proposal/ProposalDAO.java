@@ -109,6 +109,8 @@ public class ProposalDAO {
             + "WHERE proposalID = ?";
 
     private static final String GET_END_DATE_OF_CONTRACT = "SELECT endTime FROM Contract WHERE proposalID = ?";
+    
+    private static final String GET_START_TIME_OF_CONTRACT = "SELECT startTime FROM Contract WHERE proposalID = ?";
 
     private static final String CANCEL_PROJECT = "update Proposal\n"
             + "set proposalStatusID = ?\n"
@@ -422,7 +424,7 @@ public class ProposalDAO {
         return item;
     }
 
-    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT A.proposalID, B.projectID, B.projectName, a.createdDate\n"
+    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT A.proposalID, B.projectID, B.projectName, A.createdDate, A.expectedDurationID, A.paymentAmount \n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID = 4\n"
@@ -444,8 +446,10 @@ public class ProposalDAO {
                     int projectID = rs.getInt("projectID");
                     String projectName = rs.getString("projectName");
                     String createdDate = rs.getString("createdDate");
+                    String expectedDurationID = rs.getString("expectedDurationID");
+                    double paymentAmount = rs.getDouble("paymentAmount");
 
-                    list.add(new ProposalDTO(proposalID, projectID, projectName, createdDate));
+                    list.add(new ProposalDTO(proposalID, projectID, projectName, createdDate,expectedDurationID,paymentAmount));
                 }
             }
 
@@ -1272,6 +1276,37 @@ public class ProposalDAO {
             }
         }
         return endDate;
+    }
+    public String getStartTimeOfContract(int proposalID) throws SQLException {
+        String startTime = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_START_TIME_OF_CONTRACT);
+                ptm.setInt(1, proposalID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    startTime = rs.getString("startTime");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return startTime;
     }
 
     String GET_SEEKER_ID_OF_CANCEL_PROJECT = "select seekerID\n"

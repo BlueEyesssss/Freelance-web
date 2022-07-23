@@ -190,11 +190,13 @@ public class ProposalDTO {
         this.createdDate = createdDate;
     }
 
-    ProposalDTO(int proposalID, int projectID, String projectName, String createdDate) {
+    ProposalDTO(int proposalID, int projectID, String projectName, String createdDate, String expectedDurationID,double paymentAmount) {
         this.proposalID = proposalID;
         this.projectID = projectID;
         this.projectName = projectName;
         this.createdDate = createdDate;
+        this.expectedDurationID = expectedDurationID;
+        this.paymentAmount = paymentAmount;
     }
 
     public ProposalDTO(String link, String message, String fileName, String path, int proposalid, double paymentAmount, String durationText) {

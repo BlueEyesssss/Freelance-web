@@ -237,8 +237,8 @@
 
                                             </div>
 
-                                            <div class="seeker-dividen"></div><a href="#"
-                                                                                 class="main-button invite-button w-button">Invite to Job</a>
+                                            <div class="seeker-dividen"></div>
+//                                            
                                             <div style="opacity:0" class="lightbox-project-detail">
                                                 <div data-w-id="21656960-52d5-5f8e-04ae-05ab3a417bed" class="close-div">
                                                 </div>

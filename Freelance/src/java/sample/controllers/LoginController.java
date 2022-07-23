@@ -52,7 +52,7 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             String username = request.getParameter("userName");
             String password = request.getParameter("password");
-            
+
             //check list các proposal seeker đã submit để check xem hirer đã duyệt chưa
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             ProposalDAO proposalDao = new ProposalDAO();
@@ -61,42 +61,41 @@ public class LoginController extends HttpServlet {
             long difference = 0;
             long differenceDays = 0;
             List<ProposalDTO> listProposalSeekerDone = proposalDao.getListProposalSeekerDone();
-            if(listProposalSeekerDone != null){
+            if (listProposalSeekerDone != null) {
                 for (ProposalDTO item : listProposalSeekerDone) {
-                dateSeekerDone = dateFormat.parse(item.getDateSeekerDone());
-                //tính ngày 
-                difference = dateNow.getTime() - dateSeekerDone.getTime();
-                differenceDays = difference / (24 * 60 * 60 * 1000);
-                if(differenceDays > 7){
-                    //set lại status 7 (job finished successfully) cho proposal này
-                    proposalDao.changeStatusProposalSeekerDoneButHIrerNotCheck(item.getProposalID(), 7, item.getSeekerID());
-                    //chuyển tiền vào balance web cho seeker
-                    PaymentDAO paymentDAO = new PaymentDAO();
-                    paymentDAO.addMoneyForSeeker(item.getSeekerID(), item.getPaymentAmount());
+                    dateSeekerDone = dateFormat.parse(item.getDateSeekerDone());
+                    //tính ngày 
+                    difference = dateNow.getTime() - dateSeekerDone.getTime();
+                    differenceDays = difference / (24 * 60 * 60 * 1000);
+                    if (differenceDays > 7) {
+                        //set lại status 8 (job finished successfully) cho proposal này
+                        proposalDao.changeStatusProposalSeekerDoneButHIrerNotCheck(item.getProposalID(), 7, item.getSeekerID());
+                        //chuyển tiền vào balance web cho seeker
+                        PaymentDAO paymentDAO = new PaymentDAO();
+                        paymentDAO.addMoneyForSeeker(item.getSeekerID(), item.getPaymentAmount());
+                    }
                 }
             }
-            }
-            
-            
+
             if (username.equals("admin") && password.equals("11")) {
                 //HttpSession sessionAdmin = request.getSession();
                 //lấy list transaction rút tiền từ web ra paypal
                 TransactionHandlingDAO dao = new TransactionHandlingDAO();
                 List<TransactionHandlingDTO> listTran = dao.getListTranStatus0();
                 session.setAttribute("LIST_TRANS_STATUS_0", listTran);
-                
+
                 //lấy list các project đã post lên
                 ProjectDAO projectDAO = new ProjectDAO();
                 List<ProjectDTO> listProject = projectDAO.getListProjectByName(" ");
-                
+
                 //list project new
                 List<ProjectDTO> listProjectNewNotHasSeeekr = new ArrayList<>();
-                
+
                 //take list projectID của project have proposal but not have any seeker
                 List<Integer> listPrrojectIDNew = proposalDao.getListProjectNew();
                 for (ProjectDTO projectDTO : listProject) {
                     for (Integer integer : listPrrojectIDNew) {
-                        if(integer == projectDTO.getProjectID()){
+                        if (integer == projectDTO.getProjectID()) {
                             listProjectNewNotHasSeeekr.add(projectDTO);
                             break;
                         }
@@ -104,7 +103,7 @@ public class LoginController extends HttpServlet {
                 }
                 //take list project haven't any proposal
                 for (ProjectDTO projectDTO : listProject) {
-                    if(proposalDao.checkProjectNoProposal(projectDTO.getProjectID())){
+                    if (proposalDao.checkProjectNoProposal(projectDTO.getProjectID())) {
                         //đúng là project này chưa có proposal nào
                         listProjectNewNotHasSeeekr.add(projectDTO);
                     }
@@ -145,6 +144,38 @@ public class LoginController extends HttpServlet {
                         seeker.setLanguagelv(user.getLanguagelv());
 
                         session.setAttribute("USER_LOGIN", seeker);
+
+                        //check seeker co nôp product chua khi het han duration
+                        List<ProposalDTO> listJobActiveOfSeeker = proposalDao.getListJobStartedProposal(seeker.getSeekerID());
+                        long endTimeExpected = 0;
+                        for (ProposalDTO jobActive : listJobActiveOfSeeker) {
+                            Date startTimeJob = dateFormat.parse(proposalDao.getStartTimeOfContract(jobActive.getProjectID()));
+                            switch (jobActive.getExpectedDurationID()) {
+                                case "1":
+                                    endTimeExpected = 30;
+                                    break;
+                                case "2":
+                                    endTimeExpected = 90;
+                                    break;
+                                case "3":
+                                    endTimeExpected = 180;
+                                    break;
+                                case "4":
+                                    endTimeExpected = 360;
+                                    break;
+                                default:
+                            }
+                            difference = dateNow.getTime() - startTimeJob.getTime() + endTimeExpected;
+                            differenceDays = difference / (24 * 60 * 60 * 1000);
+                            if (differenceDays > 0) {
+                                //set lại status 6 (job finished unsuccessfully) cho proposal này
+                                proposalDao.changeStatusProposal(jobActive.getProposalID(), 6);
+                                //chuyển tiền vào balance web cho hirer
+                                PaymentDAO paymentDAO = new PaymentDAO();
+                                paymentDAO.addMoneyForSeeker(jobActive.getSeekerID(), jobActive.getPaymentAmount());
+                            }
+
+                        }
 
                         //lấy listID các skill của seeker
                         List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());
