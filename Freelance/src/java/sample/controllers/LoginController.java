@@ -7,6 +7,7 @@ package sample.controllers;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.contract.ContractDAO;
 import sample.hirer.HirerDAO;
 import sample.hirer.HirerDTO;
 import sample.payment.PayPayDTO;
@@ -56,6 +58,7 @@ public class LoginController extends HttpServlet {
             //check list các proposal seeker đã submit để check xem hirer đã duyệt chưa
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             ProposalDAO proposalDao = new ProposalDAO();
+            ContractDAO contractDao = new ContractDAO();
             Date dateSeekerDone = null;
             Date dateNow = dateFormat.parse(java.time.LocalDate.now().toString());
             long difference = 0;
@@ -73,6 +76,8 @@ public class LoginController extends HttpServlet {
                         //chuyển tiền vào balance web cho seeker
                         PaymentDAO paymentDAO = new PaymentDAO();
                         paymentDAO.addMoneyForSeeker(item.getSeekerID(), item.getPaymentAmount());
+                        LocalDate endTime = LocalDate.now();
+                        contractDao.updateEndTimeContract(item.getProposalID(), endTime);
                     }
                 }
             }
@@ -167,14 +172,17 @@ public class LoginController extends HttpServlet {
                             }
                             difference = dateNow.getTime() - startTimeJob.getTime() + endTimeExpected;
                             differenceDays = difference / (24 * 60 * 60 * 1000);
-                            if (differenceDays > 0) {
-                                //set lại status 6 (job finished unsuccessfully) cho proposal này
-                                proposalDao.changeStatusProposal(jobActive.getProposalID(), 6);
-                                //chuyển tiền vào balance web cho hirer
-                                PaymentDAO paymentDAO = new PaymentDAO();
-                                paymentDAO.addMoneyForSeeker(jobActive.getSeekerID(), jobActive.getPaymentAmount());
+                            if (jobActive.getLink() == null) {
+                                if (differenceDays > 0) {
+                                    //set lại status 6 (job finished unsuccessfully) cho proposal này
+                                    proposalDao.changeStatusProposal(jobActive.getProposalID(), 6);
+                                    //chuyển tiền vào balance web cho hirer
+                                    PaymentDAO paymentDAO = new PaymentDAO();
+                                    paymentDAO.addMoneyForSeeker(jobActive.getSeekerID(), jobActive.getPaymentAmount());
+                                    LocalDate endTime = LocalDate.now();
+                                    contractDao.updateEndTimeContract(jobActive.getProposalID(), endTime);
+                                }
                             }
-
                         }
 
                         //lấy listID các skill của seeker

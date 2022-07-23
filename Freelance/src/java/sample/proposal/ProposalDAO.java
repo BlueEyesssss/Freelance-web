@@ -448,8 +448,9 @@ public class ProposalDAO {
                     String createdDate = rs.getString("createdDate");
                     String expectedDurationID = rs.getString("expectedDurationID");
                     double paymentAmount = rs.getDouble("paymentAmount");
+                    String link = rs.getString("link");
 
-                    list.add(new ProposalDTO(proposalID, projectID, projectName, createdDate,expectedDurationID,paymentAmount));
+                    list.add(new ProposalDTO(proposalID, projectID, projectName, createdDate,expectedDurationID,paymentAmount, link));
                 }
             }
 
