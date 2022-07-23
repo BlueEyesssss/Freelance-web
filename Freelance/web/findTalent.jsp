@@ -145,13 +145,21 @@
 
                                         %>
 
-                                        <div class="filter-accordion-content"><label class="w-checkbox text-block-5">
-                                                <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-2">
-                                                </div><input type="radio" name="skillName-2" id="skillName-2"
+                                        <div class="filter-accordion-content">
+                                            
+                                            <!-- <label class="w-checkbox text-block-5">
+                                                
+                                                <input type="radio" name="skillName-2" id="skillName-2"
                                                              data-name="Skill Name 2"
-                                                             style="opacity:0;position:absolute;z-index:-1" /><span
-                                                             class="checkbox-label-2 w-form-label" for="skillName-2"><%=elem.getSkillName()%></span>
-                                            </label></div>
+                                                             style="opacity:0;position:absolute;z-index:-1" />
+                                                             <%=elem.getSkillName()%>
+                                            </label></div> -->
+
+                                            <label class="radio-field small w-radio">
+                                                <input type="radio" name="complexity" id="Entry-Level" 
+                                                value="Entry Level" data-name="complexity" 
+                                                class="w-form-formradioinput w-radio-input">
+                                                <span for="Entry-Level" class="radio-label-2 small w-form-label"><%=elem.getSkillName()%</span></label>
 
                                         <%                                        }
 
