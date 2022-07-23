@@ -223,7 +223,7 @@
                                             int totalJob = -1;
                                             int star = -1;
                                             SeekerDAO seekerDao = new SeekerDAO();
-                                            List<SeekerDTO> listSeeker = seekerDao.getListInvitedSeeker();
+                                            List<SeekerDTO> listSeeker = seekerDao.getListInvitedSeeker(currentProject.getProjectID());
                                             if (listSeeker != null) {
                                                 if (!listSeeker.isEmpty()) {
                                                     for (SeekerDTO seeker : listSeeker) {

@@ -324,9 +324,9 @@ public class SeekerDAO {
     } 
     
             private static final String GET_LIST_INVITED_SEEKRER = "SELECT A.* \n" +
-"FROM Seeker A, Proposal B WHERE B.proposalStatusID=2 AND A.seekerID = B.seekerID";
+"FROM Seeker A, Proposal B WHERE B.projectID=? AND B.proposalStatusID=2 AND A.seekerID = B.seekerID";
     
-    public List<SeekerDTO> getListInvitedSeeker() throws SQLException {
+    public List<SeekerDTO> getListInvitedSeeker(int projectID) throws SQLException {
         List<SeekerDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stm = null;
@@ -336,7 +336,7 @@ public class SeekerDAO {
             if (conn != null) {
                
                 stm = conn.prepareStatement(GET_LIST_INVITED_SEEKRER);
-            
+            stm.setInt(1, projectID);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int seekerID = rs.getInt("seekerID");

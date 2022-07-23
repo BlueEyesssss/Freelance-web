@@ -56,7 +56,7 @@ public class ProposalDetailController extends HttpServlet {
             int proposalID1 = Integer.parseInt(request.getParameter("proposalID"));
             ProposalDAO proposalDao = new ProposalDAO();
             ProposalDTO proposal1 = proposalDao.getProposalByID(proposalID1);
-            if (proposal != null) {
+            if (proposal1 != null) {
                 request.setAttribute("PROPOSAL", proposal1);
             }
             

@@ -176,7 +176,7 @@
           <div class="text-block-39">Member since <%= hirer.getRegistrationDate()%></div>
         </div>
         
-        <div class="div-block-33"><a href="MainController?action=AcceptInvitationOfHirer&proposalID=<%=proposal.getProposalID()%>&projectID=<%=proposal.getProjectID()%>&paymentAmount=<%=proposal.getPaymentAmount()%>" class="button-copy w-button">Accept</a>
+        <div class="div-block-33"><a href="FormSentProposalController?proposalID=<%=proposal.getProposalID()%>&projectID=<%=proposal.getProjectID()%>" class="button-copy w-button">Accept</a>
             <a href="DenyInvitationOfHirerController?proposalID=<%=proposal.getProposalID()%>&projectID=<%=proposal.getProjectID()%>"
             class="button-copy w-button">Deny</a></div>
       </div>
