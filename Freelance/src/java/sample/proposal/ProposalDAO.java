@@ -424,7 +424,7 @@ public class ProposalDAO {
         return item;
     }
 
-    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT A.proposalID, B.projectID, B.projectName, A.createdDate, A.expectedDurationID, A.paymentAmount \n"
+    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT A.proposalID, B.projectID, B.projectName, A.createdDate, A.expectedDurationID, A.paymentAmount, A.link \n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID = 4\n"
