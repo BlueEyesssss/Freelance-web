@@ -45,6 +45,11 @@ public class FormSentProposalController extends HttpServlet {
             ProjectDTO projectCurrent = dao.getProjectCurrent(projectID);
             List<String> skillneed = dao.getSkillNeedOfProject(projectCurrent.getProjectID());
             List<String> skillsOfSeeker = seekerLogin.getListSkill();
+            
+            
+            ProposalDAO proposalDao = new ProposalDAO();
+            proposalDao.deleteProposalInvitedByProjectID(seekerLogin.getSeekerID(),projectID,2);
+            
             boolean checkMatchSkill = false;//rang buoc seeker phai co it nhat 1 skill trung voi skillNeed cua project
             for (String skillNeedOfProject : skillneed) {
                 for (String skillOfSeeker : skillsOfSeeker) {

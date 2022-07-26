@@ -150,40 +150,45 @@ public class LoginController extends HttpServlet {
 
                         session.setAttribute("USER_LOGIN", seeker);
 
-//                        //check seeker co nôp product chua khi het han duration
-//                        List<ProposalDTO> listJobActiveOfSeeker = proposalDao.getListJobStartedProposal(seeker.getSeekerID());
-//                        long endTimeExpected = 0;
-//                        for (ProposalDTO jobActive : listJobActiveOfSeeker) {
-//                            Date startTimeJob = dateFormat.parse(proposalDao.getStartTimeOfContract(jobActive.getProjectID()));
-//                            switch (jobActive.getExpectedDurationID()) {
-//                                case "1":
-//                                    endTimeExpected = 30;
-//                                    break;
-//                                case "2":
-//                                    endTimeExpected = 90;
-//                                    break;
-//                                case "3":
-//                                    endTimeExpected = 180;
-//                                    break;
-//                                case "4":
-//                                    endTimeExpected = 360;
-//                                    break;
-//                                default:
-//                            }
-//                            difference = dateNow.getTime() - startTimeJob.getTime() + endTimeExpected;
-//                            differenceDays = difference / (24 * 60 * 60 * 1000);
-//                            if (jobActive.getLink() == null) {
-//                                if (differenceDays > 0) {
-//                                    //set lại status 6 (job finished unsuccessfully) cho proposal này
-//                                    proposalDao.changeStatusProposal(jobActive.getProposalID(), 6);
-//                                    //chuyển tiền vào balance web cho hirer
-//                                    PaymentDAO paymentDAO = new PaymentDAO();
-//                                    paymentDAO.addMoneyForSeeker(jobActive.getSeekerID(), jobActive.getPaymentAmount());
-//                                    LocalDate endTime = LocalDate.now();
-//                                    contractDao.updateEndTimeContract(jobActive.getProposalID(), endTime);
-//                                }
-//                            }
-//                        }
+                        //check seeker co nôp product chua khi het han duration
+                        List<ProposalDTO> listJobActiveOfSeeker = proposalDao.getListJobStartedProposal(seeker.getSeekerID());
+                        long endTimeExpected = 0;
+                        for (ProposalDTO jobActive : listJobActiveOfSeeker) {
+                            String startTime = proposalDao.getStartTimeOfContract(jobActive.getProjectID());
+                            if (startTime != null) {
+                                if(!startTime.equalsIgnoreCase("")){
+                                Date startTimeJob = dateFormat.parse(startTime);
+
+                                switch (jobActive.getExpectedDurationID()) {
+                                    case "1":
+                                        endTimeExpected = 30;
+                                        break;
+                                    case "2":
+                                        endTimeExpected = 90;
+                                        break;
+                                    case "3":
+                                        endTimeExpected = 180;
+                                        break;
+                                    case "4":
+                                        endTimeExpected = 360;
+                                        break;
+                                    default:
+                                }
+                                difference = dateNow.getTime() - startTimeJob.getTime() + endTimeExpected;
+
+                                differenceDays = difference / (24 * 60 * 60 * 1000);
+                                if (differenceDays > 0) {
+                                    //set lại status 6 (job finished unsuccessfully) cho proposal này
+                                    proposalDao.changeStatusProposal(jobActive.getProposalID(), 6);
+                                    //chuyển tiền vào balance web cho hirer
+                                    PaymentDAO paymentDAO = new PaymentDAO();
+                                    paymentDAO.addMoneyForSeeker(jobActive.getSeekerID(), jobActive.getPaymentAmount());
+                                    LocalDate endTime = LocalDate.now();
+                                    contractDao.updateEndTimeContract(jobActive.getProposalID(), endTime);
+                                }
+                            }
+                            }
+                        }
 
                         //lấy listID các skill của seeker
                         List<SkillDTO> listSkillSeeker = daoSkill.getListSkillIDOfSeeker(seeker.getSeekerID());

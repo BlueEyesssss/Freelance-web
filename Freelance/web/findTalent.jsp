@@ -159,8 +159,8 @@
                                                 <input type="radio" name="complexity" id="Entry-Level" 
                                                 value="Entry Level" data-name="complexity" 
                                                 class="w-form-formradioinput w-radio-input">
-                                                <span for="Entry-Level" class="radio-label-2 small w-form-label"><%=elem.getSkillName()%</span></label>
-
+                                                <span for="Entry-Level" class="radio-label-2 small w-form-label"><%=elem.getSkillName()%></span></label>
+                                                 </div>
                                         <%                                        }
 
                                         %>
@@ -189,7 +189,7 @@
                                         <div class="text-block-5">Browse jobs that match your experience to a client&#x27;s
                                             hiring preferences.<br />Ordered by most relevant.</div>
                                         <div class="seeker-dividen"></div>
-                                        <%                                            UserDAO userDao = new UserDAO();
+                                        <%  UserDAO userDao = new UserDAO();
                                             UserDTO userIsSeeker = null;
                                             int star = -1;
                                             SeekerDAO seekerDao = new SeekerDAO();
@@ -249,7 +249,7 @@
                                             </div>
 
                                             <div class="seeker-dividen"></div>
-                                            //                                            
+                                                                                       
                                             <div style="opacity:0" class="lightbox-project-detail">
                                                 <div data-w-id="21656960-52d5-5f8e-04ae-05ab3a417bed" class="close-div">
                                                 </div>

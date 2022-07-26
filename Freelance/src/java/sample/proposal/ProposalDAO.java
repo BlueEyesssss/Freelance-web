@@ -424,7 +424,7 @@ public class ProposalDAO {
         return item;
     }
 
-    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT A.proposalID, B.projectID, B.projectName, A.createdDate, A.expectedDurationID, A.paymentAmount, A.link \n"
+    private static final String VIEW_JOB_STARTED_PROPOSAL = "SELECT A.proposalID, B.projectID, B.projectName, A.createdDate, A.expectedDurationID, A.paymentAmount \n"
             + "FROM Proposal A, Project B\n"
             + "WHERE A.projectID = B.projectID \n"
             + "AND A.proposalStatusID = 4\n"
@@ -448,9 +448,9 @@ public class ProposalDAO {
                     String createdDate = rs.getString("createdDate");
                     String expectedDurationID = rs.getString("expectedDurationID");
                     double paymentAmount = rs.getDouble("paymentAmount");
-                    String link = rs.getString("link");
+//                    String link = rs.getString("link");                   
 
-                    list.add(new ProposalDTO(proposalID, projectID, projectName, createdDate,expectedDurationID,paymentAmount, link));
+                    list.add(new ProposalDTO(proposalID, projectID, projectName, createdDate,expectedDurationID,paymentAmount));
                 }
             }
 
@@ -1065,6 +1065,37 @@ public class ProposalDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(DELETE_PROPOSAL_BY_PROJECT_ID);
                 ptm.setInt(1, projectID);
+                check = ptm.executeUpdate() > 0;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    private static final String DELETE_PROPOSAL_INVITED_BY_PROJECT_ID = "DELETE FROM Proposal WHERE seekerID =? AND projectID =? AND proposalStatusID = ?";
+
+    public boolean deleteProposalInvitedByProjectID(int seekerID,int projectID, int status) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_PROPOSAL_INVITED_BY_PROJECT_ID);
+                ptm.setInt(1, seekerID);
+                ptm.setInt(2, projectID);
+                ptm.setInt(3, status);
                 check = ptm.executeUpdate() > 0;
 
             }
