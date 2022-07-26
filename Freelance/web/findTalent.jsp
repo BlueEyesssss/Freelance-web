@@ -63,9 +63,9 @@
                                 loading="lazy" alt="" /></div>
                         <div class="nav-search-input">
                             <div class="w-form">
-                                <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
-                                        type="text" class="search-input w-input" maxlength="256" name="name"
-                                        data-name="Name" placeholder="" id="name" /><input type="submit" value="Submit"
+                                <form action="MainController" id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
+                                        type="text" class="search-input w-input" maxlength="256" name="Name"
+                                        data-name="Name" placeholder="" id="name" /><input type="submit" name="action" value="Search Talent By Name"
                                         data-wait="Please wait..." class="submit-button-2 w-button" /></form>
                                 <div class="w-form-done">
                                     <div>Thank you! Your submission has been received!</div>
@@ -92,7 +92,7 @@
                             <div class="dropdown-toggle-3 w-dropdown-toggle">
                                 <div class="text-block-22">Find Talent</div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="findTalent.jsp"
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="GetAllSeeker"
                                                                             class="dropdown-link-nav w-dropdown-link">Find Talent</a></nav>
                         </div>
                     </div><a href="#" class="w-inline-block"><img
@@ -125,11 +125,11 @@
                     <div class="filter-left">
                         <div class="w-form">
                             
-                            <form id="email-form-4" name="email-form-4" data-name="Email Form 4" method="get"><input
-                                    type="submit" value="Search" data-wait="Please wait..." class="main-button w-button" />
+                            <form action="MainController" id="email-form-4" name="email-form-4" data-name="Email Form 4" method="get"><input
+                                    type="submit" name="action" value="Search Talent" data-wait="Please wait..." class="main-button w-button" />
                                 <div class="text-block-159"><strong>Name</strong></div><input type="text"
                                                                                               class="text-field-18 w-input" maxlength="256" name="Name" data-name="Name"
-                                                                                              placeholder="" id="Name-3" />
+                                                                                              placeholder="" id="Name-3" required=""/>
                                 <div>
 
                                     <div class="filter-accordion-wrapper">
@@ -155,10 +155,10 @@
                                                              <%=elem.getSkillName()%>
                                             </label></div> -->
 
-                                            <label class="radio-field small w-radio">
-                                                <input type="radio" name="complexity" id="Entry-Level" 
-                                                value="Entry Level" data-name="complexity" 
-                                                class="w-form-formradioinput w-radio-input">
+                                            <label class="radio-field small w-radio" >
+                                                <input type="radio" name="skillID" id="Entry-Level" 
+                                                value=<%= elem.getSkillID()%> data-name="complexity" 
+                                                class="w-form-formradioinput w-radio-input" required="">
                                                 <span for="Entry-Level" class="radio-label-2 small w-form-label"><%=elem.getSkillName()%></span></label>
                                                  </div>
                                         <%                                        }
@@ -168,6 +168,7 @@
                                     </div>
                                 </div>
                             </form>
+                                        
                             <div class="w-form-done">
                                 <div>Thank you! Your submission has been received!</div>
                             </div>
@@ -193,7 +194,8 @@
                                             UserDTO userIsSeeker = null;
                                             int star = -1;
                                             SeekerDAO seekerDao = new SeekerDAO();
-                                            List<SeekerDTO> listSeeker = seekerDao.getListSeeker();
+                                        
+                                            List<SeekerDTO> listSeeker =(List<SeekerDTO>)request.getAttribute("LIST_SEEKER");
                                             if (listSeeker != null) {
                                                 if (!listSeeker.isEmpty()) {
                                                     for (SeekerDTO seeker : listSeeker) {
@@ -230,7 +232,7 @@
                                             <div class="review-stars-wrapper"><img loading="lazy"
                                                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                                    alt="" />
-                                                <div> 4,5/5 points</div>
+                                                <div> <%=star%>/5 points</div>
                                             </div>
                                             <%
                                                 SkillDAO skillDao = new SkillDAO();
@@ -589,7 +591,7 @@
                                                                                             <img loading="lazy"
                                                                                                  src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                                                  alt="" />
-                                                                                            <div> 4,5/5 points</div>
+                                                                                            <div> <%= star%>/5 points</div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="history-right">

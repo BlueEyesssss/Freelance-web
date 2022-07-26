@@ -402,4 +402,93 @@ public class SeekerDAO {
         }return count;
     } 
     
+     private static final String GET_LIST_SEEKER_BY_ID_AND_SKILL = "SELECT A.* \n" +
+" FROM Seeker A, [User] B, HasSkill C \n" +
+" WHERE A.seekerID = B.userID AND A.seekerID=C.seekerID AND B.fullName LIKE ? AND C.skillID =?";
+    
+    public List<SeekerDTO> getListFilterTalent(String name, int skillID) throws SQLException {
+        List<SeekerDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+               
+                stm = conn.prepareStatement(GET_LIST_SEEKER_BY_ID_AND_SKILL);
+            stm.setString(1, "%" + name + "%");
+            stm.setInt(2, skillID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int seekerID = rs.getInt("seekerID");
+                    String overview = rs.getString("overview");
+                    String titileBio = rs.getString("titileBio");
+                    int moneyPerHour = rs.getInt("moneyPerHour");
+                    String education = rs.getString("education");
+                    String degree = rs.getString("degree");
+                    String major = rs.getString("major");
+                    String hourPerWeek = rs.getString("hourPerWeek");   
+                    list.add(new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    } 
+    
+     private static final String GET_LIST_SEEKER_BY_NAME = "SELECT A.* \n" +
+" FROM Seeker A, [User] B \n" +
+" WHERE A.seekerID = B.userID  AND B.fullName LIKE ?";
+    
+    public List<SeekerDTO> getListFilterTalentByName(String name) throws SQLException {
+        List<SeekerDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+               
+                stm = conn.prepareStatement(GET_LIST_SEEKER_BY_NAME);
+            stm.setString(1, "%" + name + "%");
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int seekerID = rs.getInt("seekerID");
+                    String overview = rs.getString("overview");
+                    String titileBio = rs.getString("titileBio");
+                    int moneyPerHour = rs.getInt("moneyPerHour");
+                    String education = rs.getString("education");
+                    String degree = rs.getString("degree");
+                    String major = rs.getString("major");
+                    String hourPerWeek = rs.getString("hourPerWeek");   
+                    list.add(new SeekerDTO(seekerID, overview, titileBio, moneyPerHour, education, degree, major, hourPerWeek));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    } 
+    
 }

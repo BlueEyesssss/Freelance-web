@@ -152,6 +152,10 @@ public class MainController extends HttpServlet {
     private static final String ACCEPT_INVITATION_OF_HIRER_CONTROLLER = "AcceptInvitationOfHirerController";
     private static final String INVITE_SEEKER = "InviteSeeker";
     private static final String INVITE_SEEKER_CONTROLLER = "InviteSeekerController";
+    private static final String SEARCH_TALENT = "Search Talent";
+    private static final String SEARCH_TALENT_CONTROLLER = "SearchTalentController";
+    private static final String SEARCH_TALENT_BY_NAME = "Search Talent By Name";
+    private static final String SEARCH_TALENT_BY_NAME_CONTROLLER = "SearchTalentByNameController";
             
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -350,6 +354,12 @@ public class MainController extends HttpServlet {
                 
             } else if (INVITE_SEEKER.equals(action)) {
                 url = INVITE_SEEKER_CONTROLLER;
+                
+            } else if (SEARCH_TALENT.equals(action)) {
+                url = SEARCH_TALENT_CONTROLLER;
+                
+            } else if (SEARCH_TALENT_BY_NAME.equals(action)) {
+                url = SEARCH_TALENT_BY_NAME_CONTROLLER;
 
             } else {
                 HttpSession session = request.getSession();

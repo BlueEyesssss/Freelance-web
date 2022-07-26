@@ -48,9 +48,9 @@
                             loading="lazy" alt="" /></div>
                     <div class="nav-search-input-2">
                         <div class="w-form">
-                            <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
-                                    type="text" class="search-input-2 w-input" maxlength="256" name="name-2"
-                                    data-name="Name 2" placeholder="" id="name-2" /><input type="submit" value="Submit"
+                            <form action="MainController" id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
+                                    type="text" class="search-input-2 w-input" maxlength="256" name="Name"
+                                    data-name="Name 2" placeholder="" id="name-2" /><input type="submit" name="action" value="Search Talent By Name"
                                     data-wait="Please wait..." class="submit-button-2 w-button" /></form>
                             <div class="w-form-done">
                                 <div>Thank you! Your submission has been received!</div>
@@ -84,7 +84,7 @@
                             <div class="text-block-22">Find Talent</div>
                         </div>
                         <nav class="dropdown-list-2 w-dropdown-list">
-                            <a href="findTalent.jsp"
+                            <a href="GetAllSeeker"
                                 class="dropdown-link-nav w-dropdown-link">Find Talent</a>
                         </nav>
                     </div>
