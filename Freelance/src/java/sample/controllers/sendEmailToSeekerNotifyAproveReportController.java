@@ -22,7 +22,7 @@ import sample.user.UserDTO;
 @WebServlet(name = "sendEmailToSeekerNotifyAproveReportController", urlPatterns = {"/sendEmailToSeekerNotifyAproveReportController"})
 public class sendEmailToSeekerNotifyAproveReportController extends HttpServlet {
 
-   private static final String SUCCESS = "index.html";
+   private static final String SUCCESS = "index.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

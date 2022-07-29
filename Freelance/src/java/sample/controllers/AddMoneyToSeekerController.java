@@ -29,7 +29,7 @@ import sample.user.UserDTO;
 public class AddMoneyToSeekerController extends HttpServlet {
 
     private final static String ERROR = "error.html";
-    private final static String SUCCESS = "index.html";
+    private final static String SUCCESS = "index.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
