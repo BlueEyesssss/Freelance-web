@@ -330,7 +330,7 @@
                                             <div class="review-stars-wrapper"><img loading="lazy"
                                                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                                    alt="" />
-                                                <div> 4,5/5 points</div>
+                                                <div> 5/5 points</div>
                                             </div>
                                             
                                         <div class="seeker-skill-wrapper">
@@ -437,11 +437,12 @@
                                                             <div class="dividen"></div>
                                                             <div class="lb-about-client-wrapper">
                                                                 <h3 class="heading-11">About client</h3>
-                                                                <div class="lb-review-wrapper"><img loading="lazy"
+                                                                <div class="lb-review-wrapper">
+<!--                                                                    <img loading="lazy"
                                                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
-                                                                                                    alt="" class="image-10" />
-                                                                    <div class="lb-review-text"><%= hirer.getReviewGrade() %> Stars<br />of 999
-                                                                        reviews</div>
+                                                                                                    alt="" class="image-10" />-->
+<!--                                                                    <div class="lb-review-text"><%= hirer.getReviewGrade() %> Stars<br />of 999
+                                                                        reviews</div>-->
                                                                 </div>
                                                                 <div class="lb-left-element-wrapper">
                                                                     <h4 class="heading-12">Company: <%= hirer.getCompanyName() %></h4>
@@ -453,7 +454,7 @@
                                                                 </div>
                                                                 <div class="lb-left-element-wrapper">
                                                                     <h4 class="heading-12">$100k+ total spent</h4>
-                                                                    <div>90 hires, 12 active - cho nay chua lam</div>
+                                                                    <div>90 hires, 12 active </div>
                                                                 </div>
                                                                 <div>Member since <%= hirer.getRegistrationDate() %></div>
                                                             </div>
