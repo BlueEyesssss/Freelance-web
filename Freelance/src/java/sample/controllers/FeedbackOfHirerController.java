@@ -41,7 +41,7 @@ public class FeedbackOfHirerController extends HttpServlet {
                 url = SUCCESS;
             }
             }else{
-                request.setAttribute("ERROR_MESSAGE", "Oppss, Wrong format!!");
+                request.setAttribute("ERROR_MESSAGE", "Oppss, Wrong format, Your Feedback is not save!!");
             }
             
         } catch (Exception e) {

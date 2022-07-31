@@ -188,6 +188,9 @@
                                 LocalDate curent = LocalDate.now();                                
                             if(curent.isBefore(endDate.plusDays(7)) && curent.isAfter(endDate.minusDays(1)) && !checkAlreadlyFeedback){
                                 %>
+                                <div style="margin:20px 280px"><%=error%></div>
+        <%
+                                %>
         <div style="display:none;opacity:0" class="div-block-44">
             <div class="div-block-45">
                 
@@ -195,7 +198,7 @@
                     <h3>Feedback</h3>
                     
                     <form action="MainController" id="email-form-3" name="email-form-3" data-name="Email Form 3" method="get"><label
-                            for="name-3">Grade</label><input type="number" class="text-field-2 w-input" maxlength="256" name="seekerGrade"
+                            for="name-3">Grade</label><input type="number" class="text-field-2 w-input" min ="1" max="5" maxlength="256" name="seekerGrade"
                             data-name="Name 3" placeholder="1 to 5" id="name-3" required="" /><label for="field">Comment</label><input
                             type="text" class="text-field-3 w-input" maxlength="256" name="clientComment" data-name="Field"
                             placeholder="Example Text" id="field" required="" />

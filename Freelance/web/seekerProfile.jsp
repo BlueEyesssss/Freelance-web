@@ -905,12 +905,12 @@
                                             <div class="history-left">
                                                 <h4 class="heading-18"><%= proposal.getProjectName()%></h4>
                                                 <div>June 2021 - July 2021</div>
-                                                <div class="no-feedback">If no feedback: No feedback</div>
-                                                <div class="review-feedback">If has feedback: Excellent!</div>
+                                                
+                                                <div class="review-feedback"><%= proposal.getClientComment()%></div>
                                                 <div class="review-stars-wrapper"><img loading="lazy"
                                                                                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                                        alt="" />
-                                                    <div> 4,5/5 points</div>
+                                                    <div> <%= proposal.getSeekerGrade()%>/5 points</div>
                                                 </div>
                                             </div>
                                             <div class="history-right">

@@ -43,7 +43,7 @@ public class FeedbackOfSeekerController extends HttpServlet {
                 }
             }else{
                 
-                request.setAttribute("ERROR_MESSAGE", "Oppss, Wrong format!!");
+                request.setAttribute("ERROR_MESSAGE", "Oppss, Wrong format, Your Feedback is not save!!");
             }
         } catch (Exception e) {
             log("Error at FeedbackOfSeekerController: " + e.toString());

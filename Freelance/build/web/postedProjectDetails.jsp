@@ -99,7 +99,7 @@
                             <div class="dropdown-toggle-3 w-dropdown-toggle">
                                 <div class="text-block-22">Find Talent</div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
+                            <nav class="dropdown-list-2 w-dropdown-list"><a href="GetAllSeeker"
                                                                             class="dropdown-moi-qua-troi-moi w-dropdown-link">Find Talent</a></nav>
                         </div>
                     </div><a href="#" class="link-block w-inline-block"><img
@@ -476,7 +476,7 @@
                             <!-- comment -->
                             <div class="div-block-43">
                                 <div class="text-block-40">There is no proposal applied to this project. Do you want to
-                                    invite some freelancer? </div><a href="#" class="button-2 w-button">Invite
+                                    invite some freelancer? </div><a href="GetAllSeeker" class="button-2 w-button">Invite
                                     Freelancer</a>
                             </div>
                             <!-- comment -->

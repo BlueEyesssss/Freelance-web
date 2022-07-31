@@ -591,7 +591,7 @@
                                                                                             <img loading="lazy"
                                                                                                  src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                                                  alt="" />
-                                                                                            <div> <%= star%>/5 points</div>
+                                                                                            <div> <%= proposal.getSeekerGrade()%>/5 points</div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="history-right">
