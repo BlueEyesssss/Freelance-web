@@ -647,7 +647,8 @@
                                 <!--update email-->
                                 <div class="seeker-left-inforwrapper">
                                 <div class="div-horizon spacing-between">
-                                    <div class="text-block-23">Email<br /></div><img
+                                    <div class="text-block-23">Email: <%= seeker.getEmail()%><br /></div>
+                                    <img style="display: none"
                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62972cb6f2d88ab16b24b133_clarity_edit-solid.svg"
                                         loading="lazy" data-w-id="ba73fb29-3766-f350-efa3-0ec67e3208ad" alt=""
                                         class="icon-edit" />

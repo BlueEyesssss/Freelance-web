@@ -24,7 +24,7 @@ public class SendEmailForHirer {
     }
 
     public  String emailOfAdmin(){
-        return "khaphpse151400@fpt.edu.vn";
+        return "adfreelanweb@gmail.com";
     }
     
     //send email to the user email
