@@ -260,9 +260,8 @@
             <div>
                 <div class="text-block-40">Getting Started</div>
             </div>
-            <div class="div-block-23"><a href="#" class="button-10 w-button">Invite Talent to apply</a><a href="#"
-                    class="button-10 w-button">Add billing method</a><a href="#" class="button-10 w-button">Explore more
-                    talent</a></div>
+            <div class="div-block-23"><a href="GetAllSeeker" class="button-10 w-button">Invite Talent to apply</a><a href="postAJob.jsp"
+                    class="button-10 w-button">Post Job Now</a><a href="ViewHirerProfileController" class="button-10 w-button">Edit Your Profile</a></div>
         </div>
     </div>
    
