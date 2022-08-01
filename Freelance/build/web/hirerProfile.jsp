@@ -271,7 +271,7 @@
                                                         <div class="hirer-element-form">
                                                             <label
                                                                 for="email"><strong>Email</strong> </strong> <strong style="color: red">*</strong></label>
-                                                            <input
+                                                                <input readonly=""
                                                                 type="email" class="text-field w-input" maxlength="256"
                                                                 name="email" data-name="email" placeholder="" id="email"
                                                                 required="" value="<%= hirer.getEmail()%>"/>
