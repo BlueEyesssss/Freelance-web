@@ -1035,7 +1035,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-session">
+                                <div class="testimonial-session" style="display: none">
                     <div class="seeker-header-div testimonial">
                         <h1 class="heading-tittle">Testimonials</h1>
                         <div class="text-block-seeker sub-heading">Endorsements from past clients<br /></div>

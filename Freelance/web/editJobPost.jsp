@@ -84,8 +84,6 @@
                             <a href="MainController?action=ViewContractOfHirer"
                                 class="dropdown-link-nav w-dropdown-link">All contract</a>
                                 
-                            <a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Hire</a>
                             </nav>
                         </div>
                         <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">

@@ -75,8 +75,8 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                     <div class="nav-icon-search"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296b474e000b451cf79e812_search-white.svg"
                             loading="lazy" alt="" /></div>
-                    <div class="nav-search-input">
-                        <div class="w-form">
+                    <div class="nav-search-input" >
+                        <div class="w-form" >
                             <form action="MainController" id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
                                         type="text" class="search-input w-input" maxlength="256" name="search"
                                         data-name="Name" placeholder="Find job here" id="name" /><input  type="submit" name="action" value="Search Job By Name" 
@@ -214,10 +214,16 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                             </a>
                                             <div>Price: <%= project.getPaymentAmount()%> - <%= project.getComplexity()%> - Post <%= localDate.getDayOfYear() - project.getCreatedDate().getDayOfYear() %> days Ago</div>
                                             <p class="paragraph"> <%= project.getDescription()%></p>
-                                            <div class="div-block-7"><img loading="lazy"
+                                            <div class="div-block-7">
+                                                Hirer's Point:
+                                                
+                                                <div> <img loading="lazy"
                                                                           src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
-                                                                          alt="" />
-                                                <div> <%= hirer.getReviewGrade() %>/5 points</div>
+                                                                          alt="" /> 
+                                                    <%= hirer.getReviewGrade() %>/5 points 
+                                                    
+                                                </div>
+                                                
                                             </div>
                                             
                                         <div class="seeker-skill-wrapper">
@@ -310,11 +316,12 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                 class="primary-button w-button">Submit a proposal</a><a
                                                                 href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID()%>" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
-                                                                class="lb-flag-wrapper w-inline-block"><img
+                                                                class="lb-flag-wrapper w-inline-block">
+<!--                                                           //          <img
                                                                     loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948a9d2d0c46f777b5b766_flag.svg"
-                                                                    alt="" class="image-9" />
-                                                                <div class="text-block-17">Flag as inappropriate</div>
+                                                                    alt="" class="image-9" />-->
+                                                                <div class="text-block-17"></div>
                                                             </a>
                                                             <div class="lb-text">Feel free to approach</div>
                                                         </div>
@@ -327,8 +334,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             <div class="lb-review-wrapper"><img loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                     alt="" class="image-10" />
-                                                                <div class="lb-review-text"><%= hirer.getReviewGrade() %> Stars <br />of 999
-                                                                    reviews</div>
+                                                                <div class="lb-review-text"><%= hirer.getReviewGrade() %>/5 Stars <br /></div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
                                                                 <h4 class="heading-12">Company: <%= hirer.getCompanyName() %></h4>
@@ -339,8 +345,8 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                 <div>The total number of posted job</div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
-                                                                <h4 class="heading-12">$100k+ total spent</h4>
-                                                                <div>90 hires, 12 active - cho nay chua lam</div>
+                                                                <h4 class="heading-12"></h4>
+                                                                <div></div>
                                                             </div>
                                                             <div>Member since <%= hirer.getRegistrationDate() %></div>
                                                         </div>
@@ -484,15 +490,29 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             </div>
                                                     </div>
                                                     <div class="lb-jobdetail-right">
+<!--                                                    <div class="lb-joblist-button-wrapper" style="display: none"><a href="MainController?action=FormSentProposal&projectID=<%= project.getProjectID()%>"
+                                                                class="primary-button w-button">Submit a proposal</a><a
+                                                                href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID()%>" class="primary-button sub w-button"> ♡ Save
+                                                                job</a><a href="#"
+                                                                  class="lb-flag-wrapper w-inline-block">
+                                                                    <img 
+                                                                    loading="lazy"
+                                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948a9d2d0c46f777b5b766_flag.svg"
+                                                                    alt="" class="image-9" style="display: none"/>
+                                                                <div class="text-block-17"></div>
+                                                            </a>
+                                                            <div class="lb-text">Feel free to approach</div>
+                                                        </div>-->
                                                         <div class="lb-joblist-button-wrapper"><a href="MainController?action=FormSentProposal&projectID=<%= project.getProjectID()%>"
                                                                 class="primary-button w-button">Submit a proposal</a><a
                                                                 href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID()%>" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
-                                                                class="lb-flag-wrapper w-inline-block"><img
+                                                                class="lb-flag-wrapper w-inline-block">
+<!--                                                           //          <img
                                                                     loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948a9d2d0c46f777b5b766_flag.svg"
-                                                                    alt="" class="image-9" />
-                                                                <div class="text-block-17">Flag as inappropriate</div>
+                                                                    alt="" class="image-9" />-->
+                                                                <div class="text-block-17"></div>
                                                             </a>
                                                             <div class="lb-text">Feel free to approach</div>
                                                         </div>
@@ -505,8 +525,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             <div class="lb-review-wrapper"><img loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                     alt="" class="image-10" />
-                                                                <div class="lb-review-text"><%= hirer.getReviewGrade() %> Stars <br />of 999
-                                                                    reviews</div>
+                                                                <div class="lb-review-text"><%= hirer.getReviewGrade() %> Stars <br /></div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
                                                                 <h4 class="heading-12">Company: <%= hirer.getCompanyName() %></h4>
@@ -517,8 +536,8 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                 <div>The total number of posted job</div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
-                                                                <h4 class="heading-12">$100k+ total spent</h4>
-                                                                <div>90 hires, 12 active - cho nay chua lam</div>
+                                                                <h4 class="heading-12"></h4>
+                                                                <div></div>
                                                             </div>
                                                             <div>Member since <%= hirer.getRegistrationDate() %></div>
                                                         </div>
@@ -668,11 +687,12 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                 class="primary-button w-button">Submit a proposal</a><a
                                                                 href="MainController?action=CreateFavoriteProject&projectID=<%= project.getProjectID()%>" class="primary-button sub w-button"> ♡ Save
                                                                 job</a><a href="#"
-                                                                class="lb-flag-wrapper w-inline-block"><img
+                                                                class="lb-flag-wrapper w-inline-block">
+<!--                                                                    <img
                                                                     loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62948a9d2d0c46f777b5b766_flag.svg"
-                                                                    alt="" class="image-9" />
-                                                                <div class="text-block-17">Flag as inappropriate</div>
+                                                                    alt="" class="image-9" />-->
+                                                                <div class="text-block-17"></div>
                                                             </a>
                                                             <div class="lb-text">Feel free to approach</div>
                                                         </div>
@@ -685,8 +705,7 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                             <div class="lb-review-wrapper"><img loading="lazy"
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d915178de70c73cbd8e23_star.png"
                                                                     alt="" class="image-10" />
-                                                                <div class="lb-review-text"><%= hirer.getReviewGrade() %> Stars <br />of 999
-                                                                    reviews</div>
+                                                                <div class="lb-review-text"><%= hirer.getReviewGrade() %> Stars <br /></div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
                                                                 <h4 class="heading-12">Company: <%= hirer.getCompanyName() %></h4>
@@ -697,8 +716,8 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                                                                 <div>The total number of posted job</div>
                                                             </div>
                                                             <div class="lb-left-element-wrapper">
-                                                                <h4 class="heading-12">$100k+ total spent</h4>
-                                                                <div>90 hires, 12 active - cho nay chua lam</div>
+                                                                <h4 class="heading-12"></h4>
+                                                                <div></div>
                                                             </div>
                                                             <div>Member since <%= hirer.getRegistrationDate() %></div>
                                                         </div>
@@ -740,9 +759,9 @@ data-wf-site="628aea177e2bdc5cebb3b655" data-wf-status="1">
                         </div>
                         <div class="ividen"></div>
                         <div class="div-block-22">
-                            <div class="text-block-19">Number of available jobs</div>
-                            <div id="progress-bar" class="progress-bar"></div>
-                            <div class="text-block-20"><%= count %>/100</div>
+                            <div class="text-block-19">Number of available jobs: <%= count %> jobs available</div>
+                            <!--<div id="progress-bar" class="progress-bar"></div>-->
+                            <div class="text-block-20"></div>
                         </div>
                     </div>
                 </div>

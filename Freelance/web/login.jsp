@@ -67,8 +67,8 @@
         <div class="form-wrapper">
           <h2 class="heading-2">Login to Freelance<br /></h2>
           <div class="form-box">
-            <h3 class="heading-4">Use your social profile to login</h3>
-            <div class="social-box"><a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/Freelance/LoginGoogleController&response_type=code
+            <h3 class="heading-4">Use your registered account to login</h3>
+            <div class="social-box" style="display: none"><a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/Freelance/LoginGoogleController&response_type=code
               &client_id=540837116728-5a0vpu4mt0ll88qmcb76m7l9ulltkbqu.apps.googleusercontent.com&approval_prompt=force" class="social-login w-inline-block"><img
                   src="https://uploads-ssl.webflow.com/62d3b9d70e07ab6b86d5ec7c/62d3b9d80e07ab0517d5ec8d_G.png" alt=""
                   class="image" />
@@ -76,7 +76,7 @@
                   <div class="text-block-9">Google</div>
                 </div>
               </a></div>
-            <div class="div-block-6-copy">
+            <div class="div-block-6-copy" style="display: none">
               <div class="_1px-div-line"></div>
               <h3 class="heading-4">Or</h3>
               <div class="_1px-div-line"></div>

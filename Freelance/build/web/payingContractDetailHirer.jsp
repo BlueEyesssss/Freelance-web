@@ -76,15 +76,13 @@
                         </div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
                                 class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="MainController?action=ViewContractOfHirer"
-                                class="dropdown-link-nav w-dropdown-link">All contract</a><a href="MainController?action=ViewContractOfHirer"
-                                class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
+                                class="dropdown-link-nav w-dropdown-link">All contract</a></nav>
                     </div>
                     <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                         <div class="dropdown-toggle-3 w-dropdown-toggle">
-                            <div class="text-block-22">Find Talent</div>
+                            <div class="text-block-22"><a href="GetAllSeeker" style="color: white; text-decoration: none">Find Talent</a></div>
                         </div>
-                        <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                class="dropdown-moi-qua-troi-moi w-dropdown-link">Find Talent</a></nav>
+                        <nav class="dropdown-list-2 w-dropdown-list"></nav>
                     </div>
                 </div><a href="#" class="link-block w-inline-block"><img
                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
@@ -158,7 +156,7 @@
                     <h4 class="heading-14">Your Proposed Term</h4>
                     <div class="text-block-40">This includes all milestones, and is the amount your client will see.
                     </div>
-                    <div><em class="italic-text">Payment Amount:</em> $<%= proposalINf.getPaymentAmount() %>$</div>
+                    <div><em class="italic-text">Payment Amount:</em> $<%= proposalINf.getPaymentAmount() %>$ .</div>
                     <div class="text-block-43"><em class="italic-text-2">Expected duration:</em> <%= proposalINf.getDurationText()%></div>
                 </div>
                 <div class="div-block-61">

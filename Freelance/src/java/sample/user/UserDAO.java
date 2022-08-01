@@ -71,6 +71,41 @@ public class UserDAO {
     private static final String UPDATE_COMPANY_HIRER = "update Hirer\n" +
 "set companyName = ?\n" +
 "where hirerID = ?";
+    
+    public String getCompanyByHirerIDd(int hirerid) throws SQLException{
+        String name = "";
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtil.getConnection();
+            if (con != null) {
+                String sql = "select companyName\n" +
+"from Hirer\n" +
+"where hirerID = ?";
+                ptm = con.prepareStatement(sql);
+                ptm.setInt(1, hirerid);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    name = rs.getString("companyName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return name;
+    }
+    
     public String getFullNameById(int userid) throws SQLException{
         String name = "";
         Connection con = null;

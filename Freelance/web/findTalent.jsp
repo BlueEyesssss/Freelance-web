@@ -85,8 +85,7 @@
                             </div>
                             <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
                                                                             class="dropdown-link-nav w-dropdown-link">Post a job</a><a href="MainController?action=ViewContractOfHirer"
-                                                                            class="dropdown-link-nav w-dropdown-link">All Contracts</a><a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
+                                                                            class="dropdown-link-nav w-dropdown-link">All Contracts</a></nav>
                         </div>
                         <div data-hover="true" data-delay="0" class="link nav-link w-dropdown">
                             <div class="dropdown-toggle-3 w-dropdown-toggle">
@@ -101,9 +100,12 @@
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d69352ef8ea1801f37308_bell.png"
                             loading="lazy" alt="" /></a>
                     <div class="navigation-button-wrapper">
+                        <%
+                            HirerDTO hirer = (HirerDTO)session.getAttribute("USER_LOGIN");
+                        %>
                         <div data-hover="false" data-delay="0" class="w-dropdown">
                             <div class="dropdown-toggle w-dropdown-toggle"><img
-                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                    src="uploads/<%= hirer.getAvatar() %>"
                                     loading="lazy" width="90"
                                     sizes="(max-width: 479px) 100vw, (max-width: 767px) 43.6875px, 6vw" alt=""
                                     class="avatar-img-nav" /></div>
@@ -205,9 +207,9 @@
                                         %>
                                         <div class="talent-wrappper"><a data-w-id="21656960-52d5-5f8e-04ae-05ab3a417bbe"
                                                                         href="#" class="click-link-talent w-inline-block"><img
-                                                    src=<%= userIsSeeker.getAvatar()%>
+                                                    src="uploads/<%= userIsSeeker.getAvatar()%>"
                                                     loading="lazy"
-                                                    srcset=<%= userIsSeeker.getAvatar()%>
+                                                    srcset="uploads/<%= userIsSeeker.getAvatar()%>"
                                                     sizes="(max-width: 479px) 100vw, 99.99609375px" alt=""
                                                     class="image-23" />
                                                 <div class="div-block-142">
@@ -376,9 +378,8 @@
                                                         <div class="main-information-wrapper">
                                                             <div class="seeker-header-div">
                                                                 <div class="seeker-header-div-left"><img
-                                                                        src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
                                                                         loading="lazy"
-                                                                        srcset=<%= userIsSeeker.getAvatar()%>
+                                                                        srcset="uploads/<%= userIsSeeker.getAvatar()%>"
                                                                         sizes="100vw" alt="" class="image-12" />
                                                                     <div>
                                                                         <h1 class="heading-14"><%=userIsSeeker.getFullName()%></h1>
@@ -632,10 +633,8 @@
                                                                     src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/629b3411c703f3ae535bae02_quote%20Icon.svg"
                                                                     loading="lazy" width="34" alt="" class="image-16" />
                                                             </div>
-                                                            <div class="div-horizon"><img
-                                                                    src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg"
+                                                            <div class="div-horizon"><imgs
                                                                     loading="lazy"
-                                                                    srcset="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n-p-500.jpeg 500w, https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d85e7b6d2c143c7d9d3cd_240528174_4134217460021195_5113676912781388161_n.jpeg 960w"
                                                                     sizes="100vw" alt="" class="image-15" />
                                                                 <div class="div-vertical">
                                                                     <h4 class="heading-19">Ecommerce Director - Lazada</h4>

@@ -87,12 +87,11 @@
                         </div>
                         <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
                                 class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="MainController?action=ViewContractOfHirer"
-                                class="dropdown-link-nav w-dropdown-link">All contract</a><a href="#"
-                                class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
+                                class="dropdown-link-nav w-dropdown-link">All contract</a></nav>
                     </div>
                     <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                         <div class="dropdown-toggle-3 w-dropdown-toggle">
-                            <div class="text-block-22">Find Talent</div>
+                            <div class="text-block-22"> <a href="GetAllSeeker" style="color: white; text-decoration: none">Find Talent</a> </div>
                         </div>
                         <nav class="dropdown-list-2 w-dropdown-list"></nav>
                     </div>

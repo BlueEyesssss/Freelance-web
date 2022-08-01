@@ -56,11 +56,25 @@
               src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/6296b474e000b451cf79e812_search-white.svg"
               loading="lazy" alt="" /></div>
           <div class="nav-search-input-2">
-            <div class="w-form">
+<!--            <div class="w-form">
               <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input type="text"
                   class="search-input-2 w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder=""
                   id="name-2" /><input type="submit" value="Submit" data-wait="Please wait..."
                   class="submit-button-2 w-button" /></form>
+              <div class="w-form-done">
+                <div>Thank you! Your submission has been received!</div>
+              </div>
+              <div class="w-form-fail">
+                <div>Oops! Something went wrong while submitting the form.</div>
+              </div>
+            </div>-->
+            <div class="w-form" >
+              <form action="MainController" id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                  <input style="background-color: #055663; height: 31px; border: none; color: white"
+                                        type="text" class="search-input w-input" maxlength="256" name="search"
+                                        data-name="Name" placeholder="Find job here" id="name" />
+                  <input  type="submit" name="action" value="Search Job By Name" 
+                                        data-wait="Please wait..." class="submit-button-2 w-button" /></form>
               <div class="w-form-done">
                 <div>Thank you! Your submission has been received!</div>
               </div>
@@ -163,12 +177,12 @@
                                     int jobPosted = hirerDao.getJobPosted(project.getHirerID());
                                     UserDAO userDao = new UserDAO();
                                     UserDTO hirer = userDao.getUserByID(project.getHirerID());
-                                    
+                                    String company = userDao.getCompanyByHirerIDd(hirer.getUserID());
                                 %>
       <div class="div-block-32">
         <div class="div-block-41">
           <h4 class="heading-12">About the Client</h4>
-          <div class="text-block-39"><strong>Company: <%= hirer.getFullName()%></strong></div>
+          <div class="text-block-39"><strong>Company <%= company %></strong></div>
           <div class="text-block-39-copy"><%= project.getLocation()%></div>
           <div class="text-block-39"><strong><%=jobPosted%> jobs posted</strong></div>
           <div class="text-block-39-copy">The total number of Job Posted</div>

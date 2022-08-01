@@ -71,16 +71,15 @@
                                 <div class="text-block-22">My Job</div>
                             </div>
                             <nav class="dropdown-list-2 w-dropdown-list"><a href="postAJob.jsp"
-                                                                            class="dropdown-link-nav w-dropdown-link">Post a Job</a><a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">All contract</a><a href="#"
-                                                                            class="dropdown-link-nav w-dropdown-link">Hire</a></nav>
+                                                                            class="dropdown-link-nav w-dropdown-link">Post a Job</a>
+                                                                            <a href="MainController?action=ViewContractOfHirer"
+                                                                            class="dropdown-link-nav w-dropdown-link">All contract</a></nav>
                         </div>
                         <div data-hover="true" data-delay="0" class="link-4 nav-link w-dropdown">
                             <div class="dropdown-toggle-3 w-dropdown-toggle">
-                                <div class="text-block-22">Find Talent</div>
+                                <div class="text-block-22"><a href="GetAllSeeker" style="color: white; text-decoration: none">Find Talent</a></div>
                             </div>
-                            <nav class="dropdown-list-2 w-dropdown-list"><a href="#"
-                                                                            class="dropdown-moi-qua-troi-moi w-dropdown-link" style="color: white">Find Talent</a></nav>
+                            <nav class="dropdown-list-2 w-dropdown-list"</nav>
                         </div>
                     </div><a href="#" class="w-inline-block"><img
                             src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/628d693684f77e4900d5de82_send.png"
@@ -121,7 +120,7 @@
                                 alt="" class="image-12" />
                             <div >
                                 <h1 class="heading-14"><%= hirer.getFullName()%></h1>
-                                <div class="div-block-28" ><img
+                                <div class="div-block-28"  style="display: none"><img
                                         src="https://uploads-ssl.webflow.com/628aea177e2bdc5cebb3b655/62ad86a39e3a4d61d6e7512e_Account%20balance%20wallet.svg"
                                         loading="lazy" width="21" alt="" class="image-13" />
                                     <div class="text-block-21"><br /><%= hirer.getTotalSpent()%>$</div>
@@ -511,7 +510,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-session">
+                <div class="testimonial-session" style="display: none">
                     <div class="seeker-header-div testimonial">
                         <h1 class="heading-tittle">Testimonials</h1>
                         <div>Review from past hirer<br /></div>

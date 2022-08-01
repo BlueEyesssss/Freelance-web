@@ -223,7 +223,7 @@
                           
                       </td>
                       <td class="project-state">
-                          <span class="badge badge-success">Success</span>
+                          <span class="badge badge-success">Processing</span>
                       </td>
                       <td class="project-actions text-right">
                           <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#p<%= proposal.getProposalID()%>">
@@ -238,7 +238,7 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLongTitle">Project Tittle ne</h5>
+                                  <h5 class="modal-title" id="exampleModalLongTitle"><%= proposal.getProjectName() %></h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -249,8 +249,8 @@
                                   <p>Attachment: <a href = "DownloadFileController?fileName=<%= proposal.getFileName() %>">Download</a></p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" ><a href="MainController?action=AddMoneyToSeeker&proposalID=<%=proposal.getProposalID()%>">Cancel</a></button>
-                                  <button type="button" class="btn btn-primary"><a href="MainController?action=AddMoneyToHirer&proposalID=<%=proposal.getProposalID()%>">Approve</a></button>
+                                    <button type="button" class="btn btn-danger" ><a href="MainController?action=AddMoneyToSeeker&proposalID=<%=proposal.getProposalID()%>" style="color: white">Cancel</a></button>
+                                  <button type="button" class="btn btn-primary"><a href="MainController?action=AddMoneyToHirer&proposalID=<%=proposal.getProposalID()%>" style="color: white">Approve</a></button>
                                 </div>
                               </div>
                             </div>
