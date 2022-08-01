@@ -180,12 +180,12 @@
                                     int jobPosted = hirerDao.getJobPosted(project.getHirerID());
                                     UserDAO userDao = new UserDAO();
                                     UserDTO hirer = userDao.getUserByID(project.getHirerID());
-                                    
+                                    String company = userDao.getCompanyByHirerIDd(hirer.getUserID());
                                 %>
       <div class="div-block-32">
         <div class="div-block-41">
           <h4 class="heading-12">About the Client</h4>
-          <div class="text-block-39"><strong>Company: <%= project.getHirer()%></strong></div>
+          <div class="text-block-39"><strong>Company: <%= company %></strong></div>
           <div class="text-block-39-copy"><%= project.getLocation()%></div>
           <div class="text-block-39"><strong><%=jobPosted%> jobs posted</strong></div>
           <div class="text-block-39-copy">The total number of Job Posted</div>

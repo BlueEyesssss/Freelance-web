@@ -244,7 +244,7 @@
                                   </button>
                                 </div>
                                 <div class="modal-body" style = "text-align: left;">
-                                  <p><b>Project Discription:</b> <%= proposal.getProjectDescription()%></p>
+                                  <p><b>Project Description:</b> <%= proposal.getProjectDescription()%></p>
                                   <p><b>Link Submission:</b> <%= proposal.getLink()%></p>
                                   <p>Attachment: <a href = "DownloadFileController?fileName=<%= proposal.getFileName() %>">Download</a></p>
                                 </div>

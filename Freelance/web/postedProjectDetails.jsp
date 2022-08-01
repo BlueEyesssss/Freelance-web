@@ -233,7 +233,7 @@
                             <div class="proposal">
                                 <div class="left-proposal">
                                     <div class="image-container"><img
-                                            src="https://uploads-ssl.webflow.com/62aa7d13e81bc5858eb14b7e/62ad1a2fb91b813d9e9d488e_thinking.png"
+                                            src="uploads/<%= userIsSeeker.getAvatar() %>"
                                             loading="lazy" alt="" class="image-3" /></div>
                                 </div>
                                 <div class="right-proposal">
